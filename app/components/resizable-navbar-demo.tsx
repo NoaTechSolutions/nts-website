@@ -96,7 +96,7 @@ export function ResizableNavbarDemo() {
                         current === item.name ? null : item.name,
                       );
                     }}
-                    className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-semibold text-[#0400f0] transition-colors"
+                    className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-semibold text-white transition-colors"
                   >
                     <span className="relative flex items-center justify-between pr-6">
                       <span>{item.name}</span>
@@ -133,7 +133,7 @@ export function ResizableNavbarDemo() {
                   href={item.link}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`rounded-xl px-1 py-2 text-base font-semibold transition-colors ${
-                    idx === 0 ? "text-[#ff9900]" : "text-[#0400f0]"
+                    idx === 0 ? "text-[#ff9900]" : "text-white"
                   }`}
                 >
                   <span className="relative flex items-center justify-between pr-6">
@@ -146,7 +146,7 @@ export function ResizableNavbarDemo() {
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
-                className="w-full"
+                className="w-full !border-[#ffb84d] !bg-[#ff9900] !text-white hover:!bg-[#f2a11a]"
               >
                 Book a call
               </NavbarButton>

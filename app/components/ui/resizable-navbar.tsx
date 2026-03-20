@@ -52,7 +52,7 @@ export function NavBody({ children }: { children: ReactNode }) {
 
   return (
     <header
-      className={`mt-3 hidden items-center justify-between transition-[max-width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:flex ${
+      className={`mt-3 hidden items-center justify-between transition-[max-width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
         isScrolled
           ? "mx-auto max-w-[41rem] gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,33,95,0.10)]"
           : "gap-8 bg-transparent px-0 py-3"
@@ -144,7 +144,7 @@ export function NavItems({ items }: { items: NavItem[] }) {
         setOpenDropdownIndex(null);
         syncIndicator(activeIndex);
       }}
-      className={`relative hidden items-center md:flex ${
+      className={`relative hidden items-center lg:flex ${
         isScrolled
           ? "min-h-[43px] gap-6 rounded-[14px] bg-[#0c2d73] px-4"
           : "gap-9"
@@ -289,7 +289,7 @@ export function NavbarButton({
 }
 
 export function MobileNav({ children }: { children: ReactNode }) {
-  return <div className="mx-3 mt-3 md:hidden">{children}</div>;
+  return <div className="mx-3 mt-3 lg:hidden">{children}</div>;
 }
 
 export function MobileNavHeader({ children }: { children: ReactNode }) {
@@ -363,10 +363,10 @@ export function MobileNavMenu({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-[22px] bg-white/92 backdrop-blur transition-all duration-300 ${
+      className={`relative z-50 overflow-hidden rounded-[22px] transition-all duration-300 ${
         isOpen
-          ? "mt-3 max-h-[30rem] border border-[rgba(2,33,95,0.08)] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,33,95,0.12)]"
-          : "mt-0 max-h-0 p-0 opacity-0"
+          ? "mt-3 max-h-[34rem] border border-[rgba(5,165,255,0.14)] bg-[#0c2d73] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,33,95,0.24)]"
+          : "mt-0 max-h-0 bg-transparent p-0 opacity-0"
       }`}
     >
       <div className="grid gap-3" onClick={onClose}>

@@ -1,9 +1,11 @@
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
+import { HeroRotatingWord } from "./components/hero-rotating-word";
 
 const stats = [
-  { value: "SEO + UX", label: "Estructura pensada para posicionar y convertir" },
-  { value: "Full funnel", label: "Desde branding hasta crecimiento digital" },
-  { value: "Escalable", label: "Base lista para nuevos servicios y landings" },
+  { value: "150+", label: "Proyectos Completados" },
+  { value: "99%", label: "Satisfaccion del Cliente" },
+  { value: "15+", label: "Anos de Experiencia" },
+  { value: "125+", label: "Clientes Satisfechos" },
 ];
 
 const services = [
@@ -27,13 +29,6 @@ const services = [
     description:
       "Sistemas visuales consistentes para que cada punto de contacto se vea profesional y memorable.",
   },
-];
-
-const pillars = [
-  "Estrategia antes de disenar para que cada seccion responda a un objetivo comercial.",
-  "Sistema visual modular listo para crecer por servicios, sectores y ubicaciones.",
-  "SEO desde la estructura y el contenido, no como ajuste tardio.",
-  "Experiencia moderna con espacio para motion y componentes avanzados sin perder claridad.",
 ];
 
 const process = [
@@ -106,53 +101,86 @@ export default function Home() {
       <div id="home" className="grid-shell section-space">
         <ResizableNavbarDemo />
 
-        <section className="hero-grid">
-          <div className="space-y-8">
-            <span className="hero-pill">Diseno web, SEO y marketing digital</span>
-            <div className="space-y-5">
-              <p className="eyebrow">Estrategia creativa + tecnica</p>
-              <h1 className="hero-title">
-                Eleva tu negocio con una presencia digital clara, moderna y lista para crecer.
-              </h1>
-              <p className="hero-copy">
-                Creamos sitios web impresionantes, estrategias SEO bien estructuradas y sistemas digitales que ayudan a emprendedores y pequenas empresas a competir con mas autoridad.
-              </p>
+        <section className="hero-showcase">
+          <div className="hero-art hero-art-left" aria-hidden="true">
+            <div className="hero-hand">
+              <span className="hero-hand-finger hero-hand-finger-1" />
+              <span className="hero-hand-finger hero-hand-finger-2" />
+              <span className="hero-hand-finger hero-hand-finger-3" />
+              <span className="hero-hand-thumb" />
+            </div>
+          </div>
+
+          <div className="hero-content">
+            <span className="hero-badge">
+              <span className="hero-badge-star" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="hero-badge-spark hero-badge-spark-main"
+                >
+                  <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09m8.445-7.188L18 9.75l-.259-1.035a3.38 3.38 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.38 3.38 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.38 3.38 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.38 3.38 0 0 0-2.456 2.456m-1.365 11.852L16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183l.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394l-1.183.394a2.25 2.25 0 0 0-1.423 1.423" />
+                </svg>
+              </span>
+              Tu Socio en Transformacion Digital
+            </span>
+
+            <h1 className="hero-title hero-title-showcase">
+              <span>
+                Eleva Tu <HeroRotatingWord />
+              </span>
+              <span className="hero-title-accent">A La Era Digital</span>
+            </h1>
+
+            <p className="hero-copy hero-copy-showcase">
+              Creamos sitios web impresionantes, campanas de marketing digital poderosas y
+              soluciones de software personalizadas que ayudan a emprendedores y pequenas
+              empresas a prosperar en linea.
+            </p>
+
+            <div className="hero-actions">
+              <a href="#contacto" className="button-primary button-primary-hero">
+                <span className="button-primary-icon" aria-hidden="true">
+                  →
+                </span>
+                Inicia Tu Proyecto
+              </a>
+              <a href="#servicios" className="button-outline button-outline-hero">
+                Explorar Servicios
+              </a>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <a href="#contacto" className="button-primary">
-                Inicia tu proyecto
-              </a>
-              <a href="#servicios" className="button-outline">
-                Explorar servicios
-              </a>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="hero-stats">
               {stats.map((stat) => (
-                <article key={stat.label} className="metric-card">
-                  <p className="metric-value">{stat.value}</p>
-                  <p className="metric-copy">{stat.label}</p>
+                <article key={stat.label} className="hero-stat">
+                  <p className="hero-stat-value">
+                    {stat.value.includes("+") ? (
+                      <>
+                        {stat.value.replace("+", "")}
+                        <span>+</span>
+                      </>
+                    ) : (
+                      stat.value
+                    )}
+                  </p>
+                  <p className="hero-stat-copy">{stat.label}</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <aside className="feature-panel">
-            <div className="space-y-4">
-              <p className="eyebrow">Direccion recomendada</p>
-              <h2 className="feature-title">
-                Una homepage comercial con look premium y estructura SEO preparada para expandirse.
-              </h2>
+          <div className="hero-art hero-art-right" aria-hidden="true">
+            <div className="hero-orb">
+              <span className="hero-orb-ring hero-orb-ring-1" />
+              <span className="hero-orb-ring hero-orb-ring-2" />
+              <span className="hero-orb-ring hero-orb-ring-3" />
             </div>
-            <div className="space-y-4 text-sm leading-7 text-[var(--color-ink-soft)]">
-              {pillars.map((pillar) => (
-                <div key={pillar} className="feature-item">
-                  {pillar}
-                </div>
-              ))}
-            </div>
-          </aside>
+          </div>
         </section>
 
         <section
