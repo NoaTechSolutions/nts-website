@@ -52,9 +52,9 @@ export function NavBody({ children }: { children: ReactNode }) {
 
   return (
     <header
-      className={`mt-3 hidden items-center justify-between transition-[max-width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
+      className={`mt-3 hidden items-center justify-between transition-[width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
         isScrolled
-          ? "mx-auto max-w-[41rem] gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,33,95,0.10)]"
+          ? "mx-auto w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,33,95,0.10)]"
           : "gap-8 bg-transparent px-0 py-3"
       }`}
     >
@@ -70,10 +70,10 @@ export function NavbarLogo() {
     <Link
       href="#home"
       aria-label="Ir al inicio de NoaTechSolutions"
-      className={`relative inline-flex items-center justify-center overflow-hidden ${
+        className={`relative inline-flex items-center justify-center overflow-hidden ${
         isScrolled
-          ? "h-[43px] w-[52px] rounded-[14px] bg-[#0c2d73]"
-          : "ml-[-24px] h-[56px] w-[220px]"
+          ? "h-[43px] w-[58px] rounded-[14px] bg-[#0c2d73]"
+          : "ml-[-24px] h-[55px] w-[216px]"
       } transition-[width,height,border-radius,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
     >
       <Image
@@ -349,7 +349,7 @@ export function MobileNavContactButton() {
       type="button"
       className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-body)] text-sm font-semibold text-white transition-colors hover:bg-[#15367e]"
     >
-      Contact
+      Contacto
     </button>
   );
 }

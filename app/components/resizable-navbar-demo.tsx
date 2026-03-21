@@ -25,7 +25,7 @@ export function ResizableNavbarDemo() {
       link: "#servicios",
       children: [
         {
-          name: "Website Design",
+          name: "Diseno Web",
           link: "#website-design",
         },
         {
@@ -33,21 +33,21 @@ export function ResizableNavbarDemo() {
           link: "#branding",
         },
         {
-          name: "Business Card",
+          name: "Tarjetas de Presentacion",
           link: "#business-card",
         },
       ],
     },
     {
-      name: "Solutions",
+      name: "Soluciones",
       link: "#solutions",
     },
     {
-      name: "About Us",
+      name: "Nosotros",
       link: "#about-us",
     },
     {
-      name: "Contact",
+      name: "Contacto",
       link: "#contacto",
     },
   ];
@@ -81,7 +81,7 @@ export function ResizableNavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="primary">CONTACTAR</NavbarButton>
           </div>
         </NavBody>
 
@@ -168,7 +168,7 @@ export function ResizableNavbarDemo() {
                   variant="primary"
                   className="w-full !border-[#ffb84d] !bg-[#ff9900] !text-white hover:!bg-[#f2a11a]"
                 >
-                  Book a call
+                  CONTACTAR
                 </NavbarButton>
               </div>
             </MobileNavMenu>

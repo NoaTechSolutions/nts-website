@@ -471,6 +471,10 @@ a {
 
 .hero-showcase {
   position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 100svh;
+  min-height: 100dvh;
   padding: 4.2rem 0 4.5rem;
   text-align: center;
 }
@@ -1336,6 +1340,10 @@ a {
     white-space: nowrap;
   }
 
+  .hero-title-showcase {
+    font-size: clamp(3.84rem, 9vw, 6.96rem);
+  }
+
   .button-primary-mobile-inner,
   .button-outline-hero {
     min-height: 3.45rem;
@@ -1350,6 +1358,16 @@ a {
     width: 14.25rem;
     max-width: 100%;
     border-radius: 999px;
+  }
+
+  .hero-art-right {
+    top: 3.2rem;
+    right: -0.25rem;
+  }
+
+  .hero-floating-object {
+    width: 14.03rem !important;
+    max-width: none;
   }
 
   .hero-badge,
@@ -1511,8 +1529,12 @@ a {
   }
 
   .hero-art-right {
-    top: 0.5rem;
+    top: 1.45rem;
     right: -0.25rem;
+  }
+
+  .hero-floating-object {
+    width: 7.79rem;
   }
 
   .button-primary,
@@ -1543,7 +1565,7 @@ a {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1440px) {
   .hero-title-showcase > span:first-child {
     white-space: nowrap;
   }
@@ -1555,8 +1577,12 @@ a {
 
   .hero-art-hand-desktop {
     display: block !important;
-    bottom: 4.4rem;
+    bottom: 14rem;
     left: calc((100vw - 100%) / -2);
+  }
+
+  .hero-left-object {
+    width: 14rem;
   }
 
   .hero-orb {
@@ -1565,12 +1591,13 @@ a {
   }
 
   .hero-art-asset {
-    top: 1rem;
+    top: 1.75rem;
     right: -0.4rem;
   }
 
   .hero-floating-object {
-    width: 7.1rem;
+    width: 14.5rem !important;
+    max-width: none;
   }
 
   .hero-orb-ring {
@@ -1584,6 +1611,37 @@ a {
   .hero-hand {
     width: 10.8rem;
     height: 7.5rem;
+  }
+}
+
+@media (min-width: 1441px) and (min-height: 901px) {
+  .hero-title-showcase > span:first-child {
+    white-space: nowrap;
+  }
+
+  .hero-art-left {
+    bottom: 7.5rem;
+    left: -2.8rem;
+  }
+
+  .hero-art-hand-desktop {
+    display: block !important;
+    bottom: 6rem;
+    left: calc((100vw - 100%) / -2);
+  }
+
+  .hero-art-asset {
+    top: 1.75rem;
+    right: -0.4rem;
+  }
+
+  .hero-floating-object {
+    width: 14.5rem !important;
+    max-width: none;
+  }
+
+  .hero-left-object {
+    width: 28rem;
   }
 }
 
