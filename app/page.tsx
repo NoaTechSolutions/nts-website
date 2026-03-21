@@ -1,11 +1,21 @@
+import Image from "next/image";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
+import { Button as MovingBorderButton } from "@/components/ui/moving-border";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { NumberTicker } from "@/components/ui/number-ticker";
 
 const stats = [
-  { value: "150+", label: "Proyectos Completados" },
-  { value: "99%", label: "Satisfaccion del Cliente" },
-  { value: "15+", label: "Anos de Experiencia" },
-  { value: "125+", label: "Clientes Satisfechos" },
+  { value: 150, suffix: "+", label: "Proyectos Completados", delay: 0 },
+  {
+    value: 99,
+    suffix: "%",
+    label: "Satisfaccion del Cliente",
+    mobileLabel: "Satisf. del Cliente",
+    delay: 0.1,
+  },
+  { value: 15, suffix: "+", label: "Anos de Experiencia", delay: 0.2 },
+  { value: 125, suffix: "+", label: "Clientes Satisfechos", delay: 0.3 },
 ];
 
 const services = [
@@ -102,13 +112,24 @@ export default function Home() {
         <ResizableNavbarDemo />
 
         <section className="hero-showcase">
-          <div className="hero-art hero-art-left" aria-hidden="true">
-            <div className="hero-hand">
-              <span className="hero-hand-finger hero-hand-finger-1" />
-              <span className="hero-hand-finger hero-hand-finger-2" />
-              <span className="hero-hand-finger hero-hand-finger-3" />
-              <span className="hero-hand-thumb" />
-            </div>
+          <div className="hero-art hero-art-left hero-art-hand-desktop hidden lg:block" aria-hidden="true">
+            <Image
+              src="/abstrac2svg.svg"
+              alt=""
+              width={520}
+              height={520}
+              className="hero-left-object"
+            />
+          </div>
+
+          <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
+            <Image
+              src="/abstrac1.svg"
+              alt=""
+              width={420}
+              height={420}
+              className="hero-floating-object"
+            />
           </div>
 
           <div className="hero-content">
@@ -144,43 +165,88 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a href="#contacto" className="button-primary button-primary-hero">
-                <span className="button-primary-icon" aria-hidden="true">
-                  →
+              <a href="#contacto" className="button-primary button-primary-hero button-primary-desktop">
+                <span className="button-primary-label button-primary-label-default">
+                  Iniciar Tu Proyecto
                 </span>
-                Inicia Tu Proyecto
+                <span className="button-primary-icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="button-primary-icon-arrow"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </span>
               </a>
-              <a href="#servicios" className="button-outline button-outline-hero">
+              <HoverBorderGradient
+                as="a"
+                href="#contacto"
+                duration={1.2}
+                clockwise
+                containerClassName="button-primary-mobile-gradient"
+                className="button-primary-mobile-inner"
+              >
+                <span>Iniciar Tu Proyecto</span>
+                <span className="button-primary-mobile-icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="button-primary-mobile-icon-arrow"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </HoverBorderGradient>
+              <MovingBorderButton
+                as="a"
+                href="#servicios"
+                duration={2800}
+                borderRadius="999px"
+                containerClassName="button-outline-moving"
+                borderClassName="button-outline-moving-border"
+                className="button-outline button-outline-hero"
+              >
                 Explorar Servicios
-              </a>
+              </MovingBorderButton>
             </div>
 
             <div className="hero-stats">
               {stats.map((stat) => (
                 <article key={stat.label} className="hero-stat">
                   <p className="hero-stat-value">
-                    {stat.value.includes("+") ? (
+                    <NumberTicker
+                      value={stat.value}
+                      delay={stat.delay}
+                      className="hero-stat-number"
+                    />
+                    <span>{stat.suffix}</span>
+                  </p>
+                  <p className="hero-stat-copy">
+                    {stat.mobileLabel ? (
                       <>
-                        {stat.value.replace("+", "")}
-                        <span>+</span>
+                        <span className="hero-stat-copy-desktop">{stat.label}</span>
+                        <span className="hero-stat-copy-mobile">{stat.mobileLabel}</span>
                       </>
                     ) : (
-                      stat.value
+                      stat.label
                     )}
                   </p>
-                  <p className="hero-stat-copy">{stat.label}</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <div className="hero-art hero-art-right" aria-hidden="true">
-            <div className="hero-orb">
-              <span className="hero-orb-ring hero-orb-ring-1" />
-              <span className="hero-orb-ring hero-orb-ring-2" />
-              <span className="hero-orb-ring hero-orb-ring-3" />
-            </div>
-          </div>
         </section>
 
         <section

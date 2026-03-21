@@ -187,12 +187,12 @@ export function NavItems({ items }: { items: NavItem[] }) {
                     window.requestAnimationFrame(() => syncIndicator(activeIndex));
                   }
                 }}
-                className={`relative inline-flex items-center gap-2 font-[var(--font-display)] transition-colors ${
+                className={`relative inline-flex items-center gap-2 font-[var(--font-body)] transition-colors ${
                   isScrolled
                     ? `min-h-[43px] text-[0.92rem] font-bold tracking-[0.02em] ${
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
-                    : `text-[0.98rem] font-semibold tracking-[0.04em] ${
+                    : `text-[0.98rem] font-bold tracking-[0.04em] ${
                         highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                     }`
                 }`}
@@ -211,12 +211,12 @@ export function NavItems({ items }: { items: NavItem[] }) {
                     window.requestAnimationFrame(() => syncIndicator(activeIndex));
                   }
                 }}
-                className={`relative inline-flex items-center font-[var(--font-display)] transition-colors ${
+                className={`relative inline-flex items-center font-[var(--font-body)] transition-colors ${
                   isScrolled
                     ? `min-h-[43px] text-[0.92rem] font-bold tracking-[0.02em] ${
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
-                    : `text-[0.98rem] font-semibold tracking-[0.04em] ${
+                    : `text-[0.98rem] font-bold tracking-[0.04em] ${
                         highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                       }`
                 }`}
@@ -272,8 +272,8 @@ export function NavbarButton({
   const { isScrolled } = useContext(NavbarContext);
 
   const base = isScrolled
-    ? "inline-flex min-h-[43px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-display)] text-[0.92rem] font-semibold text-white transition-colors hover:bg-[#f2a11a]"
-    : "inline-flex min-h-[52px] items-center justify-center rounded-[14px] bg-[#02215f] px-6 font-[var(--font-display)] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#15367e]";
+    ? "inline-flex min-h-[43px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-body)] text-[0.92rem] font-semibold text-white transition-colors hover:bg-[#f2a11a]"
+    : "inline-flex min-h-[52px] items-center justify-center rounded-[14px] bg-[#02215f] px-6 font-[var(--font-body)] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#15367e]";
 
   const secondary = "border border-[rgba(255,153,0,0.35)] bg-[rgba(255,153,0,0.06)] text-[#ff9900]";
 
@@ -299,7 +299,7 @@ export function MobileNavHeader({ children }: { children: ReactNode }) {
     <div
       className={`flex items-center justify-between rounded-[18px] px-2 py-2 ${
         isScrolled
-          ? "border border-[#8da3c8] bg-[#c5d2e9] shadow-[0_10px_24px_rgba(2,33,95,0.10)]"
+          ? "border border-[#8da3c8] bg-[#c5d2e9] shadow-[0_10px_24px_rgba(2,33,95,0.10)] md:mx-auto md:max-w-[70%]"
           : "bg-transparent"
       }`}
     >
@@ -323,14 +323,16 @@ export function MobileNavToggle({
       onClick={onClick}
       aria-expanded={isOpen}
       className={`inline-flex h-11 w-11 flex-col items-center justify-center gap-1 rounded-[14px] ${
-        isScrolled
+        isOpen
+          ? "border border-[#ffb84d] bg-[#ff9900]"
+          : isScrolled
           ? "border border-[#ffb84d] bg-[#ff9900]"
           : "border border-[rgba(2,33,95,0.12)] bg-white/70"
       }`}
     >
-      <span className={`h-[2px] w-4 rounded-full transition ${isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "translate-y-[6px] rotate-45" : ""}`} />
-      <span className={`h-[2px] w-4 rounded-full transition ${isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "opacity-0" : ""}`} />
-      <span className={`h-[2px] w-4 rounded-full transition ${isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "translate-y-[6px] rotate-45" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "opacity-0" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
     </button>
   );
 }
@@ -345,7 +347,7 @@ export function MobileNavContactButton() {
   return (
     <button
       type="button"
-      className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-display)] text-sm font-semibold text-white transition-colors hover:bg-[#15367e]"
+      className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-body)] text-sm font-semibold text-white transition-colors hover:bg-[#15367e]"
     >
       Contact
     </button>
@@ -365,7 +367,7 @@ export function MobileNavMenu({
     <div
       className={`relative z-50 overflow-hidden rounded-[22px] transition-all duration-300 ${
         isOpen
-          ? "mt-3 max-h-[34rem] border border-[rgba(5,165,255,0.14)] bg-[#0c2d73] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,33,95,0.24)]"
+          ? "mt-3 max-h-[34rem] border border-[rgba(5,165,255,0.14)] bg-[#0c2d73] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,33,95,0.24)] md:mx-auto md:w-[70%]"
           : "mt-0 max-h-0 bg-transparent p-0 opacity-0"
       }`}
     >

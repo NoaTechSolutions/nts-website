@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist } from "next/font/google";
+import { Montserrat, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "500", "600", "700"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://noatechsolutions.com"),
@@ -48,7 +58,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={cn("h-full scroll-smooth", "font-sans", geist.variable)}>
+    <html
+      lang="es"
+      className={cn(
+        "h-full scroll-smooth",
+        montserrat.variable,
+        spaceGrotesk.variable,
+      )}
+    >
       <body className="min-h-full bg-[var(--color-paper)] text-[var(--color-ink)] antialiased">
         {children}
       </body>

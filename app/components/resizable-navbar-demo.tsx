@@ -12,7 +12,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "./ui/resizable-navbar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function ResizableNavbarDemo() {
   const navItems = [
@@ -54,6 +54,25 @@ export function ResizableNavbarDemo() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+  const mobileNavRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!mobileNavRef.current) return;
+      if (!mobileNavRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+        setOpenMobileSection(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="relative w-full">
@@ -67,91 +86,93 @@ export function ResizableNavbarDemo() {
         </NavBody>
 
         <MobileNav>
-          <MobileNavHeader>
-            <NavbarLogo />
-            <div className="flex items-center gap-2">
-              <MobileNavContactButton />
-              <MobileNavToggle
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              />
-            </div>
-          </MobileNavHeader>
+          <div ref={mobileNavRef}>
+            <MobileNavHeader>
+              <NavbarLogo />
+              <div className="flex items-center gap-2">
+                <MobileNavContactButton />
+                <MobileNavToggle
+                  isOpen={isMobileMenuOpen}
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                />
+              </div>
+            </MobileNavHeader>
 
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
-            {navItems.map((item, idx) =>
-              item.children ? (
-                <div
-                  key={`mobile-link-${idx}`}
-                  className="rounded-2xl border border-transparent bg-transparent p-0 shadow-none"
-                >
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setOpenMobileSection((current) =>
-                        current === item.name ? null : item.name,
-                      );
-                    }}
-                    className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-semibold text-white transition-colors"
-                  >
-                    <span className="relative flex items-center justify-between pr-6">
-                      <span>{item.name}</span>
-                    </span>
-                    <span className="text-base text-[#ff9900]">+</span>
-                  </button>
+            <MobileNavMenu
+              isOpen={isMobileMenuOpen}
+              onClose={() => setIsMobileMenuOpen(false)}
+            >
+              {navItems.map((item, idx) =>
+                item.children ? (
                   <div
-                    className={`grid overflow-hidden transition-all duration-300 ${
-                      openMobileSection === item.name
-                        ? "mt-3 max-h-48 gap-2 opacity-100"
-                        : "max-h-0 gap-0 opacity-0"
+                    key={`mobile-link-${idx}`}
+                    className="rounded-2xl border border-transparent bg-transparent p-0 shadow-none"
+                  >
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setOpenMobileSection((current) =>
+                          current === item.name ? null : item.name,
+                        );
+                      }}
+                      className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-semibold text-white transition-colors"
+                    >
+                      <span className="relative flex items-center justify-between pr-6">
+                        <span>{item.name}</span>
+                      </span>
+                      <span className="text-base text-[#ff9900]">+</span>
+                    </button>
+                    <div
+                      className={`grid overflow-hidden transition-all duration-300 ${
+                        openMobileSection === item.name
+                          ? "mt-3 max-h-48 gap-2 opacity-100"
+                          : "max-h-0 gap-0 opacity-0"
+                      }`}
+                    >
+                      {item.children.map((child) => (
+                          <a
+                            key={child.name}
+                            href={child.link}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setOpenMobileSection(null);
+                            }}
+                          className="rounded-xl border border-transparent px-3 py-2 text-sm text-[#8fd0ff] transition-colors hover:border-[rgba(5,165,255,0.12)] hover:text-[#ff9900]"
+                          >
+                            <span className="relative flex items-center justify-between pr-6">
+                              <span>{child.name}</span>
+                            </span>
+                          </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    key={`mobile-link-${idx}`}
+                    href={item.link}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`rounded-xl px-1 py-2 text-base font-semibold transition-colors ${
+                      idx === 0 ? "text-[#ff9900]" : "text-white"
                     }`}
                   >
-                    {item.children.map((child) => (
-                        <a
-                          key={child.name}
-                          href={child.link}
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            setOpenMobileSection(null);
-                          }}
-                        className="rounded-xl border border-transparent px-3 py-2 text-sm text-[#8fd0ff] transition-colors hover:border-[rgba(5,165,255,0.12)] hover:text-[#ff9900]"
-                        >
-                          <span className="relative flex items-center justify-between pr-6">
-                            <span>{child.name}</span>
-                          </span>
-                        </a>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <a
-                  key={`mobile-link-${idx}`}
-                  href={item.link}
+                    <span className="relative flex items-center justify-between pr-6">
+                      <span className="block">{item.name}</span>
+                    </span>
+                  </a>
+                ),
+              )}
+              <div className="flex w-full flex-col gap-4">
+                <NavbarButton
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`rounded-xl px-1 py-2 text-base font-semibold transition-colors ${
-                    idx === 0 ? "text-[#ff9900]" : "text-white"
-                  }`}
+                  variant="primary"
+                  className="w-full !border-[#ffb84d] !bg-[#ff9900] !text-white hover:!bg-[#f2a11a]"
                 >
-                  <span className="relative flex items-center justify-between pr-6">
-                    <span className="block">{item.name}</span>
-                  </span>
-                </a>
-              ),
-            )}
-            <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full !border-[#ffb84d] !bg-[#ff9900] !text-white hover:!bg-[#f2a11a]"
-              >
-                Book a call
-              </NavbarButton>
-            </div>
-          </MobileNavMenu>
+                  Book a call
+                </NavbarButton>
+              </div>
+            </MobileNavMenu>
+          </div>
         </MobileNav>
       </Navbar>
     </div>
