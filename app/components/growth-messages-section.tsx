@@ -37,30 +37,69 @@ function GrowthMessageCard({
   const normalizedMessage = lowerMessage
     ? `${lowerMessage.charAt(0).toUpperCase()}${lowerMessage.slice(1)}`
     : lowerMessage;
+  const [isRendered, setIsRendered] = useState(active);
+  const [phase, setPhase] = useState<"idle" | "enter" | "exit">(
+    active ? "idle" : "exit",
+  );
+
+  useEffect(() => {
+    let frameId: number | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    if (active) {
+      frameId = window.requestAnimationFrame(() => {
+        setIsRendered(true);
+        setPhase("enter");
+        timer = setTimeout(() => setPhase("idle"), 1500);
+      });
+    } else if (isRendered) {
+      frameId = window.requestAnimationFrame(() => {
+        setPhase("exit");
+        timer = setTimeout(() => {
+          setIsRendered(false);
+          setPhase("idle");
+        }, 1500);
+      });
+    }
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [active, isRendered]);
+
+  if (!isRendered) {
+    return null;
+  }
 
   return (
     <motion.article
-      className={`growth-message-card growth-message-card-${index + 1} ${
-        active ? "growth-message-card-active" : ""
-      }`}
+      className={`growth-message-card growth-message-card-${index + 1} growth-message-card-${phase}`}
       initial={false}
       animate={{
-        opacity: active ? 1 : 0,
-        x: active ? 0 : index % 2 === 0 ? -42 : 42,
-        y: active ? 0 : 36,
-        scale: active ? 1 : 0.9,
-        rotate: active ? 0 : index % 2 === 0 ? -4 : 4,
+        opacity: phase === "exit" ? 0 : 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotate: 0,
       }}
       transition={{
-        duration: 0.46,
-        ease: [0.16, 1, 0.3, 1],
+        duration: phase === "exit" ? 0.55 : 0.18,
+        ease: "linear",
       }}
     >
       <div className="growth-message-copy">
         <span className="growth-message-icon" aria-hidden="true">
           <TriangleAlert size={18} strokeWidth={2.2} />
         </span>
-        <p className={active ? "growth-message-text" : "growth-message-placeholder"}>
+        <p
+          className="growth-message-text"
+          data-text={normalizedMessage}
+        >
           {normalizedMessage}
         </p>
       </div>
@@ -82,7 +121,7 @@ export function GrowthMessagesSection({
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const thresholds = [0.14, 0.32, 0.5, 0.68];
+    const thresholds = [0.18, 0.42, 0.66, 0.86];
     let nextIndex = -1;
 
     thresholds.forEach((threshold, index) => {
