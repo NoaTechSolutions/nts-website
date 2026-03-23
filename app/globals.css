@@ -1951,12 +1951,19 @@ a {
   }
 
   .growth-message-card {
-    max-width: min(24rem, calc(100vw - 8rem));
+    width: fit-content;
+    max-width: min(21rem, calc(100vw - 8.5rem));
+  }
+
+  .growth-message-copy p,
+  .growth-message-text {
+    white-space: normal;
+    text-wrap: balance;
   }
 
   .growth-message-card-1 {
     top: 13%;
-    left: 6%;
+    left: 9%;
   }
 
   .growth-message-card-2 {
@@ -2094,43 +2101,44 @@ a {
   }
 
   .growth-section {
-    --growth-step-size: 10rem;
-    height: auto;
-    min-height: auto;
-    padding: 4.4rem 0 2.5rem;
+    --growth-step-size: 8rem;
+    min-height: calc(100vh + (var(--growth-step-size) * var(--growth-step-count)));
+    padding: 0;
   }
 
   .growth-stage-spacer {
-    display: none;
+    display: block;
+    height: 100vh;
   }
 
   .growth-stage-frame,
   .growth-stage-frame-pinned {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: absolute;
+    top: 0;
+    left: 50%;
     width: 100%;
-    height: auto;
-    overflow: visible;
-    transform: none;
+    height: 100vh;
+    overflow: hidden;
+    transform: translateX(-50%);
   }
 
-  .growth-stage-frame {
-    height: auto;
+  .growth-stage-frame-pinned {
+    position: fixed;
+    top: 0;
   }
 
   .growth-scroll-track {
-    display: none;
-    height: auto;
+    display: block;
+    height: calc(var(--growth-step-size) * var(--growth-step-count));
   }
 
   .growth-centerpiece {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 100%;
     padding: 0;
-    transform: none;
+    transform: translate(-50%, -50%);
   }
 
   .growth-centerpiece::before {
@@ -2138,28 +2146,77 @@ a {
   }
 
   .growth-centerpiece-overlay {
-    display: none;
+    display: block;
   }
 
   .growth-center-title {
-    max-width: 8ch;
-    font-size: clamp(2.8rem, 12vw, 4.2rem);
+    max-width: min(8.4ch, calc(100vw - 2.4rem));
+    font-size: clamp(2.8rem, 12.1vw, 3.82rem);
+    line-height: 0.94;
   }
 
   .growth-message-orbit {
-    position: relative;
-    display: grid;
-    gap: 0.9rem;
+    position: absolute;
+    inset: 0;
+    display: block;
     width: 100%;
-    height: auto;
-    margin-top: 1rem;
+    height: 100%;
+    margin-top: 0;
   }
 
   .growth-message-card {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    padding: 1rem 1rem 1.05rem;
+    position: absolute;
+    width: max-content;
+    max-width: min(15rem, calc(100vw - 2.25rem));
+    padding: 0.32rem 0.58rem 0.34rem;
+  }
+
+  .growth-stage-frame,
+  .growth-stage-frame-pinned {
+    min-height: 0;
+  }
+
+  .growth-centerpiece {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .growth-message-copy {
+    gap: 0.4rem;
+  }
+
+  .growth-message-copy p {
+    font-size: 0.72rem;
+    line-height: 1.05;
+    white-space: normal;
+  }
+
+  .growth-message-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex: 0 0 1.3rem;
+  }
+
+  .growth-message-card-1 {
+    top: 29%;
+    left: 0.55rem;
+  }
+
+  .growth-message-card-2 {
+    top: 22%;
+    right: 0.55rem;
+  }
+
+  .growth-message-card-3 {
+    right: 0.9rem;
+    bottom: 17%;
+  }
+
+  .growth-message-card-4 {
+    left: 0.65rem;
+    bottom: 29%;
   }
 
   .hero-stats {
