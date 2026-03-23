@@ -33,9 +33,16 @@ function GrowthMessageCard({
   index: number;
   message: string;
 }) {
+  const lowerMessage = message.toLowerCase();
+  const normalizedMessage = lowerMessage
+    ? `${lowerMessage.charAt(0).toUpperCase()}${lowerMessage.slice(1)}`
+    : lowerMessage;
+
   return (
     <motion.article
-      className={`growth-message-card growth-message-card-${index + 1}`}
+      className={`growth-message-card growth-message-card-${index + 1} ${
+        active ? "growth-message-card-active" : ""
+      }`}
       initial={false}
       animate={{
         opacity: active ? 1 : 0,
@@ -53,7 +60,9 @@ function GrowthMessageCard({
         <span className="growth-message-icon" aria-hidden="true">
           <TriangleAlert size={18} strokeWidth={2.2} />
         </span>
-        <p>{message}</p>
+        <p className={active ? "growth-message-text" : "growth-message-placeholder"}>
+          {normalizedMessage}
+        </p>
       </div>
     </motion.article>
   );

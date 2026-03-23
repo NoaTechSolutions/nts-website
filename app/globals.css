@@ -1459,7 +1459,7 @@ a {
 
 .growth-message-card {
   position: absolute;
-  width: min(17.5rem, calc(50vw - 2rem));
+  width: min(24rem, calc(50vw - 0.5rem));
   padding: 1.15rem 1.15rem 1.2rem;
   overflow: hidden;
   border: 1px solid rgba(255, 153, 0, 0.44);
@@ -1472,6 +1472,10 @@ a {
     0 16px 34px rgba(2, 33, 95, 0.08),
     0 0 28px rgba(255, 153, 0, 0.16);
   backdrop-filter: blur(10px);
+}
+
+.growth-message-card-active {
+  animation: none;
 }
 
 .growth-message-card::before {
@@ -1505,6 +1509,14 @@ a {
   pointer-events: none;
 }
 
+.growth-message-card-active::after {
+  animation: none;
+}
+
+.growth-message-card-active::before {
+  animation: growth-warning-scan 3.8s linear infinite;
+}
+
 .growth-message-copy {
   position: relative;
   z-index: 1;
@@ -1516,9 +1528,9 @@ a {
 .growth-message-copy p {
   margin: 0;
   padding-top: 0.16rem;
-  font-size: 0.96rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.48;
   color: #24334f;
 }
 
@@ -1538,24 +1550,32 @@ a {
   flex: 0 0 2rem;
 }
 
+.growth-message-placeholder {
+  visibility: hidden;
+}
+
+.growth-message-text {
+  text-wrap: balance;
+}
+
 .growth-message-card-1 {
-  top: 15%;
-  left: 2.5%;
+  top: 10%;
+  left: 2.2%;
 }
 
 .growth-message-card-2 {
-  top: 15%;
-  right: 2.5%;
+  top: 21%;
+  right: 0.8%;
 }
 
 .growth-message-card-3 {
-  right: 6%;
-  bottom: 17%;
+  right: 7.2%;
+  bottom: 11%;
 }
 
 .growth-message-card-4 {
-  left: 6%;
-  bottom: 17%;
+  left: 3.5%;
+  bottom: 22%;
 }
 
 @keyframes growth-warning-scan {
