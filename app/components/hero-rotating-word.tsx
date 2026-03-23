@@ -2,28 +2,18 @@
 
 import { FlipWords } from "@/components/ui/flip-words";
 
-const words = [
-  "Negocio",
-  "Proyecto",
-  "Idea",
-  "Marca",
-  "Empresa",
-  "Producto",
-  "Servicio",
-  "StartUp",
-  "Pyme",
-  "Firma",
-];
-
-export function HeroRotatingWord() {
+export function HeroRotatingWord({
+  words,
+  ariaLabel,
+}: {
+  words: readonly string[];
+  ariaLabel: string;
+}) {
   return (
     <span className="hero-rotating-shell" aria-live="polite">
-      <span className="sr-only">
-        Eleva Tu Negocio, Proyecto, Idea, Marca, Empresa, Producto, Servicio,
-        StartUp, Pyme o Firma a la era digital.
-      </span>
+      <span className="sr-only">{ariaLabel}</span>
       <FlipWords
-        words={words}
+        words={[...words]}
         duration={2300}
         className="hero-rotating-word"
       />

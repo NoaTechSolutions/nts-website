@@ -12,6 +12,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { useLanguage } from "../language-provider";
+import type { Locale } from "@/lib/i18n";
 
 type NavbarContextValue = {
   isScrolled: boolean;
@@ -40,7 +42,7 @@ export function Navbar({ children }: { children: ReactNode }) {
 
   return (
     <NavbarContext.Provider value={{ isScrolled }}>
-      <div className="fixed left-1/2 top-0 z-40 w-[min(1240px,calc(100%-2rem))] -translate-x-1/2">
+      <div className="fixed left-1/2 top-0 z-40 w-[min(1240px,calc(100%-2rem))] -translate-x-1/2 lg:w-[min(1000px,calc(100%-12rem))] xl:w-[min(1070px,calc(100%-10.5rem))] 2xl:w-[min(1140px,calc(100%-10.5rem))]">
         {children}
       </div>
     </NavbarContext.Provider>
@@ -288,6 +290,41 @@ export function NavbarButton({
   );
 }
 
+export function LanguageSwitcher() {
+  const { locale, setLocale } = useLanguage();
+
+  const options: Array<{ locale: Locale; label: string }> = [
+    { locale: "es", label: "ES" },
+    { locale: "en", label: "EN" },
+  ];
+
+  return (
+    <div
+      className="inline-flex items-center gap-1 rounded-[16px] border border-[#9fb0cf] bg-white/92 p-1 shadow-[0_10px_24px_rgba(2,33,95,0.12)] backdrop-blur-md"
+      aria-label="Selector de idioma"
+    >
+      {options.map((option) => {
+        const active = locale === option.locale;
+
+        return (
+          <button
+            key={option.locale}
+            type="button"
+            onClick={() => setLocale(option.locale)}
+            className={`inline-flex min-w-[52px] items-center justify-center rounded-[12px] px-3 py-2 text-[0.74rem] font-bold uppercase tracking-[0.08em] transition-colors ${
+              active
+                ? "bg-[#0400f0] text-white"
+                : "text-[#02215f] hover:bg-[rgba(4,0,240,0.08)]"
+            }`}
+          >
+            <span>{option.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function MobileNav({ children }: { children: ReactNode }) {
   return <div className="mx-3 mt-3 lg:hidden">{children}</div>;
 }
@@ -311,9 +348,11 @@ export function MobileNavHeader({ children }: { children: ReactNode }) {
 export function MobileNavToggle({
   isOpen,
   onClick,
+  className,
 }: {
   isOpen: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }) {
   const { isScrolled } = useContext(NavbarContext);
 
@@ -328,7 +367,7 @@ export function MobileNavToggle({
           : isScrolled
           ? "border border-[#ffb84d] bg-[#ff9900]"
           : "border border-[rgba(2,33,95,0.12)] bg-white/70"
-      }`}
+      } ${className ?? ""}`.trim()}
     >
       <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "translate-y-[6px] rotate-45" : ""}`} />
       <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "opacity-0" : ""}`} />
@@ -337,7 +376,7 @@ export function MobileNavToggle({
   );
 }
 
-export function MobileNavContactButton() {
+export function MobileNavContactButton({ label }: { label: string }) {
   const { isScrolled } = useContext(NavbarContext);
 
   if (!isScrolled) {
@@ -349,7 +388,7 @@ export function MobileNavContactButton() {
       type="button"
       className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-body)] text-sm font-semibold text-white transition-colors hover:bg-[#15367e]"
     >
-      Contacto
+      {label}
     </button>
   );
 }

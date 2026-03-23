@@ -1,103 +1,33 @@
+"use client";
+
 import Image from "next/image";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
+import { GrowthMessagesSection } from "./components/growth-messages-section";
+import { MobileSpeedDial } from "./components/mobile-speed-dial";
+import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
-
-const stats = [
-  { value: 150, suffix: "+", label: "Proyectos Completados", delay: 0 },
-  {
-    value: 99,
-    suffix: "%",
-    label: "Satisfaccion del Cliente",
-    mobileLabel: "Satisf. del Cliente",
-    delay: 0.1,
-  },
-  { value: 15, suffix: "+", label: "Anos de Experiencia", delay: 0.2 },
-  { value: 125, suffix: "+", label: "Clientes Satisfechos", delay: 0.3 },
-];
-
-const services = [
-  {
-    title: "Diseno web premium",
-    description:
-      "Websites claros, veloces y alineados con una narrativa comercial que eleva la percepcion de tu marca.",
-  },
-  {
-    title: "SEO estrategico",
-    description:
-      "Arquitectura, contenido y optimizacion tecnica para atraer trafico calificado con una base sostenible.",
-  },
-  {
-    title: "Marketing digital",
-    description:
-      "Campanas, embudos y mensajes coordinados para convertir visitas en oportunidades reales.",
-  },
-  {
-    title: "Branding y direccion visual",
-    description:
-      "Sistemas visuales consistentes para que cada punto de contacto se vea profesional y memorable.",
-  },
-];
-
-const process = [
-  {
-    step: "01",
-    title: "Diagnostico y posicionamiento",
-    detail:
-      "Definimos propuesta de valor, servicios prioritarios, publico objetivo y direccion visual.",
-  },
-  {
-    step: "02",
-    title: "Arquitectura y contenido",
-    detail:
-      "Ordenamos navegacion, jerarquia H1-H2, keywords, CTAs y contenido comercial por pagina.",
-  },
-  {
-    step: "03",
-    title: "UI y desarrollo",
-    detail:
-      "Construimos una experiencia visual moderna, ligera y preparada para crecer.",
-  },
-  {
-    step: "04",
-    title: "SEO y optimizacion",
-    detail:
-      "Publicamos con medicion, buenas practicas tecnicas y una ruta clara de mejora continua.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Que necesita una web para competir hoy?",
-    answer:
-      "Una propuesta de valor clara, carga rapida, estructura SEO correcta, contenido bien enfocado y una identidad visual consistente.",
-  },
-  {
-    question: "Se puede crecer la web por etapas?",
-    answer:
-      "Si. La base correcta permite lanzar primero una homepage fuerte y despues sumar paginas por servicio, industria o ubicacion.",
-  },
-  {
-    question: "Como se conecta el diseno con resultados?",
-    answer:
-      "Cuando el diseno se alinea con la oferta, los mensajes, los CTAs y la arquitectura del sitio, mejora la confianza y la conversion.",
-  },
-];
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "NoaTechSolutions",
-  url: "https://noatechsolutions.com",
-  description:
-    "Agencia digital moderna especializada en diseno web, SEO y marketing digital.",
-  areaServed: ["California, United States", "Baja California, Mexico"],
-  serviceType: ["Diseno web", "SEO", "Marketing digital", "Branding"],
-};
+import { useLanguage } from "./components/language-provider";
+import { translations } from "@/lib/i18n";
 
 export default function Home() {
+  const { locale } = useLanguage();
+  const t = translations[locale];
+  const stats = t.hero.stats;
+  const process = t.processSection.items;
+  const faqs = t.faqSection.items;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "NoaTechSolutions",
+    url: "https://noatechsolutions.com",
+    description: t.jsonLd.description,
+    areaServed: ["California, United States", "Baja California, Mexico"],
+    serviceType: t.jsonLd.serviceType,
+  };
+
   return (
     <main className="page-shell">
       <script
@@ -107,8 +37,12 @@ export default function Home() {
 
       <div className="hero-glow hero-glow-left" aria-hidden="true" />
       <div className="hero-glow hero-glow-right" aria-hidden="true" />
+      <MobileSpeedDial />
 
       <div id="home" className="grid-shell section-space">
+        <div className="page-language-switcher hidden md:block">
+          <LanguageSwitcher />
+        </div>
         <ResizableNavbarDemo />
 
         <section className="hero-showcase">
@@ -148,26 +82,28 @@ export default function Home() {
                   <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09m8.445-7.188L18 9.75l-.259-1.035a3.38 3.38 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.38 3.38 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.38 3.38 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.38 3.38 0 0 0-2.456 2.456m-1.365 11.852L16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183l.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394l-1.183.394a2.25 2.25 0 0 0-1.423 1.423" />
                 </svg>
               </span>
-              Tu Socio en Transformacion Digital
+              {t.hero.badge}
             </span>
 
             <h1 className="hero-title hero-title-showcase">
               <span>
-                Eleva Tu <HeroRotatingWord />
+                {t.hero.lead}{" "}
+                <HeroRotatingWord
+                  words={t.hero.rotatingWords}
+                  ariaLabel={t.hero.rotatingAria}
+                />
               </span>
-              <span className="hero-title-accent">A La Era Digital</span>
+              <span className="hero-title-accent">{t.hero.accent}</span>
             </h1>
 
             <p className="hero-copy hero-copy-showcase">
-              Creamos sitios web impresionantes, campanas de marketing digital poderosas y
-              soluciones de software personalizadas que ayudan a emprendedores y pequenas
-              empresas a prosperar en linea.
+              {t.hero.copy}
             </p>
 
             <div className="hero-actions">
               <a href="#contacto" className="button-primary button-primary-hero button-primary-desktop">
                 <span className="button-primary-label button-primary-label-default">
-                  Iniciar Tu Proyecto
+                  {t.hero.primaryCta}
                 </span>
                 <span className="button-primary-icon" aria-hidden="true">
                   <svg
@@ -192,7 +128,7 @@ export default function Home() {
                 containerClassName="button-primary-mobile-gradient"
                 className="button-primary-mobile-inner"
               >
-                <span>Iniciar Tu Proyecto</span>
+                <span>{t.hero.primaryCta}</span>
                 <span className="button-primary-mobile-icon" aria-hidden="true">
                   <svg
                     viewBox="0 0 24 24"
@@ -217,7 +153,7 @@ export default function Home() {
                 borderClassName="button-outline-moving-border"
                 className="button-outline button-outline-hero"
               >
-                Explorar Servicios
+                {t.hero.secondaryCta}
               </MovingBorderButton>
             </div>
 
@@ -233,7 +169,7 @@ export default function Home() {
                     <span>{stat.suffix}</span>
                   </p>
                   <p className="hero-stat-copy">
-                    {stat.mobileLabel ? (
+                    {"mobileLabel" in stat ? (
                       <>
                         <span className="hero-stat-copy-desktop">{stat.label}</span>
                         <span className="hero-stat-copy-mobile">{stat.mobileLabel}</span>
@@ -249,64 +185,45 @@ export default function Home() {
 
         </section>
 
-        <section
-          id="servicios"
-          className="section-divider grid gap-8 py-16 lg:grid-cols-[0.82fr_1.18fr]"
-        >
-          <div className="space-y-4">
-            <p className="eyebrow">Servicios core</p>
-            <h2 className="section-title">
-              Una base digital que vende mejor hoy y permite crecer manana.
-            </h2>
-            <p className="section-copy">
-              La web debe funcionar como activo comercial, no solo como presentacion. Por eso la estructura se plantea con modulos reutilizables y con espacio para crecer por servicio, industria o ubicacion.
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {services.map((service, index) => (
-              <article key={service.title} className="service-card">
-                <span className="service-index">0{index + 1}</span>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-copy">{service.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+      </div>
+
+      <GrowthMessagesSection
+        eyebrow={t.growthSection.eyebrow}
+        title={t.growthSection.title}
+        copy={t.growthSection.copy}
+        items={t.growthSection.items}
+      />
+
+      <div className="grid-shell">
 
         <section className="section-divider grid gap-8 py-16 lg:grid-cols-[1fr_1fr]">
           <article className="surface-card p-7 sm:p-8">
-            <p className="eyebrow">Posicionamiento</p>
+            <p className="eyebrow">{t.positioningSection.eyebrow}</p>
             <h2 className="feature-title mt-3">
-              El sitio debe hablarle a clientes que buscan una agencia seria, moderna y resolutiva.
+              {t.positioningSection.title}
             </h2>
             <p className="section-copy mt-5">
-              La ventaja no esta solo en el estilo visual. Esta en conectar identidad, arquitectura de informacion, copy comercial, SEO tecnico y una experiencia que deje claro por que tu marca deberia elegirnos.
+              {t.positioningSection.copy}
             </p>
           </article>
 
           <article className="insight-panel">
             <div>
-              <p className="eyebrow">Escalabilidad</p>
+              <p className="eyebrow">{t.scalabilitySection.eyebrow}</p>
               <h3 className="feature-title mt-3">
-                Preparada para motion, nuevos servicios y una evolucion visual por fases.
+                {t.scalabilitySection.title}
               </h3>
             </div>
             <p className="section-copy">
-              La primera fase debe concentrarse en narrativa, conversion, SEO y sistema visual. La siguiente puede sumar mas recursos interactivos sin sacrificar rendimiento ni claridad.
+              {t.scalabilitySection.copy}
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="stat-tile">
-                <p className="tile-label">Performance first</p>
-                <p className="tile-copy">
-                  Efectos solo donde mejoran percepcion, diferenciacion y conversion.
-                </p>
-              </div>
-              <div className="stat-tile">
-                <p className="tile-label">Component driven</p>
-                <p className="tile-copy">
-                  Estructura lista para ampliar servicios sin rehacer la experiencia.
-                </p>
-              </div>
+              {t.scalabilitySection.tiles.map((tile) => (
+                <div key={tile.label} className="stat-tile">
+                  <p className="tile-label">{tile.label}</p>
+                  <p className="tile-copy">{tile.copy}</p>
+                </div>
+              ))}
             </div>
           </article>
         </section>
@@ -316,9 +233,9 @@ export default function Home() {
           className="section-divider grid gap-8 py-16 lg:grid-cols-[0.82fr_1.18fr]"
         >
           <div className="space-y-4">
-            <p className="eyebrow">Proceso recomendado</p>
+            <p className="eyebrow">{t.processSection.eyebrow}</p>
             <h2 className="section-title">
-              Construyamos una web competitiva con una ruta clara y sostenible.
+              {t.processSection.title}
             </h2>
           </div>
           <div className="grid gap-4">
@@ -339,13 +256,13 @@ export default function Home() {
         <section className="section-divider py-16">
           <div className="seo-panel">
             <div>
-              <p className="eyebrow">SEO comercial</p>
+              <p className="eyebrow">{t.seoSection.eyebrow}</p>
               <h2 className="feature-title mt-3">
-                Una homepage moderna tambien debe responder a la busqueda correcta.
+                {t.seoSection.title}
               </h2>
             </div>
             <p className="section-copy">
-              La estructura incorpora contenido orientado a terminos como agencia de marketing digital, diseno web y SEO, pero organizado con criterio semantico para sonar claro y profesional. Eso facilita crecer despues hacia paginas especificas por servicio.
+              {t.seoSection.copy}
             </p>
           </div>
         </section>
@@ -355,9 +272,9 @@ export default function Home() {
           className="section-divider grid gap-8 py-16 lg:grid-cols-[0.82fr_1.18fr]"
         >
           <div className="space-y-4">
-            <p className="eyebrow">Preguntas clave</p>
+            <p className="eyebrow">{t.faqSection.eyebrow}</p>
             <h2 className="section-title">
-              Las decisiones visuales y tecnicas deben alinearse con negocio y crecimiento.
+              {t.faqSection.title}
             </h2>
           </div>
           <div className="grid gap-4">
@@ -373,20 +290,20 @@ export default function Home() {
         <section id="contacto" className="py-16">
           <div className="cta-panel">
             <div className="space-y-5">
-              <p className="eyebrow">Siguiente paso</p>
+              <p className="eyebrow">{t.ctaSection.eyebrow}</p>
               <h2 className="cta-title">
-                La base visual ya puede integrarse con tu logo y quedar lista para la version final.
+                {t.ctaSection.title}
               </h2>
               <p className="section-copy max-w-2xl">
-                Ya deje el sistema listo sobre fondo blanco, con la paleta oficial y una estructura mas alineada a SEO. Cuando me pases el logo lo incorporo en el header, favicon y bloques clave de marca.
+                {t.ctaSection.copy}
               </p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <a href="mailto:hello@noatechsolutions.com" className="button-primary">
-                Solicitar propuesta
+                {t.ctaSection.primary}
               </a>
               <a href="https://noatechsolutions.com/" className="button-outline">
-                Ver sitio actual
+                {t.ctaSection.secondary}
               </a>
             </div>
           </div>

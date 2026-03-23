@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { LanguageProvider } from "./components/language-provider";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -67,7 +68,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full bg-[var(--color-paper)] text-[var(--color-ink)] antialiased">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

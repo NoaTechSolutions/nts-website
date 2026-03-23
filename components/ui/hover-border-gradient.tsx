@@ -5,24 +5,29 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
+type HoverBorderGradientOwnProps<T extends React.ElementType> = {
+  as?: T;
+  containerClassName?: string;
+  className?: string;
+  duration?: number;
+  clockwise?: boolean;
+};
 
-export function HoverBorderGradient({
+type HoverBorderGradientProps<T extends React.ElementType> =
+  HoverBorderGradientOwnProps<T> &
+  Omit<React.ComponentPropsWithoutRef<T>, keyof HoverBorderGradientOwnProps<T>>;
+
+export function HoverBorderGradient<T extends React.ElementType = "button">({
   children,
   containerClassName,
   className,
-  as: Tag = "button",
+  as,
   duration = 1,
   clockwise = true,
   ...props
-}: React.PropsWithChildren<
-  {
-    as?: React.ElementType;
-    containerClassName?: string;
-    className?: string;
-    duration?: number;
-    clockwise?: boolean;
-  } & React.HTMLAttributes<HTMLElement>
->) {
+}: React.PropsWithChildren<HoverBorderGradientProps<T>>) {
+  const Tag = (as ?? "button") as React.ElementType;
+
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
 
@@ -65,7 +70,7 @@ export function HoverBorderGradient({
         "relative flex rounded-full border  content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
       )}
-      {...props}
+      {...(props as React.ComponentPropsWithoutRef<typeof Tag>)}
     >
       <div
         className={cn(

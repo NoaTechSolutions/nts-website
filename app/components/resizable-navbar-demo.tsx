@@ -13,41 +13,46 @@ import {
   MobileNavMenu,
 } from "./ui/resizable-navbar";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "./language-provider";
+import { translations } from "@/lib/i18n";
 
 export function ResizableNavbarDemo() {
+  const { locale } = useLanguage();
+  const t = translations[locale];
+
   const navItems = [
     {
-      name: "Inicio",
+      name: t.nav.home,
       link: "#home",
     },
     {
-      name: "Servicios",
+      name: t.nav.services,
       link: "#servicios",
       children: [
         {
-          name: "Diseno Web",
+          name: t.nav.webDesign,
           link: "#website-design",
         },
         {
-          name: "Branding",
+          name: t.nav.branding,
           link: "#branding",
         },
         {
-          name: "Tarjetas de Presentacion",
+          name: t.nav.businessCards,
           link: "#business-card",
         },
       ],
     },
     {
-      name: "Soluciones",
+      name: t.nav.solutions,
       link: "#solutions",
     },
     {
-      name: "Nosotros",
+      name: t.nav.about,
       link: "#about-us",
     },
     {
-      name: "Contacto",
+      name: t.nav.contact,
       link: "#contacto",
     },
   ];
@@ -81,7 +86,7 @@ export function ResizableNavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">CONTACTAR</NavbarButton>
+            <NavbarButton variant="primary">{t.nav.cta}</NavbarButton>
           </div>
         </NavBody>
 
@@ -89,11 +94,20 @@ export function ResizableNavbarDemo() {
           <div ref={mobileNavRef}>
             <MobileNavHeader>
               <NavbarLogo />
-              <div className="flex items-center gap-2">
-                <MobileNavContactButton />
+              <div className="flex items-center gap-2 md:absolute md:left-1/2 md:-translate-x-1/2">
+                <div className="hidden md:block">
+                  <MobileNavToggle
+                    isOpen={isMobileMenuOpen}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 md:ml-auto">
+                <MobileNavContactButton label={t.nav.contact} />
                 <MobileNavToggle
                   isOpen={isMobileMenuOpen}
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="md:hidden"
                 />
               </div>
             </MobileNavHeader>
@@ -168,7 +182,7 @@ export function ResizableNavbarDemo() {
                   variant="primary"
                   className="w-full !border-[#ffb84d] !bg-[#ff9900] !text-white hover:!bg-[#f2a11a]"
                 >
-                  CONTACTAR
+                  {t.nav.cta}
                 </NavbarButton>
               </div>
             </MobileNavMenu>
