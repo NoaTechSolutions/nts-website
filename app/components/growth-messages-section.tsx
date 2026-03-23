@@ -3,13 +3,26 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { TriangleAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Highlighter } from "@/components/ui/highlighter";
 
 type GrowthMessagesSectionProps = {
-  eyebrow: string;
   title: string;
-  copy: string;
   items: string[];
 };
+
+function formatTitle(title: string) {
+  const words = title
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+
+  return {
+    firstWord: words[0] ?? "",
+    highlightedWord: words[1] ?? "",
+    accentWord: words[2] ?? "",
+    trailingWords: words.slice(3).join(" "),
+  };
+}
 
 function GrowthMessageCard({
   active,
@@ -47,11 +60,10 @@ function GrowthMessageCard({
 }
 
 export function GrowthMessagesSection({
-  eyebrow,
   title,
-  copy,
   items,
 }: GrowthMessagesSectionProps) {
+  const formattedTitle = formatTitle(title);
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isPinned, setIsPinned] = useState(false);
@@ -99,9 +111,25 @@ export function GrowthMessagesSection({
       {isPinned ? (
         <div className="growth-centerpiece-overlay" aria-hidden="true">
           <div className="growth-centerpiece growth-centerpiece-floating">
-            <p className="eyebrow">{eyebrow}</p>
-            <h2 className="growth-center-title">{title}</h2>
-            <p className="growth-center-copy">{copy}</p>
+            <h2 className="growth-center-title">
+              <span className="growth-center-line">
+                <span>{formattedTitle.firstWord}</span>
+                <span className="growth-center-pill">{formattedTitle.highlightedWord}</span>
+              </span>
+              <span className="growth-center-line growth-center-line-accent">
+                <Highlighter
+                  action="underline"
+                  color="#ff9900"
+                  strokeWidth={3}
+                  animationDuration={900}
+                  padding={4}
+                  isView
+                >
+                  <span className="growth-center-underlined">{formattedTitle.accentWord}</span>
+                </Highlighter>
+                <span className="growth-center-trailing">{formattedTitle.trailingWords}</span>
+              </span>
+            </h2>
           </div>
         </div>
       ) : null}
@@ -116,9 +144,25 @@ export function GrowthMessagesSection({
             isPinned ? "growth-centerpiece-hidden" : ""
           }`}
         >
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="growth-center-title">{title}</h2>
-          <p className="growth-center-copy">{copy}</p>
+          <h2 className="growth-center-title">
+            <span className="growth-center-line">
+              <span>{formattedTitle.firstWord}</span>
+              <span className="growth-center-pill">{formattedTitle.highlightedWord}</span>
+            </span>
+            <span className="growth-center-line growth-center-line-accent">
+              <Highlighter
+                action="underline"
+                color="#ff9900"
+                strokeWidth={3}
+                animationDuration={900}
+                padding={4}
+                isView
+              >
+                <span className="growth-center-underlined">{formattedTitle.accentWord}</span>
+              </Highlighter>
+              <span className="growth-center-trailing">{formattedTitle.trailingWords}</span>
+            </span>
+          </h2>
         </div>
 
         <div className="growth-message-orbit" aria-label={title}>

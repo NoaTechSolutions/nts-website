@@ -188,9 +188,7 @@ export default function Home() {
       </div>
 
       <GrowthMessagesSection
-        eyebrow={t.growthSection.eyebrow}
         title={t.growthSection.title}
-        copy={t.growthSection.copy}
         items={t.growthSection.items}
       />
 
