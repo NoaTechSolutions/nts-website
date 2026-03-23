@@ -1939,6 +1939,40 @@ a {
     width: 1.46rem;
     height: 1.46rem;
   }
+
+  .growth-center-title {
+    max-width: 10ch;
+    font-size: clamp(4.25rem, 8.6vw, 5.9rem);
+  }
+
+  .growth-message-orbit {
+    inset: 0 3.5rem;
+    width: auto;
+  }
+
+  .growth-message-card {
+    max-width: min(24rem, calc(100vw - 8rem));
+  }
+
+  .growth-message-card-1 {
+    top: 13%;
+    left: 6%;
+  }
+
+  .growth-message-card-2 {
+    top: 24%;
+    right: 5%;
+  }
+
+  .growth-message-card-3 {
+    right: 10%;
+    bottom: 16%;
+  }
+
+  .growth-message-card-4 {
+    left: 7%;
+    bottom: 26%;
+  }
 }
 
 @media (max-width: 768px) {
