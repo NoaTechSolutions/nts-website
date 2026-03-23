@@ -97,7 +97,9 @@ function GrowthMessageCard({
           <TriangleAlert size={18} strokeWidth={2.2} />
         </span>
         <p
-          className="growth-message-text"
+          className={`growth-message-text ${
+            phase !== "idle" ? "growth-message-text-glitch" : ""
+          }`}
           data-text={normalizedMessage}
         >
           {normalizedMessage}
@@ -121,7 +123,7 @@ export function GrowthMessagesSection({
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const thresholds = [0.18, 0.42, 0.66, 0.86];
+    const thresholds = [0.16, 0.36, 0.56, 0.76];
     let nextIndex = -1;
 
     thresholds.forEach((threshold, index) => {
