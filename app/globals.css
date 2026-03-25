@@ -2057,37 +2057,50 @@ a {
     position: absolute;
     top: 0;
     left: 50%;
-    display: block;
-    gap: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.35rem;
     width: 100%;
     height: 100vh;
-    padding: 1rem 0 0;
+    padding: 9rem 1rem 1.5rem;
     overflow: visible;
     transform: translateX(-50%);
   }
 
   .services-stack-stage {
     position: relative;
-    min-height: 100vh;
+    order: 1;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 19.75rem;
+    height: 19.75rem;
   }
 
   .services-stack-scroller {
-    position: absolute;
+    position: relative;
     right: auto;
-    top: 60%;
-    left: 50%;
-    width: 100%;
-    height: 28rem;
-    margin-left: 0;
-    transform: translate(-50%, -50%);
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 21.5rem);
+    height: 19.75rem;
+    margin: 0 auto;
+    transform: none;
   }
 
   .card-swap-container {
+    position: relative;
     right: auto;
-    top: 50%;
+    top: auto;
     bottom: auto;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.68);
+    left: auto;
+    margin: 0 auto;
+    transform: scale(0.56);
+    transform-origin: center center;
   }
 
   .card {
@@ -2100,27 +2113,58 @@ a {
   }
 
   .services-stack-copy {
-    position: absolute;
-    top: 7%;
-    left: 1rem;
-    width: min(calc(100% - 2rem), 22rem);
-    max-width: 22rem;
-    text-align: left;
+    position: relative;
+    top: auto;
+    left: auto;
+    order: 2;
+    align-self: center;
+    width: min(100%, 20rem);
+    max-width: 20rem;
+    margin: 0 auto;
+    text-align: center;
     transform: none;
+    z-index: 2;
+    padding-top: 0.25rem;
   }
 
   .services-stack-heading-text {
     max-width: 100%;
+    white-space: nowrap;
   }
 
   .services-stack-cta {
-    margin-inline: 0;
+    margin-inline: auto;
+  }
+
+  .services-stack-copy .section-copy {
+    max-width: 100%;
+    margin-inline: auto;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .services-stack-heading-flip {
+    align-items: center;
+  }
+
+  .services-stack-heading-word {
+    align-self: center;
   }
 }
 
 @media (max-width: 480px) {
+  .services-stack-stage {
+    min-height: 18.25rem;
+    height: 18.25rem;
+  }
+
+  .services-stack-scroller {
+    width: min(100%, 20rem);
+    height: 18.25rem;
+  }
+
   .card-swap-container {
-    transform: translate(-50%, -50%) scale(0.58);
+    transform: scale(0.5);
   }
 }
 
