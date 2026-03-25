@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
+import { ServicesStackSection } from "./components/services-stack-section";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
@@ -16,6 +17,7 @@ export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const stats = t.hero.stats;
+  const services = t.servicesSection.items;
   const process = t.processSection.items;
   const faqs = t.faqSection.items;
   const jsonLd = {
@@ -193,6 +195,26 @@ export default function Home() {
       />
 
       <div className="grid-shell">
+        <ServicesStackSection
+          eyebrow={t.servicesSection.eyebrow}
+          title={t.servicesSection.title}
+          copy={t.servicesSection.copy}
+          cta={t.servicesSection.cta}
+          cardCta={t.servicesSection.cardCta}
+          rotatingWords={t.hero.rotatingWords}
+          items={services}
+        />
+
+        <section className="section-divider services-proof-section">
+          <div className="services-proof-card">
+            <p className="eyebrow">Seccion 4 de prueba</p>
+            <h2 className="section-title">Este bloque solo existe para revisar como suelta el sticky de la seccion 3.</h2>
+            <p className="section-copy">
+              Si al entrar aqui la seccion de servicios deja de quedarse fija de forma limpia,
+              entonces el comportamiento ya esta funcionando como debe.
+            </p>
+          </div>
+        </section>
 
         <section className="section-divider grid gap-8 py-16 lg:grid-cols-[1fr_1fr]">
           <article className="surface-card p-7 sm:p-8">

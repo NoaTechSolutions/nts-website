@@ -65,10 +65,12 @@ export const translations = {
       ],
     },
     servicesSection: {
-      eyebrow: "Servicios core",
-      title: "Una base digital que vende mejor hoy y permite crecer manana.",
+      eyebrow: "Soluciones digitales",
+      title: "Impulsamos tu",
       copy:
-        "La web debe funcionar como activo comercial, no solo como presentacion. Por eso la estructura se plantea con modulos reutilizables y con espacio para crecer por servicio, industria o ubicacion.",
+        "Combinamos estrategia, diseno, tecnologia y marketing para que tu marca se vea profesional, atraiga mejores oportunidades y convierta mas visitas en clientes reales.",
+      cta: "Ver soluciones",
+      cardCta: "Mas info",
       items: [
         {
           title: "Diseno web premium",
@@ -253,10 +255,12 @@ export const translations = {
       ],
     },
     servicesSection: {
-      eyebrow: "Core services",
-      title: "A digital foundation that sells better today and scales tomorrow.",
+      eyebrow: "Digital solutions",
+      title: "We grow your",
       copy:
-        "Your website should work as a commercial asset, not just as a presentation. That is why the structure is planned with reusable modules and room to grow by service, industry, or location.",
+        "We combine strategy, design, technology, and marketing so your brand looks professional, attracts better opportunities, and turns more visits into real clients.",
+      cta: "View solutions",
+      cardCta: "More info",
       items: [
         {
           title: "Premium web design",

@@ -7,7 +7,7 @@ import { Highlighter } from "@/components/ui/highlighter";
 
 type GrowthMessagesSectionProps = {
   title: string;
-  items: string[];
+  items: readonly string[];
 };
 
 function formatTitle(title: string) {
