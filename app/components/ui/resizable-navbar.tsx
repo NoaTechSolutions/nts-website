@@ -79,7 +79,7 @@ export function NavbarLogo() {
       } transition-[width,height,border-radius,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
     >
       <Image
-        src="/logo-noatecholutions.svg"
+        src="/noatechsolutions-logo-full.svg"
         alt="Logotipo principal de NoaTechSolutions"
         width={360}
         height={142}
@@ -91,7 +91,7 @@ export function NavbarLogo() {
         }`}
       />
       <Image
-        src="/isotipo-blanco.png"
+        src="/noatechsolutions-logo-mark-white.png"
         alt="Isotipo blanco de NoaTechSolutions"
         width={190}
         height={88}

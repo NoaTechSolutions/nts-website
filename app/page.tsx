@@ -7,6 +7,7 @@ import { GrowthMessagesSection } from "./components/growth-messages-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
+import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -29,9 +30,23 @@ export default function Home() {
     areaServed: ["California, United States", "Baja California, Mexico"],
     serviceType: t.jsonLd.serviceType,
   };
+  const midCtaTitle =
+    locale === "es" ? (
+      <>
+        <span className="mid-cta-title-line">Agenda una</span>{" "}
+        <span className="mid-cta-title-accent">ASESORIA GRATIS</span>{" "}
+        <span className="mid-cta-title-line">para tu marca</span>
+      </>
+    ) : (
+      <>
+        <span className="mid-cta-title-line">Book a</span>{" "}
+        <span className="mid-cta-title-accent">FREE STRATEGY CALL</span>{" "}
+        <span className="mid-cta-title-line">for your brand</span>
+      </>
+    );
 
   return (
-    <main className="page-shell">
+    <main className="page-shell" onContextMenu={(event) => event.preventDefault()}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -50,7 +65,7 @@ export default function Home() {
         <section className="hero-showcase">
           <div className="hero-art hero-art-left hero-art-hand-desktop hidden lg:block" aria-hidden="true">
             <Image
-              src="/abstrac2svg.svg"
+              src="/noatechsolutions-robotic-hand-hero.svg"
               alt=""
               width={520}
               height={520}
@@ -60,7 +75,7 @@ export default function Home() {
 
           <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
             <Image
-              src="/abstrac1.svg"
+              src="/noatechsolutions-digital-orb-hero.svg"
               alt=""
               width={420}
               height={420}
@@ -206,13 +221,34 @@ export default function Home() {
         />
 
         <section className="section-divider services-proof-section">
-          <div className="services-proof-card">
-            <p className="eyebrow">Seccion 4 de prueba</p>
-            <h2 className="section-title">Este bloque solo existe para revisar como suelta el sticky de la seccion 3.</h2>
-            <p className="section-copy">
-              Si al entrar aqui la seccion de servicios deja de quedarse fija de forma limpia,
-              entonces el comportamiento ya esta funcionando como debe.
-            </p>
+          <div className="mid-cta-background" aria-hidden="true">
+            <GridDistortion
+              imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+              grid={16}
+              mouse={0.34}
+              strength={0.68}
+              relaxation={0.76}
+              className="mid-cta-distortion"
+            />
+          </div>
+
+          <div className="mid-cta-shell">
+            <h2 className="mid-cta-title">{midCtaTitle}</h2>
+            <p className="section-copy mid-cta-body">{t.midCtaSection.copy}</p>
+
+            <div className="mid-cta-actions">
+              <MovingBorderButton
+                as="a"
+                href="#contacto"
+                duration={2800}
+                borderRadius="1.75rem"
+                containerClassName="mid-cta-button-moving"
+                borderClassName="mid-cta-button-moving-border"
+                className="mid-cta-button-inner"
+              >
+                {t.midCtaSection.primary}
+              </MovingBorderButton>
+            </div>
           </div>
         </section>
 

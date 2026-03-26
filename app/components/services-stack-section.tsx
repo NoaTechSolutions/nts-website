@@ -172,9 +172,10 @@ export function ServicesStackSection({
 
       const rect = section.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
+      const exitThreshold = window.innerWidth <= 768 ? 0.88 : 0.8;
       const withinSection =
-        rect.top <= viewportHeight && rect.bottom >= viewportHeight;
-      const fadeDistance = viewportHeight * 0.18;
+        rect.top <= viewportHeight && rect.bottom >= viewportHeight * exitThreshold;
+      const fadeDistance = viewportHeight * 0.3;
       const fadeIn = Math.min(
         Math.max((viewportHeight - rect.top) / fadeDistance, 0),
         1,

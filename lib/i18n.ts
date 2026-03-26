@@ -94,6 +94,12 @@ export const translations = {
         },
       ],
     },
+    midCtaSection: {
+      title: "Agenda una asesoria gratis para tu marca",
+      copy:
+        "Resuelve bloqueos tecnologicos y atrae mas clientes con una estrategia digital clara.",
+      primary: "Agendar una cita",
+    },
     positioningSection: {
       eyebrow: "Posicionamiento",
       title:
@@ -283,6 +289,12 @@ export const translations = {
             "Consistent visual systems so every brand touchpoint feels professional and memorable.",
         },
       ],
+    },
+    midCtaSection: {
+      title: "Book a free strategy call for your brand",
+      copy:
+        "Solve technology roadblocks and attract more clients with a clear digital strategy.",
+      primary: "Book a call",
     },
     positioningSection: {
       eyebrow: "Positioning",
