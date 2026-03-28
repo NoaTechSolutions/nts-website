@@ -1746,6 +1746,10 @@ a {
   background: transparent !important;
 }
 
+.process-sticky-heading-word-tablet {
+  font-size: clamp(3.05rem, 6vw, 4.25rem) !important;
+}
+
 .services-stack-copy .section-copy {
   max-width: 25rem;
 }
@@ -2140,7 +2144,6 @@ a {
 }
 
 .process-sticky-heading {
-  display: grid;
   gap: 0.95rem;
   width: 100%;
   max-width: none;

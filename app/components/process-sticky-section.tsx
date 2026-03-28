@@ -37,6 +37,7 @@ const processStepBadgeThemes = [
   "border-[#ff9900] bg-[#ff9900] text-white shadow-[0_12px_28px_rgba(255,153,0,0.24)]",
   "border-[#09215e] bg-[#09215e] text-white shadow-[0_12px_28px_rgba(9,33,94,0.26)]",
 ];
+const processStepAccentColors = ["#0400f0", "#05a5ff", "#ff9900", "#09215e"];
 const processStepTextThemes = [
   {
     title: "text-[#0400f0]",
@@ -66,6 +67,7 @@ export function ProcessStickySection({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [shellOpacity, setShellOpacity] = useState(1);
+  const [scrollProgressValue, setScrollProgressValue] = useState(0);
   const formatStepLabel = (step: string) => String(Number.parseInt(step, 10) || step);
 
   const { scrollYProgress } = useScroll({
@@ -74,6 +76,7 @@ export function ProcessStickySection({
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
+    setScrollProgressValue(value);
     const steps = Math.max(items.length - 1, 1);
     const nextIndex = Math.min(items.length - 1, Math.max(0, Math.round(value * steps)));
     setActiveIndex(nextIndex);
@@ -132,6 +135,8 @@ export function ProcessStickySection({
   const titleBottom = /^with\b/i.test(titleTail)
     ? "clear roadmap and modern SEO"
     : "ruta clara y estrategica.";
+  const titleTabletBottomLine = `${titleInline} ${titleBottom}`.trim();
+  const totalSegments = Math.max(content.length - 1, 1);
 
   return (
     <section
@@ -143,14 +148,14 @@ export function ProcessStickySection({
       {isActive ? (
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">
           <div
-            className="mx-auto grid w-[min(1180px,calc(100vw-2rem))] items-center gap-14 px-5 py-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,0.88fr)]"
+            className="mx-auto grid w-[min(1180px,calc(100vw-2rem))] items-center gap-8 px-4 py-8 sm:px-5 lg:gap-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,0.88fr)]"
             style={{ opacity: shellOpacity }}
           >
-            <div className="grid gap-5">
+            <div className="grid gap-5 justify-items-center text-center lg:justify-items-stretch lg:text-left">
               <p className="eyebrow">{eyebrow}</p>
-              <div className="process-sticky-heading">
+              <div className="grid process-sticky-heading md:hidden">
                 <p className="process-sticky-title-top">{titleLead}</p>
-                <div className="process-sticky-title-inline">
+                <div className="process-sticky-title-inline justify-center lg:justify-start">
                   <LayoutTextFlip
                     text=""
                     words={rotatingWords}
@@ -163,27 +168,89 @@ export function ProcessStickySection({
                 </div>
                 <p className="process-sticky-title-tail">{titleBottom}</p>
               </div>
-              <div className="grid gap-7">
+              <div className="hidden process-sticky-heading md:grid lg:hidden">
+                <div className="process-sticky-title-inline justify-center whitespace-nowrap">
+                  <p className="process-sticky-title-top text-[clamp(3.2rem,6.45vw,4.55rem)]">
+                    {titleLead}
+                  </p>
+                  <LayoutTextFlip
+                    text=""
+                    words={rotatingWords}
+                    duration={2800}
+                    className="process-sticky-heading-flip process-sticky-heading-flip-inline"
+                    textClassName="process-sticky-heading-empty"
+                    wordClassName="services-stack-heading-word process-sticky-heading-word-tablet"
+                  />
+                </div>
+                <p className="process-sticky-title-tail text-[clamp(2.7rem,5.2vw,3.85rem)]">
+                  {titleTabletBottomLine}
+                </p>
+              </div>
+              <div className="hidden process-sticky-heading lg:grid">
+                <p className="process-sticky-title-top">{titleLead}</p>
+                <div className="process-sticky-title-inline justify-center lg:justify-start">
+                  <LayoutTextFlip
+                    text=""
+                    words={rotatingWords}
+                    duration={2800}
+                    className="process-sticky-heading-flip process-sticky-heading-flip-inline"
+                    textClassName="process-sticky-heading-empty"
+                    wordClassName="services-stack-heading-word"
+                  />
+                  <span className="process-sticky-title-inline-copy">{titleInline}</span>
+                </div>
+                <p className="process-sticky-title-tail">{titleBottom}</p>
+              </div>
+              <div className="grid w-full justify-items-center gap-7 lg:justify-items-stretch">
                 {content.map((item, index) => {
                   const isCurrent = index === activeIndex;
                   const stepBadgeTheme = processStepBadgeThemes[index] ?? processStepBadgeThemes[0];
                   const stepTextTheme = processStepTextThemes[index] ?? processStepTextThemes[0];
+                  const connectorFill = Math.min(
+                    1,
+                    index < activeIndex
+                      ? 1
+                      : index === activeIndex
+                        ? Math.max(0, scrollProgressValue * totalSegments - index)
+                        : 0
+                  );
+                  const currentStepColor = processStepAccentColors[index] ?? processStepAccentColors[0];
+                  const nextStepColor =
+                    processStepAccentColors[index + 1] ??
+                    processStepAccentColors[index] ??
+                    processStepAccentColors[0];
                   return (
                     <article
                       key={item.step}
-                      className={`grid grid-cols-[auto_1fr] items-start gap-5 transition-all duration-200 ${
+                      className={`grid w-full max-w-[42rem] grid-cols-[auto_1fr] items-start gap-5 text-left transition-all duration-200 ${
                         isCurrent ? "translate-y-0 opacity-100" : "translate-y-3 opacity-30"
                       }`}
                     >
-                      <span
-                        className={`inline-flex min-w-[3.2rem] justify-center rounded-full border px-3.5 py-2 text-[0.82rem] font-extrabold tracking-[0.2em] transition-all duration-200 ${
-                          isCurrent
-                            ? stepBadgeTheme
-                            : "border-[#05a5ff]/20 bg-white/80 text-[#0c2d73]"
-                        }`}
-                      >
-                        {formatStepLabel(item.step)}
-                      </span>
+                      <div className="flex h-full flex-col items-center">
+                        <span
+                          className={`inline-flex min-w-[3.2rem] justify-center rounded-full border px-3.5 py-2 text-[0.82rem] font-extrabold tracking-[0.2em] transition-all duration-200 ${
+                            isCurrent
+                              ? stepBadgeTheme
+                              : "border-[#05a5ff]/20 bg-white/80 text-[#0c2d73]"
+                          }`}
+                        >
+                          {formatStepLabel(item.step)}
+                        </span>
+                        {index < content.length - 1 ? (
+                          <div className="mt-3 flex min-h-[4.8rem] w-2.5 justify-center lg:hidden">
+                            <span className="relative block h-full w-full overflow-hidden rounded-full bg-[#d6e4ff]">
+                              <span
+                                className="absolute inset-0 origin-top rounded-full transition-transform duration-300 ease-out"
+                                style={{
+                                  backgroundImage: `linear-gradient(180deg, ${currentStepColor} 0%, ${nextStepColor} 100%)`,
+                                  opacity: connectorFill > 0 ? 1 : 0,
+                                  transform: `scaleY(${connectorFill})`,
+                                }}
+                              />
+                            </span>
+                          </div>
+                        ) : null}
+                      </div>
                       <div className="min-w-0">
                         <h3
                           className={`m-0 text-[1.5rem] font-extrabold leading-[1.05] tracking-[-0.04em] ${
@@ -212,7 +279,7 @@ export function ProcessStickySection({
               </div>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="hidden items-center justify-center lg:flex">
               <div
                 className={`flex min-h-[36rem] w-full flex-col justify-between rounded-[2rem] bg-gradient-to-br ${activeItem.theme} p-8 text-white shadow-[0_28px_70px_rgba(2,33,95,0.18)]`}
                 key={activeItem.step}
