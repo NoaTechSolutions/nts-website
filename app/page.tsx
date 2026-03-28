@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
+import { ProcessStickySection } from "./components/process-sticky-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
@@ -252,62 +253,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-divider grid gap-8 py-16 lg:grid-cols-[1fr_1fr]">
-          <article className="surface-card p-7 sm:p-8">
-            <p className="eyebrow">{t.positioningSection.eyebrow}</p>
-            <h2 className="feature-title mt-3">
-              {t.positioningSection.title}
-            </h2>
-            <p className="section-copy mt-5">
-              {t.positioningSection.copy}
-            </p>
-          </article>
-
-          <article className="insight-panel">
-            <div>
-              <p className="eyebrow">{t.scalabilitySection.eyebrow}</p>
-              <h3 className="feature-title mt-3">
-                {t.scalabilitySection.title}
-              </h3>
-            </div>
-            <p className="section-copy">
-              {t.scalabilitySection.copy}
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {t.scalabilitySection.tiles.map((tile) => (
-                <div key={tile.label} className="stat-tile">
-                  <p className="tile-label">{tile.label}</p>
-                  <p className="tile-copy">{tile.copy}</p>
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
-
-        <section
-          id="proceso"
-          className="section-divider grid gap-8 py-16 lg:grid-cols-[0.82fr_1.18fr]"
-        >
-          <div className="space-y-4">
-            <p className="eyebrow">{t.processSection.eyebrow}</p>
-            <h2 className="section-title">
-              {t.processSection.title}
-            </h2>
-          </div>
-          <div className="grid gap-4">
-            {process.map((item) => (
-              <article key={item.step} className="process-card">
-                <div className="flex items-start gap-5">
-                  <span className="process-step">{item.step}</span>
-                  <div>
-                    <h3 className="service-title">{item.title}</h3>
-                    <p className="service-copy mt-3">{item.detail}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <ProcessStickySection
+          eyebrow={t.processSection.eyebrow}
+          title={t.processSection.title}
+          rotatingWords={t.hero.rotatingWords}
+          items={process}
+        />
 
         <section className="section-divider py-16">
           <div className="seo-panel">

@@ -127,32 +127,32 @@ export const translations = {
       ],
     },
     processSection: {
-      eyebrow: "Proceso recomendado",
-      title: "Construyamos una web competitiva con una ruta clara y sostenible.",
+      eyebrow: "Asi impulsamos tu crecimiento",
+      title: "Construyamos tu marca con una ruta clara.",
       items: [
         {
           step: "01",
-          title: "Diagnostico y posicionamiento",
+          title: "Te damos ideas claras para hacer crecer tu marca",
           detail:
-            "Definimos propuesta de valor, servicios prioritarios, publico objetivo y direccion visual.",
+            "Analizamos tu negocio, detectamos oportunidades y te asesoramos con ideas practicas para que tu marca conecte mejor, venda mas y se vea mas fuerte en internet.",
         },
         {
           step: "02",
-          title: "Arquitectura y contenido",
+          title: "Mejoramos tu presencia en Google y en redes",
           detail:
-            "Ordenamos navegacion, jerarquia H1-H2, keywords, CTAs y contenido comercial por pagina.",
+            "Organizamos tu web y optimizamos tus redes con SEO claro, contenido util y mensajes que ayudan a que mas personas te encuentren y confien en ti.",
         },
         {
           step: "03",
-          title: "UI y desarrollo",
+          title: "Integramos herramientas que te ahorran tiempo",
           detail:
-            "Construimos una experiencia visual moderna, ligera y preparada para crecer.",
+            "Sumamos soluciones tecnologicas y recursos digitales que te ayudan a atender mejor, ordenar procesos y dar una imagen mas profesional a tu negocio.",
         },
         {
           step: "04",
-          title: "SEO y optimizacion",
+          title: "Te acompanamos para seguir creciendo",
           detail:
-            "Publicamos con medicion, buenas practicas tecnicas y una ruta clara de mejora continua.",
+            "Te damos asesoria continua, revisamos que esta funcionando y ajustamos web, SEO y redes para atraer mas clientes y mejorar tus resultados con el tiempo.",
         },
       ],
     },
@@ -323,32 +323,32 @@ export const translations = {
       ],
     },
     processSection: {
-      eyebrow: "Recommended process",
-      title: "Let us build a competitive website with a clear, sustainable roadmap.",
+      eyebrow: "How we help you grow",
+      title: "Let us build your brand with a clear roadmap.",
       items: [
         {
           step: "01",
-          title: "Discovery and positioning",
+          title: "We give you clear ideas to grow your brand",
           detail:
-            "We define your value proposition, priority services, target audience, and visual direction.",
+            "We analyze your business, uncover opportunities, and guide you with practical ideas so your brand connects better, sells more, and looks stronger online.",
         },
         {
           step: "02",
-          title: "Architecture and content",
+          title: "We improve your presence on Google and social media",
           detail:
-            "We organize navigation, H1-H2 hierarchy, keywords, CTAs, and commercial content by page.",
+            "We organize your website and optimize your social channels with clear SEO, useful content, and messaging that helps more people find and trust you.",
         },
         {
           step: "03",
-          title: "UI and development",
+          title: "We integrate tools that save you time",
           detail:
-            "We build a modern, lightweight experience that is ready to grow.",
+            "We add technology solutions and digital tools that help you respond better, organize processes, and give your business a more professional image.",
         },
         {
           step: "04",
-          title: "SEO and optimization",
+          title: "We stay with you so you keep growing",
           detail:
-            "We launch with measurement, sound technical practices, and a clear roadmap for ongoing improvement.",
+            "We provide ongoing guidance, review what is working, and refine your website, SEO, and social media so you can attract more clients over time.",
         },
       ],
     },
