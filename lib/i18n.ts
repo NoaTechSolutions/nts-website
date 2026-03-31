@@ -164,6 +164,73 @@ export const translations = {
         },
       ],
     },
+    reviewsSection: {
+      eyebrow: "Reviews",
+      title: "Lo que opinan de nosotros",
+      copy:
+        "Cuando la estrategia, el diseno y el acompanamiento se sienten claros, el cambio se nota en la confianza con la que una marca empieza a mostrarse.",
+      highlights: [
+        "Claridad en el proceso",
+        "Trato cercano",
+        "Diseno con estrategia",
+      ],
+      items: [
+        {
+          quote:
+            "I just wanted to take a moment to share how much I love NoaTechSolutions! I had a fantastic experience with Noa, who really went out of their way to help me. If you haven't checked them out yet, do yourself a favor and stop by. You won't regret it!",
+          author: "Catalina Ocampo",
+          title: "Vendedora de artesanias",
+          tag: "5/5 ESTRELLAS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjWO5-yCfecbZwr_NHSf3gTP9YN4OX2jCFC6X4i-MTgZO75Syzyw=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "Quiero agradecer y recomendar a Israel Esparza (NoaTechSolution), quien hizo un trabajo excelente en el diseno y...",
+          author: "Edna Garces",
+          title: "Duena de Home Daycare",
+          website: "ednashome4childcare.com",
+          tag: "5/5 ESTRELLAS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjXjK-axSCzkX-xgf8wP-Nf2pnc2KczcmKykAnHrknBmfUxG2C8=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "Quiero agradecer y recomendar a Israel Esparza (NoaTechSolution) quien hizo un trabajo excelente en el diseno y desarrollo de mi pagina web para mi negocio. Su profesionalismo, creatividad y compromiso hicieron que el proceso fuera muy facil y el resultado supero mis expectativas. Excelente trabajo. Gracias.",
+          author: "Luisa Serrano",
+          title: "Home Daycare",
+          website: "ednashome4childcare.com",
+          tag: "5/5 ESTRELLAS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjULkxPvxmmkKC8eeCpgMvgMt764T0JO6z3ym4n6DA9s0gdkQY_4=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "Muy buen trabajo, me ayudo mucho con mi perfil de artista ya sea digital como con tarjetas impresas. Simplemente espectaculares.",
+          author: "MOISES REYES",
+          title: "Cantante",
+          website: "alfredormusic.com",
+          tag: "5/5 ESTRELLAS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjX0DC9cVeuz7Cg-rd5btleu1tJbu1rd2vXNQwSb8GH9TDJ0LfM=w72-h72-p-rp-mo-ba4-br100",
+        },
+        {
+          quote:
+            "Noa Techsolutions is such a game changer! My website went from looking dull and truly unappealing to being a dynamic, sophisticated marketing tool that truly projects the nature of my business.",
+          author: "Laura B",
+          title: "Singer and Vocal Coach",
+          website: "laurabravomusic.com",
+          tag: "5/5 ESTRELLAS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjW_7DZwg_neNr7uTBDiURs1UdBW2SMKjUGeMAM4wgiM-fzL1q6whg=w72-h72-p-rp-mo-br100",
+        },
+      ],
+    },
     seoSection: {
       eyebrow: "SEO comercial",
       title:
@@ -365,6 +432,73 @@ export const translations = {
             "We provide ongoing guidance, review what is working, and refine your website, SEO, and social media so you can attract more clients over time.",
           cardDetail:
             "We stay with you after launch to measure, refine, and keep improving your website, SEO, and social media so your brand keeps growing with clarity.",
+        },
+      ],
+    },
+    reviewsSection: {
+      eyebrow: "Reviews",
+      title: "What people say about us",
+      copy:
+        "When strategy, design, and support feel clear from the start, brands naturally begin to show up with more confidence.",
+      highlights: [
+        "Clear process",
+        "Close support",
+        "Design with strategy",
+      ],
+      items: [
+        {
+          quote:
+            "I just wanted to take a moment to share how much I love NoaTechSolutions! I had a fantastic experience with Noa, who really went out of their way to help me. If you haven't checked them out yet, do yourself a favor and stop by. You won't regret it!",
+          author: "Catalina Ocampo",
+          title: "Handmade crafts seller",
+          tag: "5/5 STARS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjWO5-yCfecbZwr_NHSf3gTP9YN4OX2jCFC6X4i-MTgZO75Syzyw=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "I want to thank and recommend Israel Esparza (NoaTechSolution), who did an excellent job with the design and...",
+          author: "Edna Garces",
+          title: "Home Daycare owner",
+          website: "ednashome4childcare.com",
+          tag: "5/5 STARS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjXjK-axSCzkX-xgf8wP-Nf2pnc2KczcmKykAnHrknBmfUxG2C8=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "I want to thank and recommend Israel Esparza (NoaTechSolution), who did an excellent job designing and developing my business website. His professionalism, creativity, and commitment made the whole process very easy, and the result exceeded my expectations. Excellent work. Thank you.",
+          author: "Luisa Serrano",
+          title: "Home Daycare",
+          website: "ednashome4childcare.com",
+          tag: "5/5 STARS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjULkxPvxmmkKC8eeCpgMvgMt764T0JO6z3ym4n6DA9s0gdkQY_4=w72-h72-p-rp-mo-br100",
+        },
+        {
+          quote:
+            "Very good work. It helped me a lot with my artist profile, both digitally and with printed cards. Simply spectacular.",
+          author: "MOISES REYES",
+          title: "Singer",
+          website: "alfredormusic.com",
+          tag: "5/5 STARS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjX0DC9cVeuz7Cg-rd5btleu1tJbu1rd2vXNQwSb8GH9TDJ0LfM=w72-h72-p-rp-mo-ba4-br100",
+        },
+        {
+          quote:
+            "Noa Techsolutions is such a game changer! My website went from looking dull and truly unappealing to being a dynamic, sophisticated marketing tool that truly projects the nature of my business.",
+          author: "Laura B",
+          title: "Singer and Vocal Coach",
+          website: "laurabravomusic.com",
+          tag: "5/5 STARS",
+          source: "google",
+          avatarUrl:
+            "https://lh3.googleusercontent.com/a-/ALV-UjW_7DZwg_neNr7uTBDiURs1UdBW2SMKjUGeMAM4wgiM-fzL1q6whg=w72-h72-p-rp-mo-br100",
         },
       ],
     },

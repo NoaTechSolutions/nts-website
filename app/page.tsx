@@ -5,6 +5,7 @@ import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
 import { ProcessStickySection } from "./components/process-sticky-section";
+import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
@@ -21,6 +22,7 @@ export default function Home() {
   const stats = t.hero.stats;
   const services = t.servicesSection.items;
   const process = t.processSection.items;
+  const reviews = t.reviewsSection.items;
   const faqs = t.faqSection.items;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -219,6 +221,12 @@ export default function Home() {
           cardCta={t.servicesSection.cardCta}
           rotatingWords={t.hero.rotatingWords}
           items={services}
+        />
+
+        <ReviewsMarqueeSection
+          eyebrow={t.reviewsSection.eyebrow}
+          title={t.reviewsSection.title}
+          items={reviews}
         />
 
         <section className="section-divider services-proof-section">
