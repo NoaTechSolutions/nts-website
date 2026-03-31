@@ -135,24 +135,32 @@ export const translations = {
           title: "Te damos ideas claras para hacer crecer tu marca",
           detail:
             "Analizamos tu negocio, detectamos oportunidades y te asesoramos con ideas practicas para que tu marca conecte mejor, venda mas y se vea mas fuerte en internet.",
+          cardDetail:
+            "Te ayudamos a descubrir que hace especial a tu marca para que la gente la entienda rapido, la recuerde y quiera dar el siguiente paso contigo.",
         },
         {
           step: "02",
           title: "Mejoramos tu presencia en Google y en redes",
           detail:
             "Organizamos tu web y optimizamos tus redes con SEO claro, contenido util y mensajes que ayudan a que mas personas te encuentren y confien en ti.",
+          cardDetail:
+            "Hacemos que tu negocio se vea mejor en Google y redes con mensajes claros, contenido util y una presencia que inspire confianza desde el primer clic.",
         },
         {
           step: "03",
           title: "Integramos herramientas que te ahorran tiempo",
           detail:
             "Sumamos soluciones tecnologicas y recursos digitales que te ayudan a atender mejor, ordenar procesos y dar una imagen mas profesional a tu negocio.",
+          cardDetail:
+            "Incorporamos herramientas digitales que ordenan tu dia a dia, agilizan tu trabajo y hacen que atender clientes se sienta mas facil y mas profesional.",
         },
         {
           step: "04",
           title: "Te acompanamos para seguir creciendo",
           detail:
             "Te damos asesoria continua, revisamos que esta funcionando y ajustamos web, SEO y redes para atraer mas clientes y mejorar tus resultados con el tiempo.",
+          cardDetail:
+            "No te dejamos solo despues del lanzamiento: medimos, ajustamos y seguimos afinando tu web, SEO y redes para que tu marca siga creciendo con claridad.",
         },
       ],
     },
@@ -331,24 +339,32 @@ export const translations = {
           title: "We give you clear ideas to grow your brand",
           detail:
             "We analyze your business, uncover opportunities, and guide you with practical ideas so your brand connects better, sells more, and looks stronger online.",
+          cardDetail:
+            "We help you uncover what makes your brand special so people understand it quickly, remember it, and feel ready to take the next step with you.",
         },
         {
           step: "02",
           title: "We improve your presence on Google and social media",
           detail:
             "We organize your website and optimize your social channels with clear SEO, useful content, and messaging that helps more people find and trust you.",
+          cardDetail:
+            "We make your business look stronger on Google and social media with clear messaging, useful content, and a presence that builds trust from the first click.",
         },
         {
           step: "03",
           title: "We integrate tools that save you time",
           detail:
             "We add technology solutions and digital tools that help you respond better, organize processes, and give your business a more professional image.",
+          cardDetail:
+            "We bring in digital tools that streamline your day, make your workflow lighter, and help every client interaction feel smoother and more professional.",
         },
         {
           step: "04",
           title: "We stay with you so you keep growing",
           detail:
             "We provide ongoing guidance, review what is working, and refine your website, SEO, and social media so you can attract more clients over time.",
+          cardDetail:
+            "We stay with you after launch to measure, refine, and keep improving your website, SEO, and social media so your brand keeps growing with clarity.",
         },
       ],
     },

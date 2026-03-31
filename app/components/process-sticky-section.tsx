@@ -1,14 +1,17 @@
 "use client";
 
-import { ArrowUpRight, BarChart3, Compass, LayoutTemplate, Rocket } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CometCard } from "@/components/ui/comet-card";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 
 type ProcessItem = {
   step: string;
   title: string;
   detail: string;
+  cardDetail?: string;
 };
 
 type ProcessStickySectionProps = {
@@ -18,7 +21,6 @@ type ProcessStickySectionProps = {
   items: readonly ProcessItem[];
 };
 
-const processIcons = [Compass, LayoutTemplate, Rocket, BarChart3];
 const processHighlights = [
   ["Ideas claras", "Asesoria cercana", "Enfoque comercial"],
   ["SEO entendible", "Redes optimizadas", "Mas alcance"],
@@ -26,10 +28,16 @@ const processHighlights = [
   ["Acompanamiento", "Resultados medibles", "Mejora continua"],
 ];
 const processThemes = [
-  "from-[#0c2d73] via-[#1747b5] to-[#05a5ff]",
-  "from-[#0f3f7a] via-[#1c6fd7] to-[#66d6ff]",
-  "from-[#0c2d73] via-[#112d8d] to-[#ff9900]",
-  "from-[#09215e] via-[#1242c8] to-[#00b9ff]",
+  "from-[#02004f] via-[#0400f0] to-[#3551ff]",
+  "from-[#02456f] via-[#05a5ff] to-[#2bc4ff]",
+  "from-[#7a4100] via-[#ff9900] to-[#ffb44a]",
+  "from-[#04112f] via-[#09215e] to-[#2a54bd]",
+];
+const processCardShadowThemes = [
+  "shadow-[0_52px_140px_rgba(4,0,240,0.5),0_24px_48px_rgba(4,0,240,0.26),0_18px_28px_rgba(255,255,255,0.04)_inset]",
+  "shadow-[0_52px_140px_rgba(5,165,255,0.42),0_24px_48px_rgba(5,165,255,0.22),0_18px_28px_rgba(255,255,255,0.04)_inset]",
+  "shadow-[0_52px_140px_rgba(255,153,0,0.38),0_24px_48px_rgba(255,153,0,0.22),0_18px_28px_rgba(255,255,255,0.04)_inset]",
+  "shadow-[0_52px_140px_rgba(9,33,94,0.52),0_24px_48px_rgba(9,33,94,0.28),0_18px_28px_rgba(255,255,255,0.04)_inset]",
 ];
 const processStepBadgeThemes = [
   "border-[#0400f0] bg-[#0400f0] text-white shadow-[0_12px_28px_rgba(4,0,240,0.28)]",
@@ -54,6 +62,28 @@ const processStepTextThemes = [
   {
     title: "text-[#09215e]",
     detail: "text-[#09215e]",
+  },
+];
+const processCardImages = [
+  {
+    src: "/noatechsolutions-brand-strategy-consulting-session.jpg",
+    alt: "Sesion de asesoria en estrategia de marca y crecimiento digital para negocios",
+    title: "Asesoria de estrategia de marca para fortalecer presencia digital y ventas",
+  },
+  {
+    src: "/noatechsolutions-social-media-marketing-visibility.jpg",
+    alt: "Gestion de redes sociales y marketing digital para mejorar visibilidad y alcance online",
+    title: "Marketing digital y redes sociales para ganar alcance, confianza y mas clientes",
+  },
+  {
+    src: "/noatechsolutions-digital-tools-dashboard.jpg",
+    alt: "Herramientas digitales y panel de gestion para organizar procesos, tareas y clientes",
+    title: "Herramientas digitales para automatizar procesos y trabajar con mas orden",
+  },
+  {
+    src: "/noatechsolutions-business-growth-strategy.jpg",
+    alt: "Estrategia de crecimiento digital con seguimiento, analisis y mejora continua para negocios",
+    title: "Acompanamiento estrategico para crecer con optimizacion y resultados medibles",
   },
 ];
 
@@ -113,21 +143,23 @@ export function ProcessStickySection({
   const content = useMemo(
     () =>
       items.map((item, index) => {
-        const Icon = processIcons[index] ?? Compass;
         const highlights = processHighlights[index] ?? [];
         const theme = processThemes[index] ?? processThemes[0];
+        const shadowTheme = processCardShadowThemes[index] ?? processCardShadowThemes[0];
+        const image = processCardImages[index] ?? processCardImages[0];
         return {
           ...item,
-          Icon,
           highlights,
           theme,
+          shadowTheme,
+          cardDetail: item.cardDetail ?? item.detail,
+          image,
         };
       }),
     [items]
   );
 
   const activeItem = content[activeIndex] ?? content[0];
-  const ActiveIcon = activeItem.Icon;
   const titleMatch = title.match(/^(.*?)(?:\s+)(marca|brand)(.*)$/i);
   const titleLead = titleMatch ? titleMatch[1].trim() : title;
   const titleTail = titleMatch ? titleMatch[3].trim() : "";
@@ -136,7 +168,67 @@ export function ProcessStickySection({
     ? "clear roadmap and modern SEO"
     : "ruta clara y estrategica.";
   const titleTabletBottomLine = `${titleInline} ${titleBottom}`.trim();
+  const cardCtaLabel = /^with\b/i.test(titleTail) ? "Let's get started" : "Empecemos ahora";
   const totalSegments = Math.max(content.length - 1, 1);
+  const renderStageCard = (stageClassName: string) => (
+    <div className={`process-sticky-stage ${stageClassName}`}>
+      <a
+        href="#contacto"
+        className="group block w-full pointer-events-auto"
+        aria-label={`${cardCtaLabel}: ${activeItem.title}`}
+      >
+        <CometCard
+          className={`flex min-h-[36rem] w-full cursor-pointer flex-col justify-between rounded-[2rem] bg-gradient-to-br ${activeItem.theme} p-8 text-white ${activeItem.shadowTheme}`}
+          key={`${stageClassName}-${activeItem.step}`}
+        >
+          <div className="process-sticky-card-frame">
+            <div>
+              <div className="relative overflow-hidden rounded-[1.35rem] border border-white/18 bg-white/12">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_60%)]" />
+                <div className="relative h-[18rem] w-full">
+                  <Image
+                    src={activeItem.image.src}
+                    alt={activeItem.image.alt}
+                    title={activeItem.image.title}
+                    fill
+                    sizes="(min-width: 1536px) 560px, (min-width: 1280px) 38vw, (min-width: 1024px) 42vw, 100vw"
+                    quality={96}
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
+              <p className="m-0 mt-6 max-w-[29rem] text-[1.02rem] leading-8 text-white/88">
+                {activeItem.cardDetail}
+              </p>
+            </div>
+
+            <div className="grid gap-5">
+              <div className="flex flex-wrap gap-2.5">
+                {activeItem.highlights.map((highlight) => (
+                  <span
+                    key={highlight}
+                    className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[0.78rem] text-white/95"
+                  >
+                    {highlight}
+                  </span>
+                ))}
+              </div>
+              <div className="flex items-center justify-between gap-4 border-t border-white/15 pt-4">
+                <p className="m-0 text-[0.82rem] font-extrabold uppercase tracking-[0.22em] text-white/82">
+                  {cardCtaLabel}
+                </p>
+                <ArrowUpRight
+                  size={18}
+                  strokeWidth={2.2}
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </div>
+            </div>
+          </div>
+        </CometCard>
+      </a>
+    </div>
+  );
 
   return (
     <section
@@ -147,15 +239,12 @@ export function ProcessStickySection({
     >
       {isActive ? (
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">
-          <div
-            className="mx-auto grid w-[min(1180px,calc(100vw-2rem))] items-center gap-8 px-4 py-8 sm:px-5 lg:gap-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,0.88fr)]"
-            style={{ opacity: shellOpacity }}
-          >
-            <div className="grid gap-5 justify-items-center text-center lg:justify-items-stretch lg:text-left">
+          <div className="process-sticky-shell" style={{ opacity: shellOpacity }}>
+            <div className="process-sticky-copy">
               <p className="eyebrow">{eyebrow}</p>
-              <div className="grid process-sticky-heading md:hidden">
+              <div className="process-phone-only process-sticky-heading">
                 <p className="process-sticky-title-top">{titleLead}</p>
-                <div className="process-sticky-title-inline justify-center lg:justify-start">
+                <div className="process-sticky-title-inline justify-center">
                   <LayoutTextFlip
                     text=""
                     words={rotatingWords}
@@ -168,9 +257,9 @@ export function ProcessStickySection({
                 </div>
                 <p className="process-sticky-title-tail">{titleBottom}</p>
               </div>
-              <div className="hidden process-sticky-heading md:grid lg:hidden">
+              <div className="process-tablet-only process-sticky-heading">
                 <div className="process-sticky-title-inline justify-center whitespace-nowrap">
-                  <p className="process-sticky-title-top text-[clamp(3.2rem,6.45vw,4.55rem)]">
+                  <p className="process-sticky-title-top process-sticky-title-top-tablet">
                     {titleLead}
                   </p>
                   <LayoutTextFlip
@@ -182,13 +271,13 @@ export function ProcessStickySection({
                     wordClassName="services-stack-heading-word process-sticky-heading-word-tablet"
                   />
                 </div>
-                <p className="process-sticky-title-tail text-[clamp(2.7rem,5.2vw,3.85rem)]">
+                <p className="process-sticky-title-tail process-sticky-title-tail-tablet">
                   {titleTabletBottomLine}
                 </p>
               </div>
-              <div className="hidden process-sticky-heading lg:grid">
+              <div className="process-desktop-only process-sticky-heading">
                 <p className="process-sticky-title-top">{titleLead}</p>
-                <div className="process-sticky-title-inline justify-center lg:justify-start">
+                <div className="process-sticky-title-inline justify-start">
                   <LayoutTextFlip
                     text=""
                     words={rotatingWords}
@@ -201,7 +290,22 @@ export function ProcessStickySection({
                 </div>
                 <p className="process-sticky-title-tail">{titleBottom}</p>
               </div>
-              <div className="grid w-full justify-items-center gap-7 lg:justify-items-stretch">
+              <div className="process-wide-only process-sticky-heading">
+                <p className="process-sticky-title-top">{titleLead}</p>
+                <div className="process-sticky-title-inline justify-start">
+                  <LayoutTextFlip
+                    text=""
+                    words={rotatingWords}
+                    duration={2800}
+                    className="process-sticky-heading-flip process-sticky-heading-flip-inline"
+                    textClassName="process-sticky-heading-empty"
+                    wordClassName="services-stack-heading-word"
+                  />
+                  <span className="process-sticky-title-inline-copy">{titleInline}</span>
+                </div>
+                <p className="process-sticky-title-tail">{titleBottom}</p>
+              </div>
+              <div className="process-sticky-steps">
                 {content.map((item, index) => {
                   const isCurrent = index === activeIndex;
                   const stepBadgeTheme = processStepBadgeThemes[index] ?? processStepBadgeThemes[0];
@@ -237,7 +341,7 @@ export function ProcessStickySection({
                           {formatStepLabel(item.step)}
                         </span>
                         {index < content.length - 1 ? (
-                          <div className="mt-3 flex min-h-[4.8rem] w-2.5 justify-center lg:hidden">
+                          <div className="process-sticky-step-connector">
                             <span className="relative block h-full w-full overflow-hidden rounded-full bg-[#d6e4ff]">
                               <span
                                 className="absolute inset-0 origin-top rounded-full transition-transform duration-300 ease-out"
@@ -278,52 +382,8 @@ export function ProcessStickySection({
                 })}
               </div>
             </div>
-
-            <div className="hidden items-center justify-center lg:flex">
-              <div
-                className={`flex min-h-[36rem] w-full flex-col justify-between rounded-[2rem] bg-gradient-to-br ${activeItem.theme} p-8 text-white shadow-[0_28px_70px_rgba(2,33,95,0.18)]`}
-                key={activeItem.step}
-              >
-                <div className="process-sticky-card-frame">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="inline-flex items-center rounded-full border border-white/20 bg-white/12 px-4 py-2 text-[0.76rem] font-bold uppercase tracking-[0.24em] text-white/90">
-                      Paso {formatStepLabel(activeItem.step)}
-                    </span>
-                    <span className="inline-flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-2xl border border-white/20 bg-white/12">
-                      <ActiveIcon size={24} strokeWidth={2.05} />
-                    </span>
-                  </div>
-
-                  <div>
-                    <h4 className="m-0 max-w-[12ch] text-5xl leading-none tracking-[-0.05em]">
-                      {activeItem.title}
-                    </h4>
-                    <p className="m-0 mt-5 max-w-[28rem] text-base leading-8 text-white/80">
-                      {activeItem.detail}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-5">
-                    <div className="flex flex-wrap gap-2.5">
-                      {activeItem.highlights.map((highlight) => (
-                        <span
-                          key={highlight}
-                          className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[0.78rem] text-white/95"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between gap-4 border-t border-white/15 pt-4">
-                      <p className="m-0 text-[0.76rem] font-bold uppercase tracking-[0.24em] text-white/70">
-                        Ruta clara para crecer
-                      </p>
-                      <ArrowUpRight size={18} strokeWidth={2.2} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {renderStageCard("process-desktop-stage")}
+            {renderStageCard("process-wide-stage")}
           </div>
         </div>
       ) : null}
