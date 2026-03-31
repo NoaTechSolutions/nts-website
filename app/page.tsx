@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
+import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
@@ -23,7 +24,6 @@ export default function Home() {
   const services = t.servicesSection.items;
   const process = t.processSection.items;
   const reviews = t.reviewsSection.items;
-  const faqs = t.faqSection.items;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -267,63 +267,14 @@ export default function Home() {
           rotatingWords={t.hero.rotatingWords}
           items={process}
         />
-
-        <section className="section-divider py-16">
-          <div className="seo-panel">
-            <div>
-              <p className="eyebrow">{t.seoSection.eyebrow}</p>
-              <h2 className="feature-title mt-3">
-                {t.seoSection.title}
-              </h2>
-            </div>
-            <p className="section-copy">
-              {t.seoSection.copy}
-            </p>
-          </div>
-        </section>
-
-        <section
-          id="faq"
-          className="section-divider grid gap-8 py-16 lg:grid-cols-[0.82fr_1.18fr]"
-        >
-          <div className="space-y-4">
-            <p className="eyebrow">{t.faqSection.eyebrow}</p>
-            <h2 className="section-title">
-              {t.faqSection.title}
-            </h2>
-          </div>
-          <div className="grid gap-4">
-            {faqs.map((faq) => (
-              <article key={faq.question} className="faq-card">
-                <h3 className="service-title">{faq.question}</h3>
-                <p className="service-copy mt-4">{faq.answer}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="contacto" className="py-16">
-          <div className="cta-panel">
-            <div className="space-y-5">
-              <p className="eyebrow">{t.ctaSection.eyebrow}</p>
-              <h2 className="cta-title">
-                {t.ctaSection.title}
-              </h2>
-              <p className="section-copy max-w-2xl">
-                {t.ctaSection.copy}
-              </p>
-            </div>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <a href="mailto:hello@noatechsolutions.com" className="button-primary">
-                {t.ctaSection.primary}
-              </a>
-              <a href="https://noatechsolutions.com/" className="button-outline">
-                {t.ctaSection.secondary}
-              </a>
-            </div>
-          </div>
-        </section>
       </div>
+
+      <div
+        id="contacto"
+        aria-hidden="true"
+        className="pointer-events-none h-px w-px opacity-0"
+      />
+      <HeroParallaxDemo />
     </main>
   );
 }

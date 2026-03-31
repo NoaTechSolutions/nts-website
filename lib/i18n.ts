@@ -231,6 +231,13 @@ export const translations = {
         },
       ],
     },
+    portfolioSection: {
+      title: "Trabajos Que Hablan Por Si Solos",
+      copy:
+        "Descubre una seleccion de proyectos creados para inspirar, transmitir confianza y demostrar hasta donde puede llegar una marca cuando su presencia digital se ve fuerte, cuidada y memorable.",
+      accent: "El siguiente puede ser el tuyo.",
+      ctaLabel: "Ver mas proyectos",
+    },
     seoSection: {
       eyebrow: "SEO comercial",
       title:
@@ -501,6 +508,13 @@ export const translations = {
             "https://lh3.googleusercontent.com/a-/ALV-UjW_7DZwg_neNr7uTBDiURs1UdBW2SMKjUGeMAM4wgiM-fzL1q6whg=w72-h72-p-rp-mo-br100",
         },
       ],
+    },
+    portfolioSection: {
+      title: "Work That Speaks For Itself",
+      copy:
+        "Discover a curated selection of projects designed to inspire, build trust, and show how far a brand can go when its digital presence feels strong, polished, and memorable.",
+      accent: "The next one could be yours.",
+      ctaLabel: "See more projects",
     },
     seoSection: {
       eyebrow: "Commercial SEO",

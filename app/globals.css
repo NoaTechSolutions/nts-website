@@ -716,6 +716,41 @@ a {
   line-height: 1.95;
 }
 
+.portfolio-parallax-header {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.portfolio-parallax-title {
+  max-width: 16ch;
+}
+
+.portfolio-parallax-copy {
+  max-width: 46rem;
+  color: #5f7398;
+}
+
+.portfolio-parallax-copy-line {
+  display: block;
+}
+
+.portfolio-parallax-accent {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--color-highlight);
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1.45;
+}
+
+.portfolio-parallax-footer {
+  pointer-events: none;
+}
+
+.portfolio-parallax-cta-wrapper {
+  pointer-events: auto;
+}
+
 .button-primary,
 .button-secondary,
 .button-outline {
