@@ -268,13 +268,18 @@ export const translations = {
       ],
     },
     ctaSection: {
-      eyebrow: "Siguiente paso",
+      eyebrow: "Hazlo realidad",
       title:
-        "La base visual ya puede integrarse con tu logo y quedar lista para la version final.",
+        "Inicia Tu Proyecto Desde $299",
       copy:
-        "Ya deje el sistema listo sobre fondo blanco, con la paleta oficial y una estructura mas alineada a SEO. Cuando me pases el logo lo incorporo en el header, favicon y bloques clave de marca.",
-      primary: "Solicitar propuesta",
-      secondary: "Ver sitio actual",
+        "Si ya sabes que tu marca necesita verse mas profesional, este es un buen momento para empezar. Podemos lanzar una base clara, atractiva y pensada para vender, y si lo necesitas revisamos contigo opciones de pago para que avanzar sea mas facil.",
+      primary: "Iniciar ahora",
+      secondary: "Preguntar por pagos",
+      priceTag: "Desde $299",
+      highlights: [
+        "Asesoria inicial gratis",
+        "Opciones de pago a plazos",
+      ],
     },
     jsonLd: {
       description:
@@ -545,13 +550,18 @@ export const translations = {
       ],
     },
     ctaSection: {
-      eyebrow: "Next step",
+      eyebrow: "Make it happen",
       title:
-        "The visual foundation is already ready to integrate your logo and move into the final version.",
+        "Start Your Project From $299",
       copy:
-        "The system is already set on a white background, using the official palette and a structure more aligned with SEO. Once you share the logo, I can integrate it into the header, favicon, and key brand blocks.",
-      primary: "Request a proposal",
-      secondary: "View current site",
+        "If you already know your brand needs to look more professional, this is a great time to start. We can launch a clear, attractive, conversion-ready foundation, and if needed we can walk you through flexible payment options so moving forward feels easier.",
+      primary: "Start now",
+      secondary: "Ask about payments",
+      priceTag: "From $299",
+      highlights: [
+        "Free initial strategy call",
+        "Installment payment options",
+      ],
     },
     jsonLd: {
       description:

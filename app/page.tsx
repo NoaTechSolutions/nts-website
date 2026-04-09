@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { CircleHelp, CreditCard, MessageCircle, Sparkles } from "lucide-react";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
@@ -14,6 +15,7 @@ import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
+import { AuroraText } from "@/components/ui/aurora-text";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 
@@ -24,6 +26,25 @@ export default function Home() {
   const services = t.servicesSection.items;
   const process = t.processSection.items;
   const reviews = t.reviewsSection.items;
+  const faqItems = t.faqSection.items;
+  const ctaPriceHighlight =
+    t.ctaSection.priceTag.match(/\$\d[\d.,]*/)?.[0] ?? t.ctaSection.priceTag;
+  const hasPriceTagInCtaTitle = t.ctaSection.title.includes(t.ctaSection.priceTag);
+  const hasPriceHighlightInCtaTitle = t.ctaSection.title.includes(ctaPriceHighlight);
+  const [ctaTitleLead, ctaTitleTail] = hasPriceHighlightInCtaTitle
+    ? t.ctaSection.title.split(ctaPriceHighlight)
+    : [t.ctaSection.title, ""];
+  const [ctaPriceTagLead, ctaPriceTagTail] = t.ctaSection.priceTag
+    .split(ctaPriceHighlight)
+    .map((part) => part.trim());
+  const ctaTitleMain = hasPriceTagInCtaTitle
+    ? t.ctaSection.title.replace(t.ctaSection.priceTag, "").trim()
+    : ctaTitleLead.trim();
+  const contactTopPills = [
+    { label: t.ctaSection.eyebrow, Icon: Sparkles },
+    { label: t.ctaSection.highlights[0], Icon: MessageCircle },
+    { label: t.ctaSection.highlights[1], Icon: CreditCard },
+  ].filter((item) => Boolean(item.label));
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -47,6 +68,38 @@ export default function Home() {
         <span className="mid-cta-title-line">for your brand</span>
       </>
     );
+  const finalCtaTitle = hasPriceTagInCtaTitle ? (
+    <>
+      <span className="contact-final-title-main">{ctaTitleMain}</span>
+      <span className="contact-final-title-break">
+        {ctaPriceTagLead ? (
+          <span className="contact-final-title-prefix">{ctaPriceTagLead}</span>
+        ) : null}
+        <AuroraText
+          className="contact-final-title-accent"
+          colors={["#ff9900", "#05a5ff", "#0400f0", "#09215e"]}
+        >
+          {ctaPriceHighlight}
+        </AuroraText>
+        {ctaPriceTagTail ? (
+          <span className="contact-final-title-suffix">{ctaPriceTagTail}</span>
+        ) : null}
+      </span>
+    </>
+  ) : hasPriceHighlightInCtaTitle ? (
+    <>
+      <span className="contact-final-title-line">{ctaTitleLead.trim()}</span>{" "}
+      <AuroraText
+        className="contact-final-title-accent"
+        colors={["#ff9900", "#05a5ff", "#0400f0", "#09215e"]}
+      >
+        {ctaPriceHighlight}
+      </AuroraText>{" "}
+      <span className="contact-final-title-line">{ctaTitleTail.trim()}</span>
+    </>
+  ) : (
+    t.ctaSection.title
+  );
 
   return (
     <main className="page-shell" onContextMenu={(event) => event.preventDefault()}>
@@ -269,12 +322,72 @@ export default function Home() {
         />
       </div>
 
-      <div
-        id="contacto"
-        aria-hidden="true"
-        className="pointer-events-none h-px w-px opacity-0"
-      />
       <HeroParallaxDemo />
+
+      <section id="contacto" className="section-divider contact-final-section">
+        <div className="contact-final-background" aria-hidden="true">
+          <GridDistortion
+            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+            grid={14}
+            mouse={0.3}
+            strength={0.64}
+            relaxation={0.8}
+            className="contact-final-distortion"
+          />
+        </div>
+
+        <div className="contact-final-shell">
+          <div className="contact-final-copy">
+            <div className="contact-final-top-row">
+              {contactTopPills.map(({ label, Icon }, index) => (
+                <span
+                  key={label}
+                  className={`contact-final-pill contact-final-chip ${
+                    index === 0 ? "contact-final-pill-eyebrow" : ""
+                  }`}
+                >
+                  <span className="contact-final-pill-icon" aria-hidden="true">
+                    <Icon size={15} strokeWidth={2.2} />
+                  </span>
+                  <span>{label}</span>
+                </span>
+              ))}
+            </div>
+
+            <h2 className="contact-final-title">{finalCtaTitle}</h2>
+          </div>
+
+          <div className="contact-final-actions">
+            <a
+              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
+              className="contact-final-primary-button"
+            >
+              {t.ctaSection.primary}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-divider contact-faq-preview">
+        <div className="grid-shell contact-faq-shell">
+          <div className="contact-faq-copy">
+            <p className="eyebrow contact-faq-eyebrow">{t.faqSection.eyebrow}</p>
+            <h2 className="section-title contact-faq-title">{t.faqSection.title}</h2>
+          </div>
+
+          <div className="contact-faq-grid">
+            {faqItems.map((item) => (
+              <article key={item.question} className="faq-card contact-faq-card">
+                <span className="contact-faq-card-icon" aria-hidden="true">
+                  <CircleHelp size={18} strokeWidth={2.2} />
+                </span>
+                <h3 className="contact-faq-question">{item.question}</h3>
+                <p className="contact-faq-answer">{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
