@@ -85,20 +85,37 @@ export const MovingBorder = ({
   const pathRef = useRef<SVGRectElement | null>(null);
   const progress = useMotionValue<number>(0);
 
+  const getSafePoint = (length: number) => {
+    const path = pathRef.current;
+    if (!path) return null;
+
+    try {
+      return path.getPointAtLength(length);
+    } catch {
+      return null;
+    }
+  };
+
   useAnimationFrame((time) => {
-    const length = pathRef.current?.getTotalLength();
-    if (length) {
+    const path = pathRef.current;
+    if (!path) return;
+
+    try {
+      const length = path.getTotalLength();
+      if (!length) return;
       const pxPerMillisecond = length / duration;
       progress.set((time * pxPerMillisecond) % length);
+    } catch {
+      progress.set(0);
     }
   });
 
   const x = useTransform(progress, (val) => {
-    const point = pathRef.current?.getPointAtLength(val);
+    const point = getSafePoint(val);
     return point?.x ?? 0;
   });
   const y = useTransform(progress, (val) => {
-    const point = pathRef.current?.getPointAtLength(val);
+    const point = getSafePoint(val);
     return point?.y ?? 0;
   });
 

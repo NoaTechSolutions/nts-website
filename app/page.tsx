@@ -1,7 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { CircleHelp, CreditCard, MessageCircle, Sparkles } from "lucide-react";
+import { useState } from "react";
+import {
+  BadgeCheck,
+  ChevronDown,
+  Clock3,
+  CreditCard,
+  MessageCircle,
+  Rocket,
+  Search,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
@@ -22,11 +33,13 @@ import { translations } from "@/lib/i18n";
 export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
+  const [activeFaqIndex, setActiveFaqIndex] = useState(0);
   const stats = t.hero.stats;
   const services = t.servicesSection.items;
   const process = t.processSection.items;
   const reviews = t.reviewsSection.items;
   const faqItems = t.faqSection.items;
+  const faqHighlights = t.faqSection.highlights.filter(Boolean);
   const ctaPriceHighlight =
     t.ctaSection.priceTag.match(/\$\d[\d.,]*/)?.[0] ?? t.ctaSection.priceTag;
   const hasPriceTagInCtaTitle = t.ctaSection.title.includes(t.ctaSection.priceTag);
@@ -45,6 +58,7 @@ export default function Home() {
     { label: t.ctaSection.highlights[0], Icon: MessageCircle },
     { label: t.ctaSection.highlights[1], Icon: CreditCard },
   ].filter((item) => Boolean(item.label));
+  const faqIcons = [Rocket, CreditCard, Clock3, Search, ShieldCheck, BadgeCheck];
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -53,6 +67,18 @@ export default function Home() {
     description: t.jsonLd.description,
     areaServed: ["California, United States", "Baja California, Mexico"],
     serviceType: t.jsonLd.serviceType,
+  };
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
   const midCtaTitle =
     locale === "es" ? (
@@ -106,6 +132,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       <div className="hero-glow hero-glow-left" aria-hidden="true" />
@@ -368,23 +398,62 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-divider contact-faq-preview">
+      <section className="section-divider contact-faq-section">
+        <div className="contact-faq-background" aria-hidden="true" />
         <div className="grid-shell contact-faq-shell">
           <div className="contact-faq-copy">
             <p className="eyebrow contact-faq-eyebrow">{t.faqSection.eyebrow}</p>
             <h2 className="section-title contact-faq-title">{t.faqSection.title}</h2>
+            <p className="section-copy contact-faq-body">{t.faqSection.copy}</p>
+
+            <div className="contact-faq-highlights">
+              {faqHighlights.map((highlight) => (
+                <span key={highlight} className="contact-faq-highlight">
+                  {highlight}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="contact-faq-grid">
-            {faqItems.map((item) => (
-              <article key={item.question} className="faq-card contact-faq-card">
-                <span className="contact-faq-card-icon" aria-hidden="true">
-                  <CircleHelp size={18} strokeWidth={2.2} />
-                </span>
-                <h3 className="contact-faq-question">{item.question}</h3>
-                <p className="contact-faq-answer">{item.answer}</p>
-              </article>
-            ))}
+          <div className="contact-faq-accordion">
+            {faqItems.map((item, index) => {
+              const Icon = faqIcons[index % faqIcons.length];
+              const isActive = index === activeFaqIndex;
+
+              return (
+                <article
+                  key={item.question}
+                  className={`contact-faq-item ${isActive ? "is-active" : ""}`}
+                >
+                  <button
+                    type="button"
+                    className="contact-faq-trigger"
+                    aria-expanded={isActive}
+                    onClick={() =>
+                      setActiveFaqIndex((current) => (current === index ? -1 : index))
+                    }
+                  >
+                    <span className="contact-faq-item-icon" aria-hidden="true">
+                      <Icon size={18} strokeWidth={2.2} />
+                    </span>
+
+                    <span className="contact-faq-item-copy">
+                      <span className="contact-faq-question">{item.question}</span>
+                    </span>
+
+                    <span className="contact-faq-item-toggle" aria-hidden="true">
+                      <ChevronDown size={20} strokeWidth={2.4} />
+                    </span>
+                  </button>
+
+                  <div className="contact-faq-answer-wrap">
+                    <div className="contact-faq-answer-inner">
+                      <p className="contact-faq-answer">{item.answer}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

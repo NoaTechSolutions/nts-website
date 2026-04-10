@@ -246,24 +246,42 @@ export const translations = {
         "La estructura incorpora contenido orientado a terminos como agencia de marketing digital, diseno web y SEO, pero organizado con criterio semantico para sonar claro y profesional. Eso facilita crecer despues hacia paginas especificas por servicio.",
     },
     faqSection: {
-      eyebrow: "Preguntas clave",
+      eyebrow: "Preguntas frecuentes",
       title:
-        "Las decisiones visuales y tecnicas deben alinearse con negocio y crecimiento.",
+        "Lo Que Mas Nos Preguntan",
+      copy:
+        "Aqui resolvemos las dudas mas comunes de las marcas que buscan un sitio web mas profesional, una estructura clara para vender mejor y una base SEO solida para crecer con estrategia.",
+      highlights: ["Precio claro", "SEO desde la base", "Acompanamiento real"],
       items: [
         {
-          question: "Que necesita una web para competir hoy?",
+          question: "Cuanto cuesta realmente empezar un sitio profesional?",
           answer:
-            "Una propuesta de valor clara, carga rapida, estructura SEO correcta, contenido bien enfocado y una identidad visual consistente.",
+            "Depende del alcance, pero hoy puedes empezar desde $299 con una base profesional pensada para presentar mejor tu marca, generar confianza y dejar el sitio listo para crecer por etapas.",
         },
         {
-          question: "Se puede crecer la web por etapas?",
+          question: "Que incluye el proyecto desde $299?",
           answer:
-            "Si. La base correcta permite lanzar primero una homepage fuerte y despues sumar paginas por servicio, industria o ubicacion.",
+            "Incluye una estructura clara, diseno responsive, CTA comercial, seccion de contacto y una base visual mucho mas solida que la tipica web armada sin estrategia.",
         },
         {
-          question: "Como se conecta el diseno con resultados?",
+          question: "Cuanto tarda en estar lista la web?",
           answer:
-            "Cuando el diseno se alinea con la oferta, los mensajes, los CTAs y la arquitectura del sitio, mejora la confianza y la conversion.",
+            "En proyectos base solemos movernos rapido. Si la informacion esta relativamente ordenada, una primera version fuerte puede salir en pocos dias o un par de semanas segun el alcance.",
+        },
+        {
+          question: "Necesito tener logo, textos y fotos antes de empezar?",
+          answer:
+            "No necesariamente. Podemos comenzar con lo que ya tienes, ayudarte a ordenar el mensaje y definir que piezas faltan para que el sitio no se detenga por no tener todo perfecto desde el primer dia.",
+        },
+        {
+          question: "La web me puede ayudar a aparecer en Google y conseguir clientes?",
+          answer:
+            "Si, siempre que se construya bien. Dejamos una base preparada para SEO, mensajes claros y conversion. Despues podemos reforzar con contenido, paginas por servicio y estrategia de visibilidad.",
+        },
+        {
+          question: "Se puede pagar por etapas y seguir creciendo despues?",
+          answer:
+            "Si. Justamente la idea es que no tengas que hacer todo de golpe. Podemos lanzar una version inicial fuerte y despues sumar branding, SEO, nuevas secciones, automatizaciones o paginas extra.",
         },
       ],
     },
@@ -528,24 +546,42 @@ export const translations = {
         "The structure includes content aligned with terms such as digital marketing agency, web design, and SEO, but organized with semantic discipline so it sounds clear and professional. That makes it easier to grow later into service-specific pages.",
     },
     faqSection: {
-      eyebrow: "Key questions",
+      eyebrow: "Frequently asked questions",
       title:
-        "Visual and technical decisions should align with business goals and growth.",
+        "What Clients Ask Us Most",
+      copy:
+        "Here we answer the most common questions from brands looking for a more professional website, a clearer structure to sell better, and an SEO-ready foundation built to grow strategically.",
+      highlights: ["Clear pricing", "SEO-ready foundation", "Real guidance"],
       items: [
         {
-          question: "What does a website need to compete today?",
+          question: "How much does it really cost to start a professional website?",
           answer:
-            "A clear value proposition, fast loading, correct SEO structure, focused content, and a consistent visual identity.",
+            "It depends on scope, but you can start from $299 with a professional foundation built to present your brand better, build trust, and grow in phases.",
         },
         {
-          question: "Can the website grow in phases?",
+          question: "What is included in the project starting at $299?",
           answer:
-            "Yes. The right foundation lets you launch a strong homepage first and then expand with service, industry, or location pages.",
+            "It includes a clear structure, responsive design, a strong call to action, contact section, and a much more strategic visual foundation than a generic website put together without direction.",
         },
         {
-          question: "How does design connect with results?",
+          question: "How long does it take to launch the website?",
           answer:
-            "When design aligns with the offer, messaging, CTAs, and site architecture, trust and conversion improve.",
+            "Base projects can move fast. If the information is reasonably organized, a strong first version can be ready in days or within a couple of weeks depending on scope.",
+        },
+        {
+          question: "Do I need to have my logo, copy, and photos ready first?",
+          answer:
+            "Not necessarily. We can start with what you already have, help you organize the message, and define what is still missing so the project does not get stuck waiting for perfection.",
+        },
+        {
+          question: "Can the website help me rank on Google and bring clients?",
+          answer:
+            "Yes, if it is built correctly. We set up an SEO-ready, conversion-focused foundation with clear messaging, then we can strengthen it with content, service pages, and visibility strategy.",
+        },
+        {
+          question: "Can I pay in phases and keep growing later?",
+          answer:
+            "Yes. The goal is to avoid doing everything at once. We can launch a strong first version and then expand with branding, SEO, more sections, automations, or extra pages.",
         },
       ],
     },

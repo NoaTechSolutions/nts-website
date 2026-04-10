@@ -197,7 +197,10 @@ export function ServicesStackSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-divider services-stack-section">
+    <section
+      ref={sectionRef}
+      className="section-divider services-stack-section relative"
+    >
       {isActive ? (
         <div className="services-stack-overlay">
           <div

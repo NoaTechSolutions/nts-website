@@ -67,7 +67,10 @@ export default function RootLayout({
         spaceGrotesk.variable,
       )}
     >
-      <body className="min-h-full bg-[var(--color-paper)] text-[var(--color-ink)] antialiased">
+      <body
+        suppressHydrationWarning
+        className="min-h-full bg-[var(--color-paper)] text-[var(--color-ink)] antialiased"
+      >
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
