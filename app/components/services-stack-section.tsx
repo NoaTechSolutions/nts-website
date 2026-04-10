@@ -198,6 +198,7 @@ export function ServicesStackSection({
 
   return (
     <section
+      id="servicios"
       ref={sectionRef}
       className="section-divider services-stack-section relative"
     >

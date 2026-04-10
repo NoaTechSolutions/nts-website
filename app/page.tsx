@@ -20,6 +20,7 @@ import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
+import { SiteFooter } from "./components/site-footer";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import GridDistortion from "./components/ui/grid-distortion";
@@ -40,6 +41,7 @@ export default function Home() {
   const reviews = t.reviewsSection.items;
   const faqItems = t.faqSection.items;
   const faqHighlights = t.faqSection.highlights.filter(Boolean);
+  const footer = t.footerSection;
   const ctaPriceHighlight =
     t.ctaSection.priceTag.match(/\$\d[\d.,]*/)?.[0] ?? t.ctaSection.priceTag;
   const hasPriceTagInCtaTitle = t.ctaSection.title.includes(t.ctaSection.priceTag);
@@ -398,7 +400,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-divider contact-faq-section">
+      <section id="faq" className="section-divider contact-faq-section">
         <div className="contact-faq-background" aria-hidden="true" />
         <div className="grid-shell contact-faq-shell">
           <div className="contact-faq-copy">
@@ -457,6 +459,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <SiteFooter
+        eyebrow={footer.eyebrow}
+        title={footer.title}
+        copy={footer.copy}
+        ctaLabel={footer.ctaLabel}
+        ctaHref="#contacto"
+        emailLabel={footer.emailLabel}
+        emailHref={footer.emailHref}
+        watermark={footer.watermark}
+        copyright={footer.copyright}
+        columns={footer.columns}
+      />
     </main>
   );
 }

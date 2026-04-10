@@ -299,6 +299,61 @@ export const translations = {
         "Opciones de pago a plazos",
       ],
     },
+    footerSection: {
+      eyebrow: "Base digital clara",
+      title: "Diseno web, SEO y estrategia con una base real.",
+      copy:
+        "Creamos sitios web, SEO y sistemas visuales para marcas que necesitan verse mas profesionales, vender con mas claridad y crecer sobre una base digital solida.",
+      ctaLabel: "Iniciar proyecto",
+      emailLabel: "hello@noatechsolutions.com",
+      emailHref:
+        "mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
+      watermark: "NoaTech",
+      copyright: "© NoaTechSolutions. Todos los derechos reservados.",
+      columns: [
+        {
+          title: "Mapa",
+          links: [
+            { label: "Inicio", href: "#home" },
+            { label: "Servicios", href: "#servicios" },
+            { label: "Proceso", href: "#proceso" },
+            { label: "FAQ", href: "#faq" },
+          ],
+        },
+        {
+          title: "Soluciones",
+          links: [
+            { label: "Diseno web premium", href: "#servicios" },
+            { label: "SEO estrategico", href: "#servicios" },
+            { label: "Marketing digital", href: "#servicios" },
+            { label: "Branding visual", href: "#servicios" },
+          ],
+        },
+        {
+          title: "Recursos",
+          links: [
+            { label: "Portfolio", href: "/portfolio" },
+            { label: "Reviews", href: "#reviews" },
+            { label: "Contacto", href: "#contacto" },
+            { label: "Base desde $299", href: "#contacto" },
+          ],
+        },
+        {
+          title: "Contacto",
+          links: [
+            { label: "Iniciar proyecto", href: "#contacto" },
+            { label: "Asesoria inicial gratis", href: "#contacto" },
+            {
+              label: "hello@noatechsolutions.com",
+              href:
+                "mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
+              external: true,
+            },
+            { label: "Baja California + California" },
+          ],
+        },
+      ],
+    },
     jsonLd: {
       description:
         "Agencia digital moderna especializada en diseno web, SEO y marketing digital.",
@@ -597,6 +652,61 @@ export const translations = {
       highlights: [
         "Free initial strategy call",
         "Installment payment options",
+      ],
+    },
+    footerSection: {
+      eyebrow: "Clear digital foundation",
+      title: "Web design, SEO, and strategy built on a real foundation.",
+      copy:
+        "We build websites, SEO systems, and visual brand foundations for businesses that need to look more professional, sell with more clarity, and grow on stronger digital ground.",
+      ctaLabel: "Start your project",
+      emailLabel: "hello@noatechsolutions.com",
+      emailHref:
+        "mailto:hello@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
+      watermark: "NoaTech",
+      copyright: "© NoaTechSolutions. All rights reserved.",
+      columns: [
+        {
+          title: "Map",
+          links: [
+            { label: "Home", href: "#home" },
+            { label: "Services", href: "#servicios" },
+            { label: "Process", href: "#proceso" },
+            { label: "FAQ", href: "#faq" },
+          ],
+        },
+        {
+          title: "Solutions",
+          links: [
+            { label: "Premium web design", href: "#servicios" },
+            { label: "Strategic SEO", href: "#servicios" },
+            { label: "Digital marketing", href: "#servicios" },
+            { label: "Branding", href: "#servicios" },
+          ],
+        },
+        {
+          title: "Resources",
+          links: [
+            { label: "Portfolio", href: "/portfolio" },
+            { label: "Reviews", href: "#reviews" },
+            { label: "Contact", href: "#contacto" },
+            { label: "Start from $299", href: "#contacto" },
+          ],
+        },
+        {
+          title: "Contact",
+          links: [
+            { label: "Start your project", href: "#contacto" },
+            { label: "Free strategy call", href: "#contacto" },
+            {
+              label: "hello@noatechsolutions.com",
+              href:
+                "mailto:hello@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
+              external: true,
+            },
+            { label: "Baja California + California" },
+          ],
+        },
       ],
     },
     jsonLd: {
