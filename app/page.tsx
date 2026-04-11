@@ -462,12 +462,6 @@ export default function Home() {
 
       <SiteFooter
         eyebrow={footer.eyebrow}
-        title={footer.title}
-        copy={footer.copy}
-        ctaLabel={footer.ctaLabel}
-        ctaHref="#contacto"
-        emailLabel={footer.emailLabel}
-        emailHref={footer.emailHref}
         watermark={footer.watermark}
         copyright={footer.copyright}
         columns={footer.columns}

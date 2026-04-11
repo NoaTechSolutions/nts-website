@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 type FooterLink = {
   label: string;
@@ -15,12 +15,6 @@ type FooterColumn = {
 
 type SiteFooterProps = {
   eyebrow: string;
-  title: string;
-  copy: string;
-  ctaLabel: string;
-  ctaHref: string;
-  emailLabel: string;
-  emailHref: string;
   watermark: string;
   copyright: string;
   columns: readonly FooterColumn[];
@@ -52,16 +46,17 @@ function FooterNavLink({ label, href, external }: FooterLink) {
 
 export function SiteFooter({
   eyebrow,
-  title,
-  copy,
-  ctaLabel,
-  ctaHref,
-  emailLabel,
-  emailHref,
   watermark,
   copyright,
   columns,
 }: SiteFooterProps) {
+  const footerSocials = [
+    { label: "Instagram", Icon: Instagram },
+    { label: "Facebook", Icon: Facebook },
+    { label: "LinkedIn", Icon: Linkedin },
+    { label: "YouTube", Icon: Youtube },
+  ] as const;
+
   return (
     <footer className="site-footer-section">
       <div className="site-footer-shell">
@@ -82,25 +77,20 @@ export function SiteFooter({
 
               <div className="site-footer-brand-copy">
                 <p className="site-footer-eyebrow">{eyebrow}</p>
-                <p className="site-footer-brand-name">NoaTechSolutions</p>
               </div>
             </div>
 
-            <div className="site-footer-copy-block">
-              <h2 className="site-footer-title">{title}</h2>
-              <p className="site-footer-description">{copy}</p>
-            </div>
-
-            <div className="site-footer-actions">
-              <a href={ctaHref} className="site-footer-cta">
-                <span>{ctaLabel}</span>
-                <ArrowUpRight size={16} strokeWidth={2.2} />
-              </a>
-
-              <a href={emailHref} className="site-footer-email">
-                <Mail size={16} strokeWidth={2.1} />
-                <span>{emailLabel}</span>
-              </a>
+            <div className="site-footer-socials" aria-label="Redes sociales">
+              {footerSocials.map(({ label, Icon }) => (
+                <span
+                  key={label}
+                  className="site-footer-social"
+                  title={label}
+                  aria-label={label}
+                >
+                  <Icon size={16} strokeWidth={2.1} />
+                </span>
+              ))}
             </div>
 
             <p className="site-footer-copyright">{copyright}</p>

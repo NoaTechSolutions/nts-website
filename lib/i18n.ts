@@ -300,16 +300,9 @@ export const translations = {
       ],
     },
     footerSection: {
-      eyebrow: "Base digital clara",
-      title: "Diseno web, SEO y estrategia con una base real.",
-      copy:
-        "Creamos sitios web, SEO y sistemas visuales para marcas que necesitan verse mas profesionales, vender con mas claridad y crecer sobre una base digital solida.",
-      ctaLabel: "Iniciar proyecto",
-      emailLabel: "hello@noatechsolutions.com",
-      emailHref:
-        "mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
-      watermark: "NoaTech",
-      copyright: "© NoaTechSolutions. Todos los derechos reservados.",
+      eyebrow: "Soluciones tecnologicas",
+      watermark: "NoaTechSolutions",
+      copyright: "\u00A9 NoaTechSolutions. Todos los derechos reservados.",
       columns: [
         {
           title: "Mapa",
@@ -655,16 +648,9 @@ export const translations = {
       ],
     },
     footerSection: {
-      eyebrow: "Clear digital foundation",
-      title: "Web design, SEO, and strategy built on a real foundation.",
-      copy:
-        "We build websites, SEO systems, and visual brand foundations for businesses that need to look more professional, sell with more clarity, and grow on stronger digital ground.",
-      ctaLabel: "Start your project",
-      emailLabel: "hello@noatechsolutions.com",
-      emailHref:
-        "mailto:hello@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
-      watermark: "NoaTech",
-      copyright: "© NoaTechSolutions. All rights reserved.",
+      eyebrow: "Technology solutions",
+      watermark: "NoaTechSolutions",
+      copyright: "\u00A9 NoaTechSolutions. All rights reserved.",
       columns: [
         {
           title: "Map",
