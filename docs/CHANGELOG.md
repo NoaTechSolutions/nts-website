@@ -1,5 +1,39 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-12] — Sistema responsive 7 breakpoints (NOA-79)
+
+### Responsive tokens
+- Variables de espaciado en `:root`: `--space-section-mobile/tablet/desktop/wide`, `--max-width: 1100px`, `--padding-mobile/tablet/desktop`
+
+### Tipografía fluida
+- H1 (`.hero-title`, `.hero-title-showcase`): `clamp(26px, 5vw, 40px)`
+- H2 (`.section-title`, `.feature-title`, `.cta-title`): `clamp(18px, 3vw, 22px)`
+- H3 (`.service-title`): `clamp(13px, 2vw, 15px)`
+- Body (`.hero-copy`, `.section-copy`, `.service-copy`, etc.): `clamp(14px, 1.5vw, 16px)`
+
+### 7 breakpoints
+- Mobile S (≤374px): 1 columna, padding 20px, sin decoraciones hero
+- Mobile M (375–479px): 1 columna, hero 26px
+- Mobile L (480–767px): 1 columna, hero 30px, isotipo visible
+- Tablet (768–1023px): 2 columnas cards, hero 34px, hamburger
+- Laptop (1024–1279px): 3 columnas, navbar horizontal completo
+- Desktop (1280–1439px): 3 columnas, layout completo
+- Wide (1440px+): max-width centrado, section-space 100px, 4 columnas con `.grid-wide`
+
+### Grid-shell responsive
+- `width: min(var(--max-width), 100%)` con padding por breakpoint
+- Wide: `max-width: var(--max-width)` centrado
+
+### Accesibilidad
+- `prefers-reduced-motion: reduce` global (`animation-duration` + `transition-duration` → 0.01ms)
+- Touch targets mínimo 44×44px en mobile para `.mobile-nav-toggle`, `.header-cta`, botones
+- `NavbarButton` scrolled: 43px → 44px corregido
+
+### Linear
+- Issue `NOA-79` movido a estado **In Review**
+
+---
+
 ## [2026-04-11] — Dark mode completo (NOA-78, sesión 3)
 
 ### Dark mode

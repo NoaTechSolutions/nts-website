@@ -275,7 +275,7 @@ export function NavbarButton({
   const { isScrolled } = useContext(NavbarContext);
 
   const base = isScrolled
-    ? "inline-flex min-h-[43px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-body)] text-[0.92rem] font-medium text-white transition-colors hover:bg-[#f2a11a]"
+    ? "inline-flex min-h-[44px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-body)] text-[0.92rem] font-medium text-white transition-colors hover:bg-[#f2a11a]"
     : "inline-flex min-h-[52px] items-center justify-center rounded-[14px] bg-[#022977] px-6 font-[var(--font-body)] text-[0.95rem] font-medium text-white transition-colors hover:bg-[#15367e]";
 
   const secondary = "border border-[rgba(255,153,0,0.35)] bg-[rgba(255,153,0,0.06)] text-[#ff9900]";
