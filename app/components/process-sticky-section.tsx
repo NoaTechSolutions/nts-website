@@ -214,7 +214,7 @@ export function ProcessStickySection({
                 ))}
               </div>
               <div className="flex items-center justify-between gap-4 border-t border-white/15 pt-4">
-                <p className="m-0 text-[0.82rem] font-extrabold uppercase tracking-[0.22em] text-white/82">
+                <p className="m-0 text-[0.82rem] font-medium uppercase tracking-[0.22em] text-white/82">
                   {cardCtaLabel}
                 </p>
                 <ArrowUpRight
@@ -332,7 +332,7 @@ export function ProcessStickySection({
                     >
                       <div className="flex h-full flex-col items-center">
                         <span
-                          className={`inline-flex min-w-[3.2rem] justify-center rounded-full border px-3.5 py-2 text-[0.82rem] font-extrabold tracking-[0.2em] transition-all duration-200 ${
+                          className={`inline-flex min-w-[3.2rem] justify-center rounded-full border px-3.5 py-2 text-[0.82rem] font-medium tracking-[0.2em] transition-all duration-200 ${
                             isCurrent
                               ? stepBadgeTheme
                               : "border-[#05a5ff]/20 bg-white/80 text-[#0c2d73]"
@@ -357,8 +357,8 @@ export function ProcessStickySection({
                       </div>
                       <div className="min-w-0">
                         <h3
-                          className={`m-0 text-[1.5rem] font-extrabold leading-[1.05] tracking-[-0.04em] ${
-                            isCurrent ? stepTextTheme.title : "text-[#02215f]"
+                          className={`m-0 text-[1.5rem] font-medium leading-[1.05] tracking-[-0.04em] ${
+                            isCurrent ? stepTextTheme.title : "text-[#022977]"
                           }`}
                         >
                           {item.title}

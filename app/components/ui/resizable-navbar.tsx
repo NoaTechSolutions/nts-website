@@ -56,7 +56,7 @@ export function NavBody({ children }: { children: ReactNode }) {
     <header
       className={`mt-3 hidden items-center justify-between transition-[width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
         isScrolled
-          ? "mx-auto w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,33,95,0.10)]"
+          ? "mx-auto w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,41,119,0.10)]"
           : "gap-8 bg-transparent px-0 py-3"
       }`}
     >
@@ -191,10 +191,10 @@ export function NavItems({ items }: { items: NavItem[] }) {
                 }}
                 className={`relative inline-flex items-center gap-2 font-[var(--font-body)] transition-colors ${
                   isScrolled
-                    ? `min-h-[43px] text-[0.92rem] font-bold tracking-[0.02em] ${
+                    ? `min-h-[43px] text-[0.92rem] font-medium tracking-[0.02em] ${
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
-                    : `text-[0.98rem] font-bold tracking-[0.04em] ${
+                    : `text-[0.98rem] font-medium tracking-[0.04em] ${
                         highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                     }`
                 }`}
@@ -215,10 +215,10 @@ export function NavItems({ items }: { items: NavItem[] }) {
                 }}
                 className={`relative inline-flex items-center font-[var(--font-body)] transition-colors ${
                   isScrolled
-                    ? `min-h-[43px] text-[0.92rem] font-bold tracking-[0.02em] ${
+                    ? `min-h-[43px] text-[0.92rem] font-medium tracking-[0.02em] ${
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
-                    : `text-[0.98rem] font-bold tracking-[0.04em] ${
+                    : `text-[0.98rem] font-medium tracking-[0.04em] ${
                         highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                       }`
                 }`}
@@ -232,7 +232,7 @@ export function NavItems({ items }: { items: NavItem[] }) {
                 className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3"
               >
                 <div
-                  className={`rounded-2xl border border-[rgba(5,165,255,0.14)] bg-[#0c2d73]/96 p-3 shadow-[0_18px_48px_rgba(2,33,95,0.20)] backdrop-blur-xl ${
+                  className={`rounded-2xl border border-[rgba(5,165,255,0.14)] bg-[#0c2d73]/96 p-3 shadow-[0_18px_48px_rgba(2,41,119,0.20)] backdrop-blur-xl ${
                     isScrolled ? "" : "ring-1 ring-[rgba(5,165,255,0.08)]"
                   }`}
                 >
@@ -274,8 +274,8 @@ export function NavbarButton({
   const { isScrolled } = useContext(NavbarContext);
 
   const base = isScrolled
-    ? "inline-flex min-h-[43px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-body)] text-[0.92rem] font-semibold text-white transition-colors hover:bg-[#f2a11a]"
-    : "inline-flex min-h-[52px] items-center justify-center rounded-[14px] bg-[#02215f] px-6 font-[var(--font-body)] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#15367e]";
+    ? "inline-flex min-h-[43px] items-center justify-center rounded-[14px] border border-[#90a5cb] bg-[#ff9900] px-4 font-[var(--font-body)] text-[0.92rem] font-medium text-white transition-colors hover:bg-[#f2a11a]"
+    : "inline-flex min-h-[52px] items-center justify-center rounded-[14px] bg-[#022977] px-6 font-[var(--font-body)] text-[0.95rem] font-medium text-white transition-colors hover:bg-[#15367e]";
 
   const secondary = "border border-[rgba(255,153,0,0.35)] bg-[rgba(255,153,0,0.06)] text-[#ff9900]";
 
@@ -300,7 +300,7 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="inline-flex items-center gap-1 rounded-[16px] border border-[#9fb0cf] bg-white/92 p-1 shadow-[0_10px_24px_rgba(2,33,95,0.12)] backdrop-blur-md"
+      className="inline-flex items-center gap-1 rounded-[16px] border border-[#9fb0cf] bg-white/92 p-1 shadow-[0_10px_24px_rgba(2,41,119,0.12)] backdrop-blur-md"
       aria-label="Selector de idioma"
     >
       {options.map((option) => {
@@ -311,10 +311,10 @@ export function LanguageSwitcher() {
             key={option.locale}
             type="button"
             onClick={() => setLocale(option.locale)}
-            className={`inline-flex min-w-[52px] items-center justify-center rounded-[12px] px-3 py-2 text-[0.74rem] font-bold uppercase tracking-[0.08em] transition-colors ${
+            className={`inline-flex min-w-[52px] items-center justify-center rounded-[12px] px-3 py-2 text-[0.74rem] font-medium uppercase tracking-[0.08em] transition-colors ${
               active
                 ? "bg-[#0400f0] text-white"
-                : "text-[#02215f] hover:bg-[rgba(4,0,240,0.08)]"
+                : "text-[#022977] hover:bg-[rgba(4,0,240,0.08)]"
             }`}
           >
             <span>{option.label}</span>
@@ -336,7 +336,7 @@ export function MobileNavHeader({ children }: { children: ReactNode }) {
     <div
       className={`flex items-center justify-between rounded-[18px] px-2 py-2 ${
         isScrolled
-          ? "border border-[#8da3c8] bg-[#c5d2e9] shadow-[0_10px_24px_rgba(2,33,95,0.10)] md:mx-auto md:max-w-[70%]"
+          ? "border border-[#8da3c8] bg-[#c5d2e9] shadow-[0_10px_24px_rgba(2,41,119,0.10)] md:mx-auto md:max-w-[70%]"
           : "bg-transparent"
       }`}
     >
@@ -366,12 +366,12 @@ export function MobileNavToggle({
           ? "border border-[#ffb84d] bg-[#ff9900]"
           : isScrolled
           ? "border border-[#ffb84d] bg-[#ff9900]"
-          : "border border-[rgba(2,33,95,0.12)] bg-white/70"
+          : "border border-[rgba(2,41,119,0.12)] bg-white/70"
       } ${className ?? ""}`.trim()}
     >
-      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "translate-y-[6px] rotate-45" : ""}`} />
-      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "opacity-0" : ""}`} />
-      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#02215f]"} ${isOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#022977]"} ${isOpen ? "translate-y-[6px] rotate-45" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#022977]"} ${isOpen ? "opacity-0" : ""}`} />
+      <span className={`h-[2px] w-4 rounded-full transition ${isOpen || isScrolled ? "bg-white" : "bg-[#022977]"} ${isOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
     </button>
   );
 }
@@ -386,7 +386,7 @@ export function MobileNavContactButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-body)] text-sm font-semibold text-white transition-colors hover:bg-[#15367e]"
+      className="inline-flex h-11 items-center justify-center rounded-[14px] bg-[#0400f0] px-4 font-[var(--font-body)] text-sm font-medium text-white transition-colors hover:bg-[#15367e]"
     >
       {label}
     </button>
@@ -406,7 +406,7 @@ export function MobileNavMenu({
     <div
       className={`relative z-50 overflow-hidden rounded-[22px] transition-all duration-300 ${
         isOpen
-          ? "mt-3 max-h-[34rem] border border-[rgba(5,165,255,0.14)] bg-[#0c2d73] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,33,95,0.24)] md:mx-auto md:w-[70%]"
+          ? "mt-3 max-h-[34rem] border border-[rgba(5,165,255,0.14)] bg-[#0c2d73] p-4 opacity-100 shadow-[0_18px_48px_rgba(2,41,119,0.24)] md:mx-auto md:w-[70%]"
           : "mt-0 max-h-0 bg-transparent p-0 opacity-0"
       }`}
     >
