@@ -1,0 +1,106 @@
+name: CI → Auto-merge to develop
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "fix/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ci:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    outputs:
+      pr_number: ${{ steps.find-pr.outputs.pr_number }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        id: lint
+        run: npm run lint
+
+      - name: Build
+        id: build
+        run: npm run build
+
+      - name: Find associated PR
+        id: find-pr
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pulls } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`,
+              state: 'open',
+              base: 'develop',
+            });
+            const pr = pulls[0];
+            if (pr) {
+              core.setOutput('pr_number', String(pr.number));
+            } else {
+              core.setOutput('pr_number', '');
+            }
+
+  merge:
+    name: Auto-merge PR → develop
+    needs: ci
+    runs-on: ubuntu-latest
+    if: ${{ success() && needs.ci.outputs.pr_number != '' }}
+
+    steps:
+      - name: Merge PR via GitHub API
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: Number('${{ needs.ci.outputs.pr_number }}'),
+              merge_method: 'squash',
+            });
+            console.log('PR #${{ needs.ci.outputs.pr_number }} merged to develop ✅');
+
+  notify-failure:
+    name: Comment failure on PR
+    needs: ci
+    runs-on: ubuntu-latest
+    if: ${{ failure() && needs.ci.outputs.pr_number != '' }}
+
+    steps:
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const logsUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number('${{ needs.ci.outputs.pr_number }}'),
+              body: [
+                '## ❌ CI falló — merge a develop bloqueado',
+                '',
+                '| Check | Estado |',
+                '| ----- | ------ |',
+                '| `npm run lint` | ${{ needs.ci.result == \'failure\' && steps.lint && steps.lint.outcome == \'failure\' && \'❌ Falló\' || \'✅ OK\' }} |',
+                '| `npm run build` | ${{ needs.ci.result == \'failure\' && steps.build && steps.build.outcome == \'failure\' && \'❌ Falló\' || \'✅ OK\' }} |',
+                '',
+                `[Ver logs completos](${logsUrl})`,
+              ].join('\n'),
+            });
