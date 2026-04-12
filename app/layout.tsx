@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Montserrat, Space_Grotesk } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { LanguageProvider } from "./components/language-provider";
+import { ThemeProvider } from "./components/theme-provider";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-});
+const ANTI_FOUC = `(function(){try{var t=localStorage.getItem('ntssign-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -63,15 +60,20 @@ export default function RootLayout({
       lang="es"
       className={cn(
         "h-full scroll-smooth",
-        montserrat.variable,
         spaceGrotesk.variable,
       )}
     >
+      <head>
+        {/* Anti-FOUC: aplica clase dark ANTES de que React hidrate */}
+        <script dangerouslySetInnerHTML={{ __html: ANTI_FOUC }} />
+      </head>
       <body
         suppressHydrationWarning
-        className="min-h-full bg-[var(--color-paper)] text-[var(--color-ink)] antialiased"
+        className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -65,17 +65,17 @@ export function MobileSpeedDial() {
                 setLocale(action.locale);
                 setOpen(false);
               }}
-              className={`absolute right-0 inline-flex h-11 w-11 items-center justify-center rounded-full border shadow-[0_10px_24px_rgba(2,33,95,0.14)] transition-all duration-300 ${
+              className={`absolute right-0 inline-flex h-11 w-11 items-center justify-center rounded-full border shadow-[0_10px_24px_rgba(2,41,119,0.14)] transition-all duration-300 ${
                 active
                   ? "border-[#0400f0] bg-[#0400f0] text-white"
-                  : "border-[rgba(2,33,95,0.26)] bg-white text-[#02215f] shadow-[0_10px_24px_rgba(2,33,95,0.18)]"
+                  : "border-[rgba(2,41,119,0.26)] bg-white text-[#022977] shadow-[0_10px_24px_rgba(2,41,119,0.18)]"
               } ${open ? "pointer-events-auto opacity-100" : "pointer-events-none translate-y-2 opacity-0"}`}
               style={{
                 bottom: open ? `${(index + 1) * 4.15}rem` : "1rem",
                 transitionDelay: open ? `${index * 40}ms` : "0ms",
               }}
             >
-              <span className="text-sm font-bold uppercase tracking-[0.08em]">
+              <span className="text-sm font-medium uppercase tracking-[0.08em]">
                 {action.label}
               </span>
             </button>

@@ -34,7 +34,7 @@ export const LayoutTextFlip = ({
       <motion.span
         layoutId="subtext"
         className={cn(
-          "text-2xl font-bold tracking-tight drop-shadow-lg md:text-4xl",
+          "text-2xl font-medium tracking-tight drop-shadow-lg md:text-4xl",
           textClassName,
         )}
       >
@@ -44,7 +44,7 @@ export const LayoutTextFlip = ({
       <motion.span
         layout
         className={cn(
-          "relative w-fit overflow-hidden rounded-md border border-transparent bg-white px-4 py-2 font-sans text-2xl font-bold tracking-tight text-black shadow-sm ring ring-black/10 shadow-black/10 drop-shadow-lg md:text-4xl",
+          "relative w-fit overflow-hidden rounded-md border border-transparent bg-white px-4 py-2 font-sans text-2xl font-medium tracking-tight text-black shadow-sm ring ring-black/10 shadow-black/10 drop-shadow-lg md:text-4xl",
           wordClassName,
         )}
       >

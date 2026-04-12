@@ -15,7 +15,7 @@ export function PortfolioPageClient() {
   const viewLabel = locale === "es" ? "Ver" : "View";
 
   return (
-    <main className="min-h-screen bg-[var(--color-paper)] px-4 py-16 sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-[var(--bg-page)] px-4 py-16 sm:px-6 lg:px-10">
       <section className="mx-auto flex max-w-7xl flex-col gap-10">
         <div className="flex flex-col gap-6">
           <span className="brand-kicker">Portfolio</span>
@@ -23,7 +23,7 @@ export function PortfolioPageClient() {
             {t.portfolioSection.title}
           </h1>
           <p className="section-copy max-w-3xl">{t.portfolioSection.copy}</p>
-          <p className="section-copy max-w-3xl font-semibold text-[#ff9900]">
+          <p className="section-copy max-w-3xl font-medium text-[#ff9900]">
             {t.portfolioSection.accent}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -40,7 +40,7 @@ export function PortfolioPageClient() {
               href={project.link}
               target="_blank"
               rel="noreferrer"
-              className="group overflow-hidden rounded-[2rem] border border-[#d8e3fb] bg-white shadow-[0_20px_60px_rgba(2,33,95,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(2,33,95,0.16)]"
+              className="group overflow-hidden rounded-[2rem] border border-[#d8e3fb] bg-white shadow-[0_20px_60px_rgba(2,41,119,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(2,41,119,0.16)]"
             >
               <div className="relative aspect-[5/4] overflow-hidden bg-[#edf4ff]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -53,7 +53,7 @@ export function PortfolioPageClient() {
               <div className="flex items-center justify-between gap-4 px-6 py-5">
                 <div className="min-w-0">
                   <h2
-                    className="truncate text-[1.2rem] font-semibold text-[#02215f]"
+                    className="truncate text-[1.2rem] font-medium text-[#022977]"
                     style={{ fontFamily: "var(--font-display-stack)" }}
                   >
                     {project.title}
@@ -62,7 +62,7 @@ export function PortfolioPageClient() {
                     {formatDomain(project.link)}
                   </p>
                 </div>
-                <span className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0400f0]">
+                <span className="text-sm font-medium uppercase tracking-[0.18em] text-[#0400f0]">
                   {viewLabel}
                 </span>
               </div>

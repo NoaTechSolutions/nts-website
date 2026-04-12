@@ -11,6 +11,7 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
+  ThemeToggle,
 } from "./ui/resizable-navbar";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "./language-provider";
@@ -85,7 +86,8 @@ export function ResizableNavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
             <NavbarButton variant="primary">{t.nav.cta}</NavbarButton>
           </div>
         </NavBody>
@@ -130,7 +132,7 @@ export function ResizableNavbarDemo() {
                           current === item.name ? null : item.name,
                         );
                       }}
-                      className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-semibold text-white transition-colors"
+                      className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-medium text-white transition-colors"
                     >
                       <span className="relative flex items-center justify-between pr-6">
                         <span>{item.name}</span>
@@ -166,7 +168,7 @@ export function ResizableNavbarDemo() {
                     key={`mobile-link-${idx}`}
                     href={item.link}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`rounded-xl px-1 py-2 text-base font-semibold transition-colors ${
+                    className={`rounded-xl px-1 py-2 text-base font-medium transition-colors ${
                       idx === 0 ? "text-[#ff9900]" : "text-white"
                     }`}
                   >
@@ -177,6 +179,10 @@ export function ResizableNavbarDemo() {
                 ),
               )}
               <div className="flex w-full flex-col gap-4">
+                <div className="flex items-center justify-between rounded-xl px-1 py-1">
+                  <span className="text-sm text-white/70">Tema</span>
+                  <ThemeToggle />
+                </div>
                 <NavbarButton
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="primary"
