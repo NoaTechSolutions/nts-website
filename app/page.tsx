@@ -27,7 +27,7 @@ import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
-
+import { AuroraText } from "@/components/ui/aurora-text";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 
@@ -103,7 +103,12 @@ export default function Home() {
         {ctaPriceTagLead ? (
           <span className="contact-final-title-prefix">{ctaPriceTagLead}</span>
         ) : null}
-        <span className="contact-final-price-glow">{ctaPriceHighlight}</span>
+        <AuroraText
+          className="contact-final-title-accent"
+          colors={["#ffffff", "#ff9900", "#ffcc00", "#ff6600"]}
+        >
+          {ctaPriceHighlight}
+        </AuroraText>
         {ctaPriceTagTail ? (
           <span className="contact-final-title-suffix">{ctaPriceTagTail}</span>
         ) : null}
@@ -380,12 +385,28 @@ export default function Home() {
           </div>
 
           <div className="contact-final-actions">
-            <a
-              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
-              className="contact-final-primary-button"
+            <MovingBorderButton
+              as="a"
+              href="#contacto"
+              duration={2800}
+              borderRadius="999px"
+              containerClassName="cta-final-moving"
+              borderClassName="cta-final-moving-border"
+              className="cta-final-moving-inner cta-final-moving-primary"
             >
               {t.ctaSection.primary}
-            </a>
+            </MovingBorderButton>
+            <MovingBorderButton
+              as="a"
+              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
+              duration={2800}
+              borderRadius="999px"
+              containerClassName="cta-final-moving"
+              borderClassName="cta-final-moving-border"
+              className="cta-final-moving-inner cta-final-moving-secondary"
+            >
+              {t.ctaSection.secondary}
+            </MovingBorderButton>
           </div>
         </div>
       </section>
