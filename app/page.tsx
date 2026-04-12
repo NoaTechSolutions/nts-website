@@ -21,14 +21,13 @@ import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooter } from "./components/site-footer";
-import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
-import { AuroraText } from "@/components/ui/aurora-text";
+
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 
@@ -104,12 +103,7 @@ export default function Home() {
         {ctaPriceTagLead ? (
           <span className="contact-final-title-prefix">{ctaPriceTagLead}</span>
         ) : null}
-        <AuroraText
-          className="contact-final-title-accent"
-          colors={["#ff9900", "#05a5ff", "#0400f0", "#09215e"]}
-        >
-          {ctaPriceHighlight}
-        </AuroraText>
+        <span className="contact-final-price-glow">{ctaPriceHighlight}</span>
         {ctaPriceTagTail ? (
           <span className="contact-final-title-suffix">{ctaPriceTagTail}</span>
         ) : null}
@@ -118,12 +112,7 @@ export default function Home() {
   ) : hasPriceHighlightInCtaTitle ? (
     <>
       <span className="contact-final-title-line">{ctaTitleLead.trim()}</span>{" "}
-      <AuroraText
-        className="contact-final-title-accent"
-        colors={["#ff9900", "#05a5ff", "#0400f0", "#09215e"]}
-      >
-        {ctaPriceHighlight}
-      </AuroraText>{" "}
+      <span className="contact-final-price-glow">{ctaPriceHighlight}</span>{" "}
       <span className="contact-final-title-line">{ctaTitleTail.trim()}</span>
     </>
   ) : (
@@ -391,7 +380,12 @@ export default function Home() {
           </div>
 
           <div className="contact-final-actions">
-            <ContactForm />
+            <a
+              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
+              className="contact-final-primary-button"
+            >
+              {t.ctaSection.primary}
+            </a>
           </div>
         </div>
       </section>
