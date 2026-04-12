@@ -13,6 +13,7 @@ import {
   useState,
 } from "react";
 import { useLanguage } from "../language-provider";
+import { useTheme } from "../theme-provider";
 import type { Locale } from "@/lib/i18n";
 
 type NavbarContextValue = {
@@ -414,5 +415,49 @@ export function MobileNavMenu({
         {children}
       </div>
     </div>
+  );
+}
+
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      className={`relative inline-flex h-7 w-[3.1rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#05a5ff] ${
+        isDark ? "bg-[#05a5ff]" : "bg-[#022977]"
+      } ${className}`}
+    >
+      {/* Knob */}
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none inline-flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ${
+          isDark ? "translate-x-[1.55rem]" : "translate-x-0.5"
+        }`}
+      >
+        {isDark ? (
+          /* Moon icon */
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" className="text-[#05a5ff]">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        ) : (
+          /* Sun icon */
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-[#022977]">
+            <circle cx="12" cy="12" r="4" />
+            <line x1="12" y1="2" x2="12" y2="4" />
+            <line x1="12" y1="20" x2="12" y2="22" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="2" y1="12" x2="4" y2="12" />
+            <line x1="20" y1="12" x2="22" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        )}
+      </span>
+    </button>
   );
 }

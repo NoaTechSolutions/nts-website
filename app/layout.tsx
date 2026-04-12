@@ -3,6 +3,9 @@ import "./globals.css";
 import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { LanguageProvider } from "./components/language-provider";
+import { ThemeProvider } from "./components/theme-provider";
+
+const ANTI_FOUC = `(function(){try{var t=localStorage.getItem('ntssign-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -60,11 +63,17 @@ export default function RootLayout({
         spaceGrotesk.variable,
       )}
     >
+      <head>
+        {/* Anti-FOUC: aplica clase dark ANTES de que React hidrate */}
+        <script dangerouslySetInnerHTML={{ __html: ANTI_FOUC }} />
+      </head>
       <body
         suppressHydrationWarning
         className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,5 +1,25 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-11] — Dark mode completo (NOA-78, sesión 3)
+
+### Dark mode
+- Anti-FOUC: script inline en `<head>` lee `localStorage('ntssign-theme')` → fallback `prefers-color-scheme` → aplica clase `dark` al `<html>` antes de hydration React
+- `app/components/theme-provider.tsx`: `ThemeProvider` + `useTheme()` con `{ theme, toggleTheme }`, persistencia en `localStorage key ntssign-theme`
+- `ThemeToggle` en `app/components/ui/resizable-navbar.tsx`: track navy/sky, knob blanco, íconos sol/luna SVG, transición 200ms. Exportado como componente independiente
+- Toggle integrado en `resizable-navbar-demo.tsx`: desktop (junto al CTA) + mobile (dentro del menú hamburger)
+- `globals.css` — tokens y componentes:
+  - `--bg-cta-final: #022977` agregado a `:root` (ya existía en `.dark {}`) — CTA final siempre navy
+  - `.page-shell` → `var(--bg-page)` (era `#ffffff` hardcodeado)
+  - `.hero-badge` → `var(--bg-page)` para adaptar al modo
+  - `.hero-copy-showcase` → `var(--text-body)` (eliminado grey `#6a7fa9`, violación DS)
+  - `.contact-final-section` → `var(--bg-cta-final)` (era gradient dark, ahora siempre `#022977`)
+  - Footer: light mode `var(--bg-section)` (#f0f4ff) + dark mode gradient navy; textos con overrides `.dark .site-footer-*` para copyright, column-title, links, socials, watermark
+
+### Linear
+- Issue `NOA-78` movido a estado **In Review**
+
+---
+
 ## [2026-04-11] — Configuración integración Linear (sesión 2)
 
 ### Integración Linear
