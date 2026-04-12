@@ -21,6 +21,7 @@ import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooter } from "./components/site-footer";
+import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import GridDistortion from "./components/ui/grid-distortion";
@@ -390,12 +391,7 @@ export default function Home() {
           </div>
 
           <div className="contact-final-actions">
-            <a
-              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
-              className="contact-final-primary-button"
-            >
-              {t.ctaSection.primary}
-            </a>
+            <ContactForm />
           </div>
         </div>
       </section>

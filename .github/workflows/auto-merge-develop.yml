@@ -15,8 +15,76 @@ permissions:
   pull-requests: write
 
 jobs:
+  ensure-pr:
+    name: Ensure PR exists
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    outputs:
+      pr_number: ${{ steps.ensure.outputs.pr_number }}
+
+    steps:
+      - name: Create or find PR
+        id: ensure
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+
+            // Check for existing PR
+            const { data: pulls } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              base: 'develop',
+              state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              console.log(`PR #${pulls[0].number} already exists`);
+              core.setOutput('pr_number', String(pulls[0].number));
+              return;
+            }
+
+            // Generate title from branch name
+            // feature/NOA-79-responsive-system → feat(NOA-79): responsive system
+            // fix/NOA-80-broken-layout → fix(NOA-80): broken layout
+            const typeRaw = branch.split('/')[0];
+            const type = typeRaw === 'feature' ? 'feat' : typeRaw;
+            const slug = branch.replace(/^(feature|fix)\//, '');
+            const idMatch = slug.match(/^(NOA-\d+)-?/i);
+            const linearId = idMatch ? idMatch[1].toUpperCase() : null;
+            const desc = slug
+              .replace(/^NOA-\d+-?/i, '')
+              .replace(/[-_]/g, ' ')
+              .trim();
+
+            const title = linearId
+              ? `${type}(${linearId}): ${desc}`
+              : `${type}: ${desc}`;
+
+            const bodyLines = ['## Auto-created PR', ''];
+            if (linearId) {
+              bodyLines.push(`Linear: ${linearId}`);
+              bodyLines.push('');
+            }
+            bodyLines.push(`Branch: \`${branch}\` → \`develop\``);
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: branch,
+              base: 'develop',
+              title,
+              body: bodyLines.join('\n'),
+            });
+
+            console.log(`PR #${pr.number} created: ${title}`);
+            core.setOutput('pr_number', String(pr.number));
+
   ci:
     name: Lint & Build
+    needs: [ensure-pr]
+    if: always() && (needs.ensure-pr.result == 'success' || needs.ensure-pr.result == 'skipped')
     runs-on: ubuntu-latest
     outputs:
       pr_number: ${{ steps.get-pr.outputs.pr_number }}
@@ -46,21 +114,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            // pull_request event: number available directly
             if (context.eventName === 'pull_request') {
               core.setOutput('pr_number', String(context.payload.pull_request.number));
               return;
             }
-            // push event: search for an open PR targeting develop
-            const branch = context.ref.replace('refs/heads/', '');
-            const { data: pulls } = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: `${context.repo.owner}:${branch}`,
-              base: 'develop',
-              state: 'open',
-            });
-            core.setOutput('pr_number', pulls[0] ? String(pulls[0].number) : '');
+            // Use the PR from ensure-pr job
+            const prFromEnsure = '${{ needs.ensure-pr.outputs.pr_number }}';
+            core.setOutput('pr_number', prFromEnsure || '');
 
   merge:
     name: Auto-merge PR → develop
