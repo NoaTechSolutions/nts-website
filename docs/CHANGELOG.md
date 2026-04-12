@@ -1,5 +1,35 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-12] — Formulario de contacto con Resend (NOA-80)
+
+### API Route
+- `app/api/contact/route.ts`: POST endpoint con validación Zod (nombre, email, mensaje, honeypot)
+- Rate limiting: Upstash Redis + `@upstash/ratelimit` — max 3 requests por IP cada 24h
+- Resend: email a `hello@noatechsolutions.com` + confirmación automática al usuario
+- Respuestas tipadas: 200/400/429/500 con `ContactResponse` type
+
+### Componente
+- `app/components/contact-form.tsx`: formulario con estados idle/loading/success/error
+- Honeypot anti-spam (campo oculto)
+- Errores inline por campo + banner de error genérico
+- Grid responsive: 1 columna mobile → 2 columnas tablet+
+- Glassmorphism sobre fondo navy (`rgba(255,255,255,0.06)` + `backdrop-filter: blur(12px)`)
+- Submit button amber gradient (DS compliant)
+- i18n completo ES + EN en `lib/i18n.ts`
+
+### Integración
+- `app/page.tsx`: reemplazado `<a mailto>` por `<ContactForm />` en sección contacto
+- `.env.example` creado con todas las keys necesarias
+- `.gitignore`: excepción `!.env.example`
+
+### Dependencias
+- `resend`, `zod`, `@upstash/redis`, `@upstash/ratelimit`
+
+### Linear
+- Issue `NOA-80` movido a estado **Done**
+
+---
+
 ## [2026-04-11] — Dark mode completo (NOA-78, sesión 3)
 
 ### Dark mode
