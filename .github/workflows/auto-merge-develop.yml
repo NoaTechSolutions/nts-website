@@ -5,6 +5,10 @@ on:
     branches:
       - "feature/**"
       - "fix/**"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
 
 permissions:
   contents: write
@@ -15,7 +19,7 @@ jobs:
     name: Lint & Build
     runs-on: ubuntu-latest
     outputs:
-      pr_number: ${{ steps.find-pr.outputs.pr_number }}
+      pr_number: ${{ steps.get-pr.outputs.pr_number }}
 
     steps:
       - name: Checkout
@@ -31,32 +35,32 @@ jobs:
         run: npm ci
 
       - name: Lint
-        id: lint
         run: npm run lint
 
       - name: Build
-        id: build
         run: npm run build
 
-      - name: Find associated PR
-        id: find-pr
+      - name: Resolve PR number
+        id: get-pr
         if: always()
         uses: actions/github-script@v7
         with:
           script: |
+            // pull_request event: number available directly
+            if (context.eventName === 'pull_request') {
+              core.setOutput('pr_number', String(context.payload.pull_request.number));
+              return;
+            }
+            // push event: search for an open PR targeting develop
+            const branch = context.ref.replace('refs/heads/', '');
             const { data: pulls } = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`,
-              state: 'open',
+              head: `${context.repo.owner}:${branch}`,
               base: 'develop',
+              state: 'open',
             });
-            const pr = pulls[0];
-            if (pr) {
-              core.setOutput('pr_number', String(pr.number));
-            } else {
-              core.setOutput('pr_number', '');
-            }
+            core.setOutput('pr_number', pulls[0] ? String(pulls[0].number) : '');
 
   merge:
     name: Auto-merge PR → develop
@@ -69,13 +73,14 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const pr = Number('${{ needs.ci.outputs.pr_number }}');
             await github.rest.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: Number('${{ needs.ci.outputs.pr_number }}'),
+              pull_number: pr,
               merge_method: 'squash',
             });
-            console.log('PR #${{ needs.ci.outputs.pr_number }} merged to develop ✅');
+            console.log(`PR #${pr} merged to develop ✅`);
 
   notify-failure:
     name: Comment failure on PR
@@ -88,19 +93,15 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const pr = Number('${{ needs.ci.outputs.pr_number }}');
             const logsUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: Number('${{ needs.ci.outputs.pr_number }}'),
+              issue_number: pr,
               body: [
                 '## ❌ CI falló — merge a develop bloqueado',
                 '',
-                '| Check | Estado |',
-                '| ----- | ------ |',
-                '| `npm run lint` | ${{ needs.ci.result == \'failure\' && steps.lint && steps.lint.outcome == \'failure\' && \'❌ Falló\' || \'✅ OK\' }} |',
-                '| `npm run build` | ${{ needs.ci.result == \'failure\' && steps.build && steps.build.outcome == \'failure\' && \'❌ Falló\' || \'✅ OK\' }} |',
-                '',
-                `[Ver logs completos](${logsUrl})`,
+                '[Ver logs completos](' + logsUrl + ')',
               ].join('\n'),
             });
