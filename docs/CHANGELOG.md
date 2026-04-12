@@ -1,5 +1,20 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-11] — Configuración integración Linear (sesión 2)
+
+### Integración Linear
+- Instalado `@linear/sdk` v81
+- Creado `lib/linear.ts` con funciones: `createIssue`, `updateIssueStatus`, `addComment`, `getTeamIssues`
+- Creado `lib/linear-config.ts` con `TEAM_ID` y `PROJECT_ID` del proyecto `noatechsolutions-web`
+- Creados scripts: `linear-setup.ts`, `linear-done.ts`, `linear-move.ts`
+- Agregados scripts en `package.json`: `linear:setup`, `linear:done`, `linear:move`
+- Proyecto `noatechsolutions-web` creado en Linear bajo el workspace NoaTechSolutions
+- Issue `NOA-77` creado en Linear: "Limpieza inicial y sync design system" → estado Done, labels design + infra
+- Labels `design` (#0400f0) e `infra` (#ff9900) creados en el team NoaTechSolutions [NOA]
+- Fix: env loader en scripts soporta UTF-16 LE (Windows) y UTF-8
+
+---
+
 ## [2026-04-11] — Limpieza inicial y sync design system (NTS-001)
 
 ### Eliminados

@@ -6,10 +6,14 @@
     "dev": "next dev --port 3006",
     "build": "next build",
     "start": "next start --port 3006",
-    "lint": "eslint"
+    "lint": "eslint",
+    "linear:setup": "npx tsx scripts/linear-setup.ts",
+    "linear:done": "npx tsx scripts/linear-done.ts",
+    "linear:move": "npx tsx scripts/linear-move.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
+    "@linear/sdk": "^81.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.14.2",
