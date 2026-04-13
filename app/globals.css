@@ -977,7 +977,7 @@ a {
   justify-content: center;
   min-height: 3.4rem;
   padding: 14px 40px;
-  border: none;
+  border: 2px solid #ff9900;
   border-radius: 8px;
   background: #ff9900;
   color: #ffffff;
@@ -992,6 +992,7 @@ a {
 
 .cta-final-moving-amber:hover {
   background: #cc7a00;
+  border-color: #cc7a00;
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
 }
 
