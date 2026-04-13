@@ -387,25 +387,14 @@ export default function Home() {
           <div className="contact-final-actions">
             <MovingBorderButton
               as="a"
-              href="#contacto"
-              duration={2800}
-              borderRadius="999px"
-              containerClassName="cta-final-moving"
-              borderClassName="cta-final-moving-border"
-              className="cta-final-moving-inner cta-final-moving-primary"
-            >
-              {t.ctaSection.primary}
-            </MovingBorderButton>
-            <MovingBorderButton
-              as="a"
               href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
               duration={2800}
-              borderRadius="999px"
+              borderRadius="8px"
               containerClassName="cta-final-moving"
-              borderClassName="cta-final-moving-border"
-              className="cta-final-moving-inner cta-final-moving-secondary"
+              borderClassName="cta-final-moving-border-white"
+              className="cta-final-moving-amber"
             >
-              {t.ctaSection.secondary}
+              {t.ctaSection.primary}
             </MovingBorderButton>
           </div>
         </div>
