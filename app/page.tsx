@@ -385,27 +385,17 @@ export default function Home() {
           </div>
 
           <div className="contact-final-actions">
-            <a
+            <MovingBorderButton
+              as="a"
               href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
-              className="contact-final-primary-button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#ff9900",
-                border: "2px solid #ff9900",
-                color: "#ffffff",
-                fontWeight: 500,
-                fontSize: "15px",
-                padding: "14px 40px",
-                borderRadius: "8px",
-                textDecoration: "none",
-                boxShadow: "0 0 30px rgba(255,153,0,0.5)",
-                transition: "all 0.2s ease",
-              }}
+              duration={2800}
+              borderRadius="1.75rem"
+              containerClassName="mid-cta-button-moving"
+              borderClassName="mid-cta-button-moving-border"
+              className="mid-cta-button-inner contact-final-primary-button"
             >
               {t.ctaSection.primary}
-            </a>
+            </MovingBorderButton>
           </div>
         </div>
       </section>
