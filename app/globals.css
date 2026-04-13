@@ -964,40 +964,39 @@ a {
   padding: 1px;
 }
 
-.cta-final-moving-border {
+.cta-final-moving-border-white {
   height: 5rem;
   width: 5rem;
-  background: radial-gradient(rgba(255, 153, 0, 1) 34%, rgba(255, 153, 0, 0) 68%);
+  background: radial-gradient(rgba(255, 255, 255, 1) 34%, rgba(255, 255, 255, 0) 68%);
   opacity: 1;
 }
 
-.cta-final-moving-inner {
+.cta-final-moving-amber {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 3.4rem;
-  padding-inline: 1.7rem;
-  border-radius: 999px;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 8px;
+  background: #ff9900;
+  color: #ffffff;
   font-family: var(--font-body-stack), sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  transition: background 180ms ease, box-shadow 180ms ease;
 }
 
-.cta-final-moving-primary {
-  background: linear-gradient(180deg, #ffad1f 0%, #ff9900 100%);
-  color: #ffffff;
-}
-
-.cta-final-moving-secondary {
-  background: transparent;
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
+.cta-final-moving-amber:hover {
+  background: #cc7a00;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
 }
 
 .cta-final-moving > div:last-child {
-  border-color: rgba(255, 153, 0, 0.72);
+  border-color: rgba(255, 255, 255, 0.35);
   background: transparent;
   backdrop-filter: none;
 }
