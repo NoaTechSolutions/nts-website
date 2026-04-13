@@ -326,17 +326,25 @@ export default function Home() {
             <p className="section-copy mid-cta-body">{t.midCtaSection.copy}</p>
 
             <div className="mid-cta-actions">
-              <MovingBorderButton
-                as="a"
-                href="#contacto"
-                duration={2800}
-                borderRadius="1.75rem"
-                containerClassName="mid-cta-button-moving"
-                borderClassName="mid-cta-button-moving-border"
-                className="mid-cta-button-inner"
-              >
-                {t.midCtaSection.primary}
-              </MovingBorderButton>
+              <a href="#contacto" className="btn-cta-navy">
+                <span className="btn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span className="btn-text-idle">{t.midCtaSection.primary}</span>
+                <span className="btn-text-hover">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                    <polyline points="20 12 20 22 4 22 4 12" />
+                    <rect x="2" y="7" width="20" height="5" />
+                    <line x1="12" y1="22" x2="12" y2="7" />
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                  </svg>
+                  ¡Vamos allá!
+                </span>
+              </a>
             </div>
           </div>
         </section>
@@ -385,17 +393,29 @@ export default function Home() {
           </div>
 
           <div className="contact-final-actions">
-            <MovingBorderButton
-              as="a"
-              href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web"
-              duration={2800}
-              borderRadius="8px"
-              containerClassName="cta-final-moving"
-              borderClassName="cta-final-moving-border-white"
-              className="cta-final-moving-amber"
-            >
-              {t.ctaSection.primary}
-            </MovingBorderButton>
+            <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
+              <span className="btn-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
+                </svg>
+              </span>
+              <span className="btn-text-idle">{t.ctaSection.primary}</span>
+              <span className="btn-text-hover">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <polyline points="20 12 20 22 4 22 4 12" />
+                  <rect x="2" y="7" width="20" height="5" />
+                  <line x1="12" y1="22" x2="12" y2="7" />
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                </svg>
+                ¡Vamos allá!
+              </span>
+            </a>
+            <div className="btn-cta-ghost-navy">
+              <div className="btn-ghost-orb-white" />
+              <a href="#contacto" className="btn-ghost-white-inner">{t.ctaSection.secondary}</a>
+            </div>
           </div>
         </div>
       </section>
