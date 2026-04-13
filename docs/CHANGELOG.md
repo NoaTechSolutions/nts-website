@@ -1,5 +1,39 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-12] — Sistema completo de botones (NOA-117)
+
+### Button System CSS (`globals.css`)
+- 7 tipos de botón: `btn-body-primary`, `btn-body-amber`, `btn-body-ghost`, `btn-cta-navy`, `btn-cta-ghost-navy`, `btn-body-electric`, `btn-nav-primary`, `btn-nav-ghost`
+- Efecto 3D press (translateY + box-shadow) en todos los tipos
+- `btn-body-primary`: anillo pulsante idle + text swap hover (idle → hover con ícono)
+- `btn-cta-navy`: glow pulse amber + text swap hover (flecha → regalo)
+- `btn-body-ghost` / `btn-cta-ghost-navy`: orb navy/blanco orbitando el borde
+- 3 keyframes: `btn-ring-pulse`, `btn-orbit`, `btn-glow-pulse`
+- Mobile: full-width en `≤767px`
+- Dark mode: primary → sky `#05a5ff`, ghost → orb sky, nav → sky
+
+### Componentes reutilizables
+- `app/components/ui/btn-primary-hero.tsx` — `BtnPrimaryHero`: desktop `<a>` + mobile `HoverBorderGradient`
+- `app/components/ui/btn-ghost-moving.tsx` — `BtnGhostMoving`: `MovingBorderButton` con orb amber
+
+### page.tsx
+- Mid-CTA: `MovingBorderButton` → `btn-cta-navy` con text swap (flecha → regalo + "¡Vamos allá!")
+- Contact-final: `MovingBorderButton` → `btn-cta-navy` + `btn-cta-ghost-navy` secundario
+
+### Correcciones visuales previas (NOA-105, NOA-106, NOA-107, NOA-108)
+- Precio $299: `AuroraText` con colores `#ffffff, #ff9900, #ffcc00, #ff6600`
+- Pills CTA: `color: #ff9900`, `background: rgba(255,153,0,0.15)`, iconos amber
+- Línea azul entre secciones: `.section-divider` → `border-top: none`
+- Footer: fondo `#0c1e4a`, textos blancos, socials bordes blancos, watermark sutil
+
+### Documentación
+- `docs/design-system.md`: sección 3.1 "Sistema de botones" con tabla de 8 tipos + estructuras HTML
+
+### Linear
+- Issue `NOA-117` movido a estado **Done**
+
+---
+
 ## [2026-04-12] — Formulario de contacto con Resend (NOA-80)
 
 ### API Route
