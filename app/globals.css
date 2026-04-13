@@ -1027,11 +1027,9 @@ a {
 }
 
 .contact-final-primary-button:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(180deg, #ffb73b 0%, #f39a00 100%);
-  box-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
-    0 20px 38px rgba(255, 153, 0, 0.34);
+  background: #cc7a00 !important;
+  border-color: #cc7a00 !important;
+  box-shadow: 0 0 50px rgba(255, 153, 0, 0.7) !important;
 }
 
 /* ── Contact Form (NOA-80) ────────────────────────────── */
