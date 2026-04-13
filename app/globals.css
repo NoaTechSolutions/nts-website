@@ -1092,6 +1092,8 @@ a {
 .btn-body-primary .btn-text-idle {
   display: inline-flex;
   align-items: center;
+  transform: translateY(0);
+  opacity: 1;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
 }
 .btn-body-primary:hover .btn-text-idle {
@@ -1246,6 +1248,35 @@ a {
   transform: translateY(3px);
   animation: none;
   box-shadow: 0 1px 0 #b36b00;
+}
+.btn-cta-navy .btn-text-idle {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+  transform: translateY(0);
+  opacity: 1;
+}
+.btn-cta-navy:hover .btn-text-idle {
+  transform: translateY(-130%);
+  opacity: 0;
+}
+.btn-cta-navy .btn-text-hover {
+  position: absolute;
+  left: 54px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  transform: translateY(130%);
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+  white-space: nowrap;
+  padding-right: 4px;
+}
+.btn-cta-navy:hover .btn-text-hover {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .btn-cta-ghost-navy {
