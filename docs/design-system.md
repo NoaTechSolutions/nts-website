@@ -177,6 +177,40 @@ background: rgba(255,255,255,0.15);
 
 ---
 
+## 3.1 Sistema de botones — Clases CSS
+
+| Clase | Color | Efecto | Contexto |
+|---|---|---|---|
+| `.btn-body-primary` | Navy `#022977` | 3D press + anillo idle + text swap hover | Secciones light (hero, body) |
+| `.btn-body-amber` | Amber `#ff9900` | 3D press | Secundario sobre fondos claros |
+| `.btn-body-ghost` | Outline navy | Orb navy orbitando + 3D press | Terciario sobre fondos claros |
+| `.btn-cta-navy` | Amber `#ff9900` | Glow pulse + 3D press + text swap hover | Sobre fondo navy (CTA, mid-CTA) |
+| `.btn-cta-ghost-navy` | Outline blanco | Orb blanco orbitando | Secundario sobre fondo navy |
+| `.btn-body-electric` | Electric `#0400f0` | 3D press | Acción especial / destacada |
+| `.btn-nav-primary` | Navy pill | 3D press, hover → electric | Navbar CTA |
+| `.btn-nav-ghost` | Texto navy | Hover bg sutil | Navbar links secundarios |
+
+Dark mode: `.btn-body-primary` → sky `#05a5ff`, `.btn-body-ghost` → orb sky, `.btn-nav-primary` → sky.
+
+Estructura `btn-body-primary` y `btn-cta-navy` con text swap:
+```html
+<a class="btn-cta-navy">
+  <span class="btn-icon"><svg>→</svg></span>
+  <span class="btn-text-idle">Texto visible</span>
+  <span class="btn-text-hover"><svg>regalo</svg> Texto hover</span>
+</a>
+```
+
+Estructura `btn-body-ghost` / `btn-cta-ghost-navy`:
+```html
+<div class="btn-body-ghost">
+  <div class="btn-ghost-orb"></div>
+  <button class="btn-ghost-inner">Texto</button>
+</div>
+```
+
+---
+
 ## 4. Componentes
 
 ### Navbar
