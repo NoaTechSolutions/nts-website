@@ -412,10 +412,6 @@ export default function Home() {
                 ¡Vamos allá!
               </span>
             </a>
-            <div className="btn-cta-ghost-navy">
-              <div className="btn-ghost-orb-white" />
-              <a href="#contacto" className="btn-ghost-white-inner">{t.ctaSection.secondary}</a>
-            </div>
           </div>
         </div>
       </section>

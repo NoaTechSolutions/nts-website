@@ -1091,29 +1091,36 @@ a {
   opacity: 0;
 }
 .btn-body-primary .btn-text-idle {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
+  transform: translateY(0);
+  opacity: 1;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+  will-change: transform;
 }
 .btn-body-primary:hover .btn-text-idle {
-  transform: translateY(-130%);
+  transform: translateY(-200%);
   opacity: 0;
 }
 .btn-body-primary .btn-text-hover {
   position: absolute;
+  inset: 0;
   left: 54px;
-  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
-  transform: translateY(130%);
+  gap: 8px;
+  transform: translateY(200%);
   opacity: 0;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 12px;
+  z-index: 2;
+  will-change: transform;
 }
 .btn-body-primary:hover .btn-text-hover {
   transform: translateY(0);
@@ -1250,6 +1257,42 @@ a {
   transform: translateY(3px);
   animation: none;
   box-shadow: 0 1px 0 #b36b00;
+}
+.btn-cta-navy .btn-text-idle {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+  will-change: transform;
+}
+.btn-cta-navy:hover .btn-text-idle {
+  transform: translateY(-200%);
+  opacity: 0;
+}
+.btn-cta-navy .btn-text-hover {
+  position: absolute;
+  inset: 0;
+  left: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  transform: translateY(200%);
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 12px;
+  z-index: 2;
+  will-change: transform;
+}
+.btn-cta-navy:hover .btn-text-hover {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .btn-cta-ghost-navy {
