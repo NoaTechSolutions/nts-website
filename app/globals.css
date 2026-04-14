@@ -1196,6 +1196,7 @@ a {
   margin-top: -35px;
   margin-left: -35px;
   pointer-events: none;
+  z-index: 0;
 }
 .btn-body-ghost .btn-ghost-inner {
   display: inline-flex;
@@ -1242,7 +1243,6 @@ a {
   font-weight: 500;
   cursor: pointer;
   min-height: 52px;
-  min-width: 260px;
   overflow: hidden;
   text-decoration: none;
   animation: btn-glow-pulse 2.5s ease-in-out infinite;
@@ -1274,8 +1274,12 @@ a {
 }
 .btn-cta-navy .btn-text-hover {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
   left: 54px;
+  right: 12px;
+  width: max-content;
+  max-width: calc(100% - 66px);
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -1286,7 +1290,6 @@ a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 12px;
   z-index: 2;
   will-change: transform;
 }
@@ -1448,16 +1451,26 @@ a {
 @media (max-width: 767px) {
   .btn-body-primary,
   .btn-body-amber,
-  .btn-body-electric,
-  .btn-cta-navy {
+  .btn-body-electric {
     width: 100%;
     justify-content: center;
   }
-  .btn-body-ghost,
+  .btn-cta-navy {
+    width: auto;
+    justify-content: flex-start;
+    align-self: center;
+  }
+  .btn-body-ghost {
+    width: auto;
+    align-self: center;
+  }
   .btn-cta-ghost-navy {
     width: 100%;
   }
-  .btn-body-ghost .btn-ghost-inner,
+  .btn-body-ghost .btn-ghost-inner {
+    min-width: 180px;
+    justify-content: center;
+  }
   .btn-cta-ghost-navy .btn-ghost-white-inner {
     width: 100%;
     justify-content: center;
@@ -2337,7 +2350,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .site-footer-section {
     padding: 0;
   }
@@ -2345,24 +2358,27 @@ a {
   .site-footer-shell {
     width: 100%;
     min-height: 0;
-    padding: 1.7rem 1rem 5.4rem;
+    padding: 3rem 1rem 2rem;
   }
 
   .site-footer-divider {
-    margin-bottom: 1.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .site-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1.5rem;
   }
 
   .site-footer-brand {
-    gap: 1.15rem;
+    grid-column: 1 / -1;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
-  .site-footer-brand-lockup {
-    gap: 0.8rem;
-  }
-
-  .site-footer-logo-mark {
-    width: 3.1rem;
-    height: 3.1rem;
+  .site-footer-logo-image {
+    height: 2.5rem;
   }
 
   .site-footer-socials {
@@ -2375,8 +2391,23 @@ a {
   }
 
   .site-footer-columns {
+    grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.4rem 1rem;
+    gap: 1.5rem 1.5rem;
+  }
+
+  .site-footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .site-footer-copyright {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+    max-width: none;
   }
 
   .site-footer-watermark {
@@ -2385,20 +2416,6 @@ a {
     line-height: 0.8;
     letter-spacing: -0.11em;
     transform: scaleX(0.92);
-  }
-}
-
-@media (max-width: 560px) {
-  .site-footer-columns {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .site-footer-watermark {
-    left: 1rem;
-    right: 1rem;
-    text-align: left;
-    font-size: clamp(2.6rem, 12vw, 3.6rem);
-    transform: none;
   }
 }
 
