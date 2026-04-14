@@ -466,9 +466,12 @@ export function NavFloatingControls() {
   const { isScrolled } = useContext(NavbarContext);
   if (!isScrolled) return null;
   return (
-    <div className="fixed left-4 top-4 z-50 flex items-center gap-2">
-      <ThemeToggle />
+    <div
+      className="hidden md:flex fixed flex-col items-end gap-2 z-50"
+      style={{ top: "0.9rem", right: "1rem" }}
+    >
       <LanguageSwitcher />
+      <ThemeToggle />
     </div>
   );
 }
@@ -477,9 +480,8 @@ export function NavInlineControls() {
   const { isScrolled } = useContext(NavbarContext);
   if (isScrolled) return null;
   return (
-    <div className="flex items-center gap-3">
+    <div className="hidden md:flex items-center gap-3">
       <ThemeToggle />
-      <LanguageSwitcher />
     </div>
   );
 }
