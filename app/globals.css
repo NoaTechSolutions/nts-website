@@ -1466,6 +1466,201 @@ a {
 
 /* === END BUTTON SYSTEM === */
 
+/* === MOBILE FAB (NOA-121) === */
+.mobile-fab-root {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  width: 56px;
+  height: 56px;
+}
+
+.mobile-fab-main {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #ff9900;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(255, 153, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mobile-fab-main:active {
+  transform: scale(0.94);
+}
+.mobile-fab-main.is-open {
+  transform: rotate(45deg);
+}
+
+.mobile-fab-burger {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 16px;
+}
+.mobile-fab-burger span {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+}
+.mobile-fab-burger span:nth-child(1) { top: 2px; }
+.mobile-fab-burger span:nth-child(2) { top: 7px; }
+.mobile-fab-burger span:nth-child(3) { top: 12px; }
+
+.mobile-fab-main.is-open .mobile-fab-burger span:nth-child(1) {
+  transform: translateY(5px) rotate(90deg);
+}
+.mobile-fab-main.is-open .mobile-fab-burger span:nth-child(2) {
+  opacity: 0;
+}
+.mobile-fab-main.is-open .mobile-fab-burger span:nth-child(3) {
+  transform: translateY(-5px) rotate(0deg);
+  opacity: 0;
+}
+
+.mobile-fab-item {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #022977;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(2, 41, 119, 0.3);
+  opacity: 0;
+  transform: translateY(0);
+  pointer-events: none;
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.28s;
+}
+.dark .mobile-fab-item {
+  background: #05a5ff;
+  color: #00183a;
+}
+.mobile-fab-item-1.is-open {
+  opacity: 1;
+  transform: translateY(-60px);
+  pointer-events: auto;
+  transition-delay: 0ms;
+}
+.mobile-fab-item-2.is-open {
+  opacity: 1;
+  transform: translateY(-120px);
+  pointer-events: auto;
+  transition-delay: 80ms;
+}
+
+/* === END MOBILE FAB === */
+
+/* === PAGE LOADER (NOA-121) === */
+.page-loader-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.page-loader-half {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  background: #ffffff;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 9999;
+}
+.page-loader-half-top {
+  top: 0;
+  transform: translateY(0);
+}
+.page-loader-half-bottom {
+  bottom: 0;
+  transform: translateY(0);
+}
+.page-loader-root.is-opening .page-loader-half-top {
+  transform: translateY(-100%);
+}
+.page-loader-root.is-opening .page-loader-half-bottom {
+  transform: translateY(100%);
+}
+
+.page-loader-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: opacity 0.3s ease;
+}
+.page-loader-root.is-opening .page-loader-center {
+  opacity: 0;
+}
+
+.page-loader-logo {
+  width: 280px;
+  height: auto;
+  opacity: 0;
+  animation: loader-logo-in 0.3s ease forwards;
+}
+
+@keyframes loader-logo-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.page-loader-bar-track {
+  width: 280px;
+  height: 3px;
+  background: rgba(2, 41, 119, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.page-loader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #022977, #0400f0, #05a5ff);
+  border-radius: 2px;
+  animation: loader-bar-fill 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards,
+    loader-bar-glow 0.3s ease 1.9s;
+  box-shadow: 0 0 0 rgba(4, 0, 240, 0);
+}
+
+@keyframes loader-bar-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes loader-bar-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(4, 0, 240, 0); }
+  50% { box-shadow: 0 0 16px rgba(4, 0, 240, 0.7); }
+}
+
+/* === END PAGE LOADER === */
+
 /* ── Contact Form (NOA-80) ────────────────────────────── */
 .contact-form {
   position: relative;

@@ -11,7 +11,6 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-  ThemeToggle,
   NavFloatingControls,
   NavInlineControls,
 } from "./ui/resizable-navbar";
@@ -182,10 +181,6 @@ export function ResizableNavbarDemo() {
                 ),
               )}
               <div className="flex w-full flex-col gap-4">
-                <div className="flex items-center justify-between rounded-xl px-1 py-1">
-                  <span className="text-sm text-white/70">Tema</span>
-                  <ThemeToggle />
-                </div>
                 <NavbarButton
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="primary"
