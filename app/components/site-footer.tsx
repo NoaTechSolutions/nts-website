@@ -85,8 +85,6 @@ export function SiteFooter({
                 </span>
               ))}
             </div>
-
-            <p className="site-footer-copyright">{copyright}</p>
           </div>
 
           <div className="site-footer-columns">
@@ -104,6 +102,8 @@ export function SiteFooter({
               </div>
             ))}
           </div>
+
+          <p className="site-footer-copyright">{copyright}</p>
         </div>
 
         <div className="site-footer-watermark" aria-hidden="true">
