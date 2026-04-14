@@ -481,6 +481,7 @@ export function NavInlineControls() {
   if (isScrolled) return null;
   return (
     <div className="hidden md:flex items-center gap-3">
+      <LanguageSwitcher />
       <ThemeToggle />
     </div>
   );

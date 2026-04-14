@@ -22,7 +22,6 @@ import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooter } from "./components/site-footer";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
-import { LanguageSwitcher } from "./components/ui/resizable-navbar";
 import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -140,9 +139,6 @@ export default function Home() {
       <MobileSpeedDial />
 
       <div id="home" className="grid-shell section-space">
-        <div className="page-language-switcher hidden md:block">
-          <LanguageSwitcher />
-        </div>
         <ResizableNavbarDemo />
 
         <section className="hero-showcase">
