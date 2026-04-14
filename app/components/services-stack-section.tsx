@@ -79,9 +79,12 @@ function ServicesStackShellContent({
           />
         </div>
         <p className="section-copy">{copy}</p>
-        <a href="#proceso" className="services-stack-cta">
-          {cta}
-        </a>
+        <div className="btn-body-ghost">
+          <div className="btn-ghost-orb" />
+          <a href="#proceso" className="btn-ghost-inner">
+            {cta}
+          </a>
+        </div>
       </div>
 
       <div className="services-stack-stage" style={{ opacity: stageOpacity }}>

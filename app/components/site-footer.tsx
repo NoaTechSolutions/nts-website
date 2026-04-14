@@ -64,21 +64,14 @@ export function SiteFooter({
 
         <div className="site-footer-grid">
           <div className="site-footer-brand">
-            <div className="site-footer-brand-lockup">
-              <span className="site-footer-logo-mark" aria-hidden="true">
-                <Image
-                  src="/noatechsolutions-logo-mark-white.png"
-                  alt=""
-                  width={96}
-                  height={44}
-                  className="site-footer-logo-image"
-                />
-              </span>
-
-              <div className="site-footer-brand-copy">
-                <p className="site-footer-eyebrow">{eyebrow}</p>
-              </div>
-            </div>
+            <Image
+              src="/noatechsolutions-logo-mark-white.png"
+              alt="NoaTechSolutions"
+              width={192}
+              height={88}
+              className="site-footer-logo-image"
+            />
+            <p className="site-footer-eyebrow">{eyebrow}</p>
 
             <div className="site-footer-socials" aria-label="Redes sociales">
               {footerSocials.map(({ label, Icon }) => (
