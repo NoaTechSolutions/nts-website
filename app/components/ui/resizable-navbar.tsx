@@ -464,15 +464,16 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 
 export function NavFloatingControls() {
   const { isScrolled } = useContext(NavbarContext);
-  if (!isScrolled) return null;
+  const state = isScrolled ? "is-scrolled" : "is-normal";
   return (
-    <div
-      className="hidden md:flex fixed flex-col items-end gap-2 z-50"
-      style={{ top: "0.9rem", right: "1rem" }}
-    >
-      <LanguageSwitcher />
-      <ThemeToggle />
-    </div>
+    <>
+      <div className={`nav-float-lang ${state}`}>
+        <LanguageSwitcher />
+      </div>
+      <div className={`nav-float-theme ${state}`}>
+        <ThemeToggle />
+      </div>
+    </>
   );
 }
 
