@@ -1106,21 +1106,22 @@ a {
 }
 .btn-body-primary .btn-text-hover {
   position: absolute;
-  inset: 0;
-  left: 54px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
   transform: translateY(200%);
   opacity: 0;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 12px;
   z-index: 2;
   will-change: transform;
+  padding: 0 12px;
 }
 .btn-body-primary:hover .btn-text-hover {
   transform: translateY(0);
@@ -1233,6 +1234,8 @@ a {
   font-weight: 500;
   cursor: pointer;
   min-height: 52px;
+  min-width: fit-content;
+  width: auto;
   overflow: hidden;
   text-decoration: none;
   animation: btn-glow-pulse 2.5s ease-in-out infinite;
@@ -1266,22 +1269,20 @@ a {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 54px;
-  right: 12px;
-  width: max-content;
-  max-width: calc(100% - 66px);
+  left: 0;
+  right: 0;
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
   transform: translateY(200%);
   opacity: 0;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   z-index: 2;
   will-change: transform;
+  padding: 0 12px;
 }
 .btn-cta-navy:hover .btn-text-hover {
   transform: translateY(0);
@@ -1453,21 +1454,11 @@ a {
     align-items: center;
     gap: 12px;
     padding: 12px 24px 12px 10px;
-    justify-content: flex-start;
     align-self: center;
   }
   .btn-cta-navy .btn-icon {
     display: inline-flex !important;
     flex-shrink: 0;
-  }
-  .btn-cta-navy .btn-text-hover {
-    left: 52px;
-    right: 8px;
-    gap: 10px;
-    justify-content: flex-start;
-    padding: 0;
-    max-width: calc(100% - 60px);
-    width: auto;
   }
   .btn-body-primary .btn-text-hover {
     left: 0;
@@ -2477,26 +2468,41 @@ a {
     display: none;
   }
 
+  .site-footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+  }
+
   .site-footer-watermark {
+    order: 1;
     position: static;
     left: auto;
     right: auto;
     bottom: auto;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
-    font-size: 1.4rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: clamp(3.5rem, 18vw, 6rem);
     font-weight: 500;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    color: rgba(255, 255, 255, 0.12);
+    letter-spacing: -0.08em;
+    line-height: 0.9;
+    color: rgba(255, 255, 255, 0.06);
     text-align: center;
-    transform: none;
-    white-space: normal;
+    transform: scaleX(0.9);
+    transform-origin: center;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
   }
 
   .site-footer-copyright-brand {
-    margin-top: 6px;
+    order: 2;
+    margin: 0;
     padding: 0 1rem 1rem;
     font-size: 11px;
     color: rgba(255, 255, 255, 0.35);
