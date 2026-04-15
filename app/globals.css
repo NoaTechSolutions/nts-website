@@ -1168,35 +1168,22 @@ a {
   position: relative;
   display: inline-flex;
   border-radius: 8px;
-  padding: 1.5px;
   overflow: hidden;
   cursor: pointer;
-  filter: drop-shadow(0 4px 0 rgba(2, 41, 119, 0.15));
-  transition: filter 0.12s, transform 0.12s;
   text-decoration: none;
+  box-shadow: 0 4px 0 rgba(2, 41, 119, 0.15);
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 .btn-body-ghost:hover {
   transform: translateY(-2px);
-  filter: drop-shadow(0 6px 0 rgba(2, 41, 119, 0.2));
+  box-shadow: 0 6px 0 rgba(2, 41, 119, 0.2);
 }
 .btn-body-ghost:active {
   transform: translateY(3px);
-  filter: drop-shadow(0 1px 0 rgba(2, 41, 119, 0.1));
+  box-shadow: 0 1px 0 rgba(2, 41, 119, 0.1);
 }
 .btn-body-ghost .btn-ghost-orb {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  background: radial-gradient(rgba(2, 41, 119, 1) 34%, rgba(2, 41, 119, 0) 68%);
-  border-radius: 50%;
-  animation: btn-orbit 3s linear infinite;
-  top: 50%;
-  left: 50%;
-  transform-origin: 0 0;
-  margin-top: -35px;
-  margin-left: -35px;
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 .btn-body-ghost .btn-ghost-inner {
   display: inline-flex;
@@ -1216,7 +1203,8 @@ a {
   white-space: nowrap;
 }
 .btn-body-ghost:hover .btn-ghost-inner {
-  border-color: rgba(2, 41, 119, 0.8);
+  border-color: rgba(2, 41, 119, 0.85);
+  box-shadow: 0 0 12px rgba(2, 41, 119, 0.2);
 }
 .dark .btn-body-ghost .btn-ghost-orb {
   background: radial-gradient(rgba(5, 165, 255, 1) 34%, rgba(5, 165, 255, 0) 68%);
@@ -1228,6 +1216,7 @@ a {
 }
 .dark .btn-body-ghost:hover .btn-ghost-inner {
   border-color: rgba(5, 165, 255, 0.85);
+  box-shadow: 0 0 12px rgba(5, 165, 255, 0.25);
 }
 
 .btn-cta-navy {
@@ -1457,18 +1446,19 @@ a {
   }
   .btn-cta-navy {
     width: auto !important;
-    min-width: 0;
+    min-width: 260px;
+    padding: 12px 24px 12px 10px;
     justify-content: flex-start;
     align-self: center;
   }
   .btn-cta-navy .btn-text-hover {
-    left: 0;
+    left: 50px;
+    right: 10px;
+    gap: 12px;
     justify-content: center;
-    padding-right: 0;
-    padding-left: 0;
-    right: 0;
-    max-width: 100%;
-    width: 100%;
+    padding: 0;
+    max-width: calc(100% - 60px);
+    width: auto;
   }
   .btn-body-primary .btn-text-hover {
     left: 0;
@@ -1591,9 +1581,10 @@ a {
 
 /* Mobile: nunca (FAB maneja) */
 
-/* Tablet normal: ambos visibles top-right agrupados */
+/* Tablet: ambos visibles top-right agrupados en normal, split en scrolled */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .nav-float-lang {
+  /* Normal: lang a la derecha, theme justo a su izquierda con gap */
+  .nav-float-lang.is-normal {
     display: flex;
     top: 0.9rem;
     right: 1rem;
@@ -1601,18 +1592,9 @@ a {
   .nav-float-theme.is-normal {
     display: flex;
     top: 0.9rem;
-    right: 5.5rem;
+    right: calc(1rem + 6.5rem + 8px);
   }
-  /* Tablet scrolled: theme top-left, lang top-right */
-  .nav-float-theme.is-scrolled {
-    display: flex;
-    top: 0.9rem;
-    left: 1rem;
-  }
-}
-
-/* Desktop: lang top-right solo cuando scrolled (en normal va dentro del navbar) */
-@media (min-width: 1024px) {
+  /* Scrolled: theme top-left, lang top-right */
   .nav-float-lang.is-scrolled {
     display: flex;
     top: 0.9rem;
@@ -1620,8 +1602,24 @@ a {
   }
   .nav-float-theme.is-scrolled {
     display: flex;
-    top: 3.2rem;
+    top: 0.9rem;
+    left: 1rem;
+  }
+}
+
+/* Desktop scrolled: theme top-LEFT, lang top-right. Normal: dentro del navbar */
+@media (min-width: 1024px) {
+  .nav-float-lang.is-scrolled {
+    display: flex;
+    top: 0.9rem;
     right: 1rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-float-theme.is-scrolled {
+    display: flex;
+    top: 0.9rem;
+    left: 1rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -2368,6 +2366,16 @@ a {
 
 .dark .site-footer-watermark {
   color: rgba(255, 255, 255, 0.05);
+}
+
+.site-footer-copyright-brand {
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+  padding: 0 1rem 1rem;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
 }
 
 @media (max-width: 1023px) {

@@ -109,6 +109,9 @@ export function SiteFooter({
         <div className="site-footer-watermark" aria-hidden="true">
           {watermark}
         </div>
+        <p className="site-footer-copyright-brand">
+          © 2026 NoaTechSolutions. Todos los derechos reservados.
+        </p>
       </div>
     </footer>
   );
