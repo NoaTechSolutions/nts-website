@@ -362,67 +362,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Contact final */}
-      <section id="contacto" className="section-divider contact-final-section">
-        <div className="contact-final-background" aria-hidden="true">
-          <GridDistortion
-            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
-            grid={14}
-            mouse={0.3}
-            strength={0.64}
-            relaxation={0.8}
-            className="contact-final-distortion"
-          />
-        </div>
-
-        <div className="contact-final-shell">
-          <div className="contact-final-layout">
-            <div className="contact-final-copy">
-              <div className="contact-final-top-row">
-                {contactTopPills.map(({ label, Icon }, index) => (
-                  <span
-                    key={label}
-                    className={`contact-final-pill contact-final-chip ${
-                      index === 0 ? "contact-final-pill-eyebrow" : ""
-                    }`}
-                  >
-                    <span className="contact-final-pill-icon" aria-hidden="true">
-                      <Icon size={15} strokeWidth={2.2} />
-                    </span>
-                    <span>{label}</span>
-                  </span>
-                ))}
-              </div>
-
-              <h2 className="contact-final-title">{finalCtaTitle}</h2>
-
-              <div className="contact-final-actions">
-                <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
-                  <span className="btn-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                      <path d="M5 12h14" />
-                      <path d="M12 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                  <span className="btn-text-idle">{t.ctaSection.directMail}</span>
-                  <span className="btn-text-hover">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                    hello@noatechsolutions.com
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            <div className="contact-final-form">
-              <ContactForm />
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* 8. FAQ */}
       <section id="faq" className="section-divider contact-faq-section">
         <div className="contact-faq-background" aria-hidden="true" />
         <div className="grid-shell contact-faq-shell">
@@ -479,6 +419,67 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Contact final */}
+      <section id="contacto" className="section-divider contact-final-section">
+        <div className="contact-final-background" aria-hidden="true">
+          <GridDistortion
+            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+            grid={14}
+            mouse={0.3}
+            strength={0.64}
+            relaxation={0.8}
+            className="contact-final-distortion"
+          />
+        </div>
+
+        <div className="contact-final-shell">
+          <div className="contact-final-layout">
+            <div className="contact-final-copy">
+              <div className="contact-final-top-row">
+                {contactTopPills.map(({ label, Icon }, index) => (
+                  <span
+                    key={label}
+                    className={`contact-final-pill contact-final-chip ${
+                      index === 0 ? "contact-final-pill-eyebrow" : ""
+                    }`}
+                  >
+                    <span className="contact-final-pill-icon" aria-hidden="true">
+                      <Icon size={15} strokeWidth={2.2} />
+                    </span>
+                    <span>{label}</span>
+                  </span>
+                ))}
+              </div>
+
+              <h2 className="contact-final-title">{finalCtaTitle}</h2>
+
+              <div className="contact-final-actions">
+                <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
+                  <span className="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                      <path d="M5 12h14" />
+                      <path d="M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                  <span className="btn-text-idle">{t.ctaSection.directMail}</span>
+                  <span className="btn-text-hover">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    hello@noatechsolutions.com
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div className="contact-final-form">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
