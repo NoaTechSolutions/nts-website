@@ -157,7 +157,7 @@ export function GrowthMessagesSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-divider growth-section relative">
+    <section ref={sectionRef} className="section-divider growth-section relative" style={{ position: "relative" }}>
       {isPinned ? (
         <div className="growth-centerpiece-overlay" aria-hidden="true">
           <div className="growth-centerpiece growth-centerpiece-floating">

@@ -235,7 +235,7 @@ export function ProcessStickySection({
       ref={sectionRef}
       id="proceso"
       className="section-divider relative"
-      style={{ minHeight: `${Math.max(items.length * 95, 340)}vh` }}
+      style={{ position: "relative", minHeight: `${Math.max(items.length * 95, 340)}vh` }}
     >
       {isActive ? (
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">

@@ -37,7 +37,6 @@ export function PageLoader() {
           alt=""
           width={280}
           height={80}
-          priority
           className="page-loader-logo"
         />
         <div className="page-loader-bar-track">

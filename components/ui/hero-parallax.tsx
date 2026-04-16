@@ -73,6 +73,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
+      style={{ position: "relative" }}
       className={`${isCompactLayout ? "h-[220vh]" : "h-[300vh]"} py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]`}
     >
       <Header title={title} subtitle={subtitle} />
