@@ -36,6 +36,7 @@ export function ContactForm() {
           email: formData.get("email"),
           mensaje: formData.get("mensaje"),
           _honeypot: formData.get("_honeypot") ?? "",
+          website: formData.get("website") ?? "",
         }),
       });
 
@@ -78,9 +79,10 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form" noValidate>
-      {/* Honeypot — hidden from real users */}
-      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>
+      {/* Honeypots — hidden from real users, attractive to bots */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 0, height: 0, overflow: "hidden" }}>
         <input type="text" name="_honeypot" tabIndex={-1} autoComplete="off" suppressHydrationWarning />
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" suppressHydrationWarning />
       </div>
 
       <div className="contact-form-grid">
