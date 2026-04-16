@@ -299,6 +299,11 @@ export const translations = {
         "Opciones de pago a plazos",
       ],
     },
+    contactSection: {
+      eyebrow: "Hablemos",
+      title: "Cuéntanos tu proyecto",
+      copy: "Responderemos en menos de 24 horas.",
+    },
     contactForm: {
       nombre: "Nombre",
       nombrePlaceholder: "Tu nombre",
@@ -660,6 +665,11 @@ export const translations = {
         "Free initial strategy call",
         "Installment payment options",
       ],
+    },
+    contactSection: {
+      eyebrow: "Let's talk",
+      title: "Tell us about your project",
+      copy: "We'll respond within 24 hours.",
     },
     contactForm: {
       nombre: "Name",
