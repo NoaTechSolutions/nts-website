@@ -3990,8 +3990,14 @@ a {
   color: rgba(255, 230, 198, 0.82);
 }
 
+#servicios {
+  position: relative;
+  z-index: 10;
+}
+
 .services-proof-section {
   position: relative;
+  z-index: 10;
   left: 50%;
   width: 100vw;
   margin-left: -50vw;

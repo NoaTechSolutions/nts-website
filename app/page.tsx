@@ -290,7 +290,23 @@ export default function Home() {
         items={t.growthSection.items}
       />
 
-      {/* 3. Mid-CTA */}
+      {/* Spacer: permite que el fixed frame de Growth se desenganche antes de la siguiente sección */}
+      <div aria-hidden="true" style={{ height: "4rem" }} />
+
+      {/* 3. Services (scroll-stacking) */}
+      <div id="servicios" className="grid-shell">
+        <ServicesStackSection
+          eyebrow={t.servicesSection.eyebrow}
+          title={t.servicesSection.title}
+          copy={t.servicesSection.copy}
+          cta={t.servicesSection.cta}
+          cardCta={t.servicesSection.cardCta}
+          rotatingWords={t.hero.rotatingWords}
+          items={services}
+        />
+      </div>
+
+      {/* 4. Mid-CTA */}
       <section className="section-divider services-proof-section">
         <div className="mid-cta-background" aria-hidden="true">
           <GridDistortion
@@ -326,19 +342,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 4. Services (scroll-stacking) */}
-      <div id="servicios" className="grid-shell">
-        <ServicesStackSection
-          eyebrow={t.servicesSection.eyebrow}
-          title={t.servicesSection.title}
-          copy={t.servicesSection.copy}
-          cta={t.servicesSection.cta}
-          cardCta={t.servicesSection.cardCta}
-          rotatingWords={t.hero.rotatingWords}
-          items={services}
-        />
-      </div>
 
       {/* 5. Process (sticky) */}
       <div id="proceso" className="grid-shell">
