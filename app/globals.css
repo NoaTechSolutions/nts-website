@@ -830,71 +830,206 @@ a {
 }
 
 .contact-form-section {
-  background: var(--bg-page);
-  padding-block: 5rem;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section-desktop, 80px);
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 50%, #f0f4ff 100%);
 }
-
 .dark .contact-form-section {
-  background: var(--bg-page);
+  background: linear-gradient(135deg, #0f1628 0%, #0b0f1a 50%, #0f1628 100%);
 }
 
-.contact-form-shell {
-  max-width: 640px;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* Decoraciones de fondo */
+.contact-form-section::before {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  right: -10rem;
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle, rgba(4, 0, 240, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-form-section::after {
+  content: "";
+  position: absolute;
+  bottom: -10rem;
+  left: -10rem;
+  width: 35rem;
+  height: 35rem;
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.contact-form-header {
+.contact-form-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  .contact-form-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.contact-form-motivation {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form-motivation .pill-amber {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 153, 0, 0.15);
+  border: 1px solid rgba(255, 153, 0, 0.4);
+  color: #ff9900;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact-form-motivation-title {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 500;
+  color: var(--color-navy);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.dark .contact-form-motivation-title {
+  color: #f0f4ff;
+}
+
+.contact-form-motivation-copy {
+  margin: 0;
+  font-size: 1.05rem;
+  color: rgba(2, 41, 119, 0.7);
+  line-height: 1.75;
+}
+.dark .contact-form-motivation-copy {
+  color: #c8d8f0;
+}
+
+.contact-form-trust-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-form-trust-item {
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
-  text-align: center;
-}
-
-/* Variante del formulario para fondo claro */
-.contact-form-section .contact-form {
-  background: var(--bg-card);
-  border-color: var(--color-line);
-  backdrop-filter: none;
-}
-.contact-form-section .contact-form-label {
-  color: var(--text-label);
-}
-.contact-form-section .contact-form-input,
-.contact-form-section .contact-form-textarea {
-  background: var(--bg-page);
-  border-color: var(--color-line);
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--color-navy);
 }
-.contact-form-section .contact-form-input::placeholder,
-.contact-form-section .contact-form-textarea::placeholder {
+.dark .contact-form-trust-item {
+  color: #f0f4ff;
+}
+
+.contact-form-trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 153, 0, 0.15);
+  border: 1.5px solid rgba(255, 153, 0, 0.4);
+  color: #ff9900;
+  flex-shrink: 0;
+}
+
+.contact-form-social-proof {
+  margin: 0;
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(2, 41, 119, 0.5);
+  border-top: 1px solid rgba(2, 41, 119, 0.1);
+}
+.dark .contact-form-social-proof {
+  color: rgba(200, 216, 240, 0.45);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.contact-form-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(2, 41, 119, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(2, 41, 119, 0.08);
+}
+.dark .contact-form-card {
+  background: rgba(15, 22, 40, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 767px) {
+  .contact-form-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 12px;
+  }
+}
+
+/* El ContactForm dentro de la card no tiene fondo propio */
+.contact-form-card .contact-form {
+  background: transparent;
+  border: none;
+  padding: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.contact-form-card .contact-form-label {
+  color: rgba(2, 41, 119, 0.6);
+}
+.contact-form-card .contact-form-input,
+.contact-form-card .contact-form-textarea {
+  background: rgba(2, 41, 119, 0.03);
+  border: 1px solid rgba(2, 41, 119, 0.12);
+  color: var(--color-navy);
+}
+.contact-form-card .contact-form-input::placeholder,
+.contact-form-card .contact-form-textarea::placeholder {
   color: rgba(2, 41, 119, 0.35);
 }
-.contact-form-section .contact-form-input:focus,
-.contact-form-section .contact-form-textarea:focus {
+.contact-form-card .contact-form-input:focus,
+.contact-form-card .contact-form-textarea:focus {
   border-color: #ff9900;
   box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
 }
 
-/* Dark mode: inputs sobre bg-card */
-.dark .contact-form-section .contact-form {
-  background: var(--bg-card);
-  border-color: var(--border-default);
+/* Dark mode card inputs */
+.dark .contact-form-card .contact-form-label {
+  color: rgba(200, 216, 240, 0.55);
 }
-.dark .contact-form-section .contact-form-input,
-.dark .contact-form-section .contact-form-textarea {
-  background: var(--bg-page);
-  border-color: var(--border-default);
+.dark .contact-form-card .contact-form-input,
+.dark .contact-form-card .contact-form-textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
   color: var(--text-heading);
 }
-.dark .contact-form-section .contact-form-input::placeholder,
-.dark .contact-form-section .contact-form-textarea::placeholder {
+.dark .contact-form-card .contact-form-input::placeholder,
+.dark .contact-form-card .contact-form-textarea::placeholder {
   color: rgba(200, 216, 240, 0.4);
-}
-.dark .contact-form-section .contact-form-label {
-  color: var(--text-label);
 }
 
 .contact-final-copy {
@@ -3854,8 +3989,14 @@ a {
   color: rgba(255, 230, 198, 0.82);
 }
 
+#servicios {
+  position: relative;
+  z-index: 10;
+}
+
 .services-proof-section {
   position: relative;
+  z-index: 10;
   left: 50%;
   width: 100vw;
   margin-left: -50vw;
