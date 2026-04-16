@@ -1,5 +1,61 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-15] — Contact form visible + Crisp chat (NOA-135)
+
+### ContactForm en homepage
+- Integrado `<ContactForm />` en la sección `#contacto` sobre el fondo navy (estilos glassmorphism ya existentes)
+- Layout `.contact-final-layout` grid 2 columnas desktop (1fr 1fr gap 4rem) → 1 columna mobile (≤1023px)
+- Columna izquierda: pills + título + botón mailto secundario "O escríbenos directo" / "Or write us directly"
+- Columna derecha: `ContactForm` conectado a `/api/contact` (Resend + Zod + Upstash ratelimit 3/24h)
+- i18n nueva key: `ctaSection.directMail` (ES + EN)
+- Botón mailto: ícono email hover muestra `hello@noatechsolutions.com`
+
+### Crisp chat integration
+- `app/components/crisp-chat.tsx`: script injection (`window.$crisp` + `CRISP_WEBSITE_ID` + `client.crisp.chat/l.js`), solo activa si `NEXT_PUBLIC_CRISP_ID` tiene valor
+- `types/crisp.d.ts`: type augmentation de `Window` con `$crisp: unknown[]` y `CRISP_WEBSITE_ID: string`
+- `CrispChat` integrado en `app/layout.tsx` como último hijo del body
+- `.env.example`: `NEXT_PUBLIC_CRISP_ID=` agregado
+- Dependency: `crisp-sdk-web` instalado (no usado, dejado para futura migración al SDK tipado)
+
+---
+
+## [2026-04-15] — Placeholder pages + fix anclas (NOA-134, NOA-137)
+
+### Páginas placeholder creadas
+- `/servicios` — "Nuestros Servicios"
+- `/portafolio` — "Portafolio de Proyectos"
+- `/blog` — "Blog & Recursos"
+- `/nosotros` — "Sobre Nosotros"
+- `/contacto` — "Contacto"
+
+Cada página usa `<PlaceholderPage title="...">` wrapper compartido con navbar + badge "Próximamente" + título clamp + footer. `export const metadata` con title + description.
+
+### Componentes auxiliares
+- `app/components/placeholder-page.tsx` — wrapper compartido
+- `app/components/site-footer-i18n.tsx` — SiteFooter con i18n automático (páginas server-side no pasan props)
+
+### Nav links actualizados (fix anclas rotas NOA-134)
+- Home: `#home` → `/`
+- Servicios: `#servicios` → `/servicios`
+- Soluciones: `#solutions` (roto) → `/portafolio`
+- Nosotros: `#about-us` (roto) → `/nosotros`
+- Contacto: `#contacto` (sin cambio)
+
+---
+
+## [2026-04-15] — Documentación nomenclatura (NOA-136)
+
+### docs/COMPONENTS.md
+- 10 secciones de homepage con nombre canónico, componente, archivo, ID, animación
+- 13 componentes de sección con props
+- 14 componentes UI reutilizables
+- 11 tipos de botones del sistema
+- Tabla de páginas actuales + planificadas
+- Variables CSS principales (colores, espaciado responsive, texto)
+- Guía de uso para referirse a secciones/botones en Linear y Claude Code
+
+---
+
 ## [2026-04-15] — Reorganización de secciones + fix anclas (NOA-132)
 
 ### Nuevo orden de secciones en `app/page.tsx`
