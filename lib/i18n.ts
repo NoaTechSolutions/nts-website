@@ -338,7 +338,7 @@ export const translations = {
         {
           title: "Recursos",
           links: [
-            { label: "Portfolio", href: "/portfolio" },
+            { label: "Portfolio", href: "/portafolio" },
             { label: "Reviews", href: "#reviews" },
             { label: "Contacto", href: "#contacto" },
             { label: "Base desde $299", href: "#contacto" },
@@ -699,7 +699,7 @@ export const translations = {
         {
           title: "Resources",
           links: [
-            { label: "Portfolio", href: "/portfolio" },
+            { label: "Portfolio", href: "/portafolio" },
             { label: "Reviews", href: "#reviews" },
             { label: "Contact", href: "#contacto" },
             { label: "Start from $299", href: "#contacto" },

@@ -221,12 +221,18 @@
 | Nombre | Ruta | Archivo | Estado |
 |---|---|---|---|
 | Home | `/` | [app/page.tsx](app/page.tsx) | ✅ Activa |
-| Portfolio | `/portfolio` | [app/portfolio/page.tsx](app/portfolio/page.tsx) | ✅ Activa |
+| Portafolio | `/portafolio` | [app/portafolio/page.tsx](app/portafolio/page.tsx) | ✅ Activa |
 | Dashboard | `/dashboard` | [app/dashboard/page.tsx](app/dashboard/page.tsx) | ✅ Activa |
-| Servicios | `/servicios` | — | 📋 Planificada |
-| Blog | `/blog` | — | 📋 Planificada |
-| Nosotros | `/nosotros` | — | 📋 Planificada |
-| Contacto | `/contacto` | — | 📋 Planificada |
+| Servicios | `/servicios` | [app/servicios/page.tsx](app/servicios/page.tsx) | 🚧 Placeholder |
+| Blog | `/blog` | [app/blog/page.tsx](app/blog/page.tsx) | 🚧 Placeholder |
+| Nosotros | `/nosotros` | [app/nosotros/page.tsx](app/nosotros/page.tsx) | 🚧 Placeholder |
+| Contacto | `/contacto` | [app/contacto/page.tsx](app/contacto/page.tsx) | 🚧 Placeholder |
+
+### Redirects
+
+| From | To | Type |
+|---|---|---|
+| `/portfolio` | `/portafolio` | 301 permanent ([next.config.ts](next.config.ts)) |
 
 ### API routes
 

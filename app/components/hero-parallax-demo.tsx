@@ -25,7 +25,7 @@ export function HeroParallaxDemo() {
         </>
       }
       ctaLabel={t.portfolioSection.ctaLabel}
-      ctaHref="/portfolio"
+      ctaHref="/portafolio"
     />
   );
 }

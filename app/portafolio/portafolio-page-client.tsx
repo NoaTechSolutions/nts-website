@@ -9,7 +9,7 @@ function formatDomain(url: string) {
   return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 }
 
-export function PortfolioPageClient() {
+export function PortafolioPageClient() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const viewLabel = locale === "es" ? "Ver" : "View";

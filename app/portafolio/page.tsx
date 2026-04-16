@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { PlaceholderPage } from "../components/placeholder-page";
+import { PortafolioPageClient } from "./portafolio-page-client";
 
 export const metadata: Metadata = {
   title: "Portafolio de Proyectos",
   description:
-    "Casos de estudio y proyectos destacados de NoaTechSolutions — diseño web, branding y soluciones digitales.",
+    "Portafolio de NoaTechSolutions con trabajos reales de diseño web y presencia digital.",
 };
 
 export default function PortafolioPage() {
-  return <PlaceholderPage title="Portafolio de Proyectos" />;
+  return <PortafolioPageClient />;
 }
