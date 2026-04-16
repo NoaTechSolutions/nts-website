@@ -830,50 +830,72 @@ a {
   text-align: center;
 }
 
-.contact-final-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-  width: 100%;
-  text-align: left;
+.contact-form-section {
+  background: var(--bg-page);
+  padding-block: 5rem;
 }
 
-.contact-final-layout .contact-final-copy {
-  align-items: flex-start;
-  justify-items: start;
+.dark .contact-form-section {
+  background: var(--bg-page);
 }
 
-.contact-final-layout .contact-final-top-row {
-  justify-content: flex-start;
+.contact-form-shell {
+  max-width: 640px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.contact-final-layout .contact-final-title {
-  text-align: left;
+.contact-form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
 }
 
-.contact-final-layout .contact-final-actions {
-  justify-content: flex-start;
+/* Variante del formulario para fondo claro */
+.contact-form-section .contact-form {
+  background: var(--bg-card);
+  border-color: var(--color-line);
+  backdrop-filter: none;
+}
+.contact-form-section .contact-form-label {
+  color: var(--text-label);
+}
+.contact-form-section .contact-form-input,
+.contact-form-section .contact-form-textarea {
+  background: var(--bg-page);
+  border-color: var(--color-line);
+  color: var(--color-navy);
+}
+.contact-form-section .contact-form-input::placeholder,
+.contact-form-section .contact-form-textarea::placeholder {
+  color: rgba(2, 41, 119, 0.35);
+}
+.contact-form-section .contact-form-input:focus,
+.contact-form-section .contact-form-textarea:focus {
+  border-color: #ff9900;
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
 }
 
-.contact-final-form {
-  width: 100%;
+/* Dark mode: inputs sobre bg-card */
+.dark .contact-form-section .contact-form {
+  background: var(--bg-card);
+  border-color: var(--border-default);
 }
-
-@media (max-width: 1023px) {
-  .contact-final-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .contact-final-layout .contact-final-copy,
-  .contact-final-layout .contact-final-top-row,
-  .contact-final-layout .contact-final-title,
-  .contact-final-layout .contact-final-actions {
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    text-align: center;
-  }
+.dark .contact-form-section .contact-form-input,
+.dark .contact-form-section .contact-form-textarea {
+  background: var(--bg-page);
+  border-color: var(--border-default);
+  color: var(--text-heading);
+}
+.dark .contact-form-section .contact-form-input::placeholder,
+.dark .contact-form-section .contact-form-textarea::placeholder {
+  color: rgba(200, 216, 240, 0.4);
+}
+.dark .contact-form-section .contact-form-label {
+  color: var(--text-label);
 }
 
 .contact-final-copy {
