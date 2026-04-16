@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { LanguageProvider } from "./components/language-provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { PageLoader } from "./components/page-loader";
+import { CrispChat } from "./components/crisp-chat";
 
 const ANTI_FOUC = `(function(){try{var t=localStorage.getItem('ntssign-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
@@ -76,6 +77,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <CrispChat />
       </body>
     </html>
   );

@@ -825,8 +825,55 @@ a {
   justify-items: center;
   gap: 1.5rem;
   width: min(100%, calc(100vw - 2rem));
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+}
+
+.contact-final-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  width: 100%;
+  text-align: left;
+}
+
+.contact-final-layout .contact-final-copy {
+  align-items: flex-start;
+  justify-items: start;
+}
+
+.contact-final-layout .contact-final-top-row {
+  justify-content: flex-start;
+}
+
+.contact-final-layout .contact-final-title {
+  text-align: left;
+}
+
+.contact-final-layout .contact-final-actions {
+  justify-content: flex-start;
+}
+
+.contact-final-form {
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .contact-final-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .contact-final-layout .contact-final-copy,
+  .contact-final-layout .contact-final-top-row,
+  .contact-final-layout .contact-final-title,
+  .contact-final-layout .contact-final-actions {
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .contact-final-copy {
