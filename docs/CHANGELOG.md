@@ -1,5 +1,72 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-15] — Reorganización de secciones + fix anclas (NOA-132)
+
+### Nuevo orden de secciones en `app/page.tsx`
+1. `#home` — Hero
+2. GrowthMessagesSection
+3. `#servicios` — ServicesStackSection (scroll-stacking)
+4. `#proceso` — ProcessStickySection (sticky pin)
+5. HeroParallaxDemo (parallax horizontal)
+6. `#reviews` — ReviewsMarqueeSection
+7. Mid-CTA (`.services-proof-section`)
+8. `#contacto` — Contact final
+9. `#faq` — FAQ accordion
+10. SiteFooter
+
+### Anclas DOM agregadas
+- `id="servicios"` → wrapper de `ServicesStackSection`
+- `id="proceso"` → wrapper de `ProcessStickySection`
+- `id="reviews"` → wrapper de `ReviewsMarqueeSection`
+- `id="contacto"` ya existía
+- `id="faq"` ya existía
+
+### Pendiente (issues separados)
+- `#solutions` y `#about-us` del nav no tienen ID destino
+- Sección de contacto visible (ContactForm) antes del FAQ
+- Integración Crisp chat
+
+---
+
+## [2026-04-15] — Fixes técnicos múltiples (NOA-125 / NOA-126)
+
+### Botones
+- `.btn-cta-navy`: `min-width: fit-content`, text-hover centrado `left:0 right:0 width:100% justify-content:center`
+- `.btn-body-primary .btn-text-hover`: mismo patrón centrado, `padding: 0 12px`
+- Mobile: sin hover en touch (`:hover → transform: none`), solo 3D press en `:active`
+- Botón secundario CTA "Preguntar por pagos" eliminado
+- Ghost button: sin blur (eliminado `filter: drop-shadow`), wrapper transparente, orb `display: none`, hover con border-glow
+
+### Footer
+- Wrapper `<div className="site-footer-bottom">` agrupa watermark + copyright-brand
+- Mobile: grid 2 columnas, watermark `clamp(2.8rem, 12vw, 4.5rem)` sin desborde, copyright con `order: 2`
+- Logo sin contenedor, height 4rem, fondo navy `#0c1e4a`
+
+### FAB mobile
+- Ícono hamburger → sliders SVG con círculos rellenos
+- Mini menú: idioma (ES/EN) + tema (sol/luna), stagger 80ms, spring `cubic-bezier(0.34, 1.56, 0.64, 1)`
+
+### Navbar tablet/desktop
+- Mobile: controles solo en FAB
+- Tablet normal: theme + lang fixed top-right con gap
+- Tablet/Desktop scrolled: theme top-LEFT + lang top-right (transition 0.3s)
+- Desktop normal: ambos dentro del navbar (`NavInlineControls`)
+
+### CTA section
+- `$299` con `AuroraText` colores `["#ffffff", "#ff9900", "#ffcc00", "#ff6600"]`
+- Pills amber `#ff9900` con `rgba(255,153,0,0.15)` bg
+- Ícono "regalo" → rayo tecnológico `M13 2L3 14h9l-1 8 10-12h-9l1-8z`
+- Línea azul entre secciones eliminada (`.section-divider` → `border-top: none`)
+
+### PageLoader (NOA-121)
+- `/app/components/page-loader.tsx` con logo fade-in 0.3s + barra progreso 1.6s (navy→electric→sky)
+- Cortina split cubic-bezier, unmount a 2800ms via `sessionStorage["nts-loaded"]`
+
+### Linear
+- Issues `NOA-117`, `NOA-119`, `NOA-120`, `NOA-121`, `NOA-122`, `NOA-123`, `NOA-124`, `NOA-125`, `NOA-126`, `NOA-132` → **Done**
+
+---
+
 ## [2026-04-12] — Sistema completo de botones (NOA-117)
 
 ### Button System CSS (`globals.css`)
