@@ -516,8 +516,8 @@ export default function Home() {
               </ul>
               <p className="contact-form-social-proof">
                 {locale === "es"
-                  ? "Más de 50 proyectos entregados en California y Baja California"
-                  : "Over 50 projects delivered in California and Baja California"}
+                  ? "Más de 150 proyectos entregados en California, USA, Perú y el mundo"
+                  : "Over 150 projects delivered in California, USA, Peru and worldwide"}
               </p>
             </div>
 
