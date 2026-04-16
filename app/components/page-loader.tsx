@@ -1,31 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 
 const STORAGE_KEY = "nts-loaded";
 
+// Retorna true solo después de hidratar en cliente. Durante SSR → false.
+function useHasMounted(): boolean {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
 export function PageLoader() {
-  const [shouldRender, setShouldRender] = useState(() => {
+  const mounted = useHasMounted();
+  const [visible, setVisible] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return sessionStorage.getItem(STORAGE_KEY) !== "1";
   });
   const [isOpening, setIsOpening] = useState(false);
 
   useEffect(() => {
-    if (!shouldRender) return;
+    if (!visible) return;
     sessionStorage.setItem(STORAGE_KEY, "1");
 
     const openTimer = setTimeout(() => setIsOpening(true), 2200);
-    const unmountTimer = setTimeout(() => setShouldRender(false), 2800);
+    const unmountTimer = setTimeout(() => setVisible(false), 2800);
 
     return () => {
       clearTimeout(openTimer);
       clearTimeout(unmountTimer);
     };
-  }, [shouldRender]);
+  }, [visible]);
 
-  if (!shouldRender) return null;
+  // Crítico: SSR nunca renderiza DOM, solo cliente tras hidratar.
+  if (!mounted || !visible) return null;
 
   return (
     <div className={`page-loader-root ${isOpening ? "is-opening" : ""}`} aria-hidden="true">

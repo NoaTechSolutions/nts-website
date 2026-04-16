@@ -146,9 +146,11 @@ export default function Home() {
           <div className="hero-art hero-art-left hero-art-hand-desktop hidden lg:block" aria-hidden="true">
             <Image
               src="/noatechsolutions-robotic-hand-hero.svg"
-              alt=""
+              alt="Brazo robótico NoaTechSolutions"
               width={520}
               height={520}
+              priority
+              loading="eager"
               className="hero-left-object"
             />
           </div>
@@ -159,6 +161,8 @@ export default function Home() {
               alt=""
               width={420}
               height={420}
+              priority
+              loading="eager"
               className="hero-floating-object"
             />
           </div>
