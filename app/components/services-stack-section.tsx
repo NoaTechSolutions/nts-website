@@ -204,6 +204,7 @@ export function ServicesStackSection({
       id="servicios"
       ref={sectionRef}
       className="section-divider services-stack-section relative"
+      style={{ position: "relative" }}
     >
       {isActive ? (
         <div className="services-stack-overlay">
