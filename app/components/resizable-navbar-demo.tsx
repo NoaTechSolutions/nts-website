@@ -25,33 +25,33 @@ export function ResizableNavbarDemo() {
   const navItems = [
     {
       name: t.nav.home,
-      link: "#home",
+      link: "/",
     },
     {
       name: t.nav.services,
-      link: "#servicios",
+      link: "/servicios",
       children: [
         {
           name: t.nav.webDesign,
-          link: "#website-design",
+          link: "/servicios",
         },
         {
           name: t.nav.branding,
-          link: "#branding",
+          link: "/servicios",
         },
         {
           name: t.nav.businessCards,
-          link: "#business-card",
+          link: "/servicios",
         },
       ],
     },
     {
       name: t.nav.solutions,
-      link: "#solutions",
+      link: "/portafolio",
     },
     {
       name: t.nav.about,
-      link: "#about-us",
+      link: "/nosotros",
     },
     {
       name: t.nav.contact,
