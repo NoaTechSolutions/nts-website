@@ -292,6 +292,7 @@ export const translations = {
       copy:
         "Si ya sabes que tu marca necesita verse mas profesional, este es un buen momento para empezar. Podemos lanzar una base clara, atractiva y pensada para vender, y si lo necesitas revisamos contigo opciones de pago para que avanzar sea mas facil.",
       primary: "Iniciar ahora",
+      directMail: "O escríbenos directo",
       priceTag: "Desde $299",
       highlights: [
         "Asesoria inicial gratis",
@@ -653,6 +654,7 @@ export const translations = {
       copy:
         "If you already know your brand needs to look more professional, this is a great time to start. We can launch a clear, attractive, conversion-ready foundation, and if needed we can walk you through flexible payment options so moving forward feels easier.",
       primary: "Start now",
+      directMail: "Or write us directly",
       priceTag: "From $299",
       highlights: [
         "Free initial strategy call",

@@ -21,6 +21,7 @@ import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooter } from "./components/site-footer";
+import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import GridDistortion from "./components/ui/grid-distortion";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
@@ -375,42 +376,49 @@ export default function Home() {
         </div>
 
         <div className="contact-final-shell">
-          <div className="contact-final-copy">
-            <div className="contact-final-top-row">
-              {contactTopPills.map(({ label, Icon }, index) => (
-                <span
-                  key={label}
-                  className={`contact-final-pill contact-final-chip ${
-                    index === 0 ? "contact-final-pill-eyebrow" : ""
-                  }`}
-                >
-                  <span className="contact-final-pill-icon" aria-hidden="true">
-                    <Icon size={15} strokeWidth={2.2} />
+          <div className="contact-final-layout">
+            <div className="contact-final-copy">
+              <div className="contact-final-top-row">
+                {contactTopPills.map(({ label, Icon }, index) => (
+                  <span
+                    key={label}
+                    className={`contact-final-pill contact-final-chip ${
+                      index === 0 ? "contact-final-pill-eyebrow" : ""
+                    }`}
+                  >
+                    <span className="contact-final-pill-icon" aria-hidden="true">
+                      <Icon size={15} strokeWidth={2.2} />
+                    </span>
+                    <span>{label}</span>
                   </span>
-                  <span>{label}</span>
-                </span>
-              ))}
+                ))}
+              </div>
+
+              <h2 className="contact-final-title">{finalCtaTitle}</h2>
+
+              <div className="contact-final-actions">
+                <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
+                  <span className="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                      <path d="M5 12h14" />
+                      <path d="M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                  <span className="btn-text-idle">{t.ctaSection.directMail}</span>
+                  <span className="btn-text-hover">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    hello@noatechsolutions.com
+                  </span>
+                </a>
+              </div>
             </div>
 
-            <h2 className="contact-final-title">{finalCtaTitle}</h2>
-          </div>
-
-          <div className="contact-final-actions">
-            <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
-              <span className="btn-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                  <path d="M5 12h14" />
-                  <path d="M12 5l7 7-7 7" />
-                </svg>
-              </span>
-              <span className="btn-text-idle">{t.ctaSection.primary}</span>
-              <span className="btn-text-hover">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-                ¡Vamos allá!
-              </span>
-            </a>
+            <div className="contact-final-form">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
