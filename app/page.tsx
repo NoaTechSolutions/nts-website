@@ -283,12 +283,14 @@ export default function Home() {
 
       </div>
 
+      {/* 2. Growth Messages */}
       <GrowthMessagesSection
         title={t.growthSection.title}
         items={t.growthSection.items}
       />
 
-      <div className="grid-shell">
+      {/* 3. Services (scroll-stacking) */}
+      <div id="servicios" className="grid-shell">
         <ServicesStackSection
           eyebrow={t.servicesSection.eyebrow}
           title={t.servicesSection.title}
@@ -298,49 +300,10 @@ export default function Home() {
           rotatingWords={t.hero.rotatingWords}
           items={services}
         />
+      </div>
 
-        <ReviewsMarqueeSection
-          eyebrow={t.reviewsSection.eyebrow}
-          title={t.reviewsSection.title}
-          items={reviews}
-        />
-
-        <section className="section-divider services-proof-section">
-          <div className="mid-cta-background" aria-hidden="true">
-            <GridDistortion
-              imageSrc="/noatechsolutions-cta-background-tech-grid.png"
-              grid={16}
-              mouse={0.34}
-              strength={0.68}
-              relaxation={0.76}
-              className="mid-cta-distortion"
-            />
-          </div>
-
-          <div className="mid-cta-shell">
-            <h2 className="mid-cta-title">{midCtaTitle}</h2>
-            <p className="section-copy mid-cta-body">{t.midCtaSection.copy}</p>
-
-            <div className="mid-cta-actions">
-              <a href="#contacto" className="btn-cta-navy">
-                <span className="btn-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                    <path d="M5 12h14" />
-                    <path d="M12 5l7 7-7 7" />
-                  </svg>
-                </span>
-                <span className="btn-text-idle">{t.midCtaSection.primary}</span>
-                <span className="btn-text-hover">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                  ¡Vamos allá!
-                </span>
-              </a>
-            </div>
-          </div>
-        </section>
-
+      {/* 4. Process (sticky) */}
+      <div id="proceso" className="grid-shell">
         <ProcessStickySection
           eyebrow={t.processSection.eyebrow}
           title={t.processSection.title}
@@ -349,8 +312,56 @@ export default function Home() {
         />
       </div>
 
+      {/* 5. Portfolio (parallax) */}
       <HeroParallaxDemo />
 
+      {/* 6. Reviews (marquee) */}
+      <div id="reviews" className="grid-shell">
+        <ReviewsMarqueeSection
+          eyebrow={t.reviewsSection.eyebrow}
+          title={t.reviewsSection.title}
+          items={reviews}
+        />
+      </div>
+
+      {/* 7. Mid-CTA */}
+      <section className="section-divider services-proof-section">
+        <div className="mid-cta-background" aria-hidden="true">
+          <GridDistortion
+            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+            grid={16}
+            mouse={0.34}
+            strength={0.68}
+            relaxation={0.76}
+            className="mid-cta-distortion"
+          />
+        </div>
+
+        <div className="mid-cta-shell">
+          <h2 className="mid-cta-title">{midCtaTitle}</h2>
+          <p className="section-copy mid-cta-body">{t.midCtaSection.copy}</p>
+
+          <div className="mid-cta-actions">
+            <a href="#contacto" className="btn-cta-navy">
+              <span className="btn-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
+                </svg>
+              </span>
+              <span className="btn-text-idle">{t.midCtaSection.primary}</span>
+              <span className="btn-text-hover">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+                ¡Vamos allá!
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Contact final */}
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
           <GridDistortion
