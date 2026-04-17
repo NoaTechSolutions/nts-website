@@ -2608,7 +2608,7 @@ a {
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: 5.8vw;
+  font-size: clamp(2rem, 5.8vw, 10rem);
   font-weight: 500;
   line-height: 0.85;
   letter-spacing: -0.05em;
@@ -2633,33 +2633,6 @@ a {
   );
 }
 
-@media (min-width: 1440px) and (max-width: 1919px) {
-  .site-footer-watermark {
-    font-size: 6.4vw;
-    letter-spacing: -0.05em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-}
-
-@media (min-width: 1920px) {
-  .site-footer-watermark {
-    font-size: 5.2vw;
-    letter-spacing: -0.05em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .site-footer-watermark {
-    font-size: 5.4vw;
-    letter-spacing: -0.05em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-}
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .site-footer-shell {
     min-height: 0;
@@ -2680,12 +2653,6 @@ a {
     margin-bottom: 1.5rem;
   }
 
-  .site-footer-watermark {
-    font-size: 4.1vw;
-    letter-spacing: -0.05em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
 }
 
 @media (max-width: 767px) {
@@ -2761,12 +2728,6 @@ a {
     width: 100%;
   }
 
-  .site-footer-watermark {
-    font-size: 5.3vw;
-    letter-spacing: -0.05em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
 }
 
 .button-primary,
