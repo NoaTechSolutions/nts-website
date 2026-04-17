@@ -2354,14 +2354,23 @@ a {
   padding: 0;
   overflow: hidden;
   isolation: isolate;
-  background: #0c1e4a;
+  background: linear-gradient(
+    180deg,
+    #011d5e 0%,
+    #022977 35%,
+    #021f5a 70%,
+    #011540 100%
+  );
 }
 
 .dark .site-footer-section {
-  background:
-    radial-gradient(circle at 14% 18%, rgba(5, 165, 255, 0.2), transparent 23rem),
-    radial-gradient(circle at 84% 12%, rgba(255, 153, 0, 0.18), transparent 20rem),
-    linear-gradient(180deg, #0f1628 0%, #0b1220 100%);
+  background: linear-gradient(
+    180deg,
+    #010e35 0%,
+    #011a52 35%,
+    #010d30 70%,
+    #010820 100%
+  );
 }
 
 .site-footer-shell {
@@ -2592,21 +2601,34 @@ a {
 .site-footer-watermark {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: clamp(5rem, 14vw, 11rem);
+  font-size: clamp(5rem, 18vw, 14rem);
   font-weight: 500;
   line-height: 0.85;
   letter-spacing: -0.1em;
-  color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.07);
   white-space: nowrap;
   pointer-events: none;
-  transform: none;
-  width: 100%;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 30%,
+    rgba(255, 255, 255, 0.6) 60%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 30%,
+    rgba(255, 255, 255, 0.6) 60%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -2626,7 +2648,7 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(4rem, 12vw, 8rem);
+    font-size: clamp(4rem, 16vw, 10rem);
   }
 }
 
@@ -2704,7 +2726,7 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(3rem, 20vw, 5rem);
+    font-size: clamp(3rem, 20vw, 6rem);
     letter-spacing: -0.06em;
   }
 }
