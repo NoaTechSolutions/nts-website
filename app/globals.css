@@ -6552,3 +6552,13 @@ a {
     @apply font-sans;
   }
 }
+
+.crisp-client .cc-kv6t {
+  bottom: 80px !important;
+}
+
+@media (min-width: 1440px) {
+  .crisp-client .cc-kv6t {
+    bottom: 100px !important;
+  }
+}
