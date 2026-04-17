@@ -1,5 +1,40 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-17] — Contact/Crisp fixes, footer redesign, breakpoints, fluid typography (NOA-149, NOA-150, NOA-153)
+
+### Contact + Crisp + FAB (NOA-149)
+- Sección contacto centrada en mobile/tablet (≤1023px): motivation, header, card, trust items
+- Crisp widget vuelve a esquina inferior derecha (eliminado `position:reverse`)
+- FAB speed-dial movido a esquina inferior izquierda para evitar overlap con Crisp
+- CSS `bottom: 80px` / `100px` en ≥1440px para subir el widget
+
+### Footer redesign (NOA-149)
+- Copyright duplicado eliminado — solo queda `{copyright}` dinámico de i18n
+- Copyright en i18n ahora incluye "© 2026"
+- Copyright centrado con `grid-column: 1 / -1`
+- Fondo: gradient navy `#011d5e → #022977 → #021f5a → #011540` (light) y deep navy (dark)
+- Watermark: `clamp(2rem, 5.8vw, 10rem)` fluido, mask-image fade arriba, `overflow: hidden`
+- Shell `padding-bottom: 7rem` desktop, responsive por breakpoint
+- Tablet: 4 columnas de links, `padding-bottom: 8rem`
+- Clases residuales eliminadas: `.site-footer-brand-lockup`, `.site-footer-logo-mark`, `.site-footer-brand-copy`, `.site-footer-copyright-brand`
+
+### Breakpoints normalizados (NOA-150)
+- Sistema único: 479/767/768/1023/1024/1279/1439/1440
+- Reemplazados: `max-width: 768px` → `767px`, `min-width: 769px` → `768px`, `min-width: 1441px` → `1440px`, `max-width: 1440px` → `1439px`
+- Documentado en `docs/design-system.md` sección 9
+
+### Tipografía fluida (NOA-153)
+- 32 font-size convertidos a `clamp()`: H3 (5), body text (12), botones principales (4), footer (2)
+- 10 valores `px` normalizados a `rem`: 15px→0.94rem, 14px→0.875rem, 12px→0.75rem, 11px→0.69rem
+- 0 font-size con `px` restantes en globals.css
+
+### Linear
+- `NOA-149` → PR abierto
+- `NOA-150` → **Done**
+- `NOA-153` → **In Review** (PR #37)
+
+---
+
 ## [2026-04-16] — Hydration fix, LCP, Crisp position (NOA-146, NOA-134, NOA-107, NOA-126)
 
 ### PageLoader SSR fix
