@@ -2370,7 +2370,7 @@ a {
   width: 100%;
   margin: 0;
   min-height: clamp(28rem, 40vw, 36rem);
-  padding: 2.85rem 2.15rem 4rem;
+  padding: 2.85rem 2.15rem 7rem;
   overflow: hidden;
   isolation: isolate;
   background: transparent;
@@ -2469,19 +2469,14 @@ a {
 }
 
 .site-footer-copyright {
-  grid-column: 1 / -1;
-  text-align: center;
-  width: 100%;
+  grid-column: auto;
+  text-align: left;
+  max-width: 20rem;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.35);
-  max-width: none;
   margin: 0;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   line-height: 1.6;
-}
-
-.dark .site-footer-copyright {
-  color: rgba(255, 255, 255, 0.56);
 }
 
 .site-footer-columns {
@@ -2596,42 +2591,28 @@ a {
 
 .site-footer-watermark {
   position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0.5rem;
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: clamp(6rem, 15vw, 12rem);
+  font-size: clamp(5rem, 14vw, 11rem);
   font-weight: 500;
-  line-height: 0.76;
-  letter-spacing: -0.12em;
+  line-height: 0.85;
+  letter-spacing: -0.1em;
   color: rgba(255, 255, 255, 0.05);
   white-space: nowrap;
   pointer-events: none;
-  transform: scaleX(0.88);
-  transform-origin: center bottom;
-}
-
-.dark .site-footer-watermark {
-  color: rgba(255, 255, 255, 0.05);
-}
-
-.site-footer-copyright-brand {
-  position: relative;
-  z-index: 2;
-  margin-top: 4px;
-  padding: 0 1rem 1rem;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
-  text-align: center;
+  transform: none;
   width: 100%;
+  overflow: hidden;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .site-footer-shell {
     min-height: 0;
-    padding: 2rem 1.5rem 6.8rem;
+    padding: 2rem 1.5rem 6rem;
   }
 
   .site-footer-grid {
@@ -2645,9 +2626,7 @@ a {
   }
 
   .site-footer-watermark {
-    bottom: 0.6rem;
-    font-size: clamp(5.6rem, 15vw, 9rem);
-    transform: scaleX(0.9);
+    font-size: clamp(4rem, 12vw, 8rem);
   }
 }
 
@@ -2714,34 +2693,19 @@ a {
     line-height: 1.3;
   }
 
+  .site-footer-shell {
+    padding-bottom: 5rem;
+  }
+
   .site-footer-copyright {
-    display: none;
+    text-align: center;
+    max-width: none;
+    width: 100%;
   }
 
   .site-footer-watermark {
-    position: static;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
-    font-size: 1.4rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    color: rgba(255, 255, 255, 0.12);
-    text-align: center;
-    transform: none;
-    white-space: normal;
-  }
-
-  .site-footer-copyright-brand {
-    margin-top: 6px;
-    padding: 0 1rem 1rem;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
-    text-align: center;
+    font-size: clamp(3rem, 20vw, 5rem);
+    letter-spacing: -0.06em;
   }
 }
 
