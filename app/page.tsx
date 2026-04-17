@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense, useState } from "react";
-import { HeroOrb3D } from "./components/ui/hero-orb-3d";
+import { useState } from "react";
+import { SplineScene } from "./components/ui/spline-scene";
 import {
   BadgeCheck,
   ChevronDown,
@@ -156,10 +156,11 @@ export default function Home() {
             />
           </div>
 
-          <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
-            <Suspense fallback={<div style={{ width: 420, height: 420 }} />}>
-              <HeroOrb3D />
-            </Suspense>
+          <div className="hero-art hero-art-right hero-art-asset">
+            <SplineScene
+              url="https://prod.spline.design/IYGMRY9BSeOZw9cH/scene.splinecode"
+              className="hero-spline-orb"
+            />
           </div>
 
           <div className="hero-content">

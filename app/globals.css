@@ -853,6 +853,26 @@ a {
   }
 }
 
+.hero-spline-orb {
+  width: 420px !important;
+  height: 420px !important;
+}
+@media (max-width: 1023px) {
+  .hero-spline-orb {
+    width: 280px !important;
+    height: 280px !important;
+  }
+}
+@media (max-width: 767px) {
+  .hero-spline-orb {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+.hero-spline-orb canvas + div {
+  display: none !important;
+}
+
 .spline-placeholder {
   width: 100%;
   height: 100%;
