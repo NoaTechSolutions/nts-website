@@ -876,6 +876,37 @@ a {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+  .contact-form-motivation {
+    align-items: center;
+    text-align: center;
+  }
+  .contact-form-motivation-title {
+    text-align: center;
+  }
+  .contact-form-motivation-copy {
+    text-align: center;
+  }
+  .contact-form-trust-list {
+    align-items: center;
+  }
+  .contact-form-trust-item {
+    justify-content: center;
+  }
+  .contact-form-social-proof {
+    text-align: center;
+  }
+  .contact-form-header {
+    align-items: center;
+    text-align: center;
+  }
+  .contact-form-shell {
+    align-items: center;
+  }
+  .contact-form-card {
+    width: 100%;
+    max-width: 560px;
+    margin-inline: auto;
+  }
 }
 
 .contact-form-motivation {
