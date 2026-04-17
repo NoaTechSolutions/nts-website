@@ -1,5 +1,43 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-17] — Perf GridDistortion, infraestructura 3D, tipografía fluida, breakpoints (NOA-149–NOA-155)
+
+### GridDistortion → MouseGlowBg (NOA-155)
+- Eliminado `grid-distortion.tsx` (310 líneas, WebGL shader) + `grid-distortion.css`
+- Creado `app/components/ui/mouse-glow-bg.tsx`: CSS radial-gradient mouse-tracking (77 líneas, 0KB extra)
+- Reemplazadas 2 instancias en `page.tsx`: mid-CTA (electric glow) y contact-final (amber glow)
+- Desinstalado `three` + `@types/three` (~700KB eliminados del bundle JS)
+
+### Infraestructura 3D (NOA-154)
+- Instalados: `lenis` (smooth scroll), `@react-three/fiber`, `@react-three/drei`, `@splinetool/react-spline`
+- `app/components/lenis-provider.tsx`: dynamic import, smooth scroll global (duration 1.2, easing exponencial)
+- `app/components/ui/spline-scene.tsx`: wrapper lazy-loaded para escenas Spline 3D
+- `app/hooks/use-touch-device.ts`: hook con `useSyncExternalStore` para detectar touch vs hover
+- `LenisProvider` integrado en `app/layout.tsx` dentro de `LanguageProvider`
+- Verificado: 4 secciones con `useScroll` usan `target: ref` — sin conflicto con Lenis
+
+### Contact + Crisp + FAB (NOA-149)
+- Sección contacto centrada en mobile/tablet (≤1023px)
+- Crisp widget en esquina inferior derecha, FAB speed-dial a la izquierda
+- Footer: copyright único dinámico, gradient navy, watermark `clamp(2rem, 5.8vw, 10rem)` fluido con mask-image fade
+
+### Breakpoints normalizados (NOA-150)
+- Sistema único: 479/767/768/1023/1024/1279/1439/1440
+- Documentado en `docs/design-system.md` sección 9
+
+### Tipografía fluida (NOA-153)
+- 32 font-size convertidos a `clamp()`, 10 valores `px` normalizados a `rem`
+- 0 font-size con `px` restantes en globals.css
+
+### Linear
+- `NOA-149` → PR abierto
+- `NOA-150` → **Done**
+- `NOA-153` → **In Review** (PR #37)
+- `NOA-154` → **Done** (PR #41)
+- `NOA-155` → **Done** (PR #39)
+
+---
+
 ## [2026-04-16] — Hydration fix, LCP, Crisp position (NOA-146, NOA-134, NOA-107, NOA-126)
 
 ### PageLoader SSR fix
