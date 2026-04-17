@@ -2608,10 +2608,11 @@ a {
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: clamp(5rem, 18vw, 14rem);
+  font-size: clamp(3.5rem, 10.5vw, 8rem);
   font-weight: 500;
   line-height: 0.85;
-  letter-spacing: -0.1em;
+  letter-spacing: -0.08em;
+  transform: none;
   color: rgba(255, 255, 255, 0.07);
   white-space: nowrap;
   pointer-events: none;
@@ -2632,6 +2633,20 @@ a {
   );
 }
 
+@media (min-width: 1440px) {
+  .site-footer-watermark {
+    font-size: clamp(5rem, 13vw, 12rem);
+    letter-spacing: -0.1em;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .site-footer-watermark {
+    font-size: clamp(3rem, 9.5vw, 7rem);
+    letter-spacing: -0.07em;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .site-footer-shell {
     min-height: 0;
@@ -2644,8 +2659,8 @@ a {
   }
 
   .site-footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.65rem 1.35rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 
   .site-footer-copyright {
@@ -2653,7 +2668,8 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(4rem, 16vw, 10rem);
+    font-size: clamp(2.5rem, 9vw, 6rem);
+    letter-spacing: -0.06em;
   }
 }
 
@@ -2731,8 +2747,8 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(3rem, 20vw, 6rem);
-    letter-spacing: -0.06em;
+    font-size: clamp(2rem, 10.5vw, 4.5rem);
+    letter-spacing: -0.05em;
   }
 }
 
