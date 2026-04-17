@@ -2633,9 +2633,18 @@ a {
   );
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1919px) {
   .site-footer-watermark {
     font-size: 6.4vw;
+    letter-spacing: -0.05em;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1920px) {
+  .site-footer-watermark {
+    font-size: 5.2vw;
     letter-spacing: -0.05em;
     overflow: hidden;
     white-space: nowrap;
