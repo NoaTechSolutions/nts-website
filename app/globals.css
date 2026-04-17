@@ -835,6 +835,12 @@ a {
   }
 }
 
+.spline-placeholder {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
 .contact-final-distortion {
   width: 100%;
   height: 100%;
