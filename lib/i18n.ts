@@ -321,7 +321,7 @@ export const translations = {
     footerSection: {
       eyebrow: "Soluciones tecnologicas",
       watermark: "NoaTechSolutions",
-      copyright: "\u00A9 NoaTechSolutions. Todos los derechos reservados.",
+      copyright: "\u00A9 2026 NoaTechSolutions. Todos los derechos reservados.",
       columns: [
         {
           title: "Mapa",
@@ -688,7 +688,7 @@ export const translations = {
     footerSection: {
       eyebrow: "Technology solutions",
       watermark: "NoaTechSolutions",
-      copyright: "\u00A9 NoaTechSolutions. All rights reserved.",
+      copyright: "\u00A9 2026 NoaTechSolutions. All rights reserved.",
       columns: [
         {
           title: "Map",
