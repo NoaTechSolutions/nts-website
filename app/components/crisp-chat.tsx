@@ -9,6 +9,7 @@ export function CrispChat() {
     if (!id) return;
     window.$crisp = [];
     window.CRISP_WEBSITE_ID = id;
+    window.$crisp.push(["config", "position:reverse", true]);
     const script = document.createElement("script");
     script.src = "https://client.crisp.chat/l.js";
     script.async = true;
