@@ -2668,8 +2668,10 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(3.2rem, 11vw, 7.5rem);
-    letter-spacing: -0.06em;
+    font-size: 4.2vw;
+    letter-spacing: -0.05em;
+    overflow: hidden;
+    width: 100%;
   }
 }
 
@@ -2747,8 +2749,10 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(2.5rem, 13vw, 5.5rem);
-    letter-spacing: -0.05em;
+    font-size: 5.2vw;
+    letter-spacing: -0.04em;
+    overflow: hidden;
+    width: 100%;
   }
 }
 
