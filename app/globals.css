@@ -2478,13 +2478,14 @@ a {
 }
 
 .site-footer-copyright {
-  grid-column: auto;
-  text-align: left;
-  max-width: 20rem;
+  text-align: center !important;
+  width: 100%;
+  grid-column: 1 / -1;
+  max-width: none;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.35);
   margin: 0;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   line-height: 1.6;
 }
 
@@ -2601,9 +2602,9 @@ a {
 .site-footer-watermark {
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
@@ -2634,7 +2635,7 @@ a {
 @media (min-width: 768px) and (max-width: 1023px) {
   .site-footer-shell {
     min-height: 0;
-    padding: 2rem 1.5rem 6rem;
+    padding: 2rem 1.5rem 8rem;
   }
 
   .site-footer-grid {
@@ -2645,6 +2646,10 @@ a {
   .site-footer-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.65rem 1.35rem;
+  }
+
+  .site-footer-copyright {
+    margin-bottom: 1.5rem;
   }
 
   .site-footer-watermark {
