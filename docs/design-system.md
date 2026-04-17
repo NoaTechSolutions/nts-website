@@ -318,3 +318,34 @@ El toggle light/dark debe:
 5. **El amber `#ff9900` nunca se usa como fondo de página o sección**
 6. **El electric `#0400f0` solo se usa en hover del botón primario**
 7. **Dos pesos tipográficos únicamente:** 400 y 500
+
+---
+
+## 9. Breakpoints
+
+Sistema único de breakpoints para todo el proyecto. Usar exclusivamente estos valores en media queries.
+
+| Nombre | Rango | Media query |
+|---|---|---|
+| Mobile S | 0 – 479px | `(max-width: 479px)` |
+| Mobile | 0 – 767px | `(max-width: 767px)` |
+| Tablet | 768px – 1023px | `(min-width: 768px) and (max-width: 1023px)` |
+| Laptop | 1024px – 1279px | `(min-width: 1024px) and (max-width: 1279px)` |
+| Desktop | 1280px – 1439px | `(min-width: 1280px) and (max-width: 1439px)` |
+| Wide | 1440px+ | `(min-width: 1440px)` |
+
+### Atajos comunes
+
+| Atajo | Media query | Cubre |
+|---|---|---|
+| Mobile-down | `(max-width: 767px)` | Mobile S + Mobile |
+| Tablet-down | `(max-width: 1023px)` | Mobile S + Mobile + Tablet |
+| Desktop-up | `(min-width: 1024px)` | Laptop + Desktop + Wide |
+| Wide-up | `(min-width: 1440px)` | Wide |
+
+### Reglas
+
+1. **Nunca usar 769px, 1441px, max-width: 768px, max-width: 1440px** — off by one
+2. Los cortes son: 480, 768, 1024, 1280, 1440
+3. `max-width` siempre es corte - 1 (479, 767, 1023, 1279, 1439)
+4. `min-width` siempre es el corte exacto (480, 768, 1024, 1280, 1440)
