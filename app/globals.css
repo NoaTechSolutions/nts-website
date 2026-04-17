@@ -2608,7 +2608,7 @@ a {
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: 6.8vw;
+  font-size: 5.8vw;
   font-weight: 500;
   line-height: 0.85;
   letter-spacing: -0.05em;
@@ -2635,7 +2635,7 @@ a {
 
 @media (min-width: 1440px) {
   .site-footer-watermark {
-    font-size: 7.6vw;
+    font-size: 6.4vw;
     letter-spacing: -0.05em;
     overflow: hidden;
     white-space: nowrap;
