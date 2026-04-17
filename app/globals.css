@@ -2608,10 +2608,10 @@ a {
   z-index: 1;
   text-align: center;
   font-family: var(--font-display-stack), sans-serif;
-  font-size: clamp(4.5rem, 12.5vw, 9.5rem);
+  font-size: 6.8vw;
   font-weight: 500;
   line-height: 0.85;
-  letter-spacing: -0.08em;
+  letter-spacing: -0.05em;
   transform: none;
   color: rgba(255, 255, 255, 0.07);
   white-space: nowrap;
@@ -2635,15 +2635,19 @@ a {
 
 @media (min-width: 1440px) {
   .site-footer-watermark {
-    font-size: clamp(6rem, 15vw, 13rem);
-    letter-spacing: -0.1em;
+    font-size: 7.6vw;
+    letter-spacing: -0.05em;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
   .site-footer-watermark {
-    font-size: clamp(4rem, 11.5vw, 8.5rem);
-    letter-spacing: -0.07em;
+    font-size: 5.4vw;
+    letter-spacing: -0.05em;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
@@ -2668,8 +2672,10 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(3.2rem, 11vw, 7.5rem);
-    letter-spacing: -0.06em;
+    font-size: 4.1vw;
+    letter-spacing: -0.05em;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
@@ -2747,8 +2753,10 @@ a {
   }
 
   .site-footer-watermark {
-    font-size: clamp(2.5rem, 13vw, 5.5rem);
+    font-size: 5.3vw;
     letter-spacing: -0.05em;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
