@@ -1,5 +1,24 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-16] — Hydration fix, LCP, Crisp position (NOA-146, NOA-134, NOA-107, NOA-126)
+
+### PageLoader SSR fix
+- `page-loader.tsx`: migrado a `useSyncExternalStore` para evitar hydration mismatch (`null` en SSR, render en client)
+- Hero images: `priority` + `loading="eager"` para mejorar LCP
+
+### Crisp widget reposicionado
+- `crisp-chat.tsx`: `position:reverse` → widget en esquina inferior izquierda
+- `globals.css`: `.crisp-client .cc-kv6t` sube a `bottom: 80px`, `100px` en ≥1440px
+
+### Dependencias limpiadas (NOA-145)
+- Eliminados `@base-ui/react`, `class-variance-authority`, `crisp-sdk-web`, shadcn residuales
+
+### Linear
+- Issues `NOA-134`, `NOA-107`, `NOA-126` → **Done**
+- Issue `NOA-146` → **Done** (PR #29)
+
+---
+
 ## [2026-04-15] — Contact form visible + Crisp chat (NOA-135)
 
 ### ContactForm en homepage
