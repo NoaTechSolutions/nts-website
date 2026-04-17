@@ -29,8 +29,10 @@ export function Button({
   className?: string;
   [key: string]: unknown;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Wrapper = Component as any;
   return (
-    <Component
+    <Wrapper
       className={cn(
         "relative h-16 w-40 overflow-hidden bg-transparent p-[1px] text-xl",
         containerClassName,
@@ -65,7 +67,7 @@ export function Button({
       >
         {children}
       </div>
-    </Component>
+    </Wrapper>
   );
 }
 
