@@ -23,7 +23,7 @@ import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooter } from "./components/site-footer";
 import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
-import GridDistortion from "./components/ui/grid-distortion";
+import { MouseGlowBg } from "./components/ui/mouse-glow-bg";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -313,12 +313,9 @@ export default function Home() {
       {/* 4. Mid-CTA */}
       <section className="section-divider services-proof-section">
         <div className="mid-cta-background" aria-hidden="true">
-          <GridDistortion
+          <MouseGlowBg
             imageSrc="/noatechsolutions-cta-background-tech-grid.png"
-            grid={16}
-            mouse={0.34}
-            strength={0.68}
-            relaxation={0.76}
+            glowColor="rgba(4,0,240,0.12)"
             className="mid-cta-distortion"
           />
         </div>
@@ -372,12 +369,9 @@ export default function Home() {
       {/* 8. Contact Final — CTA "Inicia Tu Proyecto" */}
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
-          <GridDistortion
+          <MouseGlowBg
             imageSrc="/noatechsolutions-cta-background-tech-grid.png"
-            grid={14}
-            mouse={0.3}
-            strength={0.64}
-            relaxation={0.8}
+            glowColor="rgba(255,153,0,0.1)"
             className="contact-final-distortion"
           />
         </div>
