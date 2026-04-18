@@ -26,6 +26,8 @@ import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { MouseGlowBg } from "./components/ui/mouse-glow-bg";
 import { NoaMascot } from "./components/noa-mascot";
 import { useNoaScroll } from "./hooks/use-noa-scroll";
+import { Vortex } from "@/components/ui/vortex";
+import { useTheme } from "./components/theme-provider";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -38,6 +40,8 @@ export default function Home() {
   const t = translations[locale];
   const [activeFaqIndex, setActiveFaqIndex] = useState(0);
   const { expression } = useNoaScroll();
+  const { theme } = useTheme();
+  const vortexBg = theme === "dark" ? "#0b0f1a" : "transparent";
   const stats = t.hero.stats;
   const services = t.servicesSection.items;
   const process = t.processSection.items;
@@ -142,6 +146,15 @@ export default function Home() {
       <div className="hero-glow hero-glow-right" aria-hidden="true" />
       <MobileSpeedDial />
 
+      <Vortex
+        key={theme}
+        backgroundColor={vortexBg}
+        rangeY={800}
+        particleCount={500}
+        baseHue={220}
+        className="w-full min-h-screen"
+        containerClassName="relative w-full min-h-screen flex items-center"
+      >
       <div id="home" className="grid-shell section-space">
         <ResizableNavbarDemo />
 
@@ -155,18 +168,6 @@ export default function Home() {
               priority
               loading="eager"
               className="hero-left-object"
-            />
-          </div>
-
-          <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
-            <Image
-              src="/noatechsolutions-digital-orb-hero.svg"
-              alt=""
-              width={420}
-              height={420}
-              priority
-              loading="eager"
-              className="hero-floating-object"
             />
           </div>
 
@@ -290,6 +291,7 @@ export default function Home() {
         </section>
 
       </div>
+      </Vortex>
 
       {/* 2. Growth Messages */}
       <GrowthMessagesSection
