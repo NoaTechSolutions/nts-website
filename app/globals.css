@@ -2447,7 +2447,7 @@ a {
 }
 
 .site-footer-logo-image {
-  height: 4rem;
+  height: 3.5rem;
   width: auto;
   object-fit: contain;
   background: transparent;
@@ -2495,7 +2495,8 @@ a {
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .dark .site-footer-column-title {
@@ -2514,14 +2515,12 @@ a {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.94rem;
   line-height: 1.45;
-  transition:
-    color 180ms ease,
-    transform 180ms ease;
+  padding: 3px 0;
+  transition: color 180ms ease;
 }
 
 .site-footer-link:hover {
   color: #ffffff;
-  transform: translateX(1px);
 }
 
 .site-footer-link.is-muted {
@@ -2572,9 +2571,9 @@ a {
 
 .site-footer-social:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.46);
-  background: transparent;
-  color: #ffffff;
+  border-color: #ff9900;
+  background: rgba(255, 153, 0, 0.1);
+  color: #ff9900;
 }
 
 .dark .site-footer-social {
