@@ -6580,14 +6580,16 @@ a {
 /* NOA MASCOT */
 .noa-mascot {
   position: fixed;
-  bottom: 6rem;
-  left: 1.5rem;
+  bottom: 7rem;
+  right: 7rem;
+  left: auto;
   z-index: 48;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease,
               transform 0.6s ease;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
 }
 .noa-mascot-visible {
   opacity: 1;
@@ -6627,7 +6629,8 @@ a {
 @media (max-width: 767px) {
   .noa-mascot {
     bottom: 5rem;
-    left: 1rem;
+    right: 1rem;
+    left: auto;
   }
 }
 
