@@ -1,5 +1,33 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-17] — Noa mascot assets desde Figma (NOA-159)
+
+### Assets descargados
+- Fuente: Figma file "Noa Mascot NTS" (fileKey `4Bv96hNRzdDdQ7vIsjWwMB`), 3 imágenes 1536×1024 generadas con ChatGPT
+- Descarga vía `figma-developer-mcp` (MCP), optimización con `sharp` (resize 1200px, WebP quality 85)
+
+### Archivos en `public/noa/`
+| Asset | PNG | WebP (1200×800) |
+| -- | -- | -- |
+| `noa-mascot-original` | 1.1 MB | 40 KB |
+| `noa-expressions-8poses` | 1.4 MB | 100 KB |
+| `noa-expressions-celebrate-wake` | 1.3 MB | 56 KB |
+
+### Convención de uso
+- Next.js `<Image>` → apuntar al PNG (Next genera WebP/AVIF on-the-fly)
+- CSS `background-image` o `<img>` crudo → usar `.webp` pre-optimizado
+
+### MCP figma
+- Fix: `~/.claude.json` → agregado flag `--stdio` a `args` del server figma. Sin ese flag el binario no arranca en modo MCP stdio y Claude Code no puede conectarse.
+
+### Siguiente paso
+Vectorizar en Figma con plugin Image Tracer para separar a Noa en capas (cuerpo, cabeza, ojos, brazos, antena), exportar SVGs por expresión y animar en LottieFiles.
+
+### Linear
+- `NOA-159` → **In Progress** (assets listos, pendiente vectorización + animación)
+
+---
+
 ## [2026-04-17] — Perf GridDistortion, infraestructura 3D, tipografía fluida, breakpoints (NOA-149–NOA-155)
 
 ### GridDistortion → MouseGlowBg (NOA-155)
