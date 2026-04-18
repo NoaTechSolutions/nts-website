@@ -6647,3 +6647,31 @@ a {
     transform: scale(1.05);
   }
 }
+
+/* FOOTER WATERMARK — interactive (TextHoverEffect) */
+.site-footer-watermark-interactive {
+  width: 100%;
+  height: clamp(5rem, 12vw, 11rem);
+  position: relative;
+  cursor: default;
+}
+
+/* Gradient sky sutil detrás del SVG */
+.site-footer-watermark-interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    125% 125% at 50% 10%,
+    transparent 50%,
+    rgba(5,165,255,0.05) 100%
+  );
+  pointer-events: none;
+}
+
+/* Mobile — altura reducida */
+@media (max-width: 767px) {
+  .site-footer-watermark-interactive {
+    height: clamp(3rem, 15vw, 5rem);
+  }
+}
