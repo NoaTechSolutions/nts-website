@@ -20,7 +20,7 @@ import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
 import { ServicesStackSection } from "./components/services-stack-section";
-import { SiteFooter } from "./components/site-footer";
+import { SiteFooterNurui } from "./components/site-footer-nurui";
 import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { MouseGlowBg } from "./components/ui/mouse-glow-bg";
@@ -44,7 +44,6 @@ export default function Home() {
   const reviews = t.reviewsSection.items;
   const faqItems = t.faqSection.items;
   const faqHighlights = t.faqSection.highlights.filter(Boolean);
-  const footer = t.footerSection;
   const ctaPriceHighlight =
     t.ctaSection.priceTag.match(/\$\d[\d.,]*/)?.[0] ?? t.ctaSection.priceTag;
   const hasPriceTagInCtaTitle = t.ctaSection.title.includes(t.ctaSection.priceTag);
@@ -529,12 +528,7 @@ export default function Home() {
         </div>
       </section>
 
-      <SiteFooter
-        eyebrow={footer.eyebrow}
-        watermark={footer.watermark}
-        copyright={footer.copyright}
-        columns={footer.columns}
-      />
+      <SiteFooterNurui />
 
       <NoaMascot expression={expression} size={100} />
     </main>
