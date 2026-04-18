@@ -39,12 +39,26 @@ export function NoaMascot({
 
   const imageSrc = "/noa/noa-mascot-original.png";
 
+  const expressions: NoaExpression[] = ["wave", "thumbs-up", "celebrate"];
+
+  const handleClick = () => {
+    const random =
+      expressions[Math.floor(Math.random() * expressions.length)];
+    setCurrentExpression(random);
+    setTimeout(() => {
+      setCurrentExpression("idle");
+    }, 2000);
+  };
+
   return (
     <div
       className={`noa-mascot ${className} ${
         visible ? "noa-mascot-visible" : ""
       }`}
-      aria-hidden="true"
+      onClick={handleClick}
+      role="button"
+      aria-label="Saludar a Noa"
+      tabIndex={0}
     >
       <Image
         src={imageSrc}
