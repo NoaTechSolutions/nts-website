@@ -26,6 +26,7 @@ import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { MouseGlowBg } from "./components/ui/mouse-glow-bg";
 import { NoaMascot } from "./components/noa-mascot";
 import { useNoaScroll } from "./hooks/use-noa-scroll";
+import { Vortex } from "@/components/ui/vortex";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -146,6 +147,14 @@ export default function Home() {
         <ResizableNavbarDemo />
 
         <section className="hero-showcase">
+          <Vortex
+            backgroundColor="transparent"
+            rangeY={400}
+            particleCount={300}
+            baseHue={220}
+            containerClassName="absolute inset-0 w-full h-full"
+            className="w-full h-full"
+          />
           <div className="hero-art hero-art-left hero-art-hand-desktop hidden lg:block" aria-hidden="true">
             <Image
               src="/noatechsolutions-robotic-hand-hero.svg"
@@ -158,19 +167,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
-            <Image
-              src="/noatechsolutions-digital-orb-hero.svg"
-              alt=""
-              width={420}
-              height={420}
-              priority
-              loading="eager"
-              className="hero-floating-object"
-            />
-          </div>
-
-          <div className="hero-content">
+          <div className="hero-content relative z-10">
             <span className="hero-badge">
               <span className="hero-badge-star" aria-hidden="true">
                 <svg
