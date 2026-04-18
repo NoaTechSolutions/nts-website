@@ -40,17 +40,17 @@ const footerColumns = [
 const contactInfo = [
   {
     icon: Mail,
-    text: "hello@noatechsolutions.com",
-    href: "mailto:hello@noatechsolutions.com",
+    text: "contact@noatechsolutions.com",
+    href: "mailto:contact@noatechsolutions.com",
   },
   {
     icon: Phone,
-    text: "+1 (619) 555-0123",
-    href: "tel:+16195550123",
+    text: "+1 (510) 778-6601",
+    href: "tel:+15107786601",
   },
   {
     icon: MapPin,
-    text: "California + Baja California",
+    text: "California, USA",
   },
 ];
 
@@ -99,7 +99,7 @@ export function SiteFooterNurui() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="hover:text-[#05a5ff] transition-colors text-sm"
+                        className="hover:text-[#ff9900] transition-colors text-sm"
                       >
                         {link.label}
                       </Link>
@@ -121,12 +121,12 @@ export function SiteFooterNurui() {
                 >
                   <item.icon
                     size={18}
-                    className="text-[#05a5ff] shrink-0"
+                    className="text-[#ff9900] shrink-0"
                   />
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="hover:text-[#05a5ff] transition-colors"
+                      className="hover:text-[#ff9900] transition-colors"
                     >
                       {item.text}
                     </a>
@@ -150,7 +150,7 @@ export function SiteFooterNurui() {
                 key={label}
                 href={href}
                 aria-label={label}
-                className="hover:text-[#05a5ff] transition-colors"
+                className="hover:text-[#ff9900] transition-colors"
               >
                 <Icon size={20} />
               </a>
