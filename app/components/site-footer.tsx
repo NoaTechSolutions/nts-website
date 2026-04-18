@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 type FooterLink = {
   label: string;
@@ -106,8 +107,8 @@ export function SiteFooter({
           <p className="site-footer-copyright">{copyright}</p>
         </div>
 
-        <div className="site-footer-watermark" aria-hidden="true">
-          {watermark}
+        <div className="site-footer-watermark-interactive">
+          <TextHoverEffect text={watermark} duration={0.3} />
         </div>
       </div>
     </footer>
