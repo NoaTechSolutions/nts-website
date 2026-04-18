@@ -71,7 +71,7 @@ export function SiteFooterNurui() {
 
       <div className="max-w-7xl mx-auto p-14 z-40 relative">
         {/* Grid principal */}
-        <div className="nurui-footer-grid grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-12 md:gap-6 lg:gap-16 pb-12">
+        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-16 pb-12">
           {/* Brand */}
           <div className="nurui-footer-brand flex flex-col space-y-4">
             <Image

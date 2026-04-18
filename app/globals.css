@@ -6644,13 +6644,9 @@ a {
 }
 
 /* NURUI FOOTER — responsive layout */
-/* Default: wrapper "flattens" into parent grid (tablet/desktop 4-col) */
-.nurui-footer-links-wrapper {
-  display: contents;
-}
 
-/* Mobile (≤767px): stacked layout — brand full, then links 2-col, then contact full */
-@media (max-width: 767px) {
+/* Tablet + mobile (≤1023px): stacked layout — brand full, [links 2-col], contact full, bottom centered */
+@media (max-width: 1023px) {
   .nurui-footer-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -6675,14 +6671,9 @@ a {
   }
 }
 
-/* Tablet (768-1023px): contact column is narrow, reduce font size so long emails/phones don't clip */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .nurui-footer-contact {
-    font-size: 0.75rem;
-  }
-  .nurui-footer-contact a,
-  .nurui-footer-contact span {
-    font-size: 0.75rem;
-    word-break: break-all;
+/* Desktop only (≥1024px): wrapper flattens into parent 4-col grid */
+@media (min-width: 1024px) {
+  .nurui-footer-links-wrapper {
+    display: contents;
   }
 }
