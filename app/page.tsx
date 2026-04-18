@@ -24,6 +24,8 @@ import { SiteFooter } from "./components/site-footer";
 import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { MouseGlowBg } from "./components/ui/mouse-glow-bg";
+import { NoaMascot } from "./components/noa-mascot";
+import { useNoaScroll } from "./hooks/use-noa-scroll";
 import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -35,6 +37,7 @@ export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const [activeFaqIndex, setActiveFaqIndex] = useState(0);
+  const { expression } = useNoaScroll();
   const stats = t.hero.stats;
   const services = t.servicesSection.items;
   const process = t.processSection.items;
@@ -532,6 +535,8 @@ export default function Home() {
         copyright={footer.copyright}
         columns={footer.columns}
       />
+
+      <NoaMascot expression={expression} size={100} />
     </main>
   );
 }

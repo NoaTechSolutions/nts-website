@@ -6576,3 +6576,71 @@ a {
     bottom: 100px !important;
   }
 }
+
+/* NOA MASCOT */
+.noa-mascot {
+  position: fixed;
+  bottom: 6rem;
+  left: 1.5rem;
+  z-index: 48;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease,
+              transform 0.6s ease;
+  pointer-events: none;
+}
+.noa-mascot-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animación flotante idle */
+@keyframes noa-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.noa-mascot-image {
+  animation: noa-float 3s ease-in-out infinite;
+  filter: drop-shadow(0 8px 16px rgba(2,41,119,0.2));
+}
+
+/* Expresión wave — rebote */
+@keyframes noa-wave {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-5deg); }
+  75% { transform: translateY(-8px) rotate(5deg); }
+}
+.noa-expression-wave {
+  animation: noa-wave 0.8s ease-in-out 3;
+}
+
+/* Expresión celebrate — salto */
+@keyframes noa-celebrate {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.1); }
+}
+.noa-expression-celebrate {
+  animation: noa-celebrate 0.6s ease-in-out 3;
+}
+
+/* Mobile — más pequeña y sin fixed */
+@media (max-width: 767px) {
+  .noa-mascot {
+    bottom: 5rem;
+    left: 1rem;
+  }
+}
+
+/* Desktop — hover sutil */
+@media (hover: hover) {
+  .noa-mascot {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .noa-mascot:hover .noa-mascot-image {
+    filter: drop-shadow(
+      0 12px 24px rgba(2,41,119,0.35)
+    );
+    transform: scale(1.05);
+  }
+}
