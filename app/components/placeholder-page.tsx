@@ -1,5 +1,5 @@
 import { ResizableNavbarDemo } from "./resizable-navbar-demo";
-import { SiteFooterI18n } from "./site-footer-i18n";
+import { SiteFooterNurui } from "./site-footer-nurui";
 
 export function PlaceholderPage({ title }: { title: string }) {
   return (
@@ -40,7 +40,7 @@ export function PlaceholderPage({ title }: { title: string }) {
           {title}
         </h1>
       </section>
-      <SiteFooterI18n />
+      <SiteFooterNurui />
     </main>
   );
 }

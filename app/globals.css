@@ -139,6 +139,7 @@ a {
   position: relative;
   overflow-x: hidden;
   overflow-y: visible;
+  padding-bottom: 0;
   background: var(--bg-page);
   -webkit-touch-callout: none;
   -webkit-user-select: none;

@@ -37,7 +37,7 @@ export const TextHoverEffect = ({
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 300 100"
+      viewBox="0 0 900 100"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       role="presentation"
@@ -138,3 +138,13 @@ export const TextHoverEffect = ({
     </svg>
   );
 };
+
+export const FooterBackgroundGradient = () => (
+  <div
+    className="absolute inset-0 z-0"
+    style={{
+      background:
+        "radial-gradient(125% 125% at 50% 10%, #022977aa 0%, #0400f022 50%, #05a5ff11 100%)",
+    }}
+  />
+);
