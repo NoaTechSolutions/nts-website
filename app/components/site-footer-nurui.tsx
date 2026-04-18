@@ -63,7 +63,10 @@ const socialLinks = [
 
 export function SiteFooterNurui() {
   return (
-    <footer className="bg-[#0F0F11] relative rounded-3xl overflow-hidden mx-4 mb-4 text-gray-400">
+    <footer
+      className="bg-[#0F0F11] relative rounded-3xl mx-4 mb-4 overflow-visible text-gray-400"
+      style={{ clipPath: "inset(0 0 0 0 round 1.5rem)" }}
+    >
       <FooterBackgroundGradient />
 
       <div className="max-w-7xl mx-auto p-14 z-40 relative">
@@ -116,7 +119,7 @@ export function SiteFooterNurui() {
                 >
                   <item.icon
                     size={18}
-                    className="text-[#05a5ff] flex-shrink-0"
+                    className="text-[#05a5ff] shrink-0"
                   />
                   {item.href ? (
                     <a
@@ -158,7 +161,10 @@ export function SiteFooterNurui() {
       </div>
 
       {/* TextHoverEffect watermark */}
-      <div className="lg:flex hidden h-[30rem] -mt-52 -mb-36">
+      <div
+        className="lg:flex hidden h-48 -mt-4 overflow-visible"
+        style={{ position: "relative", zIndex: 10 }}
+      >
         <TextHoverEffect text="NoaTechSolutions" duration={0.3} />
       </div>
     </footer>
