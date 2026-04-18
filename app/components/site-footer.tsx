@@ -83,19 +83,6 @@ export function SiteFooter({
               className="site-footer-logo-image"
             />
             <p className="site-footer-eyebrow">{eyebrow}</p>
-
-            <div className="site-footer-socials" aria-label="Redes sociales">
-              {footerSocials.map(({ label, Icon }) => (
-                <span
-                  key={label}
-                  className="site-footer-social"
-                  title={label}
-                  aria-label={label}
-                >
-                  <Icon size={16} strokeWidth={2.1} />
-                </span>
-              ))}
-            </div>
           </div>
 
           <div className="site-footer-columns">
@@ -114,11 +101,26 @@ export function SiteFooter({
             ))}
           </div>
 
-          <p className="site-footer-copyright">{copyright}</p>
         </div>
 
         <div className="site-footer-watermark-interactive">
           <TextHoverEffect text={watermark} duration={0.3} />
+        </div>
+
+        <div className="site-footer-bottom-bar">
+          <div className="site-footer-socials" aria-label="Redes sociales">
+            {footerSocials.map(({ label, Icon }) => (
+              <span
+                key={label}
+                className="site-footer-social"
+                title={label}
+                aria-label={label}
+              >
+                <Icon size={16} strokeWidth={2.1} />
+              </span>
+            ))}
+          </div>
+          <p className="site-footer-copyright">{copyright}</p>
         </div>
       </div>
     </footer>
