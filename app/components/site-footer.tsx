@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
-import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+import {
+  TextHoverEffect,
+  FooterBackgroundGradient,
+} from "@/components/ui/text-hover-effect";
 
 type FooterLink = {
   label: string;
@@ -59,8 +62,15 @@ export function SiteFooter({
   ] as const;
 
   return (
-    <footer className="site-footer-section">
-      <div className="site-footer-shell">
+    <footer
+      className="site-footer-section"
+      style={{ position: "relative", overflow: "hidden" }}
+    >
+      <FooterBackgroundGradient />
+      <div
+        className="site-footer-shell"
+        style={{ position: "relative", zIndex: 1 }}
+      >
         <div className="site-footer-divider" aria-hidden="true" />
 
         <div className="site-footer-grid">

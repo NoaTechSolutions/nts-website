@@ -6600,13 +6600,15 @@ a {
   }
 }
 
-/* FOOTER WATERMARK — interactive (TextHoverEffect) */
+/* FOOTER WATERMARK — interactive (TextHoverEffect, bleed up/down) */
 .site-footer-watermark-interactive {
   width: 100%;
-  height: clamp(4rem, 10vw, 9rem);
+  height: 20rem;
   position: relative;
+  margin-top: -8rem;
+  margin-bottom: -4rem;
+  overflow: visible;
   cursor: default;
-  overflow: hidden;
 }
 
 .site-footer-watermark-interactive svg {
@@ -6615,29 +6617,18 @@ a {
   display: block;
 }
 
-/* Gradient sky sutil detrás del SVG */
-.site-footer-watermark-interactive::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    125% 125% at 50% 10%,
-    transparent 50%,
-    rgba(5,165,255,0.05) 100%
-  );
-  pointer-events: none;
-}
-
 /* Tablet — altura intermedia */
 @media (max-width: 1023px) {
   .site-footer-watermark-interactive {
-    height: clamp(3rem, 8vw, 6rem);
+    height: 12rem;
+    margin-top: -4rem;
+    margin-bottom: -2rem;
   }
 }
 
-/* Mobile — altura reducida */
+/* Mobile — watermark oculto (overlap no funciona bien en móviles chicos) */
 @media (max-width: 767px) {
   .site-footer-watermark-interactive {
-    height: clamp(2.5rem, 12vw, 5rem);
+    display: none;
   }
 }
