@@ -6647,3 +6647,44 @@ a {
     transform: scale(1.05);
   }
 }
+
+/* HERO TITLE GLOW (over WavyBackground) */
+.hero-title,
+.hero-title-showcase {
+  text-shadow:
+    0 0 20px rgba(255,255,255,0.8),
+    0 0 40px rgba(255,255,255,0.4),
+    0 2px 4px rgba(2,41,119,0.3);
+}
+
+/* Navy text spans (not the amber accent) */
+.hero-title span:not(.hero-title-accent),
+.hero-title-showcase span:not(.hero-title-accent) {
+  text-shadow:
+    0 0 30px rgba(255,255,255,0.9),
+    0 0 60px rgba(255,255,255,0.5),
+    0 2px 8px rgba(2,41,119,0.2);
+}
+
+/* Amber accent span */
+.hero-title .hero-title-accent,
+.hero-title-showcase .hero-title-accent {
+  text-shadow:
+    0 0 20px rgba(255,153,0,0.8),
+    0 0 40px rgba(255,153,0,0.4),
+    0 0 80px rgba(255,153,0,0.2);
+}
+
+/* Dark mode — glow más intenso */
+.dark .hero-title,
+.dark .hero-title-showcase {
+  text-shadow:
+    0 0 20px rgba(5,165,255,0.6),
+    0 0 40px rgba(4,0,240,0.3),
+    0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Hero copy subtitle */
+.hero-copy-showcase {
+  text-shadow: 0 1px 8px rgba(255,255,255,0.6);
+}
