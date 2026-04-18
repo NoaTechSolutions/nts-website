@@ -6609,12 +6609,25 @@ a {
 /* FOOTER WATERMARK — interactive (TextHoverEffect, Nurui demo style) */
 .site-footer-watermark-interactive {
   width: 100%;
+  max-width: 100%;
   height: 28rem;
   margin-top: -10rem;
   margin-bottom: 0;
   overflow: hidden;
   position: relative;
   cursor: default;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 /* SVG sinks into bottom, cropped at bottom edge */
