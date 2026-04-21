@@ -83,7 +83,7 @@ export function SiteFooterNurui() {
             />
             <p className="text-sm leading-relaxed text-gray-400">
               Tu socio en transformación digital. Diseño web, SEO y marketing
-              para empresas en California y Baja California.
+              para empresas en California, USA y resto del mundo.
             </p>
           </div>
 
