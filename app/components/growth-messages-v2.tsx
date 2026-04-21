@@ -1,69 +1,122 @@
 "use client";
 
 import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
+import { Highlighter } from "@/components/ui/highlighter";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
-import { Zap, Globe, BarChart, Shield, Rocket, Star } from "lucide-react";
+import { TriangleAlert } from "lucide-react";
 
-const icons = [Zap, Globe, BarChart, Shield, Rocket, Star];
-
-const colors = [
-  "#022977",
-  "#0400f0",
-  "#05a5ff",
-  "#ff9900",
-  "#022977",
-  "#0400f0",
-];
+function formatTitle(title: string) {
+  const words = title.trim().split(/\s+/);
+  return {
+    firstWord: words[0] ?? "",
+    highlightedWord: words[1] ?? "",
+    accentWord: words[2] ?? "",
+    trailingWords: words.slice(3).join(" "),
+  };
+}
 
 export function GrowthMessagesV2() {
   const { locale } = useLanguage();
   const t = translations[locale];
-  const { title, items, eyebrow, copy } = t.growthSection;
+  const items = t.growthSection.items;
+  const formatted = formatTitle(t.growthSection.title);
 
   return (
-    <section className="py-12">
-      <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
-        {/* Columna izquierda — sticky */}
-        <div className="left-0 top-0 md:sticky md:h-svh md:py-12 flex flex-col justify-center">
-          <p className="text-xs uppercase tracking-widest text-[#ff9900] font-medium mb-4">
-            {eyebrow}
-          </p>
-          <h2 className="text-4xl font-medium tracking-tight text-[#022977] dark:text-white mb-6">
-            {title}
+    <section className="py-12 bg-(--bg-page)">
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
+        {/* Columna izquierda sticky */}
+        <div className="md:sticky md:top-[20vh] md:h-fit flex flex-col justify-center py-12">
+          <h2 className="growth-center-title">
+            <span className="growth-center-line">
+              <span>{formatted.firstWord}</span>
+              <span className="growth-center-pill">
+                {formatted.highlightedWord}
+              </span>
+            </span>
+            <span className="growth-center-line growth-center-line-accent">
+              <Highlighter
+                action="underline"
+                color="#ff9900"
+                strokeWidth={3}
+                animationDuration={900}
+                padding={4}
+                isView
+              >
+                <span className="growth-center-underlined">
+                  {formatted.accentWord}
+                </span>
+              </Highlighter>
+              <span className="growth-center-trailing">
+                {formatted.trailingWords}
+              </span>
+            </span>
           </h2>
-          <p className="text-sm leading-relaxed text-gray-500 max-w-prose">
-            {copy}
-          </p>
         </div>
 
-        {/* Columna derecha — cards stack */}
-        <ContainerScroll className="min-h-[250vh] space-y-6 pt-[30vh] pb-24">
+        {/* Columna derecha cards */}
+        <ContainerScroll className="min-h-[250vh] space-y-6 pt-[10vh] pb-24">
           {items.map((item, index) => {
-            const Icon = icons[index % icons.length];
-            const color = colors[index % colors.length];
+            const normalized = item.replace(/\.$/, "");
             return (
               <CardSticky
                 key={index}
                 index={index + 3}
                 incrementY={20}
                 incrementZ={8}
-                className="rounded-2xl border border-[#022977]/10 bg-white dark:bg-[#161d30] p-8 shadow-lg"
+                className="w-full"
+                style={{
+                  position: "sticky" as const,
+                }}
               >
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: `${color}15` }}
+                <div
+                  style={{
+                    width: "100%",
+                    padding: "0.38rem 0.74rem 0.4rem",
+                    overflow: "hidden",
+                    border: "1px solid rgba(255,153,0,0.44)",
+                    borderRadius: "1.55rem",
+                    background:
+                      "linear-gradient(180deg, rgba(255,247,237,0.98), rgba(255,255,255,0.94)), linear-gradient(90deg, rgba(255,153,0,0.08), rgba(255,255,255,0))",
+                    boxShadow:
+                      "0 0 0 1px rgba(255,153,0,0.08), 0 16px 34px rgba(2,41,119,0.08), 0 0 28px rgba(255,153,0,0.16)",
+                    backdropFilter: "blur(10px)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "1.65rem",
+                      height: "1.65rem",
+                      borderRadius: "999px",
+                      color: "#ffffff",
+                      background:
+                        "linear-gradient(180deg, #ffb23f, #ff9900)",
+                      boxShadow:
+                        "0 0 0 3px rgba(255,153,0,0.14), 0 8px 18px rgba(255,153,0,0.28)",
+                      flexShrink: 0,
+                    }}
                   >
-                    <Icon size={20} style={{ color }} />
-                  </div>
-                  <span className="text-3xl font-medium opacity-10 text-[#022977] dark:text-white">
-                    {String(index + 1).padStart(2, "0")}
+                    <TriangleAlert size={14} strokeWidth={2.2} />
                   </span>
+                  <p
+                    style={{
+                      textWrap: "balance",
+                      whiteSpace: "nowrap",
+                      color: "#022977",
+                      fontSize: "0.95rem",
+                      fontWeight: 500,
+                      margin: 0,
+                    }}
+                  >
+                    {normalized}
+                  </p>
                 </div>
-                <p className="text-base font-medium text-[#022977] dark:text-white leading-snug">
-                  {item}
-                </p>
               </CardSticky>
             );
           })}
