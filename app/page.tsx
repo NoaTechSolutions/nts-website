@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
-import { GrowthMessagesSection } from "./components/growth-messages-section";
+import { GrowthMessagesV2 } from "./components/growth-messages-v2";
 import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
@@ -291,10 +291,7 @@ export default function Home() {
       </div>
 
       {/* 2. Growth Messages */}
-      <GrowthMessagesSection
-        title={t.growthSection.title}
-        items={t.growthSection.items}
-      />
+      <GrowthMessagesV2 />
 
       {/* Spacer: permite que el fixed frame de Growth se desenganche antes de la siguiente sección */}
       <div aria-hidden="true" style={{ height: "4rem" }} />
