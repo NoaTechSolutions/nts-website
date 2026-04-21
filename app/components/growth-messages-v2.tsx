@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import CardSwap, { Card } from "@/components/ui/card-swap";
+import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
@@ -12,7 +11,6 @@ import {
   Palette,
   ArrowUpRight,
 } from "lucide-react";
-import { useScroll, useMotionValueEvent } from "motion/react";
 
 const cardData = [
   {
@@ -50,126 +48,79 @@ export function GrowthMessagesV2() {
   const t = translations[locale];
   const items = t.servicesSection.items;
   const rotatingWords = t.hero.rotatingWords;
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isActive, setIsActive] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setActiveIndex(
-      Math.min(Math.floor(v * items.length), items.length - 1),
-    );
-  });
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsActive(entry.isIntersecting);
-      },
-      { threshold: 0.1 },
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      className="services-stack-section"
-      style={{ minHeight: `${items.length * 100}vh` }}
-    >
-      {isActive && (
-        <div className="services-stack-overlay">
-          <div className="services-stack-shell services-stack-shell-floating">
-            {/* Columna izquierda */}
-            <div className="services-stack-copy">
-              <p className="eyebrow">{t.servicesSection.eyebrow}</p>
-              <div className="services-stack-heading">
-                <LayoutTextFlip
-                  text={t.servicesSection.title}
-                  words={rotatingWords}
-                  duration={2800}
-                  className="services-stack-heading-flip"
-                  textClassName="services-stack-heading-text"
-                  wordClassName="services-stack-heading-word"
-                />
-              </div>
-              <p className="section-copy">{t.servicesSection.copy}</p>
-              <div className="btn-body-ghost">
-                <div className="btn-ghost-orb" />
-                <a href="/servicios" className="btn-ghost-inner">
-                  {t.servicesSection.cta}
-                </a>
-              </div>
-            </div>
-
-            {/* Columna derecha — CardSwap 3D */}
-            <div className="services-stack-stage">
-              <div className="services-stack-scroller">
-                <CardSwap
-                  width={520}
-                  height={470}
-                  cardDistance={55}
-                  verticalDistance={58}
-                  activeIndex={activeIndex}
-                >
-                  {items.map((item, index) => {
-                    const card = cardData[index];
-                    const Icon = card.icon;
-                    return (
-                      <Card
-                        key={index}
-                        customClass={`services-stack-card ${card.modifier}`}
-                      >
-                        <p className="services-stack-footer">{card.footer}</p>
-                        <div className="services-stack-card-top">
-                          <span className="services-stack-icon">
-                            <Icon size={18} strokeWidth={2.1} />
-                          </span>
-                          <span className="services-stack-card-badge">
-                            {card.badge}
-                          </span>
-                        </div>
-                        <h3 className="services-stack-title">{item.title}</h3>
-                        <p className="services-stack-description">
-                          {item.description}
-                        </p>
-                        <div className="services-stack-benefits">
-                          {card.benefits.map((b) => (
-                            <span
-                              key={b}
-                              className="services-stack-benefit"
-                            >
-                              {b}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="services-stack-card-actions">
-                          <a
-                            href="/servicios"
-                            className="services-stack-card-cta"
-                          >
-                            <span>{t.servicesSection.cardCta}</span>
-                            <ArrowUpRight size={16} strokeWidth={2.2} />
-                          </a>
-                        </div>
-                      </Card>
-                    );
-                  })}
-                </CardSwap>
-              </div>
-            </div>
+    <section className="py-12 bg-(--bg-page)">
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
+        {/* Columna izquierda sticky — visual parity con ServicesStackSection */}
+        <div className="services-stack-copy md:sticky md:top-[20vh] md:h-fit">
+          <p className="eyebrow">{t.servicesSection.eyebrow}</p>
+          <div className="services-stack-heading">
+            <LayoutTextFlip
+              text={t.servicesSection.title}
+              words={rotatingWords}
+              duration={2800}
+              className="services-stack-heading-flip"
+              textClassName="services-stack-heading-text"
+              wordClassName="services-stack-heading-word"
+            />
+          </div>
+          <p className="section-copy">{t.servicesSection.copy}</p>
+          <div className="btn-body-ghost">
+            <div className="btn-ghost-orb" />
+            <a href="/servicios" className="btn-ghost-inner">
+              {t.servicesSection.cta}
+            </a>
           </div>
         </div>
-      )}
-      <div className="services-stack-spacer" aria-hidden="true" />
-    </div>
+
+        {/* Columna derecha — CardSticky stack con 3D fan */}
+        <ContainerScroll className="min-h-[300vh] space-y-6 pt-[10vh] pb-24">
+          {items.map((item, index) => {
+            const card = cardData[index];
+            const Icon = card.icon;
+            const reversedIndex = items.length - 1 - index;
+            return (
+              <CardSticky
+                key={index}
+                index={index + 3}
+                incrementY={20}
+                incrementZ={8}
+                className={`services-stack-card ${card.modifier} w-full`}
+                style={{
+                  transform: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
+                  opacity: Math.max(1 - reversedIndex * 0.15, 0.4),
+                }}
+              >
+                <p className="services-stack-footer">{card.footer}</p>
+                <div className="services-stack-card-top">
+                  <span className="services-stack-icon">
+                    <Icon size={18} strokeWidth={2.1} />
+                  </span>
+                  <span className="services-stack-card-badge">
+                    {card.badge}
+                  </span>
+                </div>
+                <h3 className="services-stack-title">{item.title}</h3>
+                <p className="services-stack-description">{item.description}</p>
+                <div className="services-stack-benefits">
+                  {card.benefits.map((b) => (
+                    <span key={b} className="services-stack-benefit">
+                      {b}
+                    </span>
+                  ))}
+                </div>
+                <div className="services-stack-card-actions">
+                  <a href="/servicios" className="services-stack-card-cta">
+                    <span>{t.servicesSection.cardCta}</span>
+                    <ArrowUpRight size={16} strokeWidth={2.2} />
+                  </a>
+                </div>
+              </CardSticky>
+            );
+          })}
+        </ContainerScroll>
+      </div>
+    </section>
   );
 }
