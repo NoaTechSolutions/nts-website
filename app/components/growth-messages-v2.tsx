@@ -51,9 +51,12 @@ export function GrowthMessagesV2() {
 
   return (
     <section className="py-12 bg-(--bg-page)">
-      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6 items-start">
         {/* Columna izquierda sticky — visual parity con ServicesStackSection */}
-        <div className="services-stack-copy md:sticky md:top-[20vh] md:h-fit">
+        <div
+          className="services-stack-copy md:sticky md:h-fit flex flex-col justify-center"
+          style={{ top: "calc(50vh - 150px)" }}
+        >
           <p className="eyebrow">{t.servicesSection.eyebrow}</p>
           <div className="services-stack-heading">
             <LayoutTextFlip
