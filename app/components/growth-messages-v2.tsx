@@ -50,10 +50,10 @@ export function GrowthMessagesV2() {
   const rotatingWords = t.hero.rotatingWords;
 
   return (
-    <section className="bg-(--bg-page)" style={{ minHeight: "300vh" }}>
-      <div className="sticky top-0 h-screen grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6 items-center">
-        {/* Columna izquierda — centrada via grid items-center (no sticky propio, no inline style) */}
-        <div className="services-stack-copy">
+    <section className="bg-(--bg-page)" style={{ minHeight: "400vh" }}>
+      <div className="sticky top-0 grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6 items-start pt-[20vh]">
+        {/* Columna izquierda — offset top via mt-[10vh] dentro del grid items-start */}
+        <div className="services-stack-copy mt-[10vh]">
           <p className="eyebrow">{t.servicesSection.eyebrow}</p>
           <div className="services-stack-heading">
             <LayoutTextFlip
@@ -74,9 +74,9 @@ export function GrowthMessagesV2() {
           </div>
         </div>
 
-        {/* Columna derecha — scroll interno con CardSticky stack */}
-        <div className="overflow-y-auto h-screen py-12">
-        <ContainerScroll className="space-y-6">
+        {/* Columna derecha — scroll de página (NO interno); min-h del ContainerScroll fuerza scroll room para CardSticky */}
+        <div className="py-12">
+        <ContainerScroll className="space-y-6 min-h-[200vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
