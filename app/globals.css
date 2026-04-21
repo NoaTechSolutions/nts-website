@@ -6642,3 +6642,38 @@ a {
     height: clamp(2.5rem, 12vw, 5rem);
   }
 }
+
+/* NURUI FOOTER — responsive layout */
+
+/* Tablet + mobile (≤1023px): stacked layout — brand full, [links 2-col], contact full, bottom centered */
+@media (max-width: 1023px) {
+  .nurui-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .nurui-footer-brand {
+    grid-column: 1 / -1;
+  }
+  .nurui-footer-links-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    grid-column: 1 / -1;
+  }
+  .nurui-footer-contact {
+    grid-column: 1 / -1;
+  }
+  .nurui-footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+/* Desktop only (≥1024px): wrapper flattens into parent 4-col grid */
+@media (min-width: 1024px) {
+  .nurui-footer-links-wrapper {
+    display: contents;
+  }
+}

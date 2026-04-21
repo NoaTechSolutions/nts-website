@@ -40,17 +40,17 @@ const footerColumns = [
 const contactInfo = [
   {
     icon: Mail,
-    text: "hello@noatechsolutions.com",
-    href: "mailto:hello@noatechsolutions.com",
+    text: "contact@noatechsolutions.com",
+    href: "mailto:contact@noatechsolutions.com",
   },
   {
     icon: Phone,
-    text: "+1 (619) 555-0123",
-    href: "tel:+16195550123",
+    text: "+1 (510) 778-6601",
+    href: "tel:+15107786601",
   },
   {
     icon: MapPin,
-    text: "California + Baja California",
+    text: "California, USA",
   },
 ];
 
@@ -63,14 +63,17 @@ const socialLinks = [
 
 export function SiteFooterNurui() {
   return (
-    <footer className="bg-[#0F0F11] relative rounded-3xl overflow-hidden mx-4 mb-4 text-gray-400">
+    <footer
+      className="bg-[#0F0F11] relative rounded-3xl mx-4 mb-4 overflow-visible text-gray-400"
+      style={{ clipPath: "inset(0 0 0 0 round 1.5rem)" }}
+    >
       <FooterBackgroundGradient />
 
       <div className="max-w-7xl mx-auto p-14 z-40 relative">
         {/* Grid principal */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-16 pb-12">
           {/* Brand */}
-          <div className="flex flex-col space-y-4">
+          <div className="nurui-footer-brand flex flex-col space-y-4">
             <Image
               src="/noatechsolutions-logo-mark-white.png"
               alt="NoaTechSolutions"
@@ -84,29 +87,31 @@ export function SiteFooterNurui() {
             </p>
           </div>
 
-          {/* Columnas de links */}
-          {footerColumns.map((col) => (
-            <div key={col.title}>
-              <h4 className="text-white text-lg font-semibold mb-6">
-                {col.title}
-              </h4>
-              <ul className="space-y-3">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="hover:text-[#05a5ff] transition-colors text-sm"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Columnas de links (wrapper flattens to grid items via display: contents) */}
+          <div className="nurui-footer-links-wrapper">
+            {footerColumns.map((col) => (
+              <div key={col.title}>
+                <h4 className="text-white text-lg font-semibold mb-6">
+                  {col.title}
+                </h4>
+                <ul className="space-y-3">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="hover:text-[#ff9900] transition-colors text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
 
           {/* Contacto */}
-          <div>
+          <div className="nurui-footer-contact">
             <h4 className="text-white text-lg font-semibold mb-6">Contacto</h4>
             <ul className="space-y-4">
               {contactInfo.map((item) => (
@@ -116,12 +121,12 @@ export function SiteFooterNurui() {
                 >
                   <item.icon
                     size={18}
-                    className="text-[#05a5ff] flex-shrink-0"
+                    className="text-[#ff9900] shrink-0"
                   />
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="hover:text-[#05a5ff] transition-colors"
+                      className="hover:text-[#ff9900] transition-colors"
                     >
                       {item.text}
                     </a>
@@ -138,14 +143,14 @@ export function SiteFooterNurui() {
         <hr className="border-t border-gray-800 my-8" />
 
         {/* Barra inferior */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+        <div className="nurui-footer-bottom flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
           <div className="flex space-x-6 text-gray-400">
             {socialLinks.map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
-                className="hover:text-[#05a5ff] transition-colors"
+                className="hover:text-[#ff9900] transition-colors"
               >
                 <Icon size={20} />
               </a>
@@ -158,7 +163,10 @@ export function SiteFooterNurui() {
       </div>
 
       {/* TextHoverEffect watermark */}
-      <div className="lg:flex hidden h-[30rem] -mt-52 -mb-36">
+      <div
+        className="lg:flex hidden h-48 -mt-4 overflow-visible"
+        style={{ position: "relative", zIndex: 10 }}
+      >
         <TextHoverEffect text="NoaTechSolutions" duration={0.3} />
       </div>
     </footer>
