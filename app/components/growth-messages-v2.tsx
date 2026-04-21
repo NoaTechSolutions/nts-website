@@ -38,14 +38,14 @@ export function GrowthMessagesV2() {
         </div>
 
         {/* Columna derecha — cards stack */}
-        <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
+        <ContainerScroll className="min-h-[250vh] space-y-6 pt-0 pb-24">
           {items.map((item, index) => {
             const Icon = icons[index % icons.length];
             const color = colors[index % colors.length];
             return (
               <CardSticky
                 key={index}
-                index={index + 2}
+                index={index + 1}
                 incrementY={14}
                 incrementZ={8}
                 className="rounded-2xl border border-[#022977]/10 bg-white dark:bg-[#161d30] p-8 shadow-lg"
