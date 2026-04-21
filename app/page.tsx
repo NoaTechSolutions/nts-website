@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
+import { GrowthMessagesSection } from "./components/growth-messages-section";
 import { GrowthMessagesV2 } from "./components/growth-messages-v2";
 import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
@@ -291,7 +292,10 @@ export default function Home() {
       </div>
 
       {/* 2. Growth Messages */}
-      <GrowthMessagesV2 />
+      <GrowthMessagesSection
+        title={t.growthSection.title}
+        items={t.growthSection.items}
+      />
 
       {/* Spacer: permite que el fixed frame de Growth se desenganche antes de la siguiente sección */}
       <div aria-hidden="true" style={{ height: "4rem" }} />
@@ -522,6 +526,13 @@ export default function Home() {
               <ContactForm />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* TEST: cards-stack con contenido de growth messages */}
+      <section className="py-24 px-4 bg-(--bg-section)">
+        <div className="grid-shell">
+          <GrowthMessagesV2 />
         </div>
       </section>
 
