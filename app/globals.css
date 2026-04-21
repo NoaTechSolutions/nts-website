@@ -121,6 +121,7 @@
 
 html {
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 body {
@@ -137,8 +138,7 @@ a {
 
 .page-shell {
   position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: visible;
   padding-bottom: 0;
   background: var(--bg-page);
   -webkit-touch-callout: none;
