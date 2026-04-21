@@ -1,83 +1,72 @@
 "use client";
 
-import { TriangleAlert } from "lucide-react";
 import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
-import { Highlighter } from "@/components/ui/highlighter";
-import { useLanguage } from "./language-provider";
+import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
+import { Zap, Globe, BarChart, Shield, Rocket, Star } from "lucide-react";
 
-function formatTitle(title: string) {
-  const words = title
-    .split(" ")
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+const icons = [Zap, Globe, BarChart, Shield, Rocket, Star];
 
-  return {
-    firstWord: words[0] ?? "",
-    highlightedWord: words[1] ?? "",
-    accentWord: words[2] ?? "",
-    trailingWords: words.slice(3).join(" "),
-  };
-}
-
-function normalizeMessage(message: string) {
-  const lower = message.toLowerCase();
-  return lower ? `${lower.charAt(0).toUpperCase()}${lower.slice(1)}` : lower;
-}
+const colors = [
+  "#022977",
+  "#0400f0",
+  "#05a5ff",
+  "#ff9900",
+  "#022977",
+  "#0400f0",
+];
 
 export function GrowthMessagesV2() {
   const { locale } = useLanguage();
   const t = translations[locale];
-  const { title, items } = t.growthSection;
-  const formattedTitle = formatTitle(title);
+  const { title, items, eyebrow, copy } = t.growthSection;
 
   return (
-    <section className="section-divider relative py-16 md:py-24">
-      <div className="grid-shell">
-        {/* Section title */}
-        <h2 className="text-center text-4xl md:text-5xl lg:text-6xl font-medium text-[#022977] mb-16 leading-tight">
-          <span className="block">
-            <span>{formattedTitle.firstWord} </span>
-            <span className="text-[#ff9900]">
-              {formattedTitle.highlightedWord}
-            </span>
-          </span>
-          <span className="block">
-            <Highlighter
-              action="underline"
-              color="#ff9900"
-              strokeWidth={3}
-              animationDuration={900}
-              padding={4}
-              isView
-            >
-              <span>{formattedTitle.accentWord}</span>
-            </Highlighter>{" "}
-            <span>{formattedTitle.trailingWords}</span>
-          </span>
-        </h2>
+    <section className="py-12">
+      <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
+        {/* Columna izquierda — sticky */}
+        <div className="left-0 top-0 md:sticky md:h-svh md:py-12 flex flex-col justify-center">
+          <p className="text-xs uppercase tracking-widest text-[#ff9900] font-medium mb-4">
+            {eyebrow}
+          </p>
+          <h2 className="text-4xl font-medium tracking-tight text-[#022977] dark:text-white mb-6">
+            {title}
+          </h2>
+          <p className="text-sm leading-relaxed text-gray-500 max-w-prose">
+            {copy}
+          </p>
+        </div>
 
-        {/* Cards stack */}
-        <ContainerScroll className="space-y-4 pb-[60vh]">
-          {items.map((message, index) => (
-            <CardSticky
-              key={`${index}-${message}`}
-              index={index}
-              incrementY={12}
-              incrementZ={6}
-              className="flex items-start gap-4 rounded-2xl border border-[rgba(2,41,119,0.1)] bg-white p-8 shadow-[0_4px_24px_rgba(2,41,119,0.08)] dark:bg-[#161d30]"
-            >
-              <span
-                className="mt-1 shrink-0 text-[#ff9900]"
-                aria-hidden="true"
+        {/* Columna derecha — cards stack */}
+        <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
+          {items.map((item, index) => {
+            const Icon = icons[index % icons.length];
+            const color = colors[index % colors.length];
+            return (
+              <CardSticky
+                key={index}
+                index={index + 2}
+                incrementY={14}
+                incrementZ={8}
+                className="rounded-2xl border border-[#022977]/10 bg-white dark:bg-[#161d30] p-8 shadow-lg"
               >
-                <TriangleAlert size={24} strokeWidth={2.2} />
-              </span>
-              <p className="text-lg md:text-xl font-medium leading-relaxed text-[#022977] dark:text-white">
-                {normalizeMessage(message)}
-              </p>
-            </CardSticky>
-          ))}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: `${color}15` }}
+                  >
+                    <Icon size={20} style={{ color }} />
+                  </div>
+                  <span className="text-3xl font-medium opacity-10 text-[#022977] dark:text-white">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <p className="text-base font-medium text-[#022977] dark:text-white leading-snug">
+                  {item}
+                </p>
+              </CardSticky>
+            );
+          })}
         </ContainerScroll>
       </div>
     </section>
