@@ -1,7 +1,7 @@
 "use client";
 
 import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
-import { Highlighter } from "@/components/ui/highlighter";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
 import {
@@ -43,61 +43,43 @@ const cardData = [
   },
 ];
 
-function formatTitle(title: string) {
-  const words = title.trim().split(/\s+/);
-  return {
-    firstWord: words[0] ?? "",
-    highlightedWord: words[1] ?? "",
-    accentWord: words[2] ?? "",
-    trailingWords: words.slice(3).join(" "),
-  };
-}
-
 export function GrowthMessagesV2() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const items = t.servicesSection.items;
-  const formatted = formatTitle(t.servicesSection.title);
+  const rotatingWords = t.hero.rotatingWords;
 
   return (
     <section className="py-12 bg-(--bg-page)">
       <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
-        {/* Columna izquierda sticky */}
-        <div className="md:sticky md:top-[20vh] md:h-fit flex flex-col justify-center py-12">
+        {/* Columna izquierda sticky — visual parity con ServicesStackSection */}
+        <div className="services-stack-copy md:sticky md:top-[20vh] md:h-fit">
           <p className="eyebrow">{t.servicesSection.eyebrow}</p>
-          <h2 className="growth-center-title">
-            <span className="growth-center-line">
-              <span>{formatted.firstWord}</span>
-              <span className="growth-center-pill">
-                {formatted.highlightedWord}
-              </span>
-            </span>
-            <span className="growth-center-line growth-center-line-accent">
-              <Highlighter
-                action="underline"
-                color="#ff9900"
-                strokeWidth={3}
-                animationDuration={900}
-                padding={4}
-                isView
-              >
-                <span className="growth-center-underlined">
-                  {formatted.accentWord}
-                </span>
-              </Highlighter>
-              <span className="growth-center-trailing">
-                {formatted.trailingWords}
-              </span>
-            </span>
-          </h2>
+          <div className="services-stack-heading">
+            <LayoutTextFlip
+              text={t.servicesSection.title}
+              words={rotatingWords}
+              duration={2800}
+              className="services-stack-heading-flip"
+              textClassName="services-stack-heading-text"
+              wordClassName="services-stack-heading-word"
+            />
+          </div>
           <p className="section-copy">{t.servicesSection.copy}</p>
+          <div className="btn-body-ghost">
+            <div className="btn-ghost-orb" />
+            <a href="/servicios" className="btn-ghost-inner">
+              {t.servicesSection.cta}
+            </a>
+          </div>
         </div>
 
-        {/* Columna derecha — cards stack */}
+        {/* Columna derecha — cards stack con 3D depth fijo */}
         <ContainerScroll className="min-h-[300vh] space-y-6 pt-[10vh] pb-24">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
+            const reversedIndex = items.length - 1 - index;
             return (
               <CardSticky
                 key={index}
@@ -105,6 +87,10 @@ export function GrowthMessagesV2() {
                 incrementY={20}
                 incrementZ={8}
                 className={`services-stack-card ${card.modifier} w-full`}
+                style={{
+                  transform: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
+                  opacity: Math.max(1 - reversedIndex * 0.15, 0.4),
+                }}
               >
                 <p className="services-stack-footer">{card.footer}</p>
                 <div className="services-stack-card-top">
@@ -126,7 +112,7 @@ export function GrowthMessagesV2() {
                 </div>
                 <div className="services-stack-card-actions">
                   <a href="/servicios" className="services-stack-card-cta">
-                    <span>Mas info</span>
+                    <span>{t.servicesSection.cardCta}</span>
                     <ArrowUpRight size={16} strokeWidth={2.2} />
                   </a>
                 </div>
