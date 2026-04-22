@@ -141,6 +141,7 @@ export default function Home() {
       <div className="hero-glow hero-glow-right" aria-hidden="true" />
       <MobileSpeedDial />
 
+      {/* ── 1. HEADER ── */}
       <div id="home" className="grid-shell section-space">
         <ResizableNavbarDemo />
 
@@ -290,13 +291,13 @@ export default function Home() {
 
       </div>
 
-      {/* 2. Growth Messages */}
+      {/* ── 2. PROBLEMAS ── */}
       <GrowthMessagesV2 />
 
       {/* Spacer: permite que el fixed frame de Growth se desenganche antes de la siguiente sección */}
       <div aria-hidden="true" style={{ height: "4rem" }} />
 
-      {/* 3. Services (scroll-stacking) */}
+      {/* ── 3. SERVICIOS ── */}
       <div id="servicios" className="grid-shell">
         <ServicesStackSection
           eyebrow={t.servicesSection.eyebrow}
@@ -309,7 +310,7 @@ export default function Home() {
         />
       </div>
 
-      {/* 4. Mid-CTA */}
+      {/* ── 4. CTA1 ── */}
       <section className="section-divider services-proof-section">
         <div className="mid-cta-background" aria-hidden="true">
           <MouseGlowBg
@@ -343,7 +344,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Process (sticky) */}
+      {/* ── 5. RUTA ── */}
       <div id="proceso" className="grid-shell">
         <ProcessStickySection
           eyebrow={t.processSection.eyebrow}
@@ -353,10 +354,10 @@ export default function Home() {
         />
       </div>
 
-      {/* 6. Portfolio (parallax) */}
+      {/* ── 6. PORTFOLIOWEB ── */}
       <HeroParallaxDemo />
 
-      {/* 7. Reviews (marquee) */}
+      {/* ── 7. TESTIMONIOS ── */}
       <div id="reviews" className="grid-shell">
         <ReviewsMarqueeSection
           eyebrow={t.reviewsSection.eyebrow}
@@ -365,7 +366,7 @@ export default function Home() {
         />
       </div>
 
-      {/* 8. Contact Final — CTA "Inicia Tu Proyecto" */}
+      {/* ── 8. CTA2 ── */}
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
           <MouseGlowBg
@@ -416,7 +417,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. FAQ */}
+      {/* ── 9. FAQ ── */}
       <section id="faq" className="section-divider contact-faq-section">
         <div className="contact-faq-background" aria-hidden="true" />
         <div className="grid-shell contact-faq-shell">
@@ -477,7 +478,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 10. Contact form section */}
+      {/* ── 10. CONTACT ── */}
       <section id="contacto-form" className="section-divider contact-form-section">
         <div className="grid-shell">
           <div className="contact-form-layout">
@@ -525,6 +526,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 11. FOOTER ── */}
       <SiteFooterNurui />
 
       <NoaMascot expression={expression} size={100} />
