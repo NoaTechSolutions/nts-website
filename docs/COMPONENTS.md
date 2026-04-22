@@ -7,30 +7,31 @@
 
 ## Secciones de la homepage (en orden)
 
-| # | Nombre canónico | Componente | Archivo | ID ancla |
-|---|---|---|---|---|
-| 1 | Header | ResizableNavbarDemo + HeroShowcase | app/page.tsx | #home |
-| 2 | Problemas | GrowthMessagesV2 | app/components/growth-messages-v2.tsx | — |
-| 3 | Servicios | ServicesStackSection | app/components/services-stack-section.tsx | #servicios |
-| 4 | CTA1 | services-proof-section | app/page.tsx | — |
-| 5 | Ruta | ProcessStickySection | app/components/process-sticky-section.tsx | #proceso |
-| 6 | PortfolioWeb | HeroParallaxDemo | app/components/hero-parallax-demo.tsx | — |
-| 7 | Testimonios | ReviewsMarqueeSection | app/components/reviews-marquee-section.tsx | #reviews |
-| 8 | CTA2 | contact-final-section | app/page.tsx | #contacto |
-| 9 | FAQ | contact-faq-section | app/page.tsx | #faq |
-| 10 | Contact | contact-form-section | app/page.tsx | #contacto-form |
-| 11 | Footer | SiteFooterNurui | app/components/site-footer-nurui.tsx | — |
+| # | Nombre canónico | Componente | Archivo | ID ancla | Animación |
+|---|---|---|---|---|---|
+| 1 | Header | ResizableNavbarDemo + HeroShowcase | app/page.tsx | #home | NumberTicker + HeroRotatingWord |
+| 2 | Problemas | GrowthMessagesV2 | app/components/growth-messages-v2.tsx | — | CardSticky + motion.div sticky |
+| 3 | Servicios | ServicesStackSection | app/components/services-stack-section.tsx | #servicios | CardSwap 3D GSAP |
+| 4 | CTA1 | services-proof-section | app/page.tsx | — | MouseGlowBg CSS |
+| 5 | Ruta | ProcessStickySection | app/components/process-sticky-section.tsx | #proceso | sticky + scrollYProgress |
+| 6 | PortfolioWeb | HeroParallaxDemo | app/components/hero-parallax-demo.tsx | — | useScroll parallax |
+| 7 | Testimonios | ReviewsMarqueeSection | app/components/reviews-marquee-section.tsx | #reviews | CSS marquee |
+| 8 | CTA2 | contact-final-section | app/page.tsx | #contacto | MouseGlowBg CSS |
+| 9 | FAQ | contact-faq-section | app/page.tsx | #faq | useState accordion |
+| 10 | Contact | contact-form-section | app/page.tsx | #contacto-form | ContactForm Resend |
+| 11 | Footer | SiteFooterNurui | app/components/site-footer-nurui.tsx | — | TextHoverEffect SVG |
 
 ---
 
 ## Componentes de sección
 
-### Growth Messages
-- **Archivo:** [app/components/growth-messages-section.tsx](app/components/growth-messages-section.tsx)
-- **Props:** `{ title: string; items: readonly string[] }`
-- **Animación:** Mensajes orbitales con activación por scroll y efecto glitch
+### Problemas
+- **Componente:** `GrowthMessagesV2`
+- **Archivo:** [app/components/growth-messages-v2.tsx](app/components/growth-messages-v2.tsx)
+- **Props:** — (sin props, consume `t.servicesSection` vía `useLanguage`)
+- **Animación:** CardSticky + motion.div sticky stack (scroll-driven card stacking)
 - **Usado en:** homepage
-- **Notas:** Usa `useScroll` con ref propio — no anidar en contenedores con `overflow:hidden` o `transform`
+- **Notas:** `GrowthMessagesSection` (versión legacy) queda importado comentado en `app/page.tsx` por si se necesita rollback
 
 ### Services Stack
 - **Archivo:** [app/components/services-stack-section.tsx](app/components/services-stack-section.tsx)
@@ -57,12 +58,12 @@
 - **Animación:** Marquee CSS infinito en desktop, carousel touch en mobile
 - **Usado en:** homepage
 
-### Site Footer
-- **Archivo:** [app/components/site-footer.tsx](app/components/site-footer.tsx)
-- **Props:** `{ eyebrow: string; watermark: string; copyright: string; columns: readonly FooterColumn[] }`
-- **Animación:** —
-- **Usado en:** todas las páginas
-- **Notas:** Mobile usa grid 2 cols + `.site-footer-bottom` wrapper con watermark + copyright
+### Footer
+- **Componente:** `SiteFooterNurui`
+- **Archivo:** [app/components/site-footer-nurui.tsx](app/components/site-footer-nurui.tsx)
+- **Animación:** TextHoverEffect SVG (watermark)
+- **Usado en:** homepage
+- **Notas:** `SiteFooter` y `SiteFooterI18n` existen en el repo pero ya no se usan — el único footer renderizado es `SiteFooterNurui`
 
 ### Resizable Navbar Demo
 - **Archivo:** [app/components/resizable-navbar-demo.tsx](app/components/resizable-navbar-demo.tsx)
@@ -294,8 +295,8 @@
 - [docs/CHANGELOG.md](docs/CHANGELOG.md) — historial de cambios
 
 ### Animaciones que dependen del DOM
-Estas secciones NO pueden anidarse dentro de contenedores con `overflow: hidden` o `transform` — usan `useScroll({ target: ref })`:
-- **Growth Messages**
+Estas secciones NO pueden anidarse dentro de contenedores con `overflow: hidden` o `transform` — usan `useScroll({ target: ref })` o `position: sticky` nativo:
+- **Problemas** (sticky cards stack — requiere containing block sin overflow hidden para que `position: sticky` funcione)
 - **Services Stack**
 - **Process Sticky**
 - **Hero Parallax**
