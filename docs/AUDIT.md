@@ -111,7 +111,7 @@
 | `noatechsolutions-logo-mark-white.png` | Isotipo PNG | Navbar scrolled (isotipo) + `site-footer.tsx` (footer brand) |
 | `noatechsolutions-digital-orb-hero.svg` | Decorativo SVG | `app/page.tsx` — orbe flotante derecho del hero |
 | `noatechsolutions-robotic-hand-hero.svg` | Decorativo SVG | `app/page.tsx` — mano robótica izquierda del hero (`hidden lg:block`) |
-| `noatechsolutions-cta-background-tech-grid.png` | Textura PNG | `app/page.tsx` — fondo de la sección mid-CTA y CTA final (GridDistortion) |
+| `noatechsolutions-cta-background-tech-grid.webp` | Textura WebP | `app/page.tsx` — fondo de la sección mid-CTA y CTA final (MouseGlowBg) |
 | `noatechsolutions-brand-strategy-consulting-session.jpg` | Foto JPG | `process-sticky-section.tsx` — imagen del paso 1 del proceso |
 | `noatechsolutions-social-media-marketing-visibility.jpg` | Foto JPG | `process-sticky-section.tsx` — imagen del paso 2 |
 | `noatechsolutions-digital-tools-dashboard.jpg` | Foto JPG | `process-sticky-section.tsx` — imagen del paso 3 |
