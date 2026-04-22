@@ -1729,10 +1729,10 @@ a {
     flex-shrink: 0;
   }
   .btn-cta-navy .btn-text-hover {
-    left: 52px;
-    right: 8px;
+    left: 0;
+    right: 0;
     gap: 10px;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 0;
     max-width: calc(100% - 60px);
     width: auto;
