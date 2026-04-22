@@ -75,7 +75,7 @@ export function GrowthMessagesV2() {
   return (
     <section className="relative w-full min-h-[140vh] lg:min-h-[220vh]">
       {/* Título mobile/tablet — estático arriba, visible < lg */}
-      <div className="lg:hidden px-6 pt-12 pb-8 text-center">{CopyContent}</div>
+      <div className="lg:hidden px-6 pt-12 pb-8 text-center growth-v2-copy-mobile">{CopyContent}</div>
 
       <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-4 md:px-8">
         {/* Columna izquierda — sticky centrada al viewport, solo desktop (≥lg) */}
