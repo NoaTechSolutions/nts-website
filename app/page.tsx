@@ -313,8 +313,8 @@ export default function Home() {
       <section className="section-divider services-proof-section">
         <div className="mid-cta-background" aria-hidden="true">
           <MouseGlowBg
-            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
-            glowColor="rgba(4,0,240,0.12)"
+            imageSrc="/noatechsolutions-cta-background-tech-grid.webp"
+            glowColor="rgba(255,153,0,0.18)"
             className="mid-cta-distortion"
           />
         </div>
@@ -336,7 +336,7 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                 </svg>
-                ¡Vamos allá!
+                {locale === "es" ? "¡Vamos allá!" : "Let's go!"}
               </span>
             </a>
           </div>
@@ -369,7 +369,7 @@ export default function Home() {
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
           <MouseGlowBg
-            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+            imageSrc="/noatechsolutions-cta-background-tech-grid.webp"
             glowColor="rgba(255,153,0,0.1)"
             className="contact-final-distortion"
           />
@@ -409,7 +409,7 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                 </svg>
-                ¡Vamos allá!
+                {locale === "es" ? "¡Vamos allá!" : "Let's go!"}
               </span>
             </a>
           </div>
