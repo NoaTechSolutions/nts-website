@@ -1530,8 +1530,7 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  width: max-content;
-  max-width: calc(100% - 66px);
+  width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1540,10 +1539,9 @@ a {
   opacity: 0;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   z-index: 2;
   will-change: transform;
+  padding: 0;
 }
 .btn-cta-navy:hover .btn-text-hover {
   transform: translateY(0);
