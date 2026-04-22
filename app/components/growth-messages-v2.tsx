@@ -7,35 +7,40 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
 import {
-  EyeOff,
-  TrendingDown,
-  BarChart2,
-  AlertTriangle,
+  Globe,
+  Search,
+  Megaphone,
+  Palette,
+  ArrowUpRight,
 } from "lucide-react";
 
 const cardData = [
   {
-    icon: EyeOff,
-    badge: "Visibilidad",
-    footer: "Tu negocio es invisible online",
+    icon: Globe,
+    badge: "Web",
+    footer: "Listo para vender mejor",
+    benefits: ["Mas visibilidad", "Carga veloz", "Mejor conversion"],
     modifier: "services-stack-card-web",
   },
   {
-    icon: TrendingDown,
-    badge: "Conversión",
-    footer: "Visitas sin resultados",
+    icon: Search,
+    badge: "SEO",
+    footer: "Optimizado para encontrarte",
+    benefits: ["Mas trafico", "Mejor posicion", "Base sostenible"],
     modifier: "services-stack-card-seo",
   },
   {
-    icon: BarChart2,
-    badge: "Crecimiento",
-    footer: "Potencial sin aprovechar",
+    icon: Megaphone,
+    badge: "Marketing",
+    footer: "Pensado para convertir",
+    benefits: ["Mas leads", "Mensajes claros", "Campanas efectivas"],
     modifier: "services-stack-card-marketing",
   },
   {
-    icon: AlertTriangle,
-    badge: "Identidad",
-    footer: "Sin presencia profesional",
+    icon: Palette,
+    badge: "Branding",
+    footer: "Creado para diferenciarte",
+    benefits: ["Mas confianza", "Imagen premium", "Marca consistente"],
     modifier: "services-stack-card-branding",
   },
 ];
@@ -43,15 +48,15 @@ const cardData = [
 export function GrowthMessagesV2() {
   const { locale } = useLanguage();
   const t = translations[locale];
-  const items = t.growthSection.items;
+  const items = t.servicesSection.items;
   const rotatingWords = t.hero.rotatingWords;
 
   const CopyContent = (
     <div className="services-stack-copy">
-      <p className="eyebrow">{t.growthSection.eyebrow}</p>
+      <p className="eyebrow">{t.servicesSection.eyebrow}</p>
       <div className="services-stack-heading">
         <LayoutTextFlip
-          text={t.growthSection.title}
+          text={t.servicesSection.title}
           words={rotatingWords}
           duration={2800}
           className="services-stack-heading-flip"
@@ -59,11 +64,11 @@ export function GrowthMessagesV2() {
           wordClassName="services-stack-heading-word"
         />
       </div>
-      <p className="section-copy">{t.growthSection.copy}</p>
+      <p className="section-copy">{t.servicesSection.copy}</p>
       <div className="btn-body-ghost">
         <div className="btn-ghost-orb" />
         <a href="/servicios" className="btn-ghost-inner">
-          {locale === "es" ? "Ver soluciones" : "View solutions"}
+          {t.servicesSection.cta}
         </a>
       </div>
     </div>
@@ -108,7 +113,21 @@ export function GrowthMessagesV2() {
                     {card.badge}
                   </span>
                 </div>
-                <h3 className="services-stack-title">{item}</h3>
+                <h3 className="services-stack-title">{item.title}</h3>
+                <p className="services-stack-description">{item.description}</p>
+                <div className="services-stack-benefits">
+                  {card.benefits.map((b) => (
+                    <span key={b} className="services-stack-benefit">
+                      {b}
+                    </span>
+                  ))}
+                </div>
+                <div className="services-stack-card-actions">
+                  <a href="/servicios" className="services-stack-card-cta">
+                    <span>{t.servicesSection.cardCta}</span>
+                    <ArrowUpRight size={16} strokeWidth={2.2} />
+                  </a>
+                </div>
               </motion.div>
             );
           })}
