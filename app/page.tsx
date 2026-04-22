@@ -16,11 +16,11 @@ import {
 import { ResizableNavbarDemo } from "./components/resizable-navbar-demo";
 import { HeroRotatingWord } from "./components/hero-rotating-word";
 import { GrowthMessagesSection } from "./components/growth-messages-section";
-// import { GrowthMessagesV2 } from "./components/growth-messages-v2";
+import { GrowthMessagesV2 } from "./components/growth-messages-v2";
 import { HeroParallaxDemo } from "./components/hero-parallax-demo";
 import { ProcessStickySection } from "./components/process-sticky-section";
 import { ReviewsMarqueeSection } from "./components/reviews-marquee-section";
-import { ServicesStackSection } from "./components/services-stack-section";
+// import { ServicesStackSection } from "./components/services-stack-section";
 import { SiteFooterNurui } from "./components/site-footer-nurui";
 import { ContactForm } from "./components/contact-form";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
@@ -301,16 +301,8 @@ export default function Home() {
       <div aria-hidden="true" style={{ height: "4rem" }} />
 
       {/* ── 3. SERVICIOS ── */}
-      <div id="servicios" className="grid-shell">
-        <ServicesStackSection
-          eyebrow={t.servicesSection.eyebrow}
-          title={t.servicesSection.title}
-          copy={t.servicesSection.copy}
-          cta={t.servicesSection.cta}
-          cardCta={t.servicesSection.cardCta}
-          rotatingWords={t.hero.rotatingWords}
-          items={services}
-        />
+      <div id="servicios">
+        <GrowthMessagesV2 />
       </div>
 
       {/* ── 4. CTA1 ── */}

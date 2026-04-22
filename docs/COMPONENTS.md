@@ -11,7 +11,7 @@
 |---|---|---|---|---|---|
 | 1 | Header | ResizableNavbarDemo + HeroShowcase | app/page.tsx | #home | NumberTicker + HeroRotatingWord |
 | 2 | Problemas | GrowthMessagesSection | app/components/growth-messages-section.tsx | — | scrollYProgress + glitch animation |
-| 3 | Servicios | ServicesStackSection | app/components/services-stack-section.tsx | #servicios | CardSwap 3D GSAP |
+| 3 | Servicios | GrowthMessagesV2 | app/components/growth-messages-v2.tsx | #servicios | CardSticky + motion.div sticky |
 | 4 | CTA1 | services-proof-section | app/page.tsx | — | MouseGlowBg CSS |
 | 5 | Ruta | ProcessStickySection | app/components/process-sticky-section.tsx | #proceso | sticky + scrollYProgress |
 | 6 | PortfolioWeb | HeroParallaxDemo | app/components/hero-parallax-demo.tsx | — | useScroll parallax |
