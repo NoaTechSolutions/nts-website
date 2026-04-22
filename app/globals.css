@@ -3800,8 +3800,8 @@ a {
 
 .services-stack-card-web {
   background:
-    linear-gradient(145deg, rgba(14, 58, 148, 0.94), rgba(48, 113, 255, 0.92)),
-    linear-gradient(135deg, rgba(255, 153, 0, 0.12), rgba(5, 165, 255, 0.08));
+    linear-gradient(145deg, rgba(4, 33, 111, 1), rgba(8, 67, 190, 0.98)),
+    linear-gradient(135deg, rgba(255, 153, 0, 0.14), rgba(5, 165, 255, 0.1));
 }
 
 .services-stack-card-web::before {
@@ -3812,8 +3812,8 @@ a {
 
 .services-stack-card-seo {
   background:
-    linear-gradient(145deg, rgba(18, 78, 133, 0.94), rgba(38, 173, 255, 0.9)),
-    linear-gradient(135deg, rgba(255, 153, 0, 0.1), rgba(5, 165, 255, 0.1));
+    linear-gradient(145deg, rgba(4, 0, 240, 0.95), rgba(2, 41, 119, 0.98)),
+    linear-gradient(135deg, rgba(5, 165, 255, 0.2), rgba(255, 153, 0, 0.05));
 }
 
 .services-stack-card-seo::before {
@@ -3824,8 +3824,8 @@ a {
 
 .services-stack-card-marketing {
   background:
-    linear-gradient(145deg, rgba(27, 78, 173, 0.94), rgba(77, 124, 255, 0.9)),
-    linear-gradient(135deg, rgba(255, 153, 0, 0.22), rgba(255, 153, 0, 0.1));
+    linear-gradient(145deg, rgba(5, 100, 180, 0.98), rgba(4, 0, 240, 0.85)),
+    linear-gradient(135deg, rgba(255, 153, 0, 0.18), rgba(5, 165, 255, 0.08));
 }
 
 .services-stack-card-marketing::before {
@@ -3836,8 +3836,8 @@ a {
 
 .services-stack-card-branding {
   background:
-    linear-gradient(145deg, rgba(20, 64, 160, 0.94), rgba(64, 118, 240, 0.9)),
-    linear-gradient(135deg, rgba(255, 153, 0, 0.18), rgba(5, 165, 255, 0.08));
+    linear-gradient(145deg, rgba(2, 41, 119, 0.95), rgba(5, 165, 255, 0.7)),
+    linear-gradient(135deg, rgba(255, 153, 0, 0.22), rgba(4, 0, 240, 0.1));
 }
 
 .services-stack-card-branding::before {

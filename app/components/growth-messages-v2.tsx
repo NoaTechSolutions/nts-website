@@ -73,11 +73,11 @@ export function GrowthMessagesV2() {
   );
 
   return (
-    <section className="bg-(--bg-page) relative w-full min-h-[140vh] md:min-h-[220vh]">
+    <section className="relative w-full min-h-[140vh] md:min-h-[220vh]">
       {/* Título mobile — estático arriba, solo visible < md */}
-      <div className="md:hidden px-6 pt-12 pb-6">{CopyContent}</div>
+      <div className="md:hidden px-4 pt-12 pb-6">{CopyContent}</div>
 
-      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-6">
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-4 md:px-8">
         {/* Columna izquierda — sticky centrada al viewport, solo desktop */}
         <div className="hidden md:flex sticky top-0 h-screen items-center">
           {CopyContent}
