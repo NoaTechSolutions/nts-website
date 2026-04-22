@@ -7,18 +7,19 @@
 
 ## Secciones de la homepage (en orden)
 
-| # | Nombre canónico | Componente | Archivo | ID ancla | Animación |
-|---|---|---|---|---|---|
-| 1 | **Hero Showcase** | inline (`.hero-showcase`) | [app/page.tsx](app/page.tsx) | `#home` | NumberTicker (stats) + HeroRotatingWord |
-| 2 | **Growth Messages** | `GrowthMessagesSection` | [app/components/growth-messages-section.tsx](app/components/growth-messages-section.tsx) | — | scrollYProgress + glitch effect |
-| 3 | **Services Stack** | `ServicesStackSection` | [app/components/services-stack-section.tsx](app/components/services-stack-section.tsx) | `#servicios` | useScroll + card stacking |
-| 4 | **Process Sticky** | `ProcessStickySection` | [app/components/process-sticky-section.tsx](app/components/process-sticky-section.tsx) | `#proceso` | sticky pin + CardSwap |
-| 5 | **Hero Parallax** (portfolio) | `HeroParallaxDemo` → `HeroParallax` | [app/components/hero-parallax-demo.tsx](app/components/hero-parallax-demo.tsx) | — | useScroll + useTransform horizontal |
-| 6 | **Reviews Marquee** | `ReviewsMarqueeSection` | [app/components/reviews-marquee-section.tsx](app/components/reviews-marquee-section.tsx) | `#reviews` | CSS marquee + mobile carousel |
-| 7 | **Mid CTA** | inline (`.services-proof-section`) | [app/page.tsx](app/page.tsx) | — | GridDistortion mouse |
-| 8 | **Contact Final** | inline (`.contact-final-section`) | [app/page.tsx](app/page.tsx) | `#contacto` | GridDistortion mouse |
-| 9 | **FAQ Accordion** | inline (`.contact-faq-section`) | [app/page.tsx](app/page.tsx) | `#faq` | state interno |
-| 10 | **Site Footer** | `SiteFooter` | [app/components/site-footer.tsx](app/components/site-footer.tsx) | — | — |
+| # | Nombre canónico | Componente | Archivo | ID ancla |
+|---|---|---|---|---|
+| 1 | Header | ResizableNavbarDemo + HeroShowcase | app/page.tsx | #home |
+| 2 | Problemas | GrowthMessagesV2 | app/components/growth-messages-v2.tsx | — |
+| 3 | Servicios | ServicesStackSection | app/components/services-stack-section.tsx | #servicios |
+| 4 | CTA1 | services-proof-section | app/page.tsx | — |
+| 5 | Ruta | ProcessStickySection | app/components/process-sticky-section.tsx | #proceso |
+| 6 | PortfolioWeb | HeroParallaxDemo | app/components/hero-parallax-demo.tsx | — |
+| 7 | Testimonios | ReviewsMarqueeSection | app/components/reviews-marquee-section.tsx | #reviews |
+| 8 | CTA2 | contact-final-section | app/page.tsx | #contacto |
+| 9 | FAQ | contact-faq-section | app/page.tsx | #faq |
+| 10 | Contact | contact-form-section | app/page.tsx | #contacto-form |
+| 11 | Footer | SiteFooterNurui | app/components/site-footer-nurui.tsx | — |
 
 ---
 
