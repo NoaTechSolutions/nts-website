@@ -49,55 +49,38 @@ export function GrowthMessagesV2() {
   const items = t.servicesSection.items;
   const rotatingWords = t.hero.rotatingWords;
 
-  return (
-    <section className="bg-(--bg-page) relative w-full" style={{ minHeight: "220vh" }}>
-      {/* Título mobile — estático arriba, solo visible < md */}
-      <div className="md:hidden px-6 pt-12 pb-6">
-        <div className="services-stack-copy">
-          <p className="eyebrow">{t.servicesSection.eyebrow}</p>
-          <div className="services-stack-heading">
-            <LayoutTextFlip
-              text={t.servicesSection.title}
-              words={rotatingWords}
-              duration={2800}
-              className="services-stack-heading-flip"
-              textClassName="services-stack-heading-text"
-              wordClassName="services-stack-heading-word"
-            />
-          </div>
-          <p className="section-copy">{t.servicesSection.copy}</p>
-          <div className="btn-body-ghost">
-            <div className="btn-ghost-orb" />
-            <a href="/servicios" className="btn-ghost-inner">
-              {t.servicesSection.cta}
-            </a>
-          </div>
-        </div>
+  const CopyContent = (
+    <div className="services-stack-copy">
+      <p className="eyebrow">{t.servicesSection.eyebrow}</p>
+      <div className="services-stack-heading">
+        <LayoutTextFlip
+          text={t.servicesSection.title}
+          words={rotatingWords}
+          duration={2800}
+          className="services-stack-heading-flip"
+          textClassName="services-stack-heading-text"
+          wordClassName="services-stack-heading-word"
+        />
       </div>
+      <p className="section-copy">{t.servicesSection.copy}</p>
+      <div className="btn-body-ghost">
+        <div className="btn-ghost-orb" />
+        <a href="/servicios" className="btn-ghost-inner">
+          {t.servicesSection.cta}
+        </a>
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="bg-(--bg-page) relative w-full min-h-[140vh] md:min-h-[220vh]">
+      {/* Título mobile — estático arriba, solo visible < md */}
+      <div className="md:hidden px-6 pt-12 pb-6">{CopyContent}</div>
 
       <div className="grid md:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-6">
         {/* Columna izquierda — sticky centrada al viewport, solo desktop */}
-        <div className="sticky top-0 h-screen items-center hidden md:flex">
-          <div className="services-stack-copy">
-            <p className="eyebrow">{t.servicesSection.eyebrow}</p>
-            <div className="services-stack-heading">
-              <LayoutTextFlip
-                text={t.servicesSection.title}
-                words={rotatingWords}
-                duration={2800}
-                className="services-stack-heading-flip"
-                textClassName="services-stack-heading-text"
-                wordClassName="services-stack-heading-word"
-              />
-            </div>
-            <p className="section-copy">{t.servicesSection.copy}</p>
-            <div className="btn-body-ghost">
-              <div className="btn-ghost-orb" />
-              <a href="/servicios" className="btn-ghost-inner">
-                {t.servicesSection.cta}
-              </a>
-            </div>
-          </div>
+        <div className="hidden md:flex sticky top-0 h-screen items-center">
+          {CopyContent}
         </div>
 
         {/* Columna derecha — cards apilándose con scroll nativo */}
