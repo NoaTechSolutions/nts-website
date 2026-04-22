@@ -50,7 +50,7 @@ export function GrowthMessagesV2() {
   const rotatingWords = t.hero.rotatingWords;
 
   return (
-    <section className="bg-(--bg-page) relative" style={{ minHeight: "400vh" }}>
+    <section className="bg-(--bg-page) relative" style={{ minHeight: "220vh" }}>
       <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
         {/* Columna izquierda — sticky centrada al viewport, scope naturalmente a la sección */}
         <div className="sticky top-0 h-screen flex items-center">
@@ -78,7 +78,7 @@ export function GrowthMessagesV2() {
 
         {/* Columna derecha — scroll de página (NO interno); min-h del ContainerScroll fuerza scroll room para CardSticky */}
         <div className="py-12">
-        <ContainerScroll className="space-y-6 min-h-[200vh]">
+        <ContainerScroll className="space-y-6 min-h-[120vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
@@ -92,7 +92,7 @@ export function GrowthMessagesV2() {
                 className={`services-stack-card ${card.modifier} w-full`}
                 style={{
                   transform: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
-                  opacity: Math.max(1 - reversedIndex * 0.15, 0.4),
+                  opacity: Math.max(1 - reversedIndex * 0.08, 0.72),
                 }}
               >
                 <p className="services-stack-footer">{card.footer}</p>
