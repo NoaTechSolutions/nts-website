@@ -3983,7 +3983,7 @@ a {
   justify-content: center;
   align-items: center;
   background:
-    url("/noatechsolutions-cta-background-tech-grid.png") center / cover no-repeat;
+    url("/noatechsolutions-cta-background-tech-grid.webp") center / cover no-repeat;
 }
 
 .services-proof-section::before,
@@ -4016,8 +4016,8 @@ a {
   opacity: 0.92;
   pointer-events: auto;
   background:
-    url("/noatechsolutions-cta-background-tech-grid.png") center / contain no-repeat,
-    url("/noatechsolutions-cta-background-tech-grid.png") center / cover no-repeat;
+    url("/noatechsolutions-cta-background-tech-grid.webp") center / contain no-repeat,
+    url("/noatechsolutions-cta-background-tech-grid.webp") center / cover no-repeat;
 }
 
 .mid-cta-distortion {

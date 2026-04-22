@@ -369,7 +369,7 @@ export default function Home() {
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
           <MouseGlowBg
-            imageSrc="/noatechsolutions-cta-background-tech-grid.png"
+            imageSrc="/noatechsolutions-cta-background-tech-grid.webp"
             glowColor="rgba(255,153,0,0.1)"
             className="contact-final-distortion"
           />
