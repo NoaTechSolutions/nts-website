@@ -3846,6 +3846,27 @@ a {
     radial-gradient(circle at 84% 74%, rgba(140, 122, 255, 0.24), transparent 28%);
 }
 
+@media (max-width: 1023px) {
+  .services-stack-card {
+    padding: 1.25rem;
+  }
+  .services-stack-description {
+    display: none;
+  }
+  .services-stack-benefits {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-stack-description {
+    display: block;
+  }
+  .services-stack-benefits {
+    display: flex;
+  }
+}
+
 .services-stack-card-top {
   display: flex;
   align-items: center;

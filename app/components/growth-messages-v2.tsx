@@ -73,19 +73,19 @@ export function GrowthMessagesV2() {
   );
 
   return (
-    <section className="relative w-full min-h-[140vh] md:min-h-[220vh]">
-      {/* Título mobile — estático arriba, solo visible < md */}
-      <div className="md:hidden px-4 pt-12 pb-6">{CopyContent}</div>
+    <section className="relative w-full min-h-[140vh] lg:min-h-[220vh]">
+      {/* Título mobile/tablet — estático arriba, visible < lg */}
+      <div className="lg:hidden px-6 pt-12 pb-8 text-center">{CopyContent}</div>
 
-      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-4 md:px-8">
-        {/* Columna izquierda — sticky centrada al viewport, solo desktop */}
-        <div className="hidden md:flex sticky top-0 h-screen items-center">
+      <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-4 md:px-8">
+        {/* Columna izquierda — sticky centrada al viewport, solo desktop (≥lg) */}
+        <div className="hidden lg:flex sticky top-0 h-screen items-center">
           {CopyContent}
         </div>
 
         {/* Columna derecha — cards apilándose con scroll nativo */}
-        <div className="py-12 col-span-1 md:col-span-1">
-        <ContainerScroll className="space-y-6 min-h-[120vh]">
+        <div className="py-8 lg:py-12 col-span-1">
+        <ContainerScroll className="space-y-4 min-h-[120vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
