@@ -74,7 +74,7 @@ export function GrowthMessagesV2() {
   );
 
   return (
-    <section className="relative w-full min-h-[140vh] lg:min-h-[220vh]">
+    <section className="relative w-full min-h-[320vh] lg:min-h-[220vh]">
       {/* Título mobile/tablet — estático arriba, visible < lg */}
       <div className="lg:hidden px-6 pt-12 pb-8 text-center growth-v2-copy-mobile">{CopyContent}</div>
 
@@ -86,7 +86,7 @@ export function GrowthMessagesV2() {
 
         {/* Columna derecha — cards apilándose con scroll nativo */}
         <div className="py-8 lg:py-12 col-span-1">
-        <ContainerScroll className="space-y-4 min-h-[120vh]">
+        <ContainerScroll className="space-y-4 min-h-[300vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
@@ -94,8 +94,8 @@ export function GrowthMessagesV2() {
             return (
               <CardSticky
                 key={index}
-                index={index + 3}
-                incrementY={20}
+                index={index + 1}
+                incrementY={12}
                 incrementZ={8}
                 className={`services-stack-card ${card.modifier} w-full`}
                 style={{
