@@ -3,7 +3,6 @@
 import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import { ContainerScroll } from "@/components/ui/cards-stack";
-import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
 import {
@@ -13,29 +12,41 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-const cardData = [
+const getCardData = (locale: string) => [
   {
     icon: EyeOff,
-    badge: "Visibilidad",
-    footer: "Tu negocio es invisible online",
+    badge: locale === "es" ? "Visibilidad" : "Visibility",
+    footer:
+      locale === "es"
+        ? "Tu negocio es invisible online"
+        : "Your business is invisible online",
     modifier: "services-stack-card-web",
   },
   {
     icon: TrendingDown,
-    badge: "Conversión",
-    footer: "Visitas sin resultados",
+    badge: locale === "es" ? "Conversión" : "Conversion",
+    footer:
+      locale === "es"
+        ? "Visitas sin resultados"
+        : "Visits without results",
     modifier: "services-stack-card-seo",
   },
   {
     icon: BarChart2,
-    badge: "Crecimiento",
-    footer: "Potencial sin aprovechar",
+    badge: locale === "es" ? "Crecimiento" : "Growth",
+    footer:
+      locale === "es"
+        ? "Potencial sin aprovechar"
+        : "Untapped potential",
     modifier: "services-stack-card-marketing",
   },
   {
     icon: AlertTriangle,
-    badge: "Identidad",
-    footer: "Sin presencia profesional",
+    badge: locale === "es" ? "Identidad" : "Identity",
+    footer:
+      locale === "es"
+        ? "Sin presencia profesional"
+        : "No professional presence",
     modifier: "services-stack-card-branding",
   },
 ];
@@ -44,21 +55,14 @@ export function GrowthMessagesV2() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const items = t.growthSection.items;
-  const rotatingWords = t.hero.rotatingWords;
+  const cardData = getCardData(locale);
 
   const CopyContent = (
     <div className="services-stack-copy">
       <p className="eyebrow">{t.growthSection.eyebrow}</p>
-      <div className="services-stack-heading">
-        <LayoutTextFlip
-          text={t.growthSection.title}
-          words={rotatingWords}
-          duration={2800}
-          className="services-stack-heading-flip"
-          textClassName="services-stack-heading-text"
-          wordClassName="services-stack-heading-word"
-        />
-      </div>
+      <h2 className="services-stack-heading-text">
+        {t.growthSection.title}
+      </h2>
       <p className="section-copy">{t.growthSection.copy}</p>
       <div className="btn-body-ghost">
         <div className="btn-ghost-orb" />
