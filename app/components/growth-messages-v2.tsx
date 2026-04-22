@@ -50,27 +50,29 @@ export function GrowthMessagesV2() {
   const rotatingWords = t.hero.rotatingWords;
 
   return (
-    <section className="bg-(--bg-page)" style={{ minHeight: "400vh" }}>
-      <div className="sticky top-0 grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6 items-start pt-[20vh]">
-        {/* Columna izquierda — offset top via mt-[10vh] dentro del grid items-start */}
-        <div className="services-stack-copy mt-[10vh]">
-          <p className="eyebrow">{t.servicesSection.eyebrow}</p>
-          <div className="services-stack-heading">
-            <LayoutTextFlip
-              text={t.servicesSection.title}
-              words={rotatingWords}
-              duration={2800}
-              className="services-stack-heading-flip"
-              textClassName="services-stack-heading-text"
-              wordClassName="services-stack-heading-word"
-            />
-          </div>
-          <p className="section-copy">{t.servicesSection.copy}</p>
-          <div className="btn-body-ghost">
-            <div className="btn-ghost-orb" />
-            <a href="/servicios" className="btn-ghost-inner">
-              {t.servicesSection.cta}
-            </a>
+    <section className="bg-(--bg-page) relative" style={{ minHeight: "400vh" }}>
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
+        {/* Columna izquierda — sticky centrada al viewport, scope naturalmente a la sección */}
+        <div className="sticky top-0 h-screen flex items-center">
+          <div className="services-stack-copy">
+            <p className="eyebrow">{t.servicesSection.eyebrow}</p>
+            <div className="services-stack-heading">
+              <LayoutTextFlip
+                text={t.servicesSection.title}
+                words={rotatingWords}
+                duration={2800}
+                className="services-stack-heading-flip"
+                textClassName="services-stack-heading-text"
+                wordClassName="services-stack-heading-word"
+              />
+            </div>
+            <p className="section-copy">{t.servicesSection.copy}</p>
+            <div className="btn-body-ghost">
+              <div className="btn-ghost-orb" />
+              <a href="/servicios" className="btn-ghost-inner">
+                {t.servicesSection.cta}
+              </a>
+            </div>
           </div>
         </div>
 
