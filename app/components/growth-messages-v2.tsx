@@ -1,7 +1,8 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
+import { motion } from "motion/react";
+import { ContainerScroll } from "@/components/ui/cards-stack";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
@@ -92,13 +93,13 @@ export function GrowthMessagesV2() {
             const Icon = card.icon;
             const reversedIndex = items.length - 1 - index;
             return (
-              <CardSticky
+              <motion.div
                 key={index}
-                index={index + 1}
-                incrementY={12}
-                incrementZ={8}
-                className={`services-stack-card ${card.modifier} w-full`}
+                className={`services-stack-card ${card.modifier} w-full mb-6`}
                 style={{
+                  position: "sticky",
+                  top: "80px",
+                  zIndex: index + 1,
                   opacity: Math.max(1 - reversedIndex * 0.04, 0.88),
                   ["--card-rotate" as string]: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
                 } as CSSProperties}
@@ -127,7 +128,7 @@ export function GrowthMessagesV2() {
                     <ArrowUpRight size={16} strokeWidth={2.2} />
                   </a>
                 </div>
-              </CardSticky>
+              </motion.div>
             );
           })}
         </ContainerScroll>
