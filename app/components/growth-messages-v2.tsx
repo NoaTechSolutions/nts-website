@@ -87,7 +87,7 @@ export function GrowthMessagesV2() {
 
         {/* Columna derecha — cards apilándose con scroll nativo */}
         <div className="py-8 lg:py-12 col-span-1">
-        <ContainerScroll className="space-y-4 pb-[60vh]">
+        <ContainerScroll className="space-y-4 pb-[20vh] md:pb-[40vh] lg:pb-[60vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;
