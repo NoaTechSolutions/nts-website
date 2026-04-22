@@ -3901,6 +3901,27 @@ a {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Título en una sola línea */
+  .growth-v2-copy-mobile .services-stack-heading-text {
+    white-space: normal;
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: none;
+  }
+
+  /* Párrafo ocupa el ancho disponible */
+  .growth-v2-copy-mobile .section-copy {
+    max-width: none;
+    width: 100%;
+  }
+
+  /* El contenedor del copy ocupa ancho completo */
+  .growth-v2-copy-mobile .services-stack-copy {
+    max-width: none;
+    width: 100%;
+  }
+}
+
 @media (max-width: 767px) {
   .services-stack-card {
     padding: 1rem;
