@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
@@ -98,9 +99,9 @@ export function GrowthMessagesV2() {
                 incrementZ={8}
                 className={`services-stack-card ${card.modifier} w-full`}
                 style={{
-                  transform: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
                   opacity: Math.max(1 - reversedIndex * 0.04, 0.88),
-                }}
+                  ["--card-rotate" as string]: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
+                } as CSSProperties}
               >
                 <p className="services-stack-footer">{card.footer}</p>
                 <div className="services-stack-card-top">
