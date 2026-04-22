@@ -50,10 +50,34 @@ export function GrowthMessagesV2() {
   const rotatingWords = t.hero.rotatingWords;
 
   return (
-    <section className="bg-(--bg-page) relative" style={{ minHeight: "220vh" }}>
-      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-6xl mx-auto px-6">
-        {/* Columna izquierda — sticky centrada al viewport, scope naturalmente a la sección */}
-        <div className="sticky top-0 h-screen flex items-center">
+    <section className="bg-(--bg-page) relative w-full" style={{ minHeight: "220vh" }}>
+      {/* Título mobile — estático arriba, solo visible < md */}
+      <div className="md:hidden px-6 pt-12 pb-6">
+        <div className="services-stack-copy">
+          <p className="eyebrow">{t.servicesSection.eyebrow}</p>
+          <div className="services-stack-heading">
+            <LayoutTextFlip
+              text={t.servicesSection.title}
+              words={rotatingWords}
+              duration={2800}
+              className="services-stack-heading-flip"
+              textClassName="services-stack-heading-text"
+              wordClassName="services-stack-heading-word"
+            />
+          </div>
+          <p className="section-copy">{t.servicesSection.copy}</p>
+          <div className="btn-body-ghost">
+            <div className="btn-ghost-orb" />
+            <a href="/servicios" className="btn-ghost-inner">
+              {t.servicesSection.cta}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-6">
+        {/* Columna izquierda — sticky centrada al viewport, solo desktop */}
+        <div className="sticky top-0 h-screen items-center hidden md:flex">
           <div className="services-stack-copy">
             <p className="eyebrow">{t.servicesSection.eyebrow}</p>
             <div className="services-stack-heading">
@@ -76,8 +100,8 @@ export function GrowthMessagesV2() {
           </div>
         </div>
 
-        {/* Columna derecha — scroll de página (NO interno); min-h del ContainerScroll fuerza scroll room para CardSticky */}
-        <div className="py-12">
+        {/* Columna derecha — cards apilándose con scroll nativo */}
+        <div className="py-12 col-span-1 md:col-span-1">
         <ContainerScroll className="space-y-6 min-h-[120vh]">
           {items.map((item, index) => {
             const card = cardData[index];
@@ -92,7 +116,7 @@ export function GrowthMessagesV2() {
                 className={`services-stack-card ${card.modifier} w-full`}
                 style={{
                   transform: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
-                  opacity: Math.max(1 - reversedIndex * 0.08, 0.72),
+                  opacity: Math.max(1 - reversedIndex * 0.04, 0.88),
                 }}
               >
                 <p className="services-stack-footer">{card.footer}</p>
