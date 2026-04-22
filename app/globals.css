@@ -4133,12 +4133,18 @@ a {
   backdrop-filter: none !important;
   outline: 0 !important;
   text-align: center;
+  pointer-events: none;
 }
 
 .mid-cta-shell::before,
 .mid-cta-shell::after {
   display: none !important;
   content: none !important;
+}
+
+.mid-cta-shell a,
+.mid-cta-shell button {
+  pointer-events: auto;
 }
 
 .mid-cta-title {
