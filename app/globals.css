@@ -816,19 +816,21 @@ a {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  pointer-events: none;
+  z-index: 0;
 }
 .mouse-glow-bg-image {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.4;
+  background-repeat: no-repeat;
+  opacity: 0.85;
 }
 .mouse-glow-bg-glow {
   position: absolute;
   inset: 0;
-  transition: background 0.1s ease;
+  z-index: 1;
+  pointer-events: none;
 }
 @media (hover: none) {
   .mouse-glow-bg-glow {
@@ -4078,8 +4080,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background:
-    url("/noatechsolutions-cta-background-tech-grid.webp") center / cover no-repeat;
 }
 
 .services-proof-section::before,
@@ -4111,9 +4111,6 @@ a {
   z-index: 0;
   opacity: 0.92;
   pointer-events: auto;
-  background:
-    url("/noatechsolutions-cta-background-tech-grid.webp") center / contain no-repeat,
-    url("/noatechsolutions-cta-background-tech-grid.webp") center / cover no-repeat;
 }
 
 .mid-cta-distortion {
