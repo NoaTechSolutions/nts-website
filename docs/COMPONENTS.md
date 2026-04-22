@@ -10,7 +10,7 @@
 | # | Nombre canónico | Componente | Archivo | ID ancla | Animación |
 |---|---|---|---|---|---|
 | 1 | Header | ResizableNavbarDemo + HeroShowcase | app/page.tsx | #home | NumberTicker + HeroRotatingWord |
-| 2 | Problemas | GrowthMessagesV2 | app/components/growth-messages-v2.tsx | — | CardSticky + motion.div sticky |
+| 2 | Problemas | GrowthMessagesSection | app/components/growth-messages-section.tsx | — | scrollYProgress + glitch animation |
 | 3 | Servicios | ServicesStackSection | app/components/services-stack-section.tsx | #servicios | CardSwap 3D GSAP |
 | 4 | CTA1 | services-proof-section | app/page.tsx | — | MouseGlowBg CSS |
 | 5 | Ruta | ProcessStickySection | app/components/process-sticky-section.tsx | #proceso | sticky + scrollYProgress |
@@ -26,12 +26,10 @@
 ## Componentes de sección
 
 ### Problemas
-- **Componente:** `GrowthMessagesV2`
-- **Archivo:** [app/components/growth-messages-v2.tsx](app/components/growth-messages-v2.tsx)
-- **Props:** — (sin props, consume `t.servicesSection` vía `useLanguage`)
-- **Animación:** CardSticky + motion.div sticky stack (scroll-driven card stacking)
-- **Usado en:** homepage
-- **Notas:** `GrowthMessagesSection` (versión legacy) queda importado comentado en `app/page.tsx` por si se necesita rollback
+- **Componente:** `GrowthMessagesSection`
+- **Archivo:** [app/components/growth-messages-section.tsx](app/components/growth-messages-section.tsx)
+- **Animación:** scrollYProgress + glitch cards
+- **Notas:** `GrowthMessagesV2` existe como componente alternativo con cards-stack sticky — disponible para activar cuando se decida el contenido final
 
 ### Services Stack
 - **Archivo:** [app/components/services-stack-section.tsx](app/components/services-stack-section.tsx)
