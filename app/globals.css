@@ -803,6 +803,25 @@ a {
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
 }
 
+.contact-final-wave-bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 6rem;
+  z-index: 2;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M1440 120v-10c-146-10-289-24-432-38-173-18-345-35-517-38-187-3-350 10-491 36v50h1440Z'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 767px) {
+  .contact-final-wave-bottom {
+    height: 2rem;
+  }
+}
+
 .contact-final-background {
   position: absolute;
   inset: 0;
