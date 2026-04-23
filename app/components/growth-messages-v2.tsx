@@ -25,10 +25,21 @@ function normalizeMessage(message: string) {
   return lower ? `${lower.charAt(0).toUpperCase()}${lower.slice(1)}` : lower;
 }
 
-export function GrowthMessagesV2() {
+type GrowthMessagesV2Props = {
+  source?: "growth" | "services";
+};
+
+export function GrowthMessagesV2({
+  source = "growth",
+}: GrowthMessagesV2Props = {}) {
   const { locale } = useLanguage();
   const t = translations[locale];
-  const { title, items } = t.growthSection;
+  const title =
+    source === "services" ? t.servicesSection.title : t.growthSection.title;
+  const items =
+    source === "services"
+      ? t.servicesSection.items.map((item) => item.title)
+      : t.growthSection.items;
   const formattedTitle = formatTitle(title);
 
   return (
