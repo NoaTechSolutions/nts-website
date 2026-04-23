@@ -1734,13 +1734,12 @@ a {
     flex-shrink: 0;
   }
   .btn-cta-navy .btn-text-hover {
-    left: 0;
-    right: 0;
-    gap: 10px;
-    justify-content: center;
-    padding: 0;
-    max-width: calc(100% - 60px);
-    width: auto;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    text-align: center;
   }
   .btn-body-primary .btn-text-hover {
     left: 0;
@@ -5545,8 +5544,10 @@ a {
   }
 
   .services-proof-section::before,
-  .services-proof-section::after {
-    height: 3.75rem;
+  .services-proof-section::after,
+  .contact-final-section::before,
+  .contact-final-section::after {
+    height: 2rem;
   }
 
   .mid-cta-body {
