@@ -418,6 +418,8 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        <div className="contact-final-wave-bottom" aria-hidden="true" />
       </section>
 
       {/* ── 9. FAQ ── */}
