@@ -30,6 +30,7 @@ import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AuroraText } from "@/components/ui/aurora-text";
+// import { Boxes } from "@/components/ui/background-boxes";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 
