@@ -65,6 +65,7 @@ export function NoaMascot({
         alt="Noa — mascota de NoaTechSolutions"
         width={size}
         height={size}
+        style={{ width: "auto", height: "auto" }}
         className={`noa-mascot-image noa-expression-${currentExpression}`}
         priority={false}
       />
