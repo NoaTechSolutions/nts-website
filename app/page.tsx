@@ -303,7 +303,7 @@ export default function Home() {
 
       {/* ── 3. SERVICIOS ── */}
       <div id="servicios">
-        <GrowthMessagesV2 source="services" />
+        <GrowthMessagesV2 />
       </div>
 
       {/* ── 4. CTA1 ── */}
