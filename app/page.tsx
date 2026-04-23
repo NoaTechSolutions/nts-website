@@ -31,6 +31,7 @@ import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { AuroraText } from "@/components/ui/aurora-text";
+import { Boxes } from "@/components/ui/background-boxes";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 
@@ -309,10 +310,13 @@ export default function Home() {
       {/* ── 4. CTA1 ── */}
       <section className="section-divider services-proof-section">
         <div className="mid-cta-background" aria-hidden="true">
-          <MouseGlowBg
-            imageSrc="/noatechsolutions-cta-background-tech-grid.webp"
-            glowColor="rgba(255,153,0,0.18)"
-            className="mid-cta-distortion"
+          <Boxes />
+          <div
+            className="absolute inset-0 z-10 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, transparent 30%, #011540 80%)",
+            }}
           />
         </div>
 
@@ -365,10 +369,13 @@ export default function Home() {
       {/* ── 8. CTA2 ── */}
       <section id="contacto" className="section-divider contact-final-section">
         <div className="contact-final-background" aria-hidden="true">
-          <MouseGlowBg
-            imageSrc="/noatechsolutions-cta-background-tech-grid.webp"
-            glowColor="rgba(255,153,0,0.1)"
-            className="contact-final-distortion"
+          <Boxes />
+          <div
+            className="absolute inset-0 z-10 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, transparent 30%, #022977 80%)",
+            }}
           />
         </div>
 

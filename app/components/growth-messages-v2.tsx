@@ -74,7 +74,7 @@ export function GrowthMessagesV2() {
   );
 
   return (
-    <section className="bg-(--bg-page) relative w-full min-h-[140vh] lg:min-h-[220vh]">
+    <section className="bg-(--bg-page) relative w-full min-h-[200vh] lg:min-h-[280vh]">
       {/* Título mobile/tablet — estático arriba, solo visible < lg */}
       <div className="lg:hidden px-6 pt-12 pb-6 text-center growth-v2-copy-mobile">{CopyContent}</div>
 
@@ -86,7 +86,7 @@ export function GrowthMessagesV2() {
 
         {/* Columna derecha — cards apilándose con scroll nativo */}
         <div className="py-12 col-span-1 md:col-span-1">
-        <ContainerScroll className="space-y-6 min-h-[120vh]">
+        <ContainerScroll className="space-y-6 pb-[20vh] md:pb-[40vh] lg:pb-[60vh]">
           {items.map((item, index) => {
             const card = cardData[index];
             const Icon = card.icon;

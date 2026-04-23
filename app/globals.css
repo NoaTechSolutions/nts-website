@@ -121,6 +121,7 @@
 
 html {
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 body {
@@ -137,8 +138,6 @@ a {
 
 .page-shell {
   position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
   padding-bottom: 0;
   background: var(--bg-page);
   -webkit-touch-callout: none;
@@ -808,8 +807,8 @@ a {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.6;
-  pointer-events: none;
+  overflow: hidden;
+  pointer-events: auto;
 }
 
 .mouse-glow-bg {
@@ -846,7 +845,7 @@ a {
 
 .contact-final-shell {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   display: grid;
   justify-items: center;
   gap: 1.5rem;
@@ -854,6 +853,12 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  pointer-events: none;
+}
+
+.contact-final-shell a,
+.contact-final-shell button {
+  pointer-events: auto;
 }
 
 .contact-form-section {
@@ -4036,6 +4041,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #011540;
 }
 
 .services-proof-section::before,
@@ -4065,7 +4071,7 @@ a {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.92;
+  overflow: hidden;
   pointer-events: auto;
 }
 
@@ -4077,7 +4083,7 @@ a {
 
 .mid-cta-shell {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   display: grid;
   justify-items: center;
   gap: 1.15rem;
