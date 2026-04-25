@@ -75,6 +75,8 @@ export function GrowthMessagesV2() {
 
   return (
     <section className="bg-(--bg-page) relative w-full min-h-[200vh] lg:min-h-[280vh]">
+      <h2 className="sr-only">{t.servicesSection.title}</h2>
+
       {/* Título mobile/tablet — estático arriba, solo visible < lg */}
       <div className="lg:hidden px-6 pt-12 pb-6 text-center growth-v2-copy-mobile">{CopyContent}</div>
 
