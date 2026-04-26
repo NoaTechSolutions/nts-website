@@ -181,9 +181,9 @@ export const ProductCard = ({
         />
       </a>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 text-sm text-white opacity-0 group-hover/product:opacity-100 md:text-base">
+      <h3 className="absolute bottom-4 left-4 text-sm text-white opacity-0 group-hover/product:opacity-100 md:text-base">
         {product.title}
-      </h2>
+      </h3>
     </motion.div>
   );
 };
