@@ -237,6 +237,8 @@ export function ProcessStickySection({
       className="section-divider relative"
       style={{ position: "relative", minHeight: `${Math.max(items.length * 95, 340)}vh` }}
     >
+      <h2 className="sr-only">{title}</h2>
+
       {isActive ? (
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">
           <div className="process-sticky-shell" style={{ opacity: shellOpacity }}>
