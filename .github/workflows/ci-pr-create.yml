@@ -1,4 +1,4 @@
-name: CI → Auto-merge to develop
+name: CI → PR + Lint & Build
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - develop
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 jobs:
@@ -122,26 +122,6 @@ jobs:
             const prFromEnsure = '${{ needs.ensure-pr.outputs.pr_number }}';
             core.setOutput('pr_number', prFromEnsure || '');
 
-  merge:
-    name: Auto-merge PR → develop
-    needs: ci
-    runs-on: ubuntu-latest
-    if: ${{ success() && needs.ci.outputs.pr_number != '' }}
-
-    steps:
-      - name: Merge PR via GitHub API
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = Number('${{ needs.ci.outputs.pr_number }}');
-            await github.rest.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr,
-              merge_method: 'squash',
-            });
-            console.log(`PR #${pr} merged to develop ✅`);
-
   notify-failure:
     name: Comment failure on PR
     needs: ci
@@ -160,7 +140,7 @@ jobs:
               repo: context.repo.repo,
               issue_number: pr,
               body: [
-                '## ❌ CI falló — merge a develop bloqueado',
+                '## ❌ CI falló — review pendiente',
                 '',
                 '[Ver logs completos](' + logsUrl + ')',
               ].join('\n'),
