@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.3.0 | 2026-04-24 |
+| Israel · Fundador | NoaTech Design | v0.4.0 | 2026-05-03 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,9 +12,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 10 |
-| 📌 Backlog | 3 |
-| 🚫 Descartadas | 6 |
+| ✅ Aprobadas | 13 |
+| 📌 Backlog | 2 |
+| 🚫 Descartadas | 7 |
 
 ---
 
@@ -105,6 +105,8 @@ Escala de 7 pasos derivada del Navy oficial `#022977`. Ink 0 = `#01102F` (Navy 8
 
 Proporción **60 neutrales · 30 Navy contenido · 10 Amber**. Un solo CTA Amber por sección. Semantic x4 (Success, Warning, Danger, Info) con variantes soft 50. **No gradientes multicolor** — solo mono-tono dentro de un mismo rol.
 
+> **Suplemento (DS-011, v0.4)**: la regla "no gradientes multicolor" sigue vigente para diseño nuevo. Los gradientes existentes en producción al 03-May-2026 quedan exceptuados bajo el marco de aplicación. Cualquier gradiente multicolor nuevo requiere aprobación explícita.
+
 **Marca**: disciplina que proyecta madurez · Amber "grita" porque es raro · paleta reconocible sin saturada.
 
 **Alternativas descartadas**: Gradient Aurora legacy (`DS-X003`), 2 CTAs primarios por sección (competencia), Electric como CTA principal (`DS-X005`).
@@ -126,9 +128,63 @@ Se cierra la paleta en 4 HEX oficiales de producción con roles únicos y mutuam
 4. Sky solo sobre Navy en dark mode (sobre blanco falla 3.1:1)
 5. Electric encapsulado en animación, mascota y badges "nuevo/beta" — máx 1 por pantalla
 
+> **Aclaración (DS-011, v0.4)**: las reglas 03, 04 y 05 aplican únicamente a colores sólidos en elementos distintos, no a gradientes que mezclan colores en un mismo elemento.
+
 **Marca**: tecnología B2B California · elegancia institucional (Navy) · calidez que convierte (Amber) · profesionalismo técnico (Sky) · energía premium encapsulada (Electric como voz de Noa).
 
 **Alternativas descartadas**: Opción B · jubilar Electric completamente (`DS-X006`), Electric libre en UI estática (vibración con Amber), Sky sobre blanco como texto body (falla AA), Electric sobre Navy (dos azules oscuros), HEX aproximados no oficiales (rompía producción).
+
+### DS-011 · Auditoría Electric + marco de aplicación de reglas
+**2026-05-03** · Sección [02 · Colores](02-colors.md#8-marco-de-aplicación-de-reglas)
+
+**Marco**: las reglas 03, 04 y 05 de DS-010 aplican únicamente a colores sólidos en elementos distintos, no a gradientes que mezclan colores en un mismo elemento. Suplemento a DS-009 (no la modifica): DS-009 sigue vigente para diseño nuevo; el marco aplica solo a los elementos auditados al 03-May-2026. Cualquier gradiente multicolor nuevo requiere aprobación explícita.
+
+**3 criterios de excepción para gradientes**:
+1. Es percibido como un único elemento expresivo
+2. No se usa en CTAs ni elementos de UI funcional
+3. Mantiene una transición continua (sin hard-stops)
+
+**Auditoría de 14 usos de `#0400F0` en producción**:
+- 4 mantener (compatibles con DS-010)
+- 5 excepciones documentadas: 4 gradientes expresivos (`globals.css:2001`, `globals.css:4993`, `globals.css:2766/2788/2795`, `text-hover-effect.tsx`) + 1 glow effect del orb 3D (`hero-orb-3d.tsx`)
+- 5 migraciones pendientes de aplicar en código (`process-sticky-section`, `resizable-navbar` × 2 cambios, `reviews-marquee`, `portfolio-page-client`)
+
+**Marca**: pragmatismo técnico · disciplina que respeta el lenguaje visual existente · regla clara para diseño futuro.
+
+**Alternativas descartadas**: aplicar reglas 03/04/05 a gradientes multicolor — rompería 4 usos en producción sin beneficio perceptual real (los gradientes son percibidos como un solo elemento expresivo, no como roles compitiendo).
+
+### DS-012 · Token Link · 4 estados × 2 modos
+**2026-05-03** · Sección [02 · Colores](02-colors.md#10-token-link--ds-012)
+
+> Promovida desde `DS-F002` (backlog v1.0). Estado anterior: en backlog.
+
+Token oficial para hyperlinks inline de body. Tabla 4×2 con HEX y contraste WCAG. Resuelve las dos contradicciones que tenía DS-F002 con DS-010:
+
+- **Default light** = Sky 700 `#036399` (no Sky 500) → cumple regla 06
+- **Visited** = Sky 800 `#024266` light / Sky 300 `#3FBAFF` dark (no Electric) → preserva el encapsulamiento de Electric (regla 07) y mantiene jerarquía visual coherente con la familia Sky
+- **Hover light** = Amber 700 `#995B00` (no Amber 500) → cumple regla 08
+- **Focus ring** = Amber 500 outline 2px / offset 3px en ambos modos
+
+**Marca**: lectura clara en ambos modos · jerarquía visible (default → hover → visited) · encapsulamiento de Electric preservado.
+
+**Alternativas descartadas**: Visited en Electric (rompía regla 07 al meter Electric en UI estática); default Sky 500 en light (falla AA, regla 06).
+
+### DS-013 · Token Navbar Link · 3 estados × 2 modos
+**2026-05-03** · Sección [02 · Colores](02-colors.md#11-token-navbar-link--ds-013)
+
+Token específico para nav links estructurales del header / navbar. Distinto de DS-012 porque los nav links son texto principal estructural, no links inline en body.
+
+**Estados clave**:
+- **Default light** = Ink 1 `#02215F` (12.8:1 AAA)
+- **Default dark** = Paper 0 `#FFFFFF` 88% opacity (14.7:1 AAA)
+- **Highlighted** = underline Amber 500 2px decorativo (texto NO cambia de color, solo aparece el subrayado)
+- **Hover** = Amber 700 light / Amber 500 dark (unifica con DS-012)
+
+Migración asociada (parte de DS-011): `bg-[#0400f0]` del mobile menu surface (`resizable-navbar.tsx:317, 390`) pasa a `bg-[#022977]` (Navy 500).
+
+**Marca**: estructura del nav anclada al sistema neutral · Sky / Amber libres para roles activos · highlighted decorativo no compite con jerarquía cromática.
+
+**Alternativas descartadas**: Sky 700 como default del nav (`DS-X007`) — sonaba a link inline de body, no a nav estructural; mezclaba el rol del token Link general con el del nav.
 
 ---
 
@@ -139,10 +195,9 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 | ID | Componente | Sugerencia | Prioridad | Target |
 |---|---|---|---|---|
 | DS-F001 | Tipografía · Mono | JetBrains Mono para metadata técnica — eyebrows numéricos, "PROYECTO · 2025", timestamps, snippets. Peso único 400, carga condicional. | Baja | v1.1 |
-| DS-F002 | Tipografía · Link | Token Link con 4 estados — default Sky, hover Amber, visited Electric, focus ring Amber (2px · offset 3px). | Media | v1.0 |
 | DS-F003 | Tipografía · SEO | Documentar regla H1 mobile mínimo 36px en template `/servicios/[slug]` y checklist QA pre-deploy. | Media | v1.0 |
 
-> **Nota DS-F002**: tiene contradicciones internas con `DS-010` (reglas 06 y 07) que deben resolverse antes de promoverlo a aprobado. Ver [pregunta abierta](_open-questions/2026-05-03-ds02-color-gaps.md).
+> **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
 ---
 
@@ -174,12 +229,17 @@ Saturado al máximo. Falla WCAG AA sobre Paper 0 en botones pequeños. Rebaja la
 Reducir la paleta a 3 colores eliminando Electric, reemplazando por Amber 700 (hovers) y Navy 700 (acentos oscuros). Descartada porque Electric ya está en producción (hover de botones, glow, BackgroundBoxes) y se decidió darle rol único como color de la mascota Noa y momentos animados.
 **Resolución**: Opción A + matiz C (`DS-010`).
 
+### DS-X007 · Sky 700 como default del nav link
+Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de body, no a navegación estructural; mezclaba el rol del token Link general (DS-012) con el del nav, lo cual difuminaba la jerarquía cromática del header.
+**Reemplazo**: Ink 1 `#02215F` como default del nav (`DS-013`) — ancla los nav links al sistema neutral y deja Sky / Amber libres para sus roles activos.
+
 ---
 
 ## Versionado del log
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.4.0 | 2026-05-03 | DS-011, DS-012 (ex DS-F002), DS-013 aprobadas · DS-X007 registrada · DS 02 v0.4 cerrada |
 | v0.3.0 | 2026-04-24 | DS-010 aprobada · DS-X006 registrada · DS 02 v0.3 cerrada |
 | v0.2.x | 2026-04-24 | DS-005 a DS-009 aprobadas y corregidas con HEX oficiales de producción |
 | v0.1.x | 2026-04-24 | DS-001 a DS-004 aprobadas (DS 01 · Tipografía) |
@@ -191,3 +251,4 @@ Reducir la paleta a 3 colores eliminando Electric, reemplazando por Amber 700 (h
 - [`01-typography.md`](01-typography.md) — sección 01
 - [`02-colors.md`](02-colors.md) — sección 02
 - [`_open-questions/`](_open-questions/) — preguntas abiertas
+- [`_open-questions/_archive/`](_open-questions/_archive/) — preguntas resueltas

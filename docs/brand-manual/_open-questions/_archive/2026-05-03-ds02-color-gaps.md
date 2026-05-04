@@ -1,14 +1,34 @@
-# DS 02 v0.3 · Gaps cromáticos pendientes
+# DS 02 v0.3 · Gaps cromáticos · CERRADO
 
-| Estado | Para | De | Fecha |
-|---|---|---|---|
-| ⏳ Abierta | Diseñador | Israel | 2026-05-03 |
+| Estado | Para | De | Apertura | Cierre |
+|---|---|---|---|---|
+| ✅ Cerrada | Diseñador | Israel | 2026-05-03 | 2026-05-03 |
 
-> Dos gaps detectados sobre la versión aprobada de DS 02 v0.3. Requieren decisión antes de avanzar a DS 03 · Spacing, Radii & Shadows.
+> Dos gaps detectados sobre la versión aprobada de DS 02 v0.3. Requirieron decisión antes de avanzar a DS 03. **Resueltos en DS 02 v0.4 / Decisions Log v0.4.0**. Documento conservado como rastro histórico del proceso.
 
 ---
 
-## Contenido
+## ✅ Resolución (2026-05-03)
+
+Los 2 gaps fueron resueltos por el diseñador en DS 02 v0.4 / Decisions Log v0.4.0 con 3 decisiones nuevas y 1 descartada documentada:
+
+### Gap 1 · Auditoría Electric → resuelto por `DS-011`
+
+- **Marco de aplicación**: las reglas 03, 04 y 05 aplican únicamente a colores sólidos en elementos distintos, no a gradientes que mezclan colores en un mismo elemento. Suplemento a DS-009 (vigente para diseño nuevo).
+- **3 criterios de excepción** para gradientes existentes: elemento expresivo único, no UI funcional, transición continua.
+- **Tabla de 14 veredictos**: 4 mantener · 5 excepciones documentadas · 5 migraciones pendientes en código.
+- Ver [02-colors.md secciones 8 y 9](../../02-colors.md#8-marco-de-aplicación-de-reglas).
+
+### Gap 2 · DS-F002 vs DS-010 → resuelto por `DS-012` y `DS-013`
+
+- **`DS-012` Token Link** (promovido desde DS-F002) — tabla 4 estados × 2 modos. Default Sky 700 en light (no Sky 500), visited en familia Sky 800 / Sky 300 (no Electric). Cumple reglas 06 y 07.
+- **`DS-013` Token Navbar Link** (token específico nuevo) — default Ink 1 (no Sky 700) porque nav links son estructura, no body inline. Highlighted como underline Amber decorativo.
+- **`DS-X007`** — Sky 700 como default del nav descartado (sonaba a link inline).
+- Ver [02-colors.md secciones 10 y 11](../../02-colors.md#10-token-link--ds-012).
+
+---
+
+## Contenido original
 
 1. [Contexto](#contexto)
 2. [Gap 1 · Auditoría Electric vs producción](#gap-1--auditoría-electric-vs-producción)

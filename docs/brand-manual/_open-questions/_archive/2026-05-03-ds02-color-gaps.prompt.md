@@ -1,10 +1,12 @@
-# Prompt para diseñador · Cierre de gaps DS 02 v0.3
+# Prompt para diseñador · Cierre de gaps DS 02 v0.3 · ENVIADO Y RESUELTO
 
-| Estado | Para | De | Fecha |
-|---|---|---|---|
-| 📤 Listo para enviar | Diseñador | Israel | 2026-05-03 |
+| Estado | Para | De | Enviado | Resuelto |
+|---|---|---|---|---|
+| ✅ Resuelto | Diseñador | Israel | 2026-05-03 | 2026-05-03 |
 
-> Versión copy-paste-ready del documento [`2026-05-03-ds02-color-gaps.md`](2026-05-03-ds02-color-gaps.md), optimizada para pegar directamente en el chat con el diseñador. Cuando se reciba la respuesta, se actualiza el doc estructurado y se archivan ambos archivos.
+> Versión copy-paste que se le envió al diseñador. La respuesta y el delivery están reflejados en DS 02 v0.4 (`DS-011`, `DS-012`, `DS-013`) y en el Decisions Log v0.4.0. Documento conservado como rastro histórico del proceso de comunicación.
+
+Resolución completa en [`2026-05-03-ds02-color-gaps.md`](2026-05-03-ds02-color-gaps.md) (sección "Resolución").
 
 ---
 

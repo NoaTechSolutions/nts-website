@@ -2,7 +2,7 @@
 
 | Estado | Versión | Última actualización |
 |---|---|---|
-| ✅ Aprobado | v0.4 | 2026-04-24 |
+| ✅ Aprobado | v0.4.1 | 2026-05-03 |
 
 > Sección 01 del Manual de Marca. Define las dos familias tipográficas oficiales, la escala fluida y los tokens adicionales (Quote, Overline, Stat).
 
@@ -115,10 +115,9 @@ Quote (42ch · comillas Amber), Overline (metadata neutra), Stat (`tabular-nums`
 | ID | Tema | Prioridad | Target |
 |---|---|---|---|
 | DS-F001 | Tipografía Mono · JetBrains Mono para metadata técnica | Baja | v1.1 |
-| DS-F002 | Token Link con 4 estados (default, hover, visited, focus) | Media | v1.0 |
 | DS-F003 | SEO · H1 mobile mínimo 36px en `/servicios/[slug]` + checklist QA pre-deploy | Media | v1.0 |
 
-> **Nota sobre DS-F002**: el token Link en su forma actual ("default Sky, visited Electric") tiene contradicciones internas con `DS-010` (reglas 06 y 07 del sistema cromático). Antes de promover de Backlog a Aprobado hay que resolverlas. Ver [pregunta abierta](_open-questions/2026-05-03-ds02-color-gaps.md).
+> **`DS-F002` fue promovida a `DS-012`** en DS 02 v0.4 (2026-05-03). El token Link oficial vive ahora en [02-colors.md sección 10](02-colors.md#10-token-link--ds-012) con la tabla 4 estados × 2 modos resuelta sin contradicciones con DS-010.
 
 ---
 
@@ -126,6 +125,7 @@ Quote (42ch · comillas Amber), Overline (metadata neutra), Stat (`tabular-nums`
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.4.1 | 2026-05-03 | Patch · `DS-F002` promovida a `DS-012` (sale de backlog); cross-references actualizadas |
 | v0.4 | 2026-04-24 | `DS-004` — agrega Quote, Overline, Stat, max-width, font-feature-settings |
 | v0.3 | 2026-04-24 | `DS-003` — escala fluida con clamp() |
 | v0.2 | 2026-04-24 | `DS-002` — Inter como body |

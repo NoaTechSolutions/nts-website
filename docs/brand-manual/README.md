@@ -12,8 +12,8 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 | DS | Sección | Estado | Versión | Última actualización |
 |---|---|---|---|---|
-| 01 | [Tipografía](01-typography.md) | ✅ Aprobado | v0.4 | 2026-04-24 |
-| 02 | [Sistema cromático](02-colors.md) | ⏳ Parcialmente aprobado | v0.3 | 2026-04-24 |
+| 01 | [Tipografía](01-typography.md) | ✅ Aprobado | v0.4.1 | 2026-05-03 |
+| 02 | [Sistema cromático](02-colors.md) | ✅ Aprobado | v0.4 | 2026-05-03 |
 | 03 | Espaciado, radios y sombras | 📝 Próximo | — | — |
 | 04 | Iconografía | 📝 Pendiente | — | — |
 | 05 | Botones | 📝 Pendiente | — | — |
@@ -25,7 +25,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo (10 aprobadas · 3 backlog · 6 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo (13 aprobadas · 2 backlog · 7 descartadas).
 
 ---
 
@@ -73,7 +73,13 @@ Las preguntas pendientes con el equipo de diseño viven en [`_open-questions/`](
 
 | Pregunta | Sección afectada | Estado | Para |
 |---|---|---|---|
-| [Gaps DS 02 v0.3 — sistema cromático](_open-questions/2026-05-03-ds02-color-gaps.md) | 02 · Colores · 01 · Tipografía (DS-F002) | ⏳ Abierta | Diseñador |
+| _Sin preguntas abiertas activas._ | — | — | — |
+
+### Archivo histórico
+
+| Pregunta | Cierre | Resultado |
+|---|---|---|
+| [Gaps DS 02 v0.3 — sistema cromático](_open-questions/_archive/2026-05-03-ds02-color-gaps.md) | 2026-05-03 | Resuelta en DS 02 v0.4 (`DS-011`, `DS-012`, `DS-013`, `DS-X007`) |
 
 ---
 
