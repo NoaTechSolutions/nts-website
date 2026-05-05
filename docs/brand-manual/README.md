@@ -14,9 +14,10 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 |---|---|---|---|---|
 | 00 | [Estrategia de implementación](00-implementation-strategy.md) | ✅ Aprobada | v0.1 | 2026-05-04 |
 | 01 | [Tipografía](01-typography.md) | ✅ Aprobado | v0.4.1 | 2026-05-03 |
+| 01b | [Decisión de pairing tipográfico](01b-typography-pairing-decision.md) | ✅ Aprobada | v1.0 | 2026-04-24 |
 | 02 | [Sistema cromático](02-colors.md) | ✅ Aprobado | v0.4 | 2026-05-03 |
 | 03 | [Espaciado, radios y sombras](03-spacing-radii-shadows.md) | ✅ Aprobado | v0.1 | 2026-05-04 |
-| 04 | [Componentes core](04-components-core.md) | ⏳ Parcialmente aprobado | v0.1 | 2026-05-04 |
+| 04 | [Componentes core](04-components-core.md) | ✅ Aprobado | v0.2 | 2026-05-04 |
 | 05 | Patrones (Hero, CTA, Process, FAQ, Forms) | 📝 Próximo | — | — |
 | 06 | Iconografía | 📝 Pendiente | — | — |
 | 07 | Secciones / patrones de layout | 📝 Pendiente | — | — |
@@ -26,7 +27,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo (21 aprobadas · 2 backlog · 7 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo (22 aprobadas · 2 backlog · 7 descartadas).
 
 ---
 
@@ -74,13 +75,14 @@ Las preguntas pendientes con el equipo de diseño viven en [`_open-questions/`](
 
 | Pregunta | Sección afectada | Estado | Para |
 |---|---|---|---|
-| [DS-017 motion specs pendientes](_open-questions/2026-05-04-ds-017-motion-specs.md) | 04 · Componentes core | ⏳ Abierta | Diseñador |
+| _Sin preguntas abiertas activas._ | — | — | — |
 
 ### Archivo histórico
 
 | Pregunta | Cierre | Resultado |
 |---|---|---|
 | [Gaps DS 02 v0.3 — sistema cromático](_open-questions/_archive/2026-05-03-ds02-color-gaps.md) | 2026-05-03 | Resuelta en DS 02 v0.4 (`DS-011`, `DS-012`, `DS-013`, `DS-X007`) |
+| [DS-017 motion specs pendientes](_open-questions/_archive/2026-05-04-ds-017-motion-specs.md) | 2026-05-04 | Resuelta en DS 04 v0.2 (`DS-017 v0.2`, `DS-022`) |
 
 ---
 
@@ -102,8 +104,13 @@ Las preguntas pendientes con el equipo de diseño viven en [`_open-questions/`](
 
 ## Archivos relacionados
 
+### Implementación y código
 - [`docs/design-system.md`](../design-system.md) — implementación actual (snapshot del código)
 - [`docs/COMPONENTS.md`](../COMPONENTS.md) — inventario canónico de componentes
 - [`docs/SITEMAP.md`](../SITEMAP.md) — mapa del sitio y secciones
 - [`docs/AUDIT.md`](../AUDIT.md) — auditoría técnica del proyecto
 - [`docs/CHANGELOG.md`](../CHANGELOG.md) — bitácora de cambios del proyecto
+
+### Artefactos estratégicos del scope NOA-229
+
+- **NoaTech UX-SEO Playbook** (entregable del equipo de diseño) — documento estratégico aparte que cubre auditoría del home actual, arquitectura SEO por página, plantilla `/servicios/[slug]`, mega-menú, mascota Noa Lottie, `/nosotros` y roadmap de implementación. NO es un módulo del manual de marca, vive como deliverable independiente. Próximo bloque de trabajo después de cerrar DS 05–10.

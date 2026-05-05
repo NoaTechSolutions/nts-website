@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.6.0 | 2026-05-04 |
+| Israel · Fundador | NoaTech Design | v0.7.0 | 2026-05-04 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,11 +12,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 21 |
+| ✅ Aprobadas | 22 |
 | 📌 Backlog | 2 |
 | 🚫 Descartadas | 7 |
-
-> DS-017 está aprobada estructuralmente pero pendiente patch v0.2 con motion specs. Ver [pregunta abierta](_open-questions/2026-05-04-ds-017-motion-specs.md).
 
 ---
 
@@ -226,16 +224,20 @@ Stack oficial: shadcn/ui (primitives) + motion/react & GSAP (motion) + Aceternit
 
 **Alternativas descartadas**: una sola librería all-in-one (MUI/Chakra) — fuerza opiniones de styling que pelean con identidad de marca, no cubre showcase animado; solo shadcn (perdemos showcase); solo Aceternity (falta primitives sólidos); sin librería custom (costoso en time-to-brand y mantenimiento, pierde accesibilidad pre-resuelta de Radix).
 
-### DS-017 · Button · 4 variantes × 3 tamaños × 6 estados
-⏳ **Aprobada estructuralmente · pendiente motion specs (v0.2)** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#2-button--ds-017)
+### DS-017 v0.2 · Button motion specs + eje ortogonal modality · reconfirma 9→4
+✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#2-button--ds-017-v02)
 
-4 variantes (Primary/Secondary/Ghost/Link) × 3 tamaños (sm 36 / md 44 / lg 54) × 6 estados (default / hover / active / focus / disabled / loading). Consolida 9 variantes legacy en sistema disciplinado. Pill obligatorio (DS-015), focus ring Amber (DS-016), Electric jubilado de botones (DS-010 regla 07).
+**Corrección al gap de v0.1**: motion no es opcional, ES identidad de marca en NoaTech. La regla 02 original ("Motion no define variante") sub-especificaba; v0.2 la reescribe: motion se aplica vía atributo ortogonal `data-modality="base|pulse|orbit"`, no por variante nueva.
 
-**Motion specs pendientes**: el v0.1 deja motion como "comportamiento opcional". Pendiente patch DS-017 v0.2 con timing, easing y choreography por variante × estado. Ver [pregunta abierta](_open-questions/2026-05-04-ds-017-motion-specs.md).
+4 variantes (Primary/Secondary/Ghost/Link) × 3 tamaños (sm 36 / md 44 / lg 54) × 6 estados (default / hover / active / focus / disabled / loading). Specs accionables tabuladas en sección 06 con duration, ease, transform, shadow, extras (text-swap, icon-fade, modality entries).
 
-**Marca**: disciplina sistémica · menos componentes con uso explícito · tamaños y contextos antes que variantes nuevas.
+**Reconfirmación 9→4**: los 7 efectos legacy son 2 patrones base + 2 modalities perpetuas opcionales (pulse, orbit). Mapping completo: `btn-cta-navy → primary lg pulse` · `btn-body-ghost → ghost lg orbit` · `btn-cta-ghost-navy → ghost lg dark orbit` · 6 al base · 2 retiros sin pérdida.
 
-**Alternativas descartadas**: mantener 9 variantes legacy (caos), Electric como variante de botón (`DS-X005` ya descartado), botones rounded-md (rompe DS-015 pill como gesto formal).
+**Modality solo en `lg` hero/CTA Band.** Pulse y orbit son loops perpetuos: se reservan a botones lg en posiciones jerárquicas. Hover detiene el loop y aplica el hover state base. text-swap promovido a primary lg.
+
+**Marca**: motion como lenguaje, no decoración · identidad hero preservada (pulse, orbit) · eje ortogonal sin multiplicar variantes · implementable con motion/react o CSS.
+
+**Alternativas descartadas**: mantener "motion opcional" v0.1 (drift de impl, downgrade visual) · promover pulse/orbit a variantes propias (5 o 6 variantes, multiplicación) · motion libre por instancia (caos sin tokens) · modality aplicable en sm/md (loops perpetuos en formularios = ruido).
 
 ### DS-018 · Card · 5 tipos canónicos
 ✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#3-card--ds-018)
@@ -263,6 +265,21 @@ Eyebrow (metadata sin chrome) · Pill (3 niveles solid/soft/outline) · Status (
 **Marca**: diferenciación semántica clara · intensidad cromática reservada para señales · tipografía como vector de jerarquía.
 
 **Alternativas descartadas**: Eyebrow y Pill en una sola familia (confunde metadata con objeto interactivo), Pill multicolor (rompe disciplina cromática), Status con colores libres (rompe convención WCAG / semáforo).
+
+### DS-022 · Tokens de motion · 6 durations + 3 easings + reduced-motion
+✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#6-motion--ds-017-v02--ds-022)
+
+Seis tokens de duración: `--motion-duration-instant` (80ms · press) · `fast` (120ms · transitions simples) · `base` (180ms · hover changes) · `slow` (280ms · emphasis) · `pulse` (2500ms · glow loop) · `orbit` (3000ms · orb loop).
+
+Tres easings: `--motion-ease-emphasis` `cubic-bezier(.4, 0, .2, 1)` material standard para 90% de transitions · `--motion-ease-overshoot` `cubic-bezier(.34, 1.56, .64, 1)` spring sutil para text-swap fade-in · `--motion-ease-pulse` `ease-in-out` para loops perpetuos.
+
+**`prefers-reduced-motion` obligatorio**: loops perpetuos se desactivan, hover transforms se reducen a opacity/color. Implementación a nivel global en CSS reset.
+
+Toda nueva CSS o motion variant usa exclusivamente DS-022. **No se permiten valores inline.** Si un componente requiere otra duración/easing, se evalúa promover token nuevo.
+
+**Marca**: movimiento con disciplina · tempo predecible y reutilizable · a11y por defecto (reduced-motion) · base para motion engine impl (DS-021 capa 2).
+
+**Alternativas descartadas**: mantener durations inline ad-hoc (caos: 0.12s/0.15s/0.2s/2.5s sin token) · una sola duration default (pierde matiz fast vs slow) · easings nombrados sin curva explícita ("snappy", "bouncy") · no documentar prefers-reduced-motion (a11y comprometido).
 
 ---
 
@@ -317,6 +334,7 @@ Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de bo
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.7.0 | 2026-05-04 | DS-017 v0.2 motion specs + eje ortogonal modality (reconfirma 9→4) · DS-022 tokens de motion · DS 04 promovido a ✅ Aprobado integralmente |
 | v0.6.0 | 2026-05-04 | DS-017 (estructural, motion pendiente), DS-018, DS-019, DS-020 aprobadas (DS 04 · Componentes core v0.1) |
 | v0.5.0 | 2026-05-04 | DS-014, DS-015, DS-016 aprobadas (DS 03 · Spacing, Radii & Shadows v0.1) · DS-021 aprobada (arquitectura en 3 capas, sección 00) |
 | v0.4.0 | 2026-05-03 | DS-011, DS-012 (ex DS-F002), DS-013 aprobadas · DS-X007 registrada · DS 02 v0.4 cerrada |

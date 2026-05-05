@@ -2,25 +2,25 @@
 
 | Estado | Versión | Última actualización |
 |---|---|---|
-| ⏳ Parcialmente aprobado | v0.1 | 2026-05-04 |
+| ✅ Aprobado | v0.2 | 2026-05-04 |
 
-> Sección 04 del Manual de Marca. De 9 botones a un sistema. Define Button (4 variantes × 3 tamaños) · Card (5 tipos canónicos) · Input (3 tipos × 6 estados) · Badge (4 familias). Auditoría preventiva consolida 14 componentes de producción contra el sistema. Tokens de DS 01–03 aplicados sin HEX hardcoded.
+> Sección 04 del Manual de Marca. De 9 botones a un sistema. Define Button (4 variantes × 3 tamaños) · Card (5 tipos canónicos) · Input (3 tipos × 6 estados) · Badge (4 familias) + Motion (DS-022 tokens + DS-017 v0.2 specs por variante × estado con eje ortogonal `data-modality`). Auditoría preventiva consolida 14 componentes de producción contra el sistema. Tokens de DS 01–03 aplicados sin HEX hardcoded.
 >
-> **Estado parcial**: DS-017 (Button) tiene un gap deliberado en motion specs. Pendiente patch v0.2 — ver [Pendientes](#9-pendientes).
+> **v0.2 · motion patch** · DS-022 tokens de motion + DS-017 v0.2 specs accionables. Motion ES identidad.
 
 ---
 
 ## Contenido
 
 1. [Filosofía · menos componentes, más uso](#1-filosofía--menos-componentes-más-uso)
-2. [Button · DS-017](#2-button--ds-017)
+2. [Button · DS-017 v0.2](#2-button--ds-017-v02)
 3. [Card · DS-018](#3-card--ds-018)
 4. [Input · DS-019](#4-input--ds-019)
 5. [Badge · DS-020](#5-badge--ds-020)
-6. [Auditoría preventiva · producción](#6-auditoría-preventiva--producción)
-7. [Migraciones pendientes en código](#7-migraciones-pendientes-en-código)
+6. [Motion · DS-017 v0.2 + DS-022](#6-motion--ds-017-v02--ds-022)
+7. [Auditoría preventiva · producción](#7-auditoría-preventiva--producción)
 8. [Comparativas antes / después](#8-comparativas-antes--después)
-9. [Pendientes](#9-pendientes)
+9. [Migraciones pendientes en código](#9-migraciones-pendientes-en-código)
 10. [Decisiones de diseño](#10-decisiones-de-diseño)
 11. [Historial de cambios](#11-historial-de-cambios)
 
@@ -28,22 +28,22 @@
 
 ## 1. Filosofía · menos componentes, más uso
 
-Producción tiene 9 variantes activas de botón. Algunas se solapan (`.btn-body-primary` y `.btn-cta-navy` hacen lo mismo en contexto distinto). DS 04 consolida en 4 variantes con tamaño y contexto explícitos.
+Producción tiene 9 variantes activas de botón. Algunas se solapan (`.btn-body-primary` y `.btn-cta-navy` hacen lo mismo en contexto distinto). DS 04 consolida en 4 variantes con tamaño y contexto explícitos, agregando un **eje ortogonal de motion modality** para preservar los efectos hero sin multiplicar variantes.
 
-Cada componente declara: anatomía base, variantes oficiales, tamaños, estados, reglas y auditoría contra producción.
+Cada componente declara: anatomía base, variantes oficiales, tamaños, estados, reglas, motion specs y auditoría contra producción.
 
-| Componente | Variantes | Tamaños | Estados |
-|---|---|---|---|
-| Button (DS-017) | 4 | 3 (sm/md/lg) | 6 (default/hover/active/focus/disabled/loading) |
-| Card (DS-018) | 5 tipos | — | hover (solo si interactiva) |
-| Input (DS-019) | 3 tipos (text/textarea/select) | 2 (sm/md) | 6 (default/hover/focus/error/success/disabled) |
-| Badge (DS-020) | 4 familias | — | — |
+| Componente | Variantes | Tamaños | Estados | Motion |
+|---|---|---|---|---|
+| Button (DS-017 v0.2) | 4 | 3 (sm/md/lg) | 6 | base / pulse / orbit (modality, lg only) |
+| Card (DS-018) | 5 tipos | — | hover (si interactiva) | Sticky / Swap / Comet (comportamientos opcionales) |
+| Input (DS-019) | 3 tipos | 2 (sm/md) | 6 | hover/focus simples |
+| Badge (DS-020) | 4 familias | — | — | sin motion específico |
 
 ---
 
-## 2. Button · DS-017
+## 2. Button · DS-017 v0.2
 
-El componente más usado del sistema. Producción tiene 9 variantes con motion específico (3D press, orb orbital, glow pulse, text swap). DS 04 separa **identidad** (4 variantes) de **motion** (especificación pendiente — ver [Pendientes](#9-pendientes)).
+El componente más usado del sistema. Producción tiene 9 variantes con motion específico (3D press, orb orbital, glow pulse, text swap). DS 04 v0.2 separa **identidad** (4 variantes) de **modality** (eje ortogonal `data-modality`), preservando los efectos hero sin multiplicar variantes.
 
 ### Anatomía
 
@@ -87,12 +87,12 @@ El componente más usado del sistema. Producción tiene 9 variantes con motion e
 
 | # | Regla | Detalle |
 |---|---|---|
-| 01 | Una sola Primary por sección | Hereda DS-009 regla 02. Si necesitas dos acciones igual de importantes, una se vuelve Secondary |
-| 02 | Motion no define variante (v0.1) | 3D press, glow pulse, orb orbital son comportamientos opcionales · ⚠️ **Pendiente DS-017 v0.2 con motion specs accionables** |
-| 03 | Electric jubilado de botones | `.btn-body-electric` retirado. Producía vibración con Amber adyacente y ya tiene rol único en mascota Noa (DS-010 regla 07) |
-| 04 | Pill obligatorio | Todos los botones usan `--r-pill`. Es el gesto formal del sistema (DS-015). No existen botones cuadrados ni rounded-md |
-| 05 | min-height fija por tamaño | 36 / 44 / 54. El 44 default cumple WCAG 2.5.5 (target size). Nunca botones <36px |
-| 06 | Focus visible siempre | Usar `:focus-visible` con `--sh-focus`. Nunca `outline:none` sin reemplazo. Combinar vía coma con shadow base |
+| 01 | **Una sola Primary por sección** | Hereda DS-009 regla 02. Si necesitas dos acciones igual de importantes, una se vuelve Secondary |
+| 02 | **Motion ES identidad** ✨ v0.2 | En NoaTech motion no es opcional, es identidad de marca. 3D press define la familia Primary/Secondary; orbit define Ghost; glow pulse perpetuo distingue Primary lg en hero. Especificado en [sección 06](#6-motion--ds-017-v02--ds-022) con tokens DS-022 y specs por variante × estado. Motion se aplica vía atributo `data-modality="base|pulse|orbit"`, no por variante nueva |
+| 03 | **Electric jubilado de botones** | `.btn-body-electric` retirado. Producía vibración con Amber adyacente y ya tiene rol único en mascota Noa (DS-010 regla 07) |
+| 04 | **Pill obligatorio** | Todos los botones usan `--r-pill`. Es el gesto formal del sistema (DS-015). No existen botones cuadrados ni rounded-md |
+| 05 | **min-height fija por tamaño** | 36 / 44 / 54. El 44 default cumple WCAG 2.5.5 (target size). Nunca botones <36px |
+| 06 | **Focus visible siempre** | Usar `:focus-visible` con `--sh-focus`. Nunca `outline:none` sin reemplazo. Combinar vía coma con shadow base |
 
 ---
 
@@ -231,7 +231,135 @@ Cuatro familias **semánticamente distintas**. Eyebrow no es Pill aunque parezca
 
 ---
 
-## 6. Auditoría preventiva · producción
+## 6. Motion · DS-017 v0.2 + DS-022
+
+Sección agregada en v0.2. **Motion es identidad de marca, no decoración opcional.** DS-022 introduce tokens de duración y easing. DS-017 v0.2 especifica motion por variante × estado, con un eje ortogonal de **modality** (base / pulse / orbit) para preservar los efectos hero sin multiplicar variantes.
+
+### 6.1 · DS-022 · Tokens de motion
+
+#### Durations (6 tokens)
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--motion-duration-instant` | 80ms | Press / active. Feedback táctil inmediato |
+| `--motion-duration-fast` | 120ms | Container transitions sm/md · transform 3D |
+| `--motion-duration-base` | 180ms | Hover changes simples · color/border |
+| `--motion-duration-slow` | 280ms | Hover enfático · text-swap · emphasis lg |
+| `--motion-duration-pulse` | 2500ms | Loop perpetuo glow pulse hero |
+| `--motion-duration-orbit` | 3000ms | Loop perpetuo orb orbital |
+
+#### Easings (3 tokens)
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--motion-ease-emphasis` | `cubic-bezier(.4, 0, .2, 1)` | Default para hover/active. Material standard, ramp acelerado · 90% de transitions |
+| `--motion-ease-overshoot` | `cubic-bezier(.34, 1.56, .64, 1)` | Spring sutil. Solo en text-swap fade-in y modality entries |
+| `--motion-ease-pulse` | `ease-in-out` | Loops perpetuos (pulse, orbit). Suaviza ambos extremos |
+
+#### `prefers-reduced-motion` (obligatorio)
+
+- Loops perpetuos se desactivan completamente
+- Hover transforms se reducen a opacity/color (sin translateY)
+- Implementación a nivel global en CSS reset
+
+> Toda nueva CSS o motion variant usa exclusivamente DS-022. **No se permiten valores inline.** Si un componente requiere otra duración/easing, se evalúa promover token nuevo.
+
+### 6.2 · Eje ortogonal `data-modality`
+
+Producción tiene 7 efectos de motion sobre 9 botones. Auditados, son:
+
+- **2 patrones base** · 3D press + hover lift
+- **2 modalities perpetuas opcionales** · pulse + orbit
+
+La consolidación 9→4 se mantiene válida agregando un **atributo ortogonal**: `data-modality="base|pulse|orbit"`. Pulse y orbit quedan **reservadas a tamaño `lg` en posiciones hero/CTA Band** — nunca en sm/md ni en formularios.
+
+| Modality | Uso | Implementación |
+|---|---|---|
+| `base` (default) | Todos los botones sm/md/lg | 3D press transform + shadow transition |
+| `pulse` (lg only) | CTA hero (ex `.btn-cta-navy`) | `animation: glow-pulse 2500ms ease-in-out infinite` |
+| `orbit` (lg only) | Ghost hero (ex `.btn-body-ghost`, `.btn-cta-ghost-navy`) | Orb child con `animation: orbit 3000ms linear infinite` |
+
+### 6.3 · Specs por variante × estado
+
+#### Primary · 3D press + text-swap (md/lg)
+
+| Estado | duration | ease | transform | shadow / extras |
+|---|---|---|---|---|
+| Default | — | — | none | `0 4px 0 var(--amber-700)`, `--sh-2` |
+| Hover (md) | `--motion-duration-fast` | `--motion-ease-emphasis` | `translateY(-2px)` | `0 6px 0 amber-700`, `--sh-3` |
+| Hover (lg) | `--motion-duration-slow` | `--motion-ease-emphasis` | `translateY(-2px) scale(1.01)` | `0 6px 0 amber-700`, `--sh-4` + text-swap |
+| Active | `--motion-duration-instant` | `ease-out` | `translateY(3px)` | `0 1px 0 amber-700`, `--sh-1` |
+| Focus-visible | — | — | none | `--sh-focus` combinado con shadow base |
+
+**Text-swap**: idle fade-out 120ms ease-out (offset 0) · hover fade-in 180ms **overshoot** + slide-up 8px (offset 60ms) · icon fade-out 120ms + slide-left 4px.
+
+**`modality=pulse`**: `animation: glow-pulse 2500ms ease-in-out infinite`. Hover **detiene el loop** y aplica el hover state base. Solo lg en hero/CTA Band. Respeta `prefers-reduced-motion`.
+
+#### Secondary · 3D press Navy
+
+| Estado | duration | ease | transform | shadow / extras |
+|---|---|---|---|---|
+| Default | — | — | none | `0 4px 0 var(--navy-700)`, `--sh-2` |
+| Hover | `--motion-duration-fast` | `--motion-ease-emphasis` | `translateY(-2px)` | `0 6px 0 navy-700`, `--sh-3` |
+| Active | `--motion-duration-instant` | `ease-out` | `translateY(3px)` | `0 1px 0 navy-700`, `--sh-1` |
+| Focus-visible | — | — | none | `--sh-focus` + shadow base |
+
+**Nav variant (sm)**: background hover `--amber-700` (DS-013) · transition `background 180ms emphasis` + transform fast · navbar exclusivo.
+
+#### Ghost · outline + modality orbit (lg hero)
+
+| Estado | duration | ease | transform | shadow / extras |
+|---|---|---|---|---|
+| Default | — | — | none | border `--ink-5` |
+| Hover | `--motion-duration-base` | `--motion-ease-emphasis` | none | bg `--ink-6`, border `--ink-4` |
+| Active | `--motion-duration-instant` | `ease-out` | `scale(.98)` | bg `--ink-5` |
+| Focus-visible | — | — | none | `--sh-focus` |
+
+**`modality=orbit`**: orb child `::before` con radial-gradient · `animation: orbit 3000ms linear infinite` · 70px translateX · solo lg en hero. Respeta `prefers-reduced-motion`.
+
+#### Link · inline minimal
+
+| Estado | duration | ease | transform | shadow / extras |
+|---|---|---|---|---|
+| Default | — | — | none | color `--sky-700`, underline |
+| Hover | `--motion-duration-base` | `--motion-ease-emphasis` | none | color `--amber-700` |
+| Active | `--motion-duration-instant` | `ease-out` | none | opacity .8 |
+| Focus-visible | — | — | none | `--sh-focus` en bounding box |
+
+**Modality**: no aplica. Link permanece minimal.
+
+### 6.4 · Mapping motion 9→4 + modality (auditoría reconfirmada)
+
+| Variante legacy | Motion actual | DS-017 v0.2 | Notas |
+|---|---|---|---|
+| `.btn-body-amber` | 3D press 0.12s + amber shadow | `primary md · base` | Mapping directo. duration-fast |
+| `.btn-body-primary` (Navy) | 3D press 0.15s + text-swap | `secondary md/lg · base` | text-swap promovido a primary lg según v0.2 |
+| `.btn-cta-navy` | 3D press 0.15s + glow-pulse 2.5s perpetuo + text-swap | `primary lg · modality=pulse` | Loop perpetuo preservado vía data-modality. Hero/CTA Band exclusivo |
+| `.btn-body-ghost` | orb orbital 3s perpetuo | `ghost lg · modality=orbit` | Orbit preservado vía data-modality. duration-orbit 3000ms |
+| `.btn-cta-ghost-navy` | orb orbital blanco 3s | `ghost lg dark · modality=orbit` | Variante dark del ghost orbit. Orb radial blanco |
+| `.btn-nav-primary` | 3D press 0.12s + bg hover Electric | `primary sm + DS-013` | Hover migra a Amber 700 (DS-013). duration-fast |
+| `.btn-nav-ghost` | all 0.15s | `ghost sm · base` | duration-base 180ms unificado |
+| `.btn-body-electric` | N/A | 🚫 retirado | DS-010 regla 07. Sin sucesor de motion |
+| `.pill-amber-as-button` | N/A | 🚫 retirado | Migra a badge solid-amber |
+
+> **Reconfirmación 9→4**: la consolidación se mantiene. Los 7 efectos legacy son 2 patrones base + 2 modalities perpetuas opcionales aplicables a la combinación cromática. **2 retiros sin pérdida de motion** (Electric no tenía único; pill-as-button migra a Badge).
+
+### 6.5 · Reglas de motion
+
+6 reglas oficiales aprobadas (`DS-022` + `DS-017 v0.2`).
+
+| # | Regla | Detalle |
+|---|---|---|
+| 01 | **Modality solo en lg hero/CTA Band** | Pulse y orbit son loops perpetuos. Aplicar solo a botones `lg` en posiciones jerárquicas (hero, CTA Band cierre). Nunca en formularios, navbar, cards in-grid |
+| 02 | **Hover detiene loops** | En `modality=pulse` y `orbit`, el hover **pausa** el loop perpetuo y aplica el hover state base. Esto da feedback de interactividad y evita motion encimado |
+| 03 | **`prefers-reduced-motion` obligatorio** | Loops perpetuos se desactivan completamente. Hover transforms (translateY) se reducen a cambio de opacity/color. Implementación con media query a nivel global |
+| 04 | **Implementación con motion/react variants o CSS keyframes** | Hover/active simples → CSS transition. text-swap, glow-pulse, orbit → motion/react variants o GSAP timeline. DS-021 arquitectura impl 3 capas: shadcn primitive + motion engine + showcase Aceternity |
+| 05 | **Sin nuevos easings ni durations inline** | Toda nueva CSS o motion variant usa exclusivamente DS-022. Si un componente "necesita" un valor distinto, se evalúa promover token nuevo — no inventar inline |
+| 06 | **Combinar `transition` + `animation` con cuidado** | Modality loops usan `animation`; hover/active usan `transition`. En el mismo elemento se combinan separando properties (`animation: box-shadow; transition: transform`) |
+
+---
+
+## 7. Auditoría preventiva · producción
 
 14 hallazgos en código actual (`app/components/ui/`, `app/globals.css`, `ui_kits/website/kit.css`).
 
@@ -247,46 +375,73 @@ Cuatro familias **semánticamente distintas**. Eyebrow no es Pill aunque parezca
 
 ### Botones · 9 variantes legacy → 4 oficiales
 
-| Tipo | Variante legacy | Mapping DS-017 | Razón |
+| Tipo | Variante legacy | Mapping DS-017 v0.2 | Razón |
 |---|---|---|---|
-| Migrar | `.btn-body-primary` | `btn-secondary md` | Navy fill estructural · 3D press y text-swap son motion opcional, no definen variante |
-| Migrar | `.btn-body-amber` | `btn-primary md` | Es el primary canónico. 3D press queda como motion del primary en hero/CTA |
-| Migrar | `.btn-body-ghost` | `btn-ghost md` | Outline ya cumple. Orb orbital pasa a motion opcional |
-| Migrar | `.btn-cta-navy` | `btn-primary lg` | Mismo rol que body-amber pero tamaño hero. Glow pulse es motion del lg |
-| Migrar | `.btn-cta-ghost-navy` | `btn-ghost lg` (dark) | Variante dark del ghost lg. No es nuevo botón, es contexto |
-| **Retirar** | `.btn-body-electric` | — eliminado | Electric jubilado de botones (DS-010 regla 07). Usos migran a btn-primary o btn-secondary según contexto |
-| Migrar | `.btn-nav-primary` | `btn-primary sm` + DS-013 | CTA del navbar. Hover Electric → migración DS-013 (Amber 700 hover) |
-| Migrar | `.btn-nav-ghost` | `btn-ghost sm` | Texto navy con hover sutil. Cumple ghost sm |
-| **Retirar** | `.pill-amber` (como botón) | → `bdg solid-amber` | Era pill informativa usada como botón en algunos lugares. Mover a Badge solid-amber |
+| Migrar | `.btn-body-primary` | `secondary md · base` | Navy fill estructural · 3D press y text-swap son motion del base |
+| Migrar | `.btn-body-amber` | `primary md · base` | Es el primary canónico. 3D press queda como motion del primary |
+| Migrar | `.btn-body-ghost` | `ghost md · base` o `ghost lg · orbit` | Outline ya cumple. Orb orbital → modality=orbit en lg |
+| Migrar | `.btn-cta-navy` | `primary lg · modality=pulse` | Tamaño hero. Glow pulse preservado vía data-modality |
+| Migrar | `.btn-cta-ghost-navy` | `ghost lg dark · orbit` | Variante dark del ghost orbit. Contexto, no botón nuevo |
+| **Retirar** | `.btn-body-electric` | — eliminado | Electric jubilado de botones (DS-010 regla 07) |
+| Migrar | `.btn-nav-primary` | `primary sm + DS-013` | CTA del navbar. Hover Electric → Amber 700 |
+| Migrar | `.btn-nav-ghost` | `ghost sm · base` | Texto navy con hover sutil |
+| **Retirar** | `.pill-amber` (como botón) | → `bdg solid-amber` | Era pill informativa usada como botón. Mover a Badge |
 
 ### Cards · 5 hallazgos
 
 | Tipo | Componente | Mapping DS-018 | Razón |
 |---|---|---|---|
-| OK | Feature card (`--bg-card`) | Card · Feature | Mantener · ajustar tokens (radius 29 → 16, shadow custom → sh-2) según DS-016 |
+| OK | Feature card (`--bg-card`) | Card · Feature | Mantener · ajustar tokens (radius 29 → 16, shadow custom → sh-2) |
 | OK | Card destacada (`--bg-card-pop`) | Card · Featured | Mantener · radius/shadow desde DS-016 |
-| OK | CardSticky / CardSwap / CometCard | Comportamientos sobre Feature | No promover a tipos nuevos. Documentar como motion variants en DS-018 |
+| OK | CardSticky / CardSwap / CometCard | Comportamientos sobre Feature | No promover a tipos nuevos |
 | Migrar | `.proc` (process dark) | Card · Dark | Backdrop-filter blur 8px y borders 1px rgba mantienen. Radius 24 → r-xl OK |
-| Migrar | `.faq.active` gradient multicolor | Card · FAQ active state | Gradient amber+navy queda bajo excepción DS-011 (gradiente expresivo único). Documentar |
+| Migrar | `.faq.active` gradient multicolor | Card · FAQ active state | Gradient queda bajo excepción DS-011 (gradiente expresivo único) |
 
 ### Inputs · 2 hallazgos
 
 | Tipo | Ubicación | Mapping DS-019 | Razón |
 |---|---|---|---|
-| OK | contact-form `.input/.ta` | Input · variante dark | Focus ring ya usa Amber `rgba(255,153,0,.15)`. Migrar a `--sh-focus-d` de DS-016 (.45 alpha en dark) por consistencia |
-| Migrar | Inputs light (si existen en blog/admin) | Input · default light | Aplicar tokens DS-019: border ink-5, focus ring sh-focus, helptxt ink-3 |
+| OK | contact-form `.input/.ta` | Input · variante dark | Focus ring ya usa Amber. Migrar a `--sh-focus-d` (.45 alpha) |
+| Migrar | Inputs light (si existen en blog/admin) | Input · default light | Aplicar tokens DS-019 |
 
 ### Badges · 3 hallazgos
 
 | Tipo | Componente | Mapping DS-020 | Razón |
 |---|---|---|---|
-| Migrar | `.eyebrow` (Amber uppercase) | Badge · Eyebrow | Letter-spacing 0.28em y Amber 500 ya correcto. Unificar a 0.18em en uso compacto |
-| Migrar | `.svc-idx` (pill Electric soft) | Badge · Pill soft (Amber) | Migrar de Electric a Amber soft según DS-011 (cumple regla 07: tag estático recurrente) |
-| Migrar | `.proc-step` (Electric pill) | Badge · Step | Migrar a Amber según DS-011 migración process-sticky array. Step usa Amber |
+| Migrar | `.eyebrow` (Amber uppercase) | Badge · Eyebrow | Letter-spacing 0.28em ya correcto. Unificar a 0.18em en uso compacto |
+| Migrar | `.svc-idx` (pill Electric soft) | Badge · Pill soft (Amber) | Migrar de Electric a Amber soft según DS-011 |
+| Migrar | `.proc-step` (Electric pill) | Badge · Step | Migrar a Amber según DS-011 |
 
 ---
 
-## 7. Migraciones pendientes en código
+## 8. Comparativas antes / después
+
+### Botón hero CTA
+
+```
+ANTES   · .btn-cta-navy + glow + 3D + text-swap (motion ad-hoc)
+DESPUÉS · btn-primary lg · modality=pulse + tokens DS-022
+```
+
+Motion preservado vía data-modality. Mismo loop de glow-pulse 2500ms, ahora con duration-pulse y ease-pulse oficiales.
+
+### Card de servicio
+
+```
+ANTES   · .svc · radius 29 · shadow custom · plate gradient multicolor
+DESPUÉS · Card Feature · radius lg · sh-2 · plate Amber soft + eyebrow Amber
+```
+
+### Process step (badge)
+
+```
+ANTES   · .proc-step · pill Electric solid
+DESPUÉS · Badge Step · Amber circle + eyebrow
+```
+
+---
+
+## 9. Migraciones pendientes en código
 
 Total: **13 migraciones + 2 retiros**. Aplicar como tarea separada de desarrollo, alineada con migraciones DS 02 v0.4 (5) y DS 03 v0.1 (8).
 
@@ -294,14 +449,14 @@ Total: **13 migraciones + 2 retiros**. Aplicar como tarea separada de desarrollo
 
 | # | Cambio |
 |---|---|
-| 1 | `.btn-body-primary` → `btn-secondary md` (Navy structural) |
-| 2 | `.btn-body-amber` → `btn-primary md` |
-| 3 | `.btn-body-ghost` → `btn-ghost md` |
-| 4 | `.btn-cta-navy` → `btn-primary lg` |
-| 5 | `.btn-cta-ghost-navy` → `btn-ghost lg` (dark) |
-| 6 | **Retirar** `.btn-body-electric` (Electric jubilado de botones) |
-| 7 | `.btn-nav-primary` → `btn-primary sm` (con DS-013 Amber hover) |
-| 8 | `.btn-nav-ghost` → `btn-ghost sm` |
+| 1 | `.btn-body-primary` → `secondary md base` |
+| 2 | `.btn-body-amber` → `primary md base` |
+| 3 | `.btn-body-ghost` → `ghost md base` o `ghost lg modality=orbit` según contexto |
+| 4 | `.btn-cta-navy` → `primary lg modality=pulse` |
+| 5 | `.btn-cta-ghost-navy` → `ghost lg dark modality=orbit` |
+| 6 | **Retirar** `.btn-body-electric` (Electric jubilado) |
+| 7 | `.btn-nav-primary` → `primary sm + DS-013` (Amber 700 hover) |
+| 8 | `.btn-nav-ghost` → `ghost sm base` |
 | 9 | **Retirar** `.pill-amber` como botón → mover a Badge solid-amber |
 
 ### Cards (2)
@@ -315,7 +470,7 @@ Total: **13 migraciones + 2 retiros**. Aplicar como tarea separada de desarrollo
 
 | # | Cambio |
 |---|---|
-| 12 | contact-form `.input/.ta` focus ring → `--sh-focus-d` (consistencia DS-016) |
+| 12 | contact-form `.input/.ta` focus ring → `--sh-focus-d` |
 | 13 | Inputs light → tokens DS-019 |
 
 ### Badges (3)
@@ -326,82 +481,42 @@ Total: **13 migraciones + 2 retiros**. Aplicar como tarea separada de desarrollo
 | 15 | `.svc-idx` Electric soft → Amber soft (DS-011) |
 | 16 | `.proc-step` Electric → Amber (DS-011) |
 
-> Total acumulado de migraciones del manual: 5 (DS 02) + 8 (DS 03) + 16 (DS 04) = **29 cambios** para tarea de desarrollo separada.
-
----
-
-## 8. Comparativas antes / después
-
-### Botón hero CTA
-
-```
-ANTES · .btn-cta-navy + glow + 3D + text-swap
-DESPUÉS · btn-primary lg + sh-focus + tokens
-         (motion specs pendientes en DS-017 v0.2)
-```
-
-### Card de servicio
-
-```
-ANTES · .svc · radius 29 · shadow custom · plate gradient multicolor
-DESPUÉS · Card Feature · radius lg · sh-2 · plate Amber soft + eyebrow Amber
-```
-
-### Process step (badge)
-
-```
-ANTES · .proc-step · pill Electric solid
-DESPUÉS · Badge Step · Amber circle + eyebrow
-```
-
----
-
-## 9. Pendientes
-
-⚠️ **DS-017 v0.1 tiene un gap deliberado**: la regla 02 explicita *"Motion no define variante — 3D press, glow pulse, orb orbital son comportamientos OPCIONALES"*. Sin specs de motion, los botones implementados perderían el lenguaje visual actual de producción.
-
-Detalle completo en:
-
-📋 [`_open-questions/2026-05-04-ds-017-motion-specs.md`](_open-questions/2026-05-04-ds-017-motion-specs.md)
-
-Resumen ejecutivo:
-
-- **Patch DS-017 v0.2** con motion specs accionables (timing / easing / choreography por variante × estado)
-- **Tokens nuevos** de motion (duration, easing) — posiblemente `DS-022`
-- **Reconfirmación** de la consolidación 9 → 4 con motion incluido (los efectos diferenciales pueden ameritar más variantes)
-
-Hasta que el patch llegue, **DS-018 / DS-019 / DS-020 son aplicables sin restricciones**. Solo DS-017 (Button) queda en revisión.
+> Total acumulado del manual: 5 (DS 02) + 8 (DS 03) + 16 (DS 04) = **29 cambios** para tarea de desarrollo separada.
 
 ---
 
 ## 10. Decisiones de diseño
 
-### DS-017 · Button · 4 variantes × 3 tamaños × 6 estados
-⏳ **Aprobada estructuralmente · pendiente motion specs (v0.2)** — 2026-05-04
+### DS-017 v0.2 · Button motion specs + eje ortogonal modality
+✅ **Aprobada** — 2026-05-04 · **Reconfirma 9→4**
 
-4 variantes (Primary/Secondary/Ghost/Link) × 3 tamaños (sm/md/lg) × 6 estados. Consolida 9 variantes legacy en sistema disciplinado. Pill obligatorio (DS-015), focus ring Amber (DS-016), Electric jubilado de botones (DS-010 regla 07).
+**Corrección al gap de v0.1**: motion no es opcional, ES identidad de marca en NoaTech. La regla 02 original ("Motion no define variante") sub-especificaba; v0.2 la reescribe: motion se aplica vía atributo ortogonal `data-modality="base|pulse|orbit"`, no por variante nueva.
 
-**Motion specs pendientes**: el v0.1 deja motion como "comportamiento opcional". Pendiente patch DS-017 v0.2 con timing, easing y choreography por variante × estado.
+Specs accionables tabuladas en sección 06 para las 4 variantes × estados aplicables: duration, ease, transform, shadow, extras (text-swap, icon-fade, modality entries).
 
-**Marca**: disciplina sistémica · menos componentes con uso explícito · tamaños y contextos antes que variantes nuevas.
+**Reconfirmación 9→4**: los 7 efectos legacy son 2 patrones base + 2 modalities perpetuas opcionales (pulse, orbit). Mapping completo: `btn-cta-navy → primary lg pulse` · `btn-body-ghost → ghost lg orbit` · `btn-cta-ghost-navy → ghost lg dark orbit` · 6 al base · 2 retiros sin pérdida.
 
-**Alternativas descartadas**: mantener 9 variantes (caos), Electric como variante de botón (`DS-X005` ya descartado), botones rounded-md (rompe DS-015 pill como gesto formal).
+**Modality solo en `lg` hero/CTA Band.** Pulse y orbit son loops perpetuos: se reservan a botones lg en posiciones jerárquicas. Hover detiene el loop y aplica el hover state base. text-swap promovido a primary lg.
+
+**Marca**: motion como lenguaje, no decoración · identidad hero preservada · eje ortogonal sin multiplicar variantes · implementable con motion/react o CSS.
+
+**Alternativas descartadas**: mantener "motion opcional" v0.1 (drift de impl, downgrade visual) · promover pulse/orbit a variantes propias (5 o 6 variantes, multiplicación) · motion libre por instancia (caos sin tokens) · modality aplicable en sm/md (loops perpetuos en formularios = ruido).
 
 ### DS-018 · Card · 5 tipos canónicos
 ✅ **Aprobada** — 2026-05-04
 
-5 tipos (Feature, Featured, Dark, Testimonial, FAQ). CardSticky, CardSwap, CometCard son **comportamientos** sobre Feature, no tipos nuevos. Una Featured por grid. Radius `--r-lg` default. Cards nunca usan pill.
+5 tipos canónicos (Feature, Featured, Dark, Testimonial, FAQ). CardSticky, CardSwap, CometCard son **comportamientos** sobre Feature, no tipos nuevos. Una Featured por grid. Radius `--r-lg` (16px) default. Cards nunca usan pill.
 
 **Marca**: jerarquía cromática y elevación definen identidad · motion es producto, no tipo · disciplina visual.
 
-**Alternativas descartadas**: promover Sticky/Swap/Comet a tipos nuevos (multiplicaba variantes innecesariamente), permitir múltiples Featured por grid (rompe la jerarquía visual), cards en pill (rompe DS-015 categórica).
+**Alternativas descartadas**: promover Sticky/Swap/Comet a tipos nuevos (multiplicaba variantes innecesariamente), permitir múltiples Featured por grid (rompe la jerarquía visual), cards en pill (rompe DS-015 pill categórica).
 
 ### DS-019 · Input · 3 tipos × 6 estados con validación inline
 ✅ **Aprobada** — 2026-05-04
 
-Text/Textarea/Select × 6 estados. Validación inline con helptxt obligatorio en errores. Variante dark hereda anatomía con chrome contextual. Focus ring DS-016 unificado. Label siempre visible (no placeholder-as-label).
+Text/Textarea/Select × 6 estados (default/hover/focus/error/success/disabled). Validación inline con helptxt obligatorio en errores. Variante dark hereda anatomía con chrome contextual. Focus ring DS-016 unificado. Label siempre visible (no placeholder-as-label).
 
-**Marca**: accesibilidad sin sacrificio · feedback honesto al usuario (no marcar error mientras escribe) · tokens DS 03 aplicados sin excepciones.
+**Marca**: accesibilidad sin sacrificio · feedback honesto al usuario · tokens DS 03 aplicados sin excepciones.
 
 **Alternativas descartadas**: placeholder-as-label (anti-pattern accesibilidad), validación on-keystroke (genera ansiedad), input con radius pill (rompe affordance).
 
@@ -414,12 +529,24 @@ Eyebrow (metadata sin chrome) · Pill (3 niveles solid/soft/outline) · Status (
 
 **Alternativas descartadas**: Eyebrow y Pill en una sola familia (confunde metadata con objeto interactivo), Pill multicolor (rompe disciplina cromática), Status con colores libres (rompe convención WCAG / semáforo).
 
+### DS-022 · Tokens de motion
+✅ **Aprobada** — 2026-05-04
+
+5 durations (instant 80ms / fast 120ms / base 180ms / slow 280ms / pulse 2500ms) + duration-orbit 3000ms + 3 easings (emphasis material standard / overshoot spring sutil / pulse ease-in-out). `prefers-reduced-motion` obligatorio: loops perpetuos se desactivan, hover transforms se reducen a opacity/color.
+
+Toda nueva CSS o motion variant usa exclusivamente DS-022. No se permiten valores inline.
+
+**Marca**: movimiento con disciplina · tempo predecible y reutilizable · a11y por defecto (reduced-motion) · base para motion engine impl (DS-021 capa 2).
+
+**Alternativas descartadas**: mantener durations inline ad-hoc (caos: 0.12s/0.15s/0.2s/2.5s sin token) · una sola duration default (pierde matiz fast vs slow) · easings nombrados sin curva explícita ("snappy", "bouncy") · no documentar prefers-reduced-motion (a11y comprometido).
+
 ---
 
 ## 11. Historial de cambios
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.2 | 2026-05-04 | `DS-017 v0.2` motion specs (4 tablas variante × estado) + eje ortogonal `data-modality` · `DS-022` tokens de motion (6 durations + 3 easings + reduced-motion) · regla 02 reescrita: "Motion ES identidad" · gap de v0.1 cerrado · DS 04 promovido a ✅ Aprobado |
 | v0.1 | 2026-05-04 | `DS-017` (Button 4×3×6, motion pendiente) · `DS-018` (Card 5 tipos) · `DS-019` (Input 3 tipos × 6 estados) · `DS-020` (Badge 4 familias) · auditoría 14 hallazgos en producción |
 
 ---
@@ -430,5 +557,5 @@ Eyebrow (metadata sin chrome) · Pill (3 niveles solid/soft/outline) · Status (
 - [`00-implementation-strategy.md`](00-implementation-strategy.md) — arquitectura en 3 capas
 - [`02-colors.md`](02-colors.md) — sistema cromático
 - [`03-spacing-radii-shadows.md`](03-spacing-radii-shadows.md) — espaciado y elevación
-- [`_open-questions/2026-05-04-ds-017-motion-specs.md`](_open-questions/2026-05-04-ds-017-motion-specs.md) — gap abierto: motion specs DS-017
+- [`_open-questions/_archive/2026-05-04-ds-017-motion-specs.md`](_open-questions/_archive/2026-05-04-ds-017-motion-specs.md) — historial del gap cerrado en v0.2
 - [`docs/design-system.md`](../design-system.md) — implementación actual del código

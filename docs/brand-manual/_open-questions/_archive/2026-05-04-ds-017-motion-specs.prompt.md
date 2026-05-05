@@ -1,10 +1,12 @@
-# Prompt para diseñador · DS-017 motion patch
+# Prompt para diseñador · DS-017 motion patch · ENVIADO Y RESUELTO
 
-| Estado | Para | De | Fecha |
-|---|---|---|---|
-| 📤 Listo para enviar | Diseñador | Israel | 2026-05-04 |
+| Estado | Para | De | Enviado | Resuelto |
+|---|---|---|---|---|
+| ✅ Resuelto | Diseñador | Israel | 2026-05-04 | 2026-05-04 |
 
-> Versión copy-paste-ready del documento [`2026-05-04-ds-017-motion-specs.md`](2026-05-04-ds-017-motion-specs.md), optimizada para pegar directamente en el chat con Claude Design.
+> Versión copy-paste que se le envió a Claude Design. La respuesta y el delivery están reflejados en DS 04 v0.2 (`DS-017 v0.2`, `DS-022`) y en el Decisions Log v0.7.0. Documento conservado como rastro histórico del proceso de comunicación.
+
+Resolución completa en [`2026-05-04-ds-017-motion-specs.md`](2026-05-04-ds-017-motion-specs.md) (sección "Resolución").
 
 ---
 

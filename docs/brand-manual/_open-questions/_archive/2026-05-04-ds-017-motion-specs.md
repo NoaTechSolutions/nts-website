@@ -1,14 +1,51 @@
-# DS-017 · Motion specs pendientes
+# DS-017 · Motion specs · CERRADO
 
-| Estado | Para | De | Fecha |
-|---|---|---|---|
-| ⏳ Abierta | Diseñador | Israel | 2026-05-04 |
+| Estado | Para | De | Apertura | Cierre |
+|---|---|---|---|---|
+| ✅ Cerrada | Diseñador | Israel | 2026-05-04 | 2026-05-04 |
 
-> DS-017 v0.1 explicita "motion no define variante". Sin specs de motion, los botones implementados perderían el lenguaje visual actual de producción. Se requiere patch v0.2 con motion specs accionables.
+> DS-017 v0.1 explicitaba "motion no define variante". Sin specs de motion, los botones implementados perderían el lenguaje visual actual de producción. **Resuelto en DS 04 v0.2 / Decisions Log v0.7.0** con DS-022 (tokens de motion) + DS-017 v0.2 (specs accionables + eje ortogonal `data-modality`). Documento conservado como rastro histórico.
 
 ---
 
-## Contenido
+## ✅ Resolución (2026-05-04)
+
+El gap fue resuelto por el diseñador en DS 04 v0.2 / Decisions Log v0.7.0 con 2 decisiones nuevas:
+
+### `DS-017 v0.2` · Motion specs + eje ortogonal modality
+
+Regla 02 reescrita: **"Motion ES identidad"** (corrección al sub-spec de v0.1).
+
+Specs accionables tabuladas para las 4 variantes × estados aplicables (duration, ease, transform, shadow, extras como text-swap, icon-fade, modality entries). Ver [`04-components-core.md` sección 6.3](../../04-components-core.md#63--specs-por-variante--estado).
+
+**Eje ortogonal `data-modality="base|pulse|orbit"`** preserva los efectos hero (`btn-cta-navy → primary lg pulse` · `btn-body-ghost → ghost lg orbit`) sin multiplicar variantes. La consolidación 9→4 se mantiene reconfirmada.
+
+### `DS-022` · Tokens de motion
+
+6 durations + 3 easings + `prefers-reduced-motion` obligatorio. Ver [`04-components-core.md` sección 6.1](../../04-components-core.md#61--ds-022--tokens-de-motion).
+
+```css
+--motion-duration-instant: 80ms;
+--motion-duration-fast:    120ms;
+--motion-duration-base:    180ms;
+--motion-duration-slow:    280ms;
+--motion-duration-pulse:   2500ms;
+--motion-duration-orbit:   3000ms;
+
+--motion-ease-emphasis:  cubic-bezier(.4, 0, .2, 1);
+--motion-ease-overshoot: cubic-bezier(.34, 1.56, .64, 1);
+--motion-ease-pulse:     ease-in-out;
+```
+
+### Resultado para DS 04
+
+- DS 04 promovido de ⏳ Parcialmente aprobado a ✅ Aprobado integralmente
+- Decisions Log v0.6.0 → v0.7.0 (21 → 22 aprobadas)
+- Próximo: DS 05 · Patrones (Hero, CTA Band, Process, FAQ, Forms)
+
+---
+
+## Contenido original
 
 1. [Contexto](#contexto)
 2. [Gap detectado](#gap-detectado)
