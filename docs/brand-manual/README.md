@@ -16,9 +16,9 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 | 01 | [Tipografía](01-typography.md) | ✅ Aprobado | v0.4.1 | 2026-05-03 |
 | 02 | [Sistema cromático](02-colors.md) | ✅ Aprobado | v0.4 | 2026-05-03 |
 | 03 | [Espaciado, radios y sombras](03-spacing-radii-shadows.md) | ✅ Aprobado | v0.1 | 2026-05-04 |
-| 04 | Iconografía | 📝 Pendiente | — | — |
-| 05 | Botones | 📝 Pendiente | — | — |
-| 06 | Componentes canónicos | 📝 Pendiente | — | — |
+| 04 | [Componentes core](04-components-core.md) | ⏳ Parcialmente aprobado | v0.1 | 2026-05-04 |
+| 05 | Patrones (Hero, CTA, Process, FAQ, Forms) | 📝 Próximo | — | — |
+| 06 | Iconografía | 📝 Pendiente | — | — |
 | 07 | Secciones / patrones de layout | 📝 Pendiente | — | — |
 | 08 | Mascota Noa | 📝 Pendiente | — | — |
 | 09 | Motion / animaciones | 📝 Pendiente | — | — |
@@ -26,7 +26,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo (17 aprobadas · 2 backlog · 7 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo (21 aprobadas · 2 backlog · 7 descartadas).
 
 ---
 
@@ -74,7 +74,7 @@ Las preguntas pendientes con el equipo de diseño viven en [`_open-questions/`](
 
 | Pregunta | Sección afectada | Estado | Para |
 |---|---|---|---|
-| _Sin preguntas abiertas activas._ | — | — | — |
+| [DS-017 motion specs pendientes](_open-questions/2026-05-04-ds-017-motion-specs.md) | 04 · Componentes core | ⏳ Abierta | Diseñador |
 
 ### Archivo histórico
 

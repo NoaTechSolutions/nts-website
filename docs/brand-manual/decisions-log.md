@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.5.0 | 2026-05-04 |
+| Israel · Fundador | NoaTech Design | v0.6.0 | 2026-05-04 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,9 +12,11 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 17 |
+| ✅ Aprobadas | 21 |
 | 📌 Backlog | 2 |
 | 🚫 Descartadas | 7 |
+
+> DS-017 está aprobada estructuralmente pero pendiente patch v0.2 con motion specs. Ver [pregunta abierta](_open-questions/2026-05-04-ds-017-motion-specs.md).
 
 ---
 
@@ -224,6 +226,44 @@ Stack oficial: shadcn/ui (primitives) + motion/react & GSAP (motion) + Aceternit
 
 **Alternativas descartadas**: una sola librería all-in-one (MUI/Chakra) — fuerza opiniones de styling que pelean con identidad de marca, no cubre showcase animado; solo shadcn (perdemos showcase); solo Aceternity (falta primitives sólidos); sin librería custom (costoso en time-to-brand y mantenimiento, pierde accesibilidad pre-resuelta de Radix).
 
+### DS-017 · Button · 4 variantes × 3 tamaños × 6 estados
+⏳ **Aprobada estructuralmente · pendiente motion specs (v0.2)** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#2-button--ds-017)
+
+4 variantes (Primary/Secondary/Ghost/Link) × 3 tamaños (sm 36 / md 44 / lg 54) × 6 estados (default / hover / active / focus / disabled / loading). Consolida 9 variantes legacy en sistema disciplinado. Pill obligatorio (DS-015), focus ring Amber (DS-016), Electric jubilado de botones (DS-010 regla 07).
+
+**Motion specs pendientes**: el v0.1 deja motion como "comportamiento opcional". Pendiente patch DS-017 v0.2 con timing, easing y choreography por variante × estado. Ver [pregunta abierta](_open-questions/2026-05-04-ds-017-motion-specs.md).
+
+**Marca**: disciplina sistémica · menos componentes con uso explícito · tamaños y contextos antes que variantes nuevas.
+
+**Alternativas descartadas**: mantener 9 variantes legacy (caos), Electric como variante de botón (`DS-X005` ya descartado), botones rounded-md (rompe DS-015 pill como gesto formal).
+
+### DS-018 · Card · 5 tipos canónicos
+✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#3-card--ds-018)
+
+5 tipos canónicos (Feature, Featured, Dark, Testimonial, FAQ). CardSticky, CardSwap, CometCard son **comportamientos** sobre Feature, no tipos nuevos. Una Featured por grid. Radius `--r-lg` (16px) default. Cards nunca usan pill.
+
+**Marca**: jerarquía cromática y elevación definen identidad · motion es producto, no tipo · disciplina visual.
+
+**Alternativas descartadas**: promover Sticky/Swap/Comet a tipos nuevos (multiplicaba variantes innecesariamente), permitir múltiples Featured por grid (rompe la jerarquía visual), cards en pill (rompe DS-015 pill categórica).
+
+### DS-019 · Input · 3 tipos × 6 estados con validación inline
+✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#4-input--ds-019)
+
+Text/Textarea/Select × 6 estados (default/hover/focus/error/success/disabled). Validación inline con helptxt obligatorio en errores. Variante dark hereda anatomía con chrome contextual. Focus ring DS-016 unificado. Label siempre visible (no placeholder-as-label).
+
+**Marca**: accesibilidad sin sacrificio · feedback honesto al usuario (no marcar error mientras escribe) · tokens DS 03 aplicados sin excepciones.
+
+**Alternativas descartadas**: placeholder-as-label (anti-pattern accesibilidad), validación on-keystroke (genera ansiedad), input con radius pill (rompe affordance).
+
+### DS-020 · Badge · 4 familias semánticamente distintas
+✅ **Aprobada** — 2026-05-04 · Sección [04 · Componentes core](04-components-core.md#5-badge--ds-020)
+
+Eyebrow (metadata sin chrome) · Pill (3 niveles solid/soft/outline) · Status (semantic x4) · Step (numérico). Eyebrow ≠ Pill conceptualmente. Pill solid escasea (1 por viewport máx). Status estricto por color semántico.
+
+**Marca**: diferenciación semántica clara · intensidad cromática reservada para señales · tipografía como vector de jerarquía.
+
+**Alternativas descartadas**: Eyebrow y Pill en una sola familia (confunde metadata con objeto interactivo), Pill multicolor (rompe disciplina cromática), Status con colores libres (rompe convención WCAG / semáforo).
+
 ---
 
 ## 📌 Backlog
@@ -277,6 +317,7 @@ Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de bo
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.6.0 | 2026-05-04 | DS-017 (estructural, motion pendiente), DS-018, DS-019, DS-020 aprobadas (DS 04 · Componentes core v0.1) |
 | v0.5.0 | 2026-05-04 | DS-014, DS-015, DS-016 aprobadas (DS 03 · Spacing, Radii & Shadows v0.1) · DS-021 aprobada (arquitectura en 3 capas, sección 00) |
 | v0.4.0 | 2026-05-03 | DS-011, DS-012 (ex DS-F002), DS-013 aprobadas · DS-X007 registrada · DS 02 v0.4 cerrada |
 | v0.3.0 | 2026-04-24 | DS-010 aprobada · DS-X006 registrada · DS 02 v0.3 cerrada |
