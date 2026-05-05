@@ -12,9 +12,10 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 | DS | Sección | Estado | Versión | Última actualización |
 |---|---|---|---|---|
+| 00 | [Estrategia de implementación](00-implementation-strategy.md) | ✅ Aprobada | v0.1 | 2026-05-04 |
 | 01 | [Tipografía](01-typography.md) | ✅ Aprobado | v0.4.1 | 2026-05-03 |
 | 02 | [Sistema cromático](02-colors.md) | ✅ Aprobado | v0.4 | 2026-05-03 |
-| 03 | Espaciado, radios y sombras | 📝 Próximo | — | — |
+| 03 | [Espaciado, radios y sombras](03-spacing-radii-shadows.md) | ✅ Aprobado | v0.1 | 2026-05-04 |
 | 04 | Iconografía | 📝 Pendiente | — | — |
 | 05 | Botones | 📝 Pendiente | — | — |
 | 06 | Componentes canónicos | 📝 Pendiente | — | — |
@@ -25,7 +26,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo (13 aprobadas · 2 backlog · 7 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo (17 aprobadas · 2 backlog · 7 descartadas).
 
 ---
 

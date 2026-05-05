@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.4.0 | 2026-05-03 |
+| Israel · Fundador | NoaTech Design | v0.5.0 | 2026-05-04 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,7 +12,7 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 13 |
+| ✅ Aprobadas | 17 |
 | 📌 Backlog | 2 |
 | 🚫 Descartadas | 7 |
 
@@ -186,6 +186,44 @@ Migración asociada (parte de DS-011): `bg-[#0400f0]` del mobile menu surface (`
 
 **Alternativas descartadas**: Sky 700 como default del nav (`DS-X007`) — sonaba a link inline de body, no a nav estructural; mezclaba el rol del token Link general con el del nav.
 
+### DS-014 · Escala de spacing base 4px · 11 tokens
+**2026-05-04** · Sección [03 · Espaciado, radios y sombras](03-spacing-radii-shadows.md#9-decisiones-de-diseño)
+
+11 niveles (0·4·8·12·16·24·32·48·64·96·128). Hitos en doble (4·8·16·32·64·128), pasos intermedios (12·24·48·96) donde el ojo lo pide. Reemplaza valores libres del CSS actual.
+
+**Marca**: ritmo perceptible · respiración consistente · disciplina técnica · base múltiplo 4 estándar moderno.
+
+**Alternativas descartadas**: escala 8px puro (pierde granularidad), escala ratio 1.5 (no intuitiva), valores libres como hoy (caos).
+
+### DS-015 · Radii semánticos · 7 tokens
+**2026-05-04** · Sección [03 · Espaciado, radios y sombras](03-spacing-radii-shadows.md#9-decisiones-de-diseño)
+
+7 tokens con nombres semánticos (xs/sm/md/lg/xl/2xl/pill) atados a la jerarquía del componente, no al pixel. La pill (999px) es categóricamente distinta del resto — no es una cantidad, es una forma.
+
+**Marca**: curva expresiva sin caos · cada componente sabe su radius por rol · pill como gesto formal de marca.
+
+**Alternativas descartadas**: tokens por pixel (`r-12`, `r-16`) — no comunican jerarquía; combinaciones libres como hoy (17/27/28/29/36 conviviendo).
+
+### DS-016 · Shadows con tinte Navy + focus ring paralelo
+**2026-05-04** · Sección [03 · Espaciado, radios y sombras](03-spacing-radii-shadows.md#9-decisiones-de-diseño)
+
+5 niveles de elevación (sh-1 a sh-5) con tinte `rgba(2,41,119,X)` (Navy 500), no negro puro. Focus ring `--sh-focus` Amber 3px sólidos, sistema paralelo combinable vía coma con cualquier sh-N. Tolerancia óptica ±2px solo para alineación interna de íconos/borders.
+
+Auditoría preventiva: 12 hallazgos en `ui_kits/website/kit.css` (3 OK · 8 migraciones · 1 tolerancia 1080 narrow · N tolerancias ópticas).
+
+**Marca**: profundidad cálida · evita gris azulado mortuorio · focus visible siempre · accesibilidad sin sacrificar identidad.
+
+**Alternativas descartadas**: shadow negro puro (rompe brand), focus ring sin token (inconsistencia accesibilidad), focus ring con blur (poco visible para keyboard nav).
+
+### DS-021 · Arquitectura de implementación en 3 capas
+✅ **Aprobada** — 2026-05-04 · Sección [00 · Estrategia de implementación](00-implementation-strategy.md#7-decisiones-de-diseño)
+
+Stack oficial: shadcn/ui (primitives) + motion/react & GSAP (motion) + Aceternity UI (showcase). Una librería por capa, criterios claros para sumar nuevas. Compatible con stack actual del proyecto sin migraciones forzadas.
+
+**Marca**: disciplina técnica · sin lock-in · stack estándar de la industria moderna (Vercel, Linear, Resend) · permite escalar sin caos de librerías solapadas.
+
+**Alternativas descartadas**: una sola librería all-in-one (MUI/Chakra) — fuerza opiniones de styling que pelean con identidad de marca, no cubre showcase animado; solo shadcn (perdemos showcase); solo Aceternity (falta primitives sólidos); sin librería custom (costoso en time-to-brand y mantenimiento, pierde accesibilidad pre-resuelta de Radix).
+
 ---
 
 ## 📌 Backlog
@@ -239,6 +277,7 @@ Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de bo
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.5.0 | 2026-05-04 | DS-014, DS-015, DS-016 aprobadas (DS 03 · Spacing, Radii & Shadows v0.1) · DS-021 aprobada (arquitectura en 3 capas, sección 00) |
 | v0.4.0 | 2026-05-03 | DS-011, DS-012 (ex DS-F002), DS-013 aprobadas · DS-X007 registrada · DS 02 v0.4 cerrada |
 | v0.3.0 | 2026-04-24 | DS-010 aprobada · DS-X006 registrada · DS 02 v0.3 cerrada |
 | v0.2.x | 2026-04-24 | DS-005 a DS-009 aprobadas y corregidas con HEX oficiales de producción |
