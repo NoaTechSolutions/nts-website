@@ -2,7 +2,9 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.9.0 | 2026-05-05 |
+| Israel · Fundador | NoaTech Design | **v1.0.0** | 2026-05-05 |
+
+> **🎉 Primer release del manual** · DS 00–06 + 08 vivos en `develop` · DS 07 Ilustración + DS 09 Motion + DS 10 Copy quedan para v1.x
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,9 +14,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 32 |
-| 📌 Backlog | 5 |
-| 🚫 Descartadas | 9 |
+| ✅ Aprobadas | 37 |
+| 📌 Backlog | 7 |
+| 🚫 Descartadas | 10 |
 
 ---
 
@@ -371,6 +373,51 @@ Stroke `1.5` uniforme (Lucide default es 2) — alinea con sensibilidad editoria
 
 **Alternativas descartadas**: custom libre por componente (caos), prohibir custom totalmente (mata lenguaje expresivo: orb, watermark, ondas son identidad).
 
+### DS-033 · Identidad y anatomía de Noa
+✅ **Aprobada** — 2026-05-05 · Sección [08 · Mascota Noa](08-mascot-noa.md#1-identidad-y-personalidad-ds-033)
+
+Identidad codificada: shell Navy + heart Amber + eye Sky · cabe en círculo · sin boca · linaje Eve/Vercel/Octocat. Anatomía: 5 slots (Shell, Heart fijo, Eye fijo forma variable, Antenna opcional, Glow Electric opcional). 6 reglas de composición invariantes. 5 tokens cromáticos heredados de DS 02 · accesorios reusan colores existentes (sin paleta nueva).
+
+**Marca**: personaje narrativo · curiosa/cálida/técnica/amable · linaje Eve/Vercel/Octocat · rechazo explícito de tropos cute genéricos.
+
+**Alternativas descartadas**: Noa con boca (rompe silencio deliberado) · paleta multicolor (drift kawaii) · variante "Noa dark mode" (rompe coherencia macro) · estilo industrial WALL·E.
+
+### DS-034 · 10 expresiones canónicas con mapping
+✅ **Aprobada** — 2026-05-05 · Sección [08 · Mascota Noa](08-mascot-noa.md#3-las-10-expresiones-canónicas-ds-034)
+
+10 expresiones cerradas (Hello, Curious, Focus, Building, Celebrate, Invite, Thinking, Love, Oops, Sleep) con segments Lottie `[in, out]`, loop/one-shot, duraciones y triggers exactos. Mapping cruzado con DS 05 cubre 12 contextos productivos. Sin overlaps de viewport.
+
+**Marca**: alfabeto emocional cerrado · cada expresión con momento exacto · economía narrativa.
+
+**Alternativas descartadas**: master file de 780 frames (overhead) · expresiones libres por componente (caos) · expresiones sin trigger explícito (loops sin razón saturan).
+
+### DS-035 · Tokens de tamaño · 4 niveles
+✅ **Aprobada** — 2026-05-05 · Sección [08 · Mascota Noa](08-mascot-noa.md#4-tokens-de-tamaño--4-niveles-ds-035)
+
+4 tokens semánticos: `--noa-sm` 120 / `--noa-md` 180 / `--noa-lg` 240 / `--noa-xl` 320. Saltos 1.5×/1.33×/1.33×. Responsive cap por breakpoint <720px.
+
+**Marca**: tamaño por rol, no por pixel · responsive sin break visual.
+
+**Alternativas descartadas**: tamaño único fijo · 5+ tokens (over-engineering) · escala lineal sin saltos perceptuales.
+
+### DS-036 · Implementación Lottie · 10 archivos split
+✅ **Aprobada** — 2026-05-05 · Sección [08 · Mascota Noa](08-mascot-noa.md#6-implementación-lottie-ds-036)
+
+`lottie-react` confirmado como motor (NOA-159 cerrada formalmente como `DS-X010`). 10 archivos individuales `noa-{expression}.json` en lugar de master file. Peso ≤35 KB por archivo · hard limit 50 KB. SVG renderer default · canvas si ≥5 loops simultáneos. Lazy load con IntersectionObserver. WebP estático fallback para `prefers-reduced-motion`.
+
+**Marca**: performance disciplinada · accesibilidad por defecto · cache HTTP optimizado.
+
+**Alternativas descartadas**: Rive (`DS-X010`) · master file (overhead) · canvas renderer default (peor a11y) · sin fallback estático (rompe reduced-motion).
+
+### DS-037 · 8 reglas de uso + a11y obligatorio
+✅ **Aprobada** — 2026-05-05 · Sección [08 · Mascota Noa](08-mascot-noa.md#8-reglas-de-uso--accesibilidad-ds-037)
+
+8 reglas: una expresión por sección, una Noa por viewport (excepto reviews carousel), nunca portadora única de info crítica, encapsula Electric (DS-010 regla 07), pausa loops en hover, reduced-motion = WebP estático, no clickeable como CTA principal, no aparece en cada esquina. Checklist a11y obligatorio: `alt` descriptivo, `role="img"`, `aria-hidden` cuando duplica copy, nunca único indicador, reduced-motion soportado.
+
+**Marca**: discreción narrativa · accesibilidad sin sacrificio · escasez como valor.
+
+**Alternativas descartadas**: Noa clickeable como CTA · Noa como único indicador de form state · Noa en cada esquina · variante "Noa dark mode".
+
 ---
 
 ## 📌 Backlog
@@ -384,6 +431,8 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 | DS-F004 | Patrón · Process timeline horizontal | Variante alternativa de Process (DS-025) para procesos con 5+ pasos o storytelling tipo case study. Scroll horizontal con snap. No entra en v1.0 — promovido a backlog hasta tener use-case concreto. | Baja | v1.1 |
 | DS-F005 | Iconografía · ChevronRight para CTAs sutiles | Variante alterna de `ArrowRight` para CTAs secundarios sutiles (ej. "Ver más" en cards densas). Evaluar si el peso visual de `ArrowRight` es excesivo en contextos compactos. | Baja | v1.1 |
 | DS-F006 | Iconografía · Custom NTS service plate set | Set custom de 6 íconos service plate con estilo propio NTS. Evaluar después de implementar pool decorativo Lucide (Sparkles, Layers, TrendingUp, Megaphone, Code2, Compass) — si se sienten "stock" tras producción. | Baja | v1.2 |
+| DS-F007 | Mascota Noa · expresiones extra | Wave handoff, Sneeze easter-egg, Holiday variants. Evaluar v1.2 cuando producción de las 10 oficiales esté estable. | Baja | v1.2 |
+| DS-F008 | Mascota Noa · eye-tracking cursor | Versión interactiva donde el ojo Sky sigue la posición del mouse en hero. Evaluar v1.1 después de medir performance del JSON base. | Media | v1.1 |
 
 > **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
@@ -429,12 +478,17 @@ Evaluada para reemplazar a Lucide. Phosphor ofrece 6 weights (thin/light/regular
 Evaluada para el switch ES/EN. `Globe` se confunde con "internacionalización geográfica" (region/timezone), no con "selección de idioma". `Languages` es específico y elimina la ambigüedad.
 **Reemplazo**: `Languages` como ícono canónico de language toggle (`DS-031`).
 
+### DS-X010 · Rive (`.riv`) como motor de animación de Noa
+Evaluada en NOA-159 contra LottieFiles (`.json`). Cerrada formalmente en DS 08 v0.1. Razones del descarte: curva de aprendizaje más empinada que Lottie · comunidad y catálogo menores · archivos `.riv` típicamente más pesados que `.json` equivalentes · integración con Next.js requiere wrapper adicional vs `lottie-react` que es plug-and-play.
+**Reemplazo**: `lottie-react` con 10 archivos `.json` split (`DS-036`) · `noa-{expression}.json` en `public/noa/lottie/`.
+
 ---
 
 ## Versionado del log
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| **v1.0.0** | 2026-05-05 | **🎉 Primer release del manual** · DS-033 (identidad + anatomía Noa) · DS-034 (10 expresiones canónicas) · DS-035 (4 tokens tamaño) · DS-036 (Lottie 10 archivos split) · DS-037 (8 reglas + a11y) · DS-X010 (Rive descartado formalmente desde NOA-159) · DS-F007 (expresiones extra v1.2) · DS-F008 (eye-tracking v1.1) · DS 08 · Mascota Noa v0.1 cerrado · Manual con DS 00–06 + 08 vivos en `develop` |
 | v0.9.0 | 2026-05-05 | DS-028 (Lucide oficial) · DS-029 (escala 5 tokens) · DS-030 (stroke 1.5 + color contexto) · DS-031 (22 acciones canónicas) · DS-032 (custom SVG) · DS-X008 (Phosphor descartado) · DS-X009 (Globe→Languages) · DS-F005 (ChevronRight) · DS-F006 (custom plates) · DS 06 · Iconografía v0.1 cerrado |
 | v0.8.0 | 2026-05-05 | DS-023 (Hero) · DS-024 (CTA Band) · DS-025 (Process) · DS-026 (FAQ) · DS-027 (Forms) aprobadas · DS-F004 (Process timeline horizontal) en backlog · DS 05 · Patrones v0.1 cerrado |
 | v0.7.0 | 2026-05-04 | DS-017 v0.2 motion specs + eje ortogonal modality (reconfirma 9→4) · DS-022 tokens de motion · DS 04 promovido a ✅ Aprobado integralmente |
