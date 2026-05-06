@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.8.0 | 2026-05-05 |
+| Israel · Fundador | NoaTech Design | v0.9.0 | 2026-05-05 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,9 +12,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 27 |
-| 📌 Backlog | 3 |
-| 🚫 Descartadas | 7 |
+| ✅ Aprobadas | 32 |
+| 📌 Backlog | 5 |
+| 🚫 Descartadas | 9 |
 
 ---
 
@@ -326,6 +326,51 @@ short (3 campos · CTA Band final) · extended (5–7 campos · `/contacto` page
 
 **Alternativas descartadas**: validación on-keystroke (DS-019 regla heredada — genera ansiedad), success como toast efímero (el usuario pierde la confirmación al volver a navegar), submit con modality pulse/orbit (no es momento de "llamar", es momento contextual).
 
+### DS-028 · Librería de íconos oficial · Lucide React
+✅ **Aprobada** — 2026-05-05 · Sección [06 · Iconografía](06-iconography.md#2-librería-oficial--lucide-react-ds-028)
+
+`lucide-react ≥ 0.577.0` confirmado como librería oficial. Cumple los 7 criterios de DS-021 (CLI/copy-into-repo, Tailwind-first, catálogo suficiente, monoline 1-weight, stroke runtime, madurez, bundle bajo). Costo de migración cero — ya está instalado y usado.
+
+**Marca**: consistencia compounding-interest sobre novedad por ícono · disciplina por design (1 weight) en lugar de flexibilidad invitando inconsistencia (6 weights de Phosphor).
+
+**Alternativas descartadas**: Phosphor Icons (`DS-X008`) · Tabler Icons (mismo costo sin ganancia) · custom set (over-engineering para 22 íconos UI funcionales).
+
+### DS-029 · Escala semántica de tamaños · 5 tokens
+✅ **Aprobada** — 2026-05-05 · Sección [06 · Iconografía](06-iconography.md#3-escala-semántica--5-tokens-ds-029)
+
+5 tokens atados al rol del componente: `--ic-xs` 14px · `--ic-sm` 16px · `--ic-md` 20px · `--ic-lg` 24px · `--ic-xl` 32px. Saltos 2/4/4/8 px respetan ratio mínimo 1.2×. Mapping completo por componente (navbar, button x3, card, FAQ, form, badge, MobileSpeedDial, empty state).
+
+**Marca**: tamaño por rol, no por pixel · escala derivada de DS 03 (4px-base) · WCAG 2.5.5 cumplido vía hitbox separado del glifo.
+
+**Alternativas descartadas**: escala numérica plana sin semántica · `--ic-xxl` (>32 px es ilustración, no ícono) · tamaños sin token.
+
+### DS-030 · Stroke 1.5 uniforme + color por contexto via DS 02
+✅ **Aprobada** — 2026-05-05 · Sección [06 · Iconografía](06-iconography.md#4-stroke--color-por-contexto-ds-030)
+
+Stroke `1.5` uniforme (Lucide default es 2) — alinea con sensibilidad editorial Space Grotesk + Inter. Color siempre como token DS 02 sin HEX inline. Tabla de color por contexto (nav, body, button×4, status, decorativo, form validation) con hover/active/disabled.
+
+**Marca**: cuidado tipográfico editorial · disciplina cromática (cero HEX inline) · accesibilidad por defecto (tokens DS 02 ya auditados WCAG).
+
+**Alternativas descartadas**: stroke 2 default (más bold/industrial), mezclar strokes según contexto (caos visual), color HEX inline (rompe DS 02).
+
+### DS-031 · Mapping semántico canónico · 22 acciones
+✅ **Aprobada** — 2026-05-05 · Sección [06 · Iconografía](06-iconography.md#5-mapping-semántico-canónico--22-acciones-ds-031)
+
+22 acciones canonizadas con un solo glifo cada una, agrupadas en 4 familias. Pares obligatorios: `Sun`/`Moon`, `ChevronDown`/`ChevronUp`, `CheckCircle2`/`AlertCircle`. Pool decorativo cerrado de 6 glifos para service plates (`Sparkles`, `Layers`, `TrendingUp`, `Megaphone`, `Code2`, `Compass`).
+
+**Marca**: alfabeto visual cerrado y predecible · cero ambigüedad · pool decorativo no expansible sin decisión nueva.
+
+**Alternativas descartadas**: `ChevronRight` para CTAs (`DS-F005` backlog) · `Check` solo sin círculo · `Globe` para language toggle (`DS-X009`) · pool decorativo expansible.
+
+### DS-032 · Custom SVG · cuándo sí, cuándo no
+✅ **Aprobada** — 2026-05-05 · Sección [06 · Iconografía](06-iconography.md#6-custom-svg--cuándo-sí-y-cuándo-no-ds-032)
+
+**SÍ custom**: efectos expresivos únicos (orb hero, watermark footer, ondas decorativas) + logo/isotipo/colorways. **NO custom**: cualquier acción UI funcional → usar Lucide. Proceso de promoción custom → librería documentado (≥3 instancias + rol funcional → evaluar). Reduced-motion (DS-022) aplica también a custom expresivo.
+
+**Marca**: libertad creativa con propósito (custom = expresivo único) · disciplina UI funcional (cero drift) · proceso documentado para promoción.
+
+**Alternativas descartadas**: custom libre por componente (caos), prohibir custom totalmente (mata lenguaje expresivo: orb, watermark, ondas son identidad).
+
 ---
 
 ## 📌 Backlog
@@ -337,6 +382,8 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 | DS-F001 | Tipografía · Mono | JetBrains Mono para metadata técnica — eyebrows numéricos, "PROYECTO · 2025", timestamps, snippets. Peso único 400, carga condicional. | Baja | v1.1 |
 | DS-F003 | Tipografía · SEO | Documentar regla H1 mobile mínimo 36px en template `/servicios/[slug]` y checklist QA pre-deploy. | Media | v1.0 |
 | DS-F004 | Patrón · Process timeline horizontal | Variante alternativa de Process (DS-025) para procesos con 5+ pasos o storytelling tipo case study. Scroll horizontal con snap. No entra en v1.0 — promovido a backlog hasta tener use-case concreto. | Baja | v1.1 |
+| DS-F005 | Iconografía · ChevronRight para CTAs sutiles | Variante alterna de `ArrowRight` para CTAs secundarios sutiles (ej. "Ver más" en cards densas). Evaluar si el peso visual de `ArrowRight` es excesivo en contextos compactos. | Baja | v1.1 |
+| DS-F006 | Iconografía · Custom NTS service plate set | Set custom de 6 íconos service plate con estilo propio NTS. Evaluar después de implementar pool decorativo Lucide (Sparkles, Layers, TrendingUp, Megaphone, Code2, Compass) — si se sienten "stock" tras producción. | Baja | v1.2 |
 
 > **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
@@ -374,12 +421,21 @@ Reducir la paleta a 3 colores eliminando Electric, reemplazando por Amber 700 (h
 Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de body, no a navegación estructural; mezclaba el rol del token Link general (DS-012) con el del nav, lo cual difuminaba la jerarquía cromática del header.
 **Reemplazo**: Ink 1 `#02215F` como default del nav (`DS-013`) — ancla los nav links al sistema neutral y deja Sky / Amber libres para sus roles activos.
 
+### DS-X008 · Phosphor Icons como librería oficial
+Evaluada para reemplazar a Lucide. Phosphor ofrece 6 weights (thin/light/regular/bold/fill/duotone) que dan flexibilidad pero invitan a inconsistencia: distintos componentes terminan usando weights distintos sin razón sistémica. Costo de migración alto (~12 archivos) sin ganancia visual proporcional.
+**Reemplazo**: Lucide React como librería oficial (`DS-028`) — 1 weight + stroke variable es preferible a 6 weights fijos.
+
+### DS-X009 · `Globe` como ícono de language toggle
+Evaluada para el switch ES/EN. `Globe` se confunde con "internacionalización geográfica" (region/timezone), no con "selección de idioma". `Languages` es específico y elimina la ambigüedad.
+**Reemplazo**: `Languages` como ícono canónico de language toggle (`DS-031`).
+
 ---
 
 ## Versionado del log
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.9.0 | 2026-05-05 | DS-028 (Lucide oficial) · DS-029 (escala 5 tokens) · DS-030 (stroke 1.5 + color contexto) · DS-031 (22 acciones canónicas) · DS-032 (custom SVG) · DS-X008 (Phosphor descartado) · DS-X009 (Globe→Languages) · DS-F005 (ChevronRight) · DS-F006 (custom plates) · DS 06 · Iconografía v0.1 cerrado |
 | v0.8.0 | 2026-05-05 | DS-023 (Hero) · DS-024 (CTA Band) · DS-025 (Process) · DS-026 (FAQ) · DS-027 (Forms) aprobadas · DS-F004 (Process timeline horizontal) en backlog · DS 05 · Patrones v0.1 cerrado |
 | v0.7.0 | 2026-05-04 | DS-017 v0.2 motion specs + eje ortogonal modality (reconfirma 9→4) · DS-022 tokens de motion · DS 04 promovido a ✅ Aprobado integralmente |
 | v0.6.0 | 2026-05-04 | DS-017 (estructural, motion pendiente), DS-018, DS-019, DS-020 aprobadas (DS 04 · Componentes core v0.1) |
