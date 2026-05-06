@@ -19,15 +19,15 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 | 03 | [Espaciado, radios y sombras](03-spacing-radii-shadows.md) | ✅ Aprobado | v0.1 | 2026-05-04 |
 | 04 | [Componentes core](04-components-core.md) | ✅ Aprobado | v0.2 | 2026-05-04 |
 | 05 | [Patrones (Hero, CTA, Process, FAQ, Forms)](05-patterns.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
-| 06 | Iconografía | 📝 Próximo | — | — |
-| 07 | Secciones / patrones de layout | 📝 Pendiente | — | — |
+| 06 | [Iconografía](06-iconography.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
+| 07 | Ilustración | 📝 Próximo | — | — |
 | 08 | Mascota Noa | 📝 Pendiente | — | — |
 | 09 | Motion / animaciones | 📝 Pendiente | — | — |
 | 10 | Tono de voz y copy | 📝 Pendiente | — | — |
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo (27 aprobadas · 3 backlog · 7 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo (32 aprobadas · 5 backlog · 9 descartadas).
 
 ---
 
