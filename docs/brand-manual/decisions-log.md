@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | v0.7.0 | 2026-05-04 |
+| Israel · Fundador | NoaTech Design | v0.8.0 | 2026-05-05 |
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -12,8 +12,8 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 22 |
-| 📌 Backlog | 2 |
+| ✅ Aprobadas | 27 |
+| 📌 Backlog | 3 |
 | 🚫 Descartadas | 7 |
 
 ---
@@ -281,6 +281,51 @@ Toda nueva CSS o motion variant usa exclusivamente DS-022. **No se permiten valo
 
 **Alternativas descartadas**: mantener durations inline ad-hoc (caos: 0.12s/0.15s/0.2s/2.5s sin token) · una sola duration default (pierde matiz fast vs slow) · easings nombrados sin curva explícita ("snappy", "bouncy") · no documentar prefers-reduced-motion (a11y comprometido).
 
+### DS-023 · Hero · 3 variantes (lg / md / compact)
+✅ **Aprobada** — 2026-05-05 · Sección [05 · Patrones](05-patterns.md#2-hero--ds-023)
+
+3 variantes oficiales atadas a contexto: lg full-viewport (home) · md 60vh (`/servicios/[slug]`) · compact ~36vh (blog/legales/nosotros). Pulse y orbit obligatorios en lg. Orb 3D solo en lg como momento wow encapsulado bajo DS-011 regla 07. H1 mínimo 36px mobile (DS-F003). CTA cluster ≤ 3 (primary + ghost + link).
+
+**Marca**: bienvenida con jerarquía clara · jerarquía cromática preservada · motion como identidad (DS-022) · accesibilidad (`aria-live`, focus ring DS-016, reduced-motion).
+
+**Alternativas descartadas**: Hero único full-viewport en todas las páginas (incoherente jerárquicamente — `/blog/[slug]` no debe gritar como home), Orb 3D en todas las variantes (ruido visual fuera del momento de bienvenida principal), CTA cluster sin tope (compite por jerarquía).
+
+### DS-024 · CTA Band · 1 anatomía con 2 contextos declarables
+✅ **Aprobada** — 2026-05-05 · Sección [05 · Patrones](05-patterns.md#3-cta-band--ds-024)
+
+Una sola anatomía full-bleed dark con prop `variant="proof|final"`. Pulse obligatorio en primary. Onda en uno solo de los lados (top o bottom). Boxes solo en dark. Price (AuroraText mono-tono Amber) solo en contexto final. Diferencias acotadas entre contextos: bg shade (Navy 500 vs Navy 600), presencia de price, posición de onda.
+
+**Marca**: disciplina de patrones · contexto declarable evita duplicación · momento de alta intención con motion identitario.
+
+**Alternativas descartadas**: promover proof y final a 2 patrones distintos (duplicación innecesaria, comparten 90% de anatomía), pulse opcional en CTA Band (degrada el momento de conversión), Boxes en light (no existe versión light testeada), price gradient multicolor (rompe DS-011 marco gradientes).
+
+### DS-025 · Process · sticky vertical 4 pasos
+✅ **Aprobada** — 2026-05-05 · Sección [05 · Patrones](05-patterns.md#4-process--ds-025)
+
+Variante única v1.0: pin GSAP + CardSwap + 4 pasos. Step badges en escala Amber 500/600/700/800 (migración DS-011 desde array legacy `["#0400f0", "#05a5ff", "#ff9900", "#09215e"]`). CardSwap exclusivo de Process (no reutilizar en grids). CTA opcional ghost lg (nunca primary aquí). Timeline horizontal a backlog (`DS-F004`).
+
+**Marca**: progreso visual claro (escala Amber comunica avance) · disciplina cromática (sin Electric, Sky, libres) · CardSwap como gesto exclusivo de proceso.
+
+**Alternativas descartadas**: mantener array legacy `["#0400f0", "#05a5ff", "#ff9900", "#09215e"]` (rompe DS-010 reglas 04+07), promover timeline horizontal a v1.0 (no hay use-case actual con 5+ pasos), CTA primary en Process (no es momento de conversión).
+
+### DS-026 · FAQ · 2 layouts + JSON-LD FAQPage obligatorio
+✅ **Aprobada** — 2026-05-05 · Sección [05 · Patrones](05-patterns.md#5-faq--ds-026)
+
+2-col default (home, `/servicios/[slug]`) · 1-col centered backlog (`/preguntas-frecuentes` futura). Single-open behavior. Active sólido Amber border-left para nuevas instancias; gradient multicolor legacy = tolerancia DS-011. **JSON-LD `FAQPage` con `mainEntity` obligatorio** (rich snippets en SERP, no negociable).
+
+**Marca**: SEO-friendly por diseño · objeciones resueltas inline · disciplina conversacional (preguntas en primera persona).
+
+**Alternativas descartadas**: multi-open en 2-col (desordena lectura), gradient multicolor para nuevas FAQs (rompe disciplina post-DS-011), FAQ sin schema (pierde rich snippets — costo SEO directo).
+
+### DS-027 · Forms · 2 variantes con validación inline + ratelimit obligatorio
+✅ **Aprobada** — 2026-05-05 · Sección [05 · Patrones](05-patterns.md#6-forms--ds-027)
+
+short (3 campos · CTA Band final) · extended (5–7 campos · `/contacto` page). Trust strip obligatorio. Validación on-submit + on-blur (nunca on-keystroke, hereda DS-019). 6 estados de submit (idle, validating, submitting, success, error, ratelimited). Success persistente con card replacement. **Honeypot + Upstash 3/h obligatorios** en producción.
+
+**Marca**: feedback honesto · accesibilidad (focus ring DS-016, helptxt obligatorio) · captura segura (ratelimit + honeypot).
+
+**Alternativas descartadas**: validación on-keystroke (DS-019 regla heredada — genera ansiedad), success como toast efímero (el usuario pierde la confirmación al volver a navegar), submit con modality pulse/orbit (no es momento de "llamar", es momento contextual).
+
 ---
 
 ## 📌 Backlog
@@ -291,6 +336,7 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 |---|---|---|---|---|
 | DS-F001 | Tipografía · Mono | JetBrains Mono para metadata técnica — eyebrows numéricos, "PROYECTO · 2025", timestamps, snippets. Peso único 400, carga condicional. | Baja | v1.1 |
 | DS-F003 | Tipografía · SEO | Documentar regla H1 mobile mínimo 36px en template `/servicios/[slug]` y checklist QA pre-deploy. | Media | v1.0 |
+| DS-F004 | Patrón · Process timeline horizontal | Variante alternativa de Process (DS-025) para procesos con 5+ pasos o storytelling tipo case study. Scroll horizontal con snap. No entra en v1.0 — promovido a backlog hasta tener use-case concreto. | Baja | v1.1 |
 
 > **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
@@ -334,6 +380,7 @@ Evaluada como default del Token Navbar Link (DS-013). Sonaba a link inline de bo
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| v0.8.0 | 2026-05-05 | DS-023 (Hero) · DS-024 (CTA Band) · DS-025 (Process) · DS-026 (FAQ) · DS-027 (Forms) aprobadas · DS-F004 (Process timeline horizontal) en backlog · DS 05 · Patrones v0.1 cerrado |
 | v0.7.0 | 2026-05-04 | DS-017 v0.2 motion specs + eje ortogonal modality (reconfirma 9→4) · DS-022 tokens de motion · DS 04 promovido a ✅ Aprobado integralmente |
 | v0.6.0 | 2026-05-04 | DS-017 (estructural, motion pendiente), DS-018, DS-019, DS-020 aprobadas (DS 04 · Componentes core v0.1) |
 | v0.5.0 | 2026-05-04 | DS-014, DS-015, DS-016 aprobadas (DS 03 · Spacing, Radii & Shadows v0.1) · DS-021 aprobada (arquitectura en 3 capas, sección 00) |
