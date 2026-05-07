@@ -14,7 +14,7 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 44 |
+| ✅ Aprobadas | 51 |
 | 📌 Backlog | 9 |
 | 🚫 Descartadas | 11 |
 
@@ -557,6 +557,7 @@ Evaluada para v1.0 como mecanismo de transición hero card → detail view (ej. 
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| **v1.2.0** | 2026-05-07 | **🎉 Manual v1.x cerrado** · DS-045 (filosofía + 5 atributos) · DS-046 (bilingüismo ES/EN) · DS-047 (32 microcopy patterns) · DS-048 (22 pares glosario) · DS-049 (6 reglas formato) · DS-050 (8 tone shifts) · DS-051 (30 términos bilingües) · DS 10 · Copy y voz textual v0.1 cerrado · DS 07 Ilustración movido a backlog real (no v1.x) |
 | **v1.1.0** | 2026-05-06 | DS-038 (4 tokens motion expandidos) · DS-039 (page transitions canónicas) · DS-040 (scroll-driven 4 patrones) · DS-041 (stagger choreography) · DS-042 (modal/dialog/popover) · DS-043 (performance budget) · DS-044 (reduced-motion comprehensive) · DS-X011 (match-element layoutId descartado v1.0) · DS-F009 (match-element layoutId v1.2) · DS-F010 (token shimmer v1.x) · DS 09 · Motion sistema completo v0.1 cerrado |
 | **v1.0.0** | 2026-05-05 | **🎉 Primer release del manual** · DS-033 (identidad + anatomía Noa) · DS-034 (10 expresiones canónicas) · DS-035 (4 tokens tamaño) · DS-036 (Lottie 10 archivos split) · DS-037 (8 reglas + a11y) · DS-X010 (Rive descartado formalmente desde NOA-159) · DS-F007 (expresiones extra v1.2) · DS-F008 (eye-tracking v1.1) · DS 08 · Mascota Noa v0.1 cerrado · Manual con DS 00–06 + 08 vivos en `develop` |
 | v0.9.0 | 2026-05-05 | DS-028 (Lucide oficial) · DS-029 (escala 5 tokens) · DS-030 (stroke 1.5 + color contexto) · DS-031 (22 acciones canónicas) · DS-032 (custom SVG) · DS-X008 (Phosphor descartado) · DS-X009 (Globe→Languages) · DS-F005 (ChevronRight) · DS-F006 (custom plates) · DS 06 · Iconografía v0.1 cerrado |
