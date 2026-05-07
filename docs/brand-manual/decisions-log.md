@@ -14,9 +14,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 37 |
-| 📌 Backlog | 7 |
-| 🚫 Descartadas | 10 |
+| ✅ Aprobadas | 44 |
+| 📌 Backlog | 9 |
+| 🚫 Descartadas | 11 |
 
 ---
 
@@ -418,6 +418,69 @@ Identidad codificada: shell Navy + heart Amber + eye Sky · cabe en círculo · 
 
 **Alternativas descartadas**: Noa clickeable como CTA · Noa como único indicador de form state · Noa en cada esquina · variante "Noa dark mode".
 
+### DS-038 · Tokens motion expandidos
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#2-tokens-base--expansión-de-ds-022-ds-038)
+
+4 tokens nuevos suman a los 6 durations + 3 easings de DS-022: `--motion-duration-page` 360ms, `--motion-stagger-base` 80ms, `--motion-ease-decelerate` `cubic-bezier(0,0,.2,1)`, `--motion-ease-accelerate` `cubic-bezier(.4,0,1,1)`. Regla simétrico vs asimétrico documentada (entries/exits del mismo elemento usan curvas asimétricas con contexto direccional).
+
+**Marca**: tempo predecible · curvas para cada caso · stagger token único centraliza decisiones previas dispersas.
+
+**Alternativas descartadas**: una sola easing universal · `--motion-duration-page` 200ms (flicker) o 500ms (lag) · token único de stagger 100ms.
+
+### DS-039 · Page transitions canónicas
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#3-page-transitions-ds-039)
+
+Crossfade simple `opacity 0→1 ↔ 1→0` · sin slide, sin scale · 360ms · entrada decelerate / salida accelerate · sin overlap · implementación con `AnimatePresence` en `app/template.tsx`. Reduced-motion = cambio inmediato.
+
+**Marca**: editorial sobre cinemático · anclaje calmo · no compite con copy.
+
+**Alternativas descartadas**: slide horizontal (cinemático iOS) · scale entry (modal-feel, no page-feel) · match-element `layoutId` (`DS-X011`) · crossfade ultra-corto bajo reduced-motion.
+
+### DS-040 · Scroll-driven motion · 4 patrones
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#4-scroll-driven-motion-ds-040)
+
+Reveal-on-scroll: `opacity 0→1 + translateY 16px→0` · 180ms · threshold 0.4 · once. Parallax: factors 0.3/0.5/0.8 desktop, **off mobile**. Sticky pin: máximo 4 viewport heights · CardSwap exclusivo de Process · pin se mantiene bajo reduced-motion. Lenis: settings oficiales · off bajo reduced-motion · off en formularios.
+
+**Marca**: scroll-driven con propósito · sin parallax mobile gratuito · sticky pin con tope.
+
+**Alternativas descartadas**: reveal con scale/rotate (over-engineering) · parallax mobile · sticky pin sin tope · Lenis en formularios.
+
+### DS-041 · Stagger choreography
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#5-stagger-choreography-ds-041)
+
+Default 80ms · 100ms casos editoriales (3–4 elementos) · 120ms grupos pequeños (2–3) · cap total 600ms · grids 2D staggear por row no por item · reduced-motion stagger=0.
+
+**Marca**: orquestación legible · cap previene cansancio en listas largas · row-staggering evita zig-zag.
+
+**Alternativas descartadas**: 100ms default · staggear grids por item · sin cap total · stagger en reduced-motion.
+
+### DS-042 · Modal · dialog · popover transitions
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#6-modal--dialog--popover-ds-042)
+
+Enter: `opacity 0→1 + scale 0.95→1` · 280ms · scale overshoot · opacity std. Exit: `opacity 1→0 + scale 1→0.97` · 180ms accelerate (asimetría intencional). Backdrop independiente del card. Popover/dropdown: 180ms con `transform-origin` según anchor. Reduced-motion: solo opacity · 80ms (no 0).
+
+**Marca**: enter cuidadoso · exit rápido · backdrop separado permite layering coherente.
+
+**Alternativas descartadas**: enter sin scale · exit y enter mismo timing · backdrop sincronizado con card · `transform-origin` desde trigger button (`DS-X011`).
+
+### DS-043 · Performance budget
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#7-performance-budget-ds-043)
+
+60fps target · transform y opacity primera elección · filter con cuidado · evitar box-shadow blur, width/height, top/left, margin/padding (trigger layout). `will-change` solo durante motion activo · listas >20 items animan contenedor padre · audit Lighthouse CI obligatorio pre-merge · GSAP scroll-trigger con `fastScrollEnd` + `preventOverlaps`.
+
+**Marca**: performance disciplinada · cero animaciones costosas en lista · audit antes de aceptar.
+
+**Alternativas descartadas**: animar `box-shadow` blur (repaint) · animar width/height (layout trigger) · `will-change` permanente · scrub en parallax.
+
+### DS-044 · Reduced-motion comprehensive
+✅ **Aprobada** — 2026-05-06 · Sección [09 · Motion](09-motion.md#8-reduced-motion-comprehensive-ds-044)
+
+Matriz cerrada de 12 patrones con comportamiento exacto bajo `prefers-reduced-motion: reduce`. Implementación: hook `useReducedMotion()` + CSS global como red de seguridad (`animation-duration: 0.01ms !important`). Excepciones documentadas: sticky pin (estructural), modal 80ms (orientación), Noa WebP (identidad).
+
+**Marca**: accesibilidad sin sacrificar identidad · cada patrón explícito · cero casos implícitos.
+
+**Alternativas descartadas**: reduced-motion = cero animation universal (pierde modal orientation, Noa identity) · sin red de seguridad CSS · sticky pin off (rompe estructura) · crossfade ultra-corto en page transitions.
+
 ---
 
 ## 📌 Backlog
@@ -433,6 +496,8 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 | DS-F006 | Iconografía · Custom NTS service plate set | Set custom de 6 íconos service plate con estilo propio NTS. Evaluar después de implementar pool decorativo Lucide (Sparkles, Layers, TrendingUp, Megaphone, Code2, Compass) — si se sienten "stock" tras producción. | Baja | v1.2 |
 | DS-F007 | Mascota Noa · expresiones extra | Wave handoff, Sneeze easter-egg, Holiday variants. Evaluar v1.2 cuando producción de las 10 oficiales esté estable. | Baja | v1.2 |
 | DS-F008 | Mascota Noa · eye-tracking cursor | Versión interactiva donde el ojo Sky sigue la posición del mouse en hero. Evaluar v1.1 después de medir performance del JSON base. | Media | v1.1 |
+| DS-F009 | Motion · match-element layoutId | Versión interactiva con `layoutId` para page transitions hero card → detail view (ej. portfolio item → case study). Evaluar v1.2 si surge demand concreto. | Baja | v1.2 |
+| DS-F010 | Motion · token `--motion-duration-shimmer` | Formalizar `--motion-duration-shimmer` 6.85s si surgen más casos shimmer-style. Hoy `badge-shimmer` (K-01) es excepción documentada. | Baja | v1.x |
 
 > **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
@@ -482,12 +547,17 @@ Evaluada para el switch ES/EN. `Globe` se confunde con "internacionalización ge
 Evaluada en NOA-159 contra LottieFiles (`.json`). Cerrada formalmente en DS 08 v0.1. Razones del descarte: curva de aprendizaje más empinada que Lottie · comunidad y catálogo menores · archivos `.riv` típicamente más pesados que `.json` equivalentes · integración con Next.js requiere wrapper adicional vs `lottie-react` que es plug-and-play.
 **Reemplazo**: `lottie-react` con 10 archivos `.json` split (`DS-036`) · `noa-{expression}.json` en `public/noa/lottie/`.
 
+### DS-X011 · match-element con `layoutId` para page transitions
+Evaluada para v1.0 como mecanismo de transición hero card → detail view (ej. portfolio item → case study). Descartada porque agrega complejidad técnica (shared layouts, ID tracking entre rutas) sin payoff claro en el sitio actual · sólo un caso candidato concreto (portfolio item).
+**Reemplazo**: page transition crossfade simple (`DS-039`) en v1.0. Si surge demand concreto, evaluar promover a `DS-F009` en v1.2.
+
 ---
 
 ## Versionado del log
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| **v1.1.0** | 2026-05-06 | DS-038 (4 tokens motion expandidos) · DS-039 (page transitions canónicas) · DS-040 (scroll-driven 4 patrones) · DS-041 (stagger choreography) · DS-042 (modal/dialog/popover) · DS-043 (performance budget) · DS-044 (reduced-motion comprehensive) · DS-X011 (match-element layoutId descartado v1.0) · DS-F009 (match-element layoutId v1.2) · DS-F010 (token shimmer v1.x) · DS 09 · Motion sistema completo v0.1 cerrado |
 | **v1.0.0** | 2026-05-05 | **🎉 Primer release del manual** · DS-033 (identidad + anatomía Noa) · DS-034 (10 expresiones canónicas) · DS-035 (4 tokens tamaño) · DS-036 (Lottie 10 archivos split) · DS-037 (8 reglas + a11y) · DS-X010 (Rive descartado formalmente desde NOA-159) · DS-F007 (expresiones extra v1.2) · DS-F008 (eye-tracking v1.1) · DS 08 · Mascota Noa v0.1 cerrado · Manual con DS 00–06 + 08 vivos en `develop` |
 | v0.9.0 | 2026-05-05 | DS-028 (Lucide oficial) · DS-029 (escala 5 tokens) · DS-030 (stroke 1.5 + color contexto) · DS-031 (22 acciones canónicas) · DS-032 (custom SVG) · DS-X008 (Phosphor descartado) · DS-X009 (Globe→Languages) · DS-F005 (ChevronRight) · DS-F006 (custom plates) · DS 06 · Iconografía v0.1 cerrado |
 | v0.8.0 | 2026-05-05 | DS-023 (Hero) · DS-024 (CTA Band) · DS-025 (Process) · DS-026 (FAQ) · DS-027 (Forms) aprobadas · DS-F004 (Process timeline horizontal) en backlog · DS 05 · Patrones v0.1 cerrado |

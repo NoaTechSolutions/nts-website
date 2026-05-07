@@ -22,12 +22,12 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 | 06 | [Iconografía](06-iconography.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
 | 07 | Ilustración | 📝 Pendiente | — | — |
 | 08 | [Mascota Noa](08-mascot-noa.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
-| 09 | Motion / animaciones | 📝 Pendiente | — | — |
+| 09 | [Motion · sistema completo](09-motion.md) | ✅ Aprobado | v0.1 | 2026-05-06 |
 | 10 | Tono de voz y copy | 📝 Pendiente | — | — |
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo **v1.0.0 · primer release** (37 aprobadas · 7 backlog · 10 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo **v1.1.0** (44 aprobadas · 9 backlog · 11 descartadas).
 
 ---
 
