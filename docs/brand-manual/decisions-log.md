@@ -2,9 +2,9 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | **v1.0.0** | 2026-05-05 |
+| Israel · Fundador | NoaTech Design | **v1.2.0** | 2026-05-07 |
 
-> **🎉 Primer release del manual** · DS 00–06 + 08 vivos en `develop` · DS 07 Ilustración + DS 09 Motion + DS 10 Copy quedan para v1.x
+> **🎉 Manual v1.x cerrado** · DS 00–06 + 08 + 09 + 10 vivos en `develop` · DS 07 Ilustración movido a backlog real (no v1.x)
 
 > Registro vivo de cada decisión aprobada, en backlog o descartada en el proceso de construcción del Design System NTS. Es la fuente de verdad que alimenta el Manual de Marca NOA-229.
 
@@ -480,6 +480,69 @@ Matriz cerrada de 12 patrones con comportamiento exacto bajo `prefers-reduced-mo
 **Marca**: accesibilidad sin sacrificar identidad · cada patrón explícito · cero casos implícitos.
 
 **Alternativas descartadas**: reduced-motion = cero animation universal (pierde modal orientation, Noa identity) · sin red de seguridad CSS · sticky pin off (rompe estructura) · crossfade ultra-corto en page transitions.
+
+### DS-045 · Filosofía + 5 atributos canónicos
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#2-atributos-de-voz--5-adjetivos-canónicos-ds-045)
+
+Voz NTS · clara, cálida, técnica, honesta, sobria. Linaje editorial Vercel + Linear + Stripe + Resend. Cinco atributos con ejemplos correctos/incorrectos para auditoría rápida. Mapping explícito con DS-033 (Mascota Noa) — la coherencia entre canal visual silente y canal verbal es deliberada.
+
+**Marca**: copy que no vende · explica con calma · profesional con calor humano · honestidad cuantificable.
+
+**Alternativas descartadas**: voz "joven y disruptiva" tipo startup early-stage (incoherente con linaje Linear/Vercel) · voz "premium y exclusiva" (rompe atributo de calidez) · atributos "innovadores · disruptivos" (buzzwords vacíos).
+
+### DS-046 · Bilingüismo ES neutro / EN US
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#3-bilingüismo-es-neutro--en-us-ds-046)
+
+ES neutro como fuente de verdad · `tú` en producción · `you` casual EN US. Estrategia adaptada (no literal). Términos tech sin traducir cuando son convención. Vos solo en conversación interna del equipo, cero en producción.
+
+**Marca**: voz nace en ES y se traduce, no al revés · coherencia editorial sin anglicismos forzados · target California explícito (US English).
+
+**Alternativas descartadas**: `usted` (distancia excesiva para audiencia tech moderna) · `vos` en producción (regional · rompe directiva ES neutro) · traducción literal palabra-por-palabra (anglicismos forzados) · UK English (target principal es California).
+
+### DS-047 · 32 microcopy patterns canónicos
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#4-microcopy-patterns-canónicos--32-esen-ds-047)
+
+Patterns por contexto · CTAs (6) · Forms (12) · Errors (4) · Estados (5) · Nav+helptexts (5). Fuente de verdad para `lib/i18n.ts` y todos los componentes con copy. Cada pattern con ID (MC-NN), versión ES, versión EN y nota de uso.
+
+**Marca**: alfabeto verbal cerrado · cero ambigüedad por contexto · trazabilidad ID estable.
+
+**Alternativas descartadas**: copy ad-hoc por componente (drift garantizado) · patterns sin ID (rompe trazabilidad) · patterns solo en ES (rompe paridad bilingüe) · patterns con emojis (rompe regla de sobriedad).
+
+### DS-048 · Glosario · 22 pares preferido/evitar
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#5-glosario--qué-decimos-vs-qué-evitamos--22-pares-ds-048)
+
+Pares "preferido / evitar" cubriendo CTA-speak, marketing-speak, anglicismos y false friends. Cada par con razón explícita. Sirve como check de auditoría para copy nuevo y como referencia rápida para QA editorial.
+
+**Marca**: disciplina editorial · cero buzzwords · honestidad cuantificable.
+
+**Alternativas descartadas**: glosario solo de términos técnicos (no cubre copy editorial) · glosario sin pares "evitar" (no anti-patterns documentados) · glosario sin razón documentada (rompe trazabilidad).
+
+### DS-049 · 6 reglas de formato
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#6-reglas-de-formato--6-reglas-ds-049)
+
+Sentence case siempre · cero exclamación · cifras desde 10 · fechas formato bilingüe · símbolos pegados · listas paralelas. Aplica a producción y meta tags.
+
+**Marca**: forma como contenido · respeto al lector (cero estridencias) · localización honesta (fechas, decimales, monedas).
+
+**Alternativas descartadas**: TITLE CASE en CTAs (estilo agresivo) · exclamación en éxitos ("¡Mensaje enviado!") · formato fecha numérico ambiguo (`05/07/2026`) · pipe `|` o guión `-` como separador (medium dot `·` es la convención NTS).
+
+### DS-050 · 8 tone shifts por sección
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#7-tone-shifts-por-sección--8-contextos-ds-050)
+
+Hero (visión) · Servicios (concreto) · Process (técnico) · CTA Band (acción) · FAQ (conversacional) · Forms (cálido) · Error (humilde) · Footer (mínimo). Voz única, tono modulado por contexto.
+
+**Marca**: una voz, ocho tonos · coherencia con variabilidad controlada.
+
+**Alternativas descartadas**: tono único uniforme para todo el sitio (Hero y 404 con misma voz suena raro) · tonos sin documentar (drift por contexto) · Footer con tagline duplicada (redundancia sin valor).
+
+### DS-051 · Glosario bilingüe técnico · 30 términos
+✅ **Aprobada** — 2026-05-07 · Sección [10 · Copy y voz textual](10-copy-voice.md#8-glosario-bilingüe-técnico--30-términos-ds-051)
+
+30 términos técnicos canónicos ES/EN con notas de uso. Cubre diseño web, dev, SEO, branding, e-commerce, dashboard, hosting, dominio, UX/UI, responsive, performance, accesibilidad, analítica, conversión, CMS, tipografía, componente, setup. Fuente para `lib/i18n.ts` y meta tags.
+
+**Marca**: vocabulario técnico canónico · paridad bilingüe · convenciones del ecosistema respetadas (SEO, dashboard, e-commerce sin traducir).
+
+**Alternativas descartadas**: traducir todo a ES literal (rompe convenciones tech) · dejar todo en EN sin traducir (rompe localización ES neutro) · glosario sin notas de uso (no captura contextos).
 
 ---
 
