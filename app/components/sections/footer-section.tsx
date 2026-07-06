@@ -61,7 +61,7 @@ const socialLinks = [
   { icon: Youtube, label: "YouTube", href: "#" },
 ];
 
-export function SiteFooterNurui() {
+export function FooterSection() {
   return (
     <footer
       className="bg-[#0F0F11] relative rounded-3xl mx-4 mb-4 overflow-visible text-gray-400"

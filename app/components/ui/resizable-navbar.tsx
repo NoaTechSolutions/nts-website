@@ -291,38 +291,24 @@ export function NavbarButton({
   );
 }
 
-export function LanguageSwitcher() {
+export function LanguageToggle() {
   const { locale, setLocale } = useLanguage();
-
-  const options: Array<{ locale: Locale; label: string }> = [
-    { locale: "es", label: "ES" },
-    { locale: "en", label: "EN" },
-  ];
+  const { isScrolled } = useContext(NavbarContext);
+  const next: Locale = locale === "es" ? "en" : "es";
 
   return (
-    <div
-      className="inline-flex items-center gap-1 rounded-[16px] border border-[#9fb0cf] bg-white/92 p-1 shadow-[0_10px_24px_rgba(2,41,119,0.12)] backdrop-blur-md"
-      aria-label="Selector de idioma"
+    <button
+      type="button"
+      onClick={() => setLocale(next)}
+      aria-label={locale === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+      className={`inline-flex items-center justify-center rounded-[14px] border font-[var(--font-body)] font-medium uppercase tracking-[0.08em] text-[#022977] transition-colors ${
+        isScrolled
+          ? "h-[43px] min-w-[43px] border-[#90a5cb] bg-white/85 px-3 text-[0.8rem] hover:bg-white"
+          : "h-11 min-w-[44px] border-[#9fb0cf] bg-white/92 px-3 text-[0.82rem] shadow-[0_10px_24px_rgba(2,41,119,0.12)] hover:bg-white"
+      }`}
     >
-      {options.map((option) => {
-        const active = locale === option.locale;
-
-        return (
-          <button
-            key={option.locale}
-            type="button"
-            onClick={() => setLocale(option.locale)}
-            className={`inline-flex min-w-[52px] items-center justify-center rounded-[12px] px-3 py-2 text-[0.74rem] font-medium uppercase tracking-[0.08em] transition-colors ${
-              active
-                ? "bg-[#0400f0] text-white"
-                : "text-[#022977] hover:bg-[rgba(4,0,240,0.08)]"
-            }`}
-          >
-            <span>{option.label}</span>
-          </button>
-        );
-      })}
-    </div>
+      {locale.toUpperCase()}
+    </button>
   );
 }
 
@@ -420,6 +406,7 @@ export function MobileNavMenu({
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
+  const { isScrolled } = useContext(NavbarContext);
   const isDark = theme === "dark";
 
   return (
@@ -427,37 +414,31 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       type="button"
       onClick={toggleTheme}
       aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-      className={`relative inline-flex h-7 w-[3.1rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#05a5ff] ${
-        isDark ? "bg-[#05a5ff]" : "bg-[#022977]"
-      } ${className}`}
+      className={`inline-flex items-center justify-center rounded-[14px] border text-[#022977] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#05a5ff] ${
+        isScrolled
+          ? "h-[43px] w-[43px] border-[#90a5cb] bg-white/85 hover:bg-white"
+          : "h-11 w-11 border-[#9fb0cf] bg-white/92 shadow-[0_10px_24px_rgba(2,41,119,0.12)] hover:bg-white"
+      } ${className}`.trim()}
     >
-      {/* Knob */}
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none inline-flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ${
-          isDark ? "translate-x-[1.55rem]" : "translate-x-0.5"
-        }`}
-      >
-        {isDark ? (
-          /* Moon icon */
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" className="text-[#05a5ff]">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        ) : (
-          /* Sun icon */
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-[#022977]">
-            <circle cx="12" cy="12" r="4" />
-            <line x1="12" y1="2" x2="12" y2="4" />
-            <line x1="12" y1="20" x2="12" y2="22" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="2" y1="12" x2="4" y2="12" />
-            <line x1="20" y1="12" x2="22" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-        )}
-      </span>
+      {isDark ? (
+        /* Moon icon */
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      ) : (
+        /* Sun icon */
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="4" />
+          <line x1="12" y1="20" x2="12" y2="22" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="2" y1="12" x2="4" y2="12" />
+          <line x1="20" y1="12" x2="22" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      )}
     </button>
   );
 }
@@ -468,7 +449,7 @@ export function NavFloatingControls() {
   return (
     <>
       <div className={`nav-float-lang ${state}`}>
-        <LanguageSwitcher />
+        <LanguageToggle />
       </div>
       <div className={`nav-float-theme ${state}`}>
         <ThemeToggle />
@@ -478,11 +459,9 @@ export function NavFloatingControls() {
 }
 
 export function NavInlineControls() {
-  const { isScrolled } = useContext(NavbarContext);
-  if (isScrolled) return null;
   return (
-    <div className="hidden md:flex items-center gap-3">
-      <LanguageSwitcher />
+    <div className="hidden md:flex items-center gap-2">
+      <LanguageToggle />
       <ThemeToggle />
     </div>
   );

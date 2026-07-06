@@ -4,11 +4,8 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { TriangleAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Highlighter } from "@/components/ui/highlighter";
-
-type GrowthMessagesSectionProps = {
-  title: string;
-  items: readonly string[];
-};
+import { useLanguage } from "../language-provider";
+import { translations } from "@/lib/i18n";
 
 function formatTitle(title: string) {
   const words = title
@@ -109,10 +106,11 @@ function GrowthMessageCard({
   );
 }
 
-export function GrowthMessagesSection({
-  title,
-  items,
-}: GrowthMessagesSectionProps) {
+export function ProblemsSection() {
+  const { locale } = useLanguage();
+  const t = translations[locale];
+  const title = t.growthSection.title;
+  const items = t.growthSection.items;
   const formattedTitle = formatTitle(title);
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(-1);

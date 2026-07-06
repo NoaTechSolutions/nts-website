@@ -1,5 +1,9 @@
+"use client";
+
 import { type CSSProperties, type TouchEvent, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { useLanguage } from "../language-provider";
+import { translations } from "@/lib/i18n";
 
 type ReviewItem = {
   quote: string;
@@ -10,12 +14,6 @@ type ReviewItem = {
   tag: string;
   source?: "google";
   avatarUrl?: string;
-};
-
-type ReviewsMarqueeSectionProps = {
-  eyebrow: string;
-  title: string;
-  items: readonly ReviewItem[];
 };
 
 const reviewThemes = [
@@ -135,11 +133,12 @@ function ReviewCard({
   );
 }
 
-export function ReviewsMarqueeSection({
-  eyebrow,
-  title,
-  items,
-}: ReviewsMarqueeSectionProps) {
+export function TestimonialsSection() {
+  const { locale } = useLanguage();
+  const t = translations[locale];
+  const eyebrow = t.reviewsSection.eyebrow;
+  const title = t.reviewsSection.title;
+  const items = t.reviewsSection.items;
   const mobileResumeRef = useRef<number | null>(null);
   const mobileTouchStartXRef = useRef<number | null>(null);
   const mobileTouchCurrentXRef = useRef<number | null>(null);

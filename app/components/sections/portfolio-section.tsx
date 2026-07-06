@@ -2,11 +2,11 @@
 
 import React from "react";
 import { HeroParallax } from "@/components/ui/hero-parallax";
-import { useLanguage } from "./language-provider";
+import { useLanguage } from "../language-provider";
 import { translations } from "@/lib/i18n";
 import { portfolioProjects } from "@/lib/portfolio-projects";
 
-export function HeroParallaxDemo() {
+export function PortfolioSection() {
   const { locale } = useLanguage();
   const t = translations[locale];
 

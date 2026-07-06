@@ -6,19 +6,14 @@ import { useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CometCard } from "@/components/ui/comet-card";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+import { useLanguage } from "../language-provider";
+import { translations } from "@/lib/i18n";
 
 type ProcessItem = {
   step: string;
   title: string;
   detail: string;
   cardDetail?: string;
-};
-
-type ProcessStickySectionProps = {
-  eyebrow: string;
-  title: string;
-  rotatingWords: readonly string[];
-  items: readonly ProcessItem[];
 };
 
 const processHighlights = [
@@ -87,12 +82,13 @@ const processCardImages = [
   },
 ];
 
-export function ProcessStickySection({
-  eyebrow,
-  title,
-  rotatingWords,
-  items,
-}: ProcessStickySectionProps) {
+export function ProcessSection() {
+  const { locale } = useLanguage();
+  const t = translations[locale];
+  const eyebrow = t.processSection.eyebrow;
+  const title = t.processSection.title;
+  const rotatingWords = t.hero.rotatingWords;
+  const items = t.processSection.items;
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);

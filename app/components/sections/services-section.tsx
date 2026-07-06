@@ -44,7 +44,7 @@ const cardData = [
   },
 ];
 
-export function GrowthMessagesV2() {
+export function ServicesSection() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const items = t.servicesSection.items;
