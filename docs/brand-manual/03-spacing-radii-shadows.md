@@ -125,14 +125,16 @@ Container default **1180px**. La auditoría detecta que el código actual usa ma
 | Hero padding tablet | 96px | `--sp-9` | — |
 | Hero padding mobile | 64px | `--sp-8` | — |
 
-### Breakpoints (heredados del producto actual)
+### Breakpoints
 
-| Rango | Modo |
-|---|---|
-| `< 720px` | Mobile |
-| `720 – 999px` | Tablet |
-| `1000 – 1279px` | Desktop |
-| `≥ 1280px` | Wide |
+> ⚠️ **Movido a fuente de verdad única**: los breakpoints canónicos viven ahora en [`03b-responsive-breakpoints.md`](03b-responsive-breakpoints.md). Esta tabla `<720 / 720–999 / 1000–1279 / ≥1280` era una estimación temprana que **no coincide** con el código real (768 / 1024 / 1440). Usar SIEMPRE los boundaries de DS 03b.
+
+| Rango | Bounds | Ver |
+|---|---|---|
+| `phone` | `0 – 767px` | [DS 03b §2](03b-responsive-breakpoints.md#2-sistema-de-breakpoints-canónico) |
+| `tablet` | `768 – 1023px` | ↑ |
+| `desktop` | `1024 – 1439px` | ↑ |
+| `wide` | `≥ 1440px` | ↑ |
 
 ### Container narrow (`--container-narrow: 1080px`)
 

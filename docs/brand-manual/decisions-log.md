@@ -2,7 +2,7 @@
 
 | Owner | Maintainer | Versión | Última actualización |
 |---|---|---|---|
-| Israel · Fundador | NoaTech Design | **v1.2.0** | 2026-05-07 |
+| Israel · Fundador | NoaTech Design | **v1.3.0** | 2026-07-06 |
 
 > **🎉 Manual v1.x cerrado** · DS 00–06 + 08 + 09 + 10 vivos en `develop` · DS 07 Ilustración movido a backlog real (no v1.x)
 
@@ -14,9 +14,9 @@
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Aprobadas | 51 |
-| 📌 Backlog | 9 |
-| 🚫 Descartadas | 11 |
+| ✅ Aprobadas | 54 |
+| 📌 Backlog | 10 |
+| 🚫 Descartadas | 13 |
 
 ---
 
@@ -544,6 +544,33 @@ Hero (visión) · Servicios (concreto) · Process (técnico) · CTA Band (acció
 
 **Alternativas descartadas**: traducir todo a ES literal (rompe convenciones tech) · dejar todo en EN sin traducir (rompe localización ES neutro) · glosario sin notas de uso (no captura contextos).
 
+### DS-052 · Sistema de breakpoints canónico · 3 boundaries / 4 rangos
+✅ **Aprobada** — 2026-07-06 · Sección [03b · Responsive](03b-responsive-breakpoints.md#2-sistema-de-breakpoints-canónico)
+
+Boundaries `768 · 1024 · 1440` derivados de los saltos reales del CSS de producción. 4 rangos: `phone` (0–767), `tablet` (768–1023), `desktop` (1024–1439), `wide` (≥1440). Regla de frontera `N−1 / N` para eliminar off-by-one. Fuente de verdad única; DS 03 §5 referencia acá.
+
+**Marca**: consistencia técnica · un solo lenguaje de breakpoints en CSS, JS y Tailwind · disciplina sobre el caos heredado.
+
+**Alternativas descartadas**: 1 rango por cada tamaño de test (`DS-X012`), breakpoints de catálogo sin evidencia, mantener el mix 767/768/769/1439/1440/1441 (bugs de solapamiento).
+
+### DS-053 · Modelo de aislamiento responsive · base + overrides acotados
+✅ **Aprobada** — 2026-07-06 · Sección [03b · Responsive](03b-responsive-breakpoints.md#3-modelo-de-aislamiento--base--overrides-acotados)
+
+Capa base compartida (color, tipografía, tokens, estructura) sin media query + overrides acotados (min+max) solo para layout. Editar un rango no modifica los otros; los tokens no se duplican.
+
+**Marca**: mantenibilidad · aislamiento del layout sin sacrificar DRY en los tokens.
+
+**Alternativas descartadas**: aislamiento puro total (`DS-X013`), mobile-first cascada pura (no aísla).
+
+### DS-054 · Matriz de viewports de test · 9 puntos → 4 rangos
+✅ **Aprobada** — 2026-07-06 · Sección [03b · Responsive](03b-responsive-breakpoints.md#4-matriz-de-viewports-de-test)
+
+9 viewports oficiales mapeados a los 4 rangos, con prioridad. `430×900` reemplaza el `482×900` inexistente. `1440×900` documentado como `wide`, no `desktop`.
+
+**Marca**: QA reproducible · todos prueban en los mismos puntos · claridad sobre qué rango valida cada viewport.
+
+**Alternativas descartadas**: tratar cada viewport como breakpoint propio, lista sin mapear a rangos.
+
 ---
 
 ## 📌 Backlog
@@ -561,6 +588,7 @@ Ideas evaluadas que no entran en la versión actual. Cada una con prioridad y ta
 | DS-F008 | Mascota Noa · eye-tracking cursor | Versión interactiva donde el ojo Sky sigue la posición del mouse en hero. Evaluar v1.1 después de medir performance del JSON base. | Media | v1.1 |
 | DS-F009 | Motion · match-element layoutId | Versión interactiva con `layoutId` para page transitions hero card → detail view (ej. portfolio item → case study). Evaluar v1.2 si surge demand concreto. | Baja | v1.2 |
 | DS-F010 | Motion · token `--motion-duration-shimmer` | Formalizar `--motion-duration-shimmer` 6.85s si surgen más casos shimmer-style. Hoy `badge-shimmer` (K-01) es excepción documentada. | Baja | v1.x |
+| DS-F011 | Responsive · rango ultra ≥1920 | Layout bespoke para monitores 2K/4K (container más ancho, tipo más grande). Hoy 1920/2560/3840 renderizan igual que `wide` (container capado + centrado). Solo si se quiere aprovechar ancho en pantallas grandes. Ver [DS 03b §8](03b-responsive-breakpoints.md#8-rango-ultra-1920--decisión-pendiente). | Baja | v1.x |
 
 > **`DS-F002` salió de Backlog en v0.4.0**: promovida a `DS-012` (Token Link) tras resolver las contradicciones con DS-010. Ver entrada correspondiente en Aprobadas.
 
@@ -614,12 +642,21 @@ Evaluada en NOA-159 contra LottieFiles (`.json`). Cerrada formalmente en DS 08 v
 Evaluada para v1.0 como mecanismo de transición hero card → detail view (ej. portfolio item → case study). Descartada porque agrega complejidad técnica (shared layouts, ID tracking entre rutas) sin payoff claro en el sitio actual · sólo un caso candidato concreto (portfolio item).
 **Reemplazo**: page transition crossfade simple (`DS-039`) en v1.0. Si surge demand concreto, evaluar promover a `DS-F009` en v1.2.
 
+### DS-X012 · 1 breakpoint por cada tamaño de test
+Evaluada para el sistema responsive: un rango aislado por cada viewport listado (375/482/768/1024/1280/1440/1920/2560/3840 = ~9 bloques self-contained). Descartada porque obliga a re-estilar cada componente 9 veces, con duplicación masiva y drift garantizado. Confunde punto de test con rango de diseño.
+**Reemplazo**: 4 rangos canónicos derivados de los saltos reales del código (`DS-052`).
+
+### DS-X013 · Aislamiento puro total (sin base compartida)
+Evaluada como modelo de aislamiento: cada rango 100% self-contained, sin cascada compartida. Descartada porque duplica tokens (color, tipografía) dentro de cada `@media` → cambiar un color obliga a tocarlo en 4 lugares, drift inevitable. El aislamiento debe aplicar al layout, no a los tokens.
+**Reemplazo**: base compartida + overrides acotados solo para layout (`DS-053`).
+
 ---
 
 ## Versionado del log
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| **v1.3.0** | 2026-07-06 | Módulo nuevo **DS 03b · Responsive** · DS-052 (breakpoints canónicos 768/1024/1440) · DS-053 (aislamiento base + overrides acotados) · DS-054 (matriz de test 9 viewports) · DS-F011 (rango ultra ≥1920 en backlog) · DS-X012 (1 bp por tamaño descartado) · DS-X013 (aislamiento puro descartado) · auditoría de ~40 media queries con plan de limpieza off-by-one |
 | **v1.2.0** | 2026-05-07 | **🎉 Manual v1.x cerrado** · DS-045 (filosofía + 5 atributos) · DS-046 (bilingüismo ES/EN) · DS-047 (32 microcopy patterns) · DS-048 (22 pares glosario) · DS-049 (6 reglas formato) · DS-050 (8 tone shifts) · DS-051 (30 términos bilingües) · DS 10 · Copy y voz textual v0.1 cerrado · DS 07 Ilustración movido a backlog real (no v1.x) |
 | **v1.1.0** | 2026-05-06 | DS-038 (4 tokens motion expandidos) · DS-039 (page transitions canónicas) · DS-040 (scroll-driven 4 patrones) · DS-041 (stagger choreography) · DS-042 (modal/dialog/popover) · DS-043 (performance budget) · DS-044 (reduced-motion comprehensive) · DS-X011 (match-element layoutId descartado v1.0) · DS-F009 (match-element layoutId v1.2) · DS-F010 (token shimmer v1.x) · DS 09 · Motion sistema completo v0.1 cerrado |
 | **v1.0.0** | 2026-05-05 | **🎉 Primer release del manual** · DS-033 (identidad + anatomía Noa) · DS-034 (10 expresiones canónicas) · DS-035 (4 tokens tamaño) · DS-036 (Lottie 10 archivos split) · DS-037 (8 reglas + a11y) · DS-X010 (Rive descartado formalmente desde NOA-159) · DS-F007 (expresiones extra v1.2) · DS-F008 (eye-tracking v1.1) · DS 08 · Mascota Noa v0.1 cerrado · Manual con DS 00–06 + 08 vivos en `develop` |

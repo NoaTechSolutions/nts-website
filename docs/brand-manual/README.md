@@ -17,6 +17,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 | 01b | [Decisión de pairing tipográfico](01b-typography-pairing-decision.md) | ✅ Aprobada | v1.0 | 2026-04-24 |
 | 02 | [Sistema cromático](02-colors.md) | ✅ Aprobado | v0.4 | 2026-05-03 |
 | 03 | [Espaciado, radios y sombras](03-spacing-radii-shadows.md) | ✅ Aprobado | v0.1 | 2026-05-04 |
+| 03b | [Responsive · breakpoints y matriz de test](03b-responsive-breakpoints.md) | ✅ Aprobado | v0.1 | 2026-07-06 |
 | 04 | [Componentes core](04-components-core.md) | ✅ Aprobado | v0.2 | 2026-05-04 |
 | 05 | [Patrones (Hero, CTA, Process, FAQ, Forms)](05-patterns.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
 | 06 | [Iconografía](06-iconography.md) | ✅ Aprobado | v0.1 | 2026-05-05 |
@@ -27,7 +28,7 @@ La numeración de las secciones (`DS NN`) está alineada con la numeración del 
 
 > El roadmap de módulos 04 a 10 es una proyección. Se ajustará a medida que el equipo de diseño confirme la secuencia oficial.
 
-📒 [`decisions-log.md`](decisions-log.md) — registro completo **🎉 v1.2.0 · manual v1.x cerrado** (51 aprobadas · 9 backlog · 11 descartadas).
+📒 [`decisions-log.md`](decisions-log.md) — registro completo **v1.3.0 · DS 03b Responsive agregado** (54 aprobadas · 10 backlog · 13 descartadas).
 
 ---
 

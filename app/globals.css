@@ -56,6 +56,16 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Breakpoints canónicos DS 03b — las clases Tailwind disparan en los MISMOS
+   boundaries que las @media de este archivo. Ver docs/brand-manual/03b-responsive-breakpoints.md */
+@theme {
+  --breakpoint-md: 768px;   /* tablet  · = default Tailwind, ya coincidía con el canónico */
+  --breakpoint-lg: 1024px;  /* desktop · = default Tailwind, ya coincidía con el canónico */
+  --breakpoint-xl: 1440px;  /* wide    · antes 1280 — ahora coincide con el CSS a mano */
+  /* sm (640) se deja en default: sub-phone de auth/dashboard, no es boundary canónico.
+     2xl (1536) se deja en default: se reservará para ultra ≥1920 al construir DS-F011. */
+}
+
 @theme inline {
   --color-background: var(--bg-page);
   --color-foreground: var(--color-navy);
@@ -1909,21 +1919,8 @@ a {
   }
 }
 
-/* Desktop scrolled: theme top-LEFT, lang top-right. Normal: dentro del navbar */
-@media (min-width: 1024px) {
-  .nav-float-lang.is-scrolled {
-    display: flex;
-    top: 0.9rem;
-    right: 1rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .nav-float-theme.is-scrolled {
-    display: flex;
-    top: 0.9rem;
-    left: 1rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
+/* Desktop (>=1024px): los controles viven DENTRO del pill (NavInlineControls),
+   en normal y en scroll. Ya no flotan a las esquinas. */
 
 /* === END NAV FLOATING CONTROLS === */
 
@@ -5003,7 +5000,7 @@ a {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .contact-final-title {
     font-size: clamp(3rem, 6.25vw, 4.3rem);
     line-height: 0.99;
@@ -5043,7 +5040,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .reviews-marquee-section {
     gap: 2rem;
     padding-block: 4.5rem 3.8rem;
@@ -5078,7 +5075,7 @@ a {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .reviews-mobile-stage {
     --review-side-offset: min(15rem, 25vw);
     min-height: 25.8rem;
@@ -5123,13 +5120,13 @@ a {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1440px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .review-card {
     width: 23.5rem;
   }
 }
 
-@media (min-width: 1441px) {
+@media (min-width: 1440px) {
   .reviews-marquee-rail {
     animation-duration: 40s;
   }
@@ -5139,7 +5136,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .process-sticky-shell {
     gap: 2rem;
     padding: 2rem 1rem;
@@ -5156,7 +5153,7 @@ a {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .process-phone-only {
     display: none;
   }
@@ -5201,7 +5198,7 @@ a {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1440px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .process-phone-only,
   .process-tablet-only,
   .process-wide-only {
@@ -5237,7 +5234,7 @@ a {
   }
 }
 
-@media (min-width: 1441px) {
+@media (min-width: 1440px) {
   .process-phone-only,
   .process-tablet-only,
   .process-desktop-only {
@@ -5307,7 +5304,7 @@ a {
     0 0 18px rgba(255, 153, 0, 0.18);
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .mid-cta-shell {
     width: min(100%, calc(100vw - 1rem));
     padding-inline: 0.85rem;
@@ -5371,7 +5368,7 @@ a {
 }
 
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .services-stack-section {
     --services-step-size: 10rem;
     margin-top: -5.5rem;
@@ -5425,7 +5422,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .services-stack-section {
     --services-step-size: 7rem;
     min-height: calc(100vh + (var(--services-step-size) * var(--services-step-count)));
@@ -6079,7 +6076,7 @@ a {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .hero-title-showcase > span:first-child {
     white-space: nowrap;
   }
@@ -6177,7 +6174,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .page-language-switcher {
     top: 0.7rem;
     right: 1rem;
