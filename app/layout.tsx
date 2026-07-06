@@ -61,6 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      suppressHydrationWarning
       className={cn(
         "h-full scroll-smooth",
         spaceGrotesk.variable,
