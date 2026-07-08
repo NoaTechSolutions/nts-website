@@ -63,15 +63,12 @@ const socialLinks = [
 
 export function FooterSection() {
   return (
-    <footer
-      className="bg-[#0F0F11] relative rounded-3xl mx-4 mb-4 overflow-visible text-gray-400"
-      style={{ clipPath: "inset(0 0 0 0 round 1.5rem)" }}
-    >
+    <footer className="bg-[#0F0F11] relative w-full overflow-visible text-gray-400">
       <FooterBackgroundGradient />
 
       <div className="max-w-7xl mx-auto p-14 z-40 relative">
         {/* Grid principal */}
-        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-16 pb-12">
+        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10 xl:gap-16 pb-12">
           {/* Brand */}
           <div className="nurui-footer-brand flex flex-col space-y-4">
             <Image
@@ -117,7 +114,7 @@ export function FooterSection() {
               {contactInfo.map((item) => (
                 <li
                   key={item.text}
-                  className="flex items-center space-x-3 text-sm"
+                  className="flex items-center space-x-3 text-sm min-w-0"
                 >
                   <item.icon
                     size={18}
@@ -126,12 +123,12 @@ export function FooterSection() {
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="hover:text-[#ff9900] transition-colors"
+                      className="hover:text-[#ff9900] transition-colors wrap-break-word min-w-0"
                     >
                       {item.text}
                     </a>
                   ) : (
-                    <span>{item.text}</span>
+                    <span className="wrap-break-word min-w-0">{item.text}</span>
                   )}
                 </li>
               ))}
