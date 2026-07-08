@@ -170,7 +170,8 @@ a {
 }
 
 .grid-shell {
-  width: min(1180px, calc(100% - 2rem));
+  /* Margen lateral fluido: ~16px en mobile, ~30px en 1024, 48px en 1440+ (DS) */
+  width: min(1180px, calc(100% - clamp(2rem, 6vw, 6rem)));
   margin-inline: auto;
 }
 
@@ -1924,6 +1925,133 @@ a {
 
 /* === END NAV FLOATING CONTROLS === */
 
+/* === NAV SETTINGS GEAR · tuerca + abanico radial (idioma / tema) === */
+/* Sticky en la esquina superior izquierda, fuera del menú, en todas las plataformas */
+.page-settings-gear {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.nav-gear {
+  position: relative;
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.nav-gear-main {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid #9fb0cf;
+  background: rgba(255, 255, 255, 0.92);
+  color: #022977;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(2, 41, 119, 0.12);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.nav-gear-main:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+.nav-gear.is-open .nav-gear-main {
+  background: #022977;
+  border-color: #022977;
+  color: #ffffff;
+}
+
+.nav-gear-icon {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-gear.is-open .nav-gear-icon {
+  transform: rotate(120deg);
+}
+
+.nav-gear-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid #9fb0cf;
+  background: rgba(255, 255, 255, 0.96);
+  color: #022977;
+  font-family: var(--font-body-stack), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.5);
+  pointer-events: none;
+  box-shadow: 0 12px 26px rgba(2, 41, 119, 0.18);
+  transition:
+    transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.26s ease,
+    background 0.2s ease;
+}
+.nav-gear-item:hover {
+  background: #ffffff;
+}
+.nav-gear.is-open .nav-gear-item {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Abanico hacia abajo-izquierda (esquina superior derecha → abre hacia adentro) */
+.nav-gear.is-open .nav-gear-item-lang {
+  transform: translate(-1.2rem, 3.2rem) scale(1);
+  transition-delay: 0ms;
+}
+.nav-gear.is-open .nav-gear-item-theme {
+  transform: translate(-3.35rem, 1.75rem) scale(1);
+  transition-delay: 70ms;
+}
+
+/* Dark mode */
+.dark .nav-gear-main,
+.dark .nav-gear-item {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(15, 22, 40, 0.9);
+  color: #f0f4ff;
+}
+.dark .nav-gear-main:hover,
+.dark .nav-gear-item:hover {
+  background: rgba(15, 22, 40, 1);
+}
+.dark .nav-gear.is-open .nav-gear-main {
+  background: #05a5ff;
+  border-color: #05a5ff;
+  color: #00183a;
+}
+
+/* Float en tablet (768–1023): la tuerca vive arriba-derecha en normal y scroll */
+.nav-float-gear {
+  position: fixed;
+  z-index: 45;
+  display: none;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-float-gear.is-normal,
+  .nav-float-gear.is-scrolled {
+    display: flex;
+    top: 0.9rem;
+    right: 1rem;
+  }
+}
+/* === END NAV SETTINGS GEAR === */
+
 /* === PAGE LOADER (NOA-121) === */
 .page-loader-root {
   position: fixed;
@@ -2986,6 +3114,236 @@ a {
   z-index: 1;
   pointer-events: none;
 }
+
+/* ===================================================================
+   HERO EXPERIMENT · texto a la izquierda + visual 3D scroll-reactive
+   TEMPORAL (NOA) · solo aplica con .is-hero-exp. Para remover: buscar "hero-exp".
+   Estructura responsive según DS 03b (base + overrides acotados por rango).
+   =================================================================== */
+.hero-showcase.is-hero-exp {
+  text-align: left;
+}
+
+/* El 3D reemplaza las decoraciones flotantes del hero original */
+.is-hero-exp .hero-art {
+  display: none;
+}
+
+/* BASE (mobile-first) · 1 columna, texto alineado a la izquierda */
+.hero-exp-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.is-hero-exp .hero-content {
+  justify-items: start;
+  text-align: left;
+  gap: 1.6rem;
+}
+
+.is-hero-exp .hero-title-showcase {
+  margin-inline: 0;
+  max-width: 20ch;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+}
+
+.is-hero-exp .hero-copy-showcase {
+  margin-inline: 0;
+  max-width: 48ch;
+}
+
+.is-hero-exp .hero-actions {
+  justify-content: flex-start;
+}
+
+.is-hero-exp .hero-stats {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.is-hero-exp .hero-stat {
+  justify-items: start;
+}
+
+.is-hero-exp .hero-stat-copy {
+  text-align: left;
+}
+
+/* Visual 3D */
+.hero-exp3d {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-exp3d-stage {
+  perspective: 1100px;
+  width: min(78vw, 17rem);
+  aspect-ratio: 1 / 1;
+}
+
+.hero-exp3d-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(5, 165, 255, 0.28), transparent 55%),
+    radial-gradient(circle at 80% 84%, rgba(255, 153, 0, 0.2), transparent 52%),
+    linear-gradient(160deg, #071a45 0%, #0a2358 52%, #061436 100%);
+  box-shadow: 0 50px 100px rgba(2, 41, 119, 0.4);
+  overflow: hidden;
+}
+/* Borde liquid-glass (técnica extraída del prompt NFT, con nuestra paleta) */
+.hero-exp3d-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.15) 22%,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0) 58%,
+    rgba(255, 255, 255, 0.15) 78%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-exp3d-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 60%
+  );
+  background-size: 250% 250%;
+  animation: hero-exp3d-shine 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-exp3d-shine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-exp3d-lines {
+  position: absolute;
+  inset: 12%;
+  border-radius: 1.4rem;
+  background-image:
+    linear-gradient(rgba(4, 0, 240, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4, 0, 240, 0.08) 1px, transparent 1px);
+  background-size: 1.6rem 1.6rem;
+  transform: translateZ(20px);
+  pointer-events: none;
+}
+
+.hero-exp3d-mascot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  transform: translateZ(55px);
+}
+.hero-exp3d-mascot-img {
+  width: 100%;
+  height: auto;
+  animation: hero-noa-wave 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.45));
+}
+/* Saludo en loop — bob + tilt (así representa el wave el DS 08) */
+@keyframes hero-noa-wave {
+  0%, 100% { transform: translateY(0) rotate(-2.5deg); }
+  30% { transform: translateY(-12px) rotate(2.5deg); }
+  55% { transform: translateY(-5px) rotate(-1deg); }
+  80% { transform: translateY(-14px) rotate(3.5deg); }
+}
+
+.hero-exp3d-hello {
+  position: absolute;
+  top: 13%;
+  right: 12%;
+  z-index: 3;
+  transform: translateZ(105px);
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px 999px 999px 4px;
+  background: #ffffff;
+  color: var(--color-navy);
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+  animation: hero-hello-pop 3.4s ease-in-out infinite;
+}
+@keyframes hero-hello-pop {
+  0%, 100% { transform: translateZ(105px) translateY(0) scale(1); }
+  50% { transform: translateZ(105px) translateY(-4px) scale(1.05); }
+}
+
+.dark .hero-exp3d-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+}
+
+.dark .hero-exp3d-tag {
+  background: var(--color-sky);
+  color: #00183a;
+}
+
+/* OVERRIDES ACOTADOS POR RANGO (DS 03b) — cada rango aislado */
+
+/* phone ≤767 · stack, 3D compacto abajo */
+@media (max-width: 767px) {
+  .hero-exp-grid { gap: 2rem; }
+  .hero-exp3d-stage { width: min(70vw, 15rem); }
+}
+
+/* tablet 768–1023 · stack, 3D mediano */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-exp-grid { gap: 3rem; }
+  .hero-exp3d-stage { width: min(55vw, 22rem); }
+}
+
+/* desktop 1024–1439 · 2 columnas texto | 3D */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .hero-exp-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 3rem;
+  }
+  .hero-exp3d-stage { width: min(100%, 27rem); }
+}
+
+/* wide ≥1440 · 2 columnas, 3D grande */
+@media (min-width: 1440px) {
+  .hero-exp-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 4rem;
+  }
+  .hero-exp3d-stage { width: min(100%, 31rem); }
+}
+/* === END HERO EXPERIMENT === */
 
 .hero-art-right {
   top: 1rem;

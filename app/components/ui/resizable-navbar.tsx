@@ -443,26 +443,112 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   );
 }
 
+export function NavSettingsGear() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { locale, setLocale } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!ref.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [open]);
+
+  return (
+    <div ref={ref} className={`nav-gear ${open ? "is-open" : ""}`}>
+      {/* Idioma */}
+      <button
+        type="button"
+        aria-label={locale === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+        tabIndex={open ? 0 : -1}
+        onClick={() => {
+          setLocale(locale === "es" ? "en" : "es");
+          setOpen(false);
+        }}
+        className="nav-gear-item nav-gear-item-lang"
+      >
+        <span className="nav-gear-item-label">{locale.toUpperCase()}</span>
+      </button>
+
+      {/* Tema */}
+      <button
+        type="button"
+        aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        tabIndex={open ? 0 : -1}
+        onClick={() => {
+          toggleTheme();
+          setOpen(false);
+        }}
+        className="nav-gear-item nav-gear-item-theme"
+      >
+        {isDark ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <line x1="12" y1="2" x2="12" y2="4" />
+            <line x1="12" y1="20" x2="12" y2="22" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="2" y1="12" x2="4" y2="12" />
+            <line x1="20" y1="12" x2="22" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        )}
+      </button>
+
+      {/* Tuerca */}
+      <button
+        type="button"
+        aria-label="Configuración"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+        className="nav-gear-main"
+      >
+        <svg
+          className="nav-gear-icon"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export function NavFloatingControls() {
   const { isScrolled } = useContext(NavbarContext);
   const state = isScrolled ? "is-scrolled" : "is-normal";
   return (
-    <>
-      <div className={`nav-float-lang ${state}`}>
-        <LanguageToggle />
-      </div>
-      <div className={`nav-float-theme ${state}`}>
-        <ThemeToggle />
-      </div>
-    </>
+    <div className={`nav-float-gear ${state}`}>
+      <NavSettingsGear />
+    </div>
   );
 }
 
 export function NavInlineControls() {
   return (
-    <div className="hidden md:flex items-center gap-2">
-      <LanguageToggle />
-      <ThemeToggle />
+    <div className="hidden md:flex items-center">
+      <NavSettingsGear />
     </div>
   );
 }

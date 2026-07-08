@@ -11,8 +11,6 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-  NavFloatingControls,
-  NavInlineControls,
 } from "./ui/resizable-navbar";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "./language-provider";
@@ -84,12 +82,10 @@ export function ResizableNavbarDemo() {
   return (
     <div className="relative w-full">
       <Navbar>
-        <NavFloatingControls />
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-3">
-            <NavInlineControls />
             <NavbarButton variant="primary">{t.nav.cta}</NavbarButton>
           </div>
         </NavBody>

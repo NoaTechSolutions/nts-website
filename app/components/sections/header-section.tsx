@@ -8,6 +8,7 @@ import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { translations } from "@/lib/i18n";
+import { HeroExperiment3D } from "./hero-experiment-3d";
 
 export function HeaderSection() {
   const { locale } = useLanguage();
@@ -18,19 +19,7 @@ export function HeaderSection() {
     <div id="home" className="grid-shell section-space">
       <ResizableNavbarDemo />
 
-      <section className="hero-showcase">
-        <div className="hero-art hero-art-left hero-art-hand-desktop hidden lg:block" aria-hidden="true">
-          <Image
-            src="/noatechsolutions-robotic-hand-hero.svg"
-            alt="Brazo robótico NoaTechSolutions"
-            width={520}
-            height={520}
-            priority
-            loading="eager"
-            className="hero-left-object"
-          />
-        </div>
-
+      <section className="hero-showcase is-hero-exp">
         <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
           <Image
             src="/noatechsolutions-digital-orb-hero.svg"
@@ -43,6 +32,7 @@ export function HeaderSection() {
           />
         </div>
 
+        <div className="hero-exp-grid">
         <div className="hero-content">
           <span className="hero-badge">
             <span className="hero-badge-star" aria-hidden="true">
@@ -158,6 +148,8 @@ export function HeaderSection() {
               </article>
             ))}
           </div>
+        </div>
+          <HeroExperiment3D />
         </div>
       </section>
     </div>

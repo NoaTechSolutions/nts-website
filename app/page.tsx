@@ -1,8 +1,7 @@
 "use client";
 
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
-import { NoaMascot } from "./components/noa-mascot";
-import { useNoaScroll } from "./hooks/use-noa-scroll";
+import { NavSettingsGear } from "./components/ui/resizable-navbar";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
 import { HeaderSection } from "./components/sections/header-section";
@@ -20,7 +19,6 @@ import { FooterSection } from "./components/sections/footer-section";
 export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
-  const { expression } = useNoaScroll();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -42,6 +40,9 @@ export default function Home() {
       <div className="hero-glow hero-glow-left" aria-hidden="true" />
       <div className="hero-glow hero-glow-right" aria-hidden="true" />
       <MobileSpeedDial />
+      <div className="page-settings-gear">
+        <NavSettingsGear />
+      </div>
 
       {/* ── 1. HEADER ── */}
       <HeaderSection />
@@ -84,8 +85,6 @@ export default function Home() {
 
       {/* ── 11. FOOTER ── */}
       <FooterSection />
-
-      <NoaMascot expression={expression} size={100} />
     </main>
   );
 }
