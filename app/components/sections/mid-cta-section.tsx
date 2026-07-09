@@ -41,7 +41,7 @@ export function MidCtaSection() {
         <p className="section-copy mid-cta-body">{t.midCtaSection.copy}</p>
 
         <div className="mid-cta-actions">
-          <a href="#contacto" className="btn-cta-navy">
+          <a href="#contacto-form" className="btn-cta-navy">
             <span className="btn-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
                 <path d="M5 12h14" />

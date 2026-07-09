@@ -80,7 +80,7 @@ export function HeaderSection({
           </p>
 
           <div className="hero-actions">
-            <a href="#contacto" className="button-primary button-primary-hero button-primary-desktop">
+            <a href="#contacto-form" className="button-primary button-primary-hero button-primary-desktop">
               <span className="button-primary-label button-primary-label-default">
                 {t.hero.primaryCta}
               </span>
@@ -101,7 +101,7 @@ export function HeaderSection({
             </a>
             <HoverBorderGradient
               as="a"
-              href="#contacto"
+              href="#contacto-form"
               duration={1.2}
               clockwise
               containerClassName="button-primary-mobile-gradient"

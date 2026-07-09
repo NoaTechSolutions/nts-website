@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     const resend = getResend();
     await resend.emails.send({
       from: "NoaTechSolutions <noreply@noatechsolutions.com>",
-      to: "hello@noatechsolutions.com",
+      to: "contact@noatechsolutions.com",
       subject: `Nuevo contacto: ${nombre}`,
       replyTo: email,
       text: [

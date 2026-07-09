@@ -169,7 +169,7 @@ export function ProcessSection() {
   const renderStageCard = (stageClassName: string) => (
     <div className={`process-sticky-stage ${stageClassName}`}>
       <a
-        href="#contacto"
+        href="#contacto-form"
         className="group block w-full pointer-events-auto"
         aria-label={`${cardCtaLabel}: ${activeItem.title}`}
       >

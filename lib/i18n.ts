@@ -346,19 +346,19 @@ export const translations = {
           links: [
             { label: "Portfolio", href: "/portfolio" },
             { label: "Reviews", href: "#reviews" },
-            { label: "Contacto", href: "#contacto" },
-            { label: "Base desde $299", href: "#contacto" },
+            { label: "Contacto", href: "#contacto-form" },
+            { label: "Base desde $299", href: "#contacto-form" },
           ],
         },
         {
           title: "Contacto",
           links: [
-            { label: "Iniciar proyecto", href: "#contacto" },
-            { label: "Asesoria inicial gratis", href: "#contacto" },
+            { label: "Iniciar proyecto", href: "#contacto-form" },
+            { label: "Asesoria inicial gratis", href: "#contacto-form" },
             {
-              label: "hello@noatechsolutions.com",
+              label: "contact@noatechsolutions.com",
               href:
-                "mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
+                "mailto:contact@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
               external: true,
             },
             { label: "Baja California + California" },
@@ -713,19 +713,19 @@ export const translations = {
           links: [
             { label: "Portfolio", href: "/portfolio" },
             { label: "Reviews", href: "#reviews" },
-            { label: "Contact", href: "#contacto" },
-            { label: "Start from $299", href: "#contacto" },
+            { label: "Contact", href: "#contacto-form" },
+            { label: "Start from $299", href: "#contacto-form" },
           ],
         },
         {
           title: "Contact",
           links: [
-            { label: "Start your project", href: "#contacto" },
-            { label: "Free strategy call", href: "#contacto" },
+            { label: "Start your project", href: "#contacto-form" },
+            { label: "Free strategy call", href: "#contacto-form" },
             {
-              label: "hello@noatechsolutions.com",
+              label: "contact@noatechsolutions.com",
               href:
-                "mailto:hello@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
+                "mailto:contact@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
               external: true,
             },
             { label: "Baja California + California" },

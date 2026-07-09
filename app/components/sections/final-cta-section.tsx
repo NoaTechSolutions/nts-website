@@ -93,7 +93,7 @@ export function FinalCtaSection() {
         </div>
 
         <div className="contact-final-actions">
-          <a href="mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web" className="btn-cta-navy">
+          <a href="#contacto-form" className="btn-cta-navy">
             <span className="btn-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
                 <path d="M5 12h14" />
