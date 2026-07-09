@@ -55,10 +55,10 @@ export function NavBody({ children }: { children: ReactNode }) {
 
   return (
     <header
-      className={`mt-3 hidden items-center justify-between transition-[width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
+      className={`hidden items-center transition-[width,padding,gap,margin,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isScrolled
-          ? "mx-auto w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,41,119,0.10)]"
-          : "gap-8 bg-transparent px-0 py-3"
+          ? "mt-3 mx-auto flex w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,41,119,0.10)] lg:flex"
+          : "mt-0 gap-8 bg-transparent px-0 py-2 lg:grid lg:grid-cols-[1fr_auto_1fr]"
       }`}
     >
       {children}

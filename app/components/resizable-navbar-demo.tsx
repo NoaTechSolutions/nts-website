@@ -81,7 +81,7 @@ export function ResizableNavbarDemo() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 lg:justify-self-end">
             <NavbarButton variant="primary">{t.nav.cta}</NavbarButton>
           </div>
         </NavBody>
