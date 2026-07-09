@@ -1931,7 +1931,24 @@ a {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  z-index: 50;
+  z-index: 70; /* por delante de las secciones al scrollear (igual que navbar) */
+  /* Entra junto con el navbar (fade + blur) al revelar el hero */
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 0.9s ease,
+    filter 0.9s ease;
+}
+.page-settings-gear.is-entered {
+  opacity: 1;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-settings-gear {
+    opacity: 1;
+    filter: none;
+    transition: none;
+  }
 }
 
 .nav-gear {
@@ -2009,13 +2026,13 @@ a {
   opacity: 1;
   pointer-events: auto;
 }
-/* Abanico hacia abajo-izquierda (esquina superior derecha → abre hacia adentro) */
+/* Despliegue vertical hacia abajo: los items se apilan debajo de la tuerca */
 .nav-gear.is-open .nav-gear-item-lang {
-  transform: translate(-1.7rem, 4.3rem) scale(1);
+  transform: translate(0, 2.9rem) scale(1);
   transition-delay: 0ms;
 }
 .nav-gear.is-open .nav-gear-item-theme {
-  transform: translate(-4.6rem, 2.4rem) scale(1);
+  transform: translate(0, 5.8rem) scale(1);
   transition-delay: 70ms;
 }
 
