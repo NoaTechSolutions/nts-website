@@ -2011,11 +2011,11 @@ a {
 }
 /* Abanico hacia abajo-izquierda (esquina superior derecha → abre hacia adentro) */
 .nav-gear.is-open .nav-gear-item-lang {
-  transform: translate(-1.2rem, 3.2rem) scale(1);
+  transform: translate(-1.7rem, 4.3rem) scale(1);
   transition-delay: 0ms;
 }
 .nav-gear.is-open .nav-gear-item-theme {
-  transform: translate(-3.35rem, 1.75rem) scale(1);
+  transform: translate(-4.6rem, 2.4rem) scale(1);
   transition-delay: 70ms;
 }
 
@@ -3343,6 +3343,217 @@ a {
   }
   .hero-exp3d-stage { width: min(100%, 31rem); }
 }
+
+/* Robot Spline self-hosted · SIN card, transparente, integrado al header */
+.hero-robot-stage {
+  position: relative;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  /* Retrato en vez de cuadrado → entra el robot completo (piernas incluidas) */
+  aspect-ratio: 4 / 5;
+  width: min(88vw, 22rem);
+  margin-inline: auto;
+}
+/* tablet ≥768 · robot un poco más grande */
+@media (min-width: 768px) {
+  .hero-robot-stage { width: min(60vw, 26rem); }
+}
+/* desktop: el robot sale del grid y sangra hasta el borde DERECHO de la pantalla.
+   Canvas grande (48vw × alto completo) = brazos y piernas con lugar, robot al borde. */
+@media (min-width: 1024px) {
+  .hero-robot-stage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(50% - 58vw); /* empuja el canvas ~8vw a la derecha → robot más a la derecha */
+    width: 76vw; /* canvas bien ancho → el brazo interno no se corta (pasa detrás del texto) */
+    height: auto;
+    margin: 0;
+    aspect-ratio: auto;
+    z-index: 1; /* detrás del texto (.hero-exp-grid es z-index 2) */
+  }
+  /* El grid no debe bloquear el mouse del canvas (cursor-follow);
+     solo el texto/botones quedan interactivos. */
+  .is-hero-exp .hero-exp-grid {
+    pointer-events: none;
+  }
+  .is-hero-exp .hero-content {
+    pointer-events: auto;
+  }
+}
+.hero-robot-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+/* Divider 3D · full viewport width, cruza toda la pantalla.
+   Disuelve el corte de las piernas del robot hacia el fondo, como una
+   transición de sección. z-index 1 = sobre el robot, debajo del texto. */
+.hero-bottom-divider {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hero-bottom-divider {
+    display: block;
+    position: absolute;
+    left: calc(50% - 50vw); /* breakout a ancho de pantalla completo */
+    bottom: 0;
+    width: 100vw;
+    height: 30vh;
+    z-index: 1; /* mismo z que el robot pero va después en el DOM → lo tapa */
+    pointer-events: none;
+    background: linear-gradient(to top, var(--bg-page) 34%, transparent);
+  }
+}
+.hero-robot-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Spinner del fallback (Suspense) mientras carga el runtime + el scene */
+.hero-robot-loader {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #05a5ff;
+  animation: hero-robot-spin 0.8s linear infinite;
+}
+@keyframes hero-robot-spin {
+  to { transform: rotate(360deg); }
+}
+/* Cursor 3D tech (#home) + cursor de warning (.growth-section) */
+#home,
+#home *,
+.growth-section,
+.growth-section * {
+  cursor: none; /* escondemos el cursor default; lo reemplaza el custom */
+}
+.hero-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 0.25s ease;
+}
+.hero-cursor-ring,
+.hero-cursor-scan,
+.hero-cursor-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Anillo base */
+.hero-cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(5, 165, 255, 0.7);
+  box-shadow:
+    0 0 16px rgba(5, 165, 255, 0.45),
+    inset 0 0 10px rgba(5, 165, 255, 0.22);
+  transition:
+    width 0.22s ease,
+    height 0.22s ease,
+    border-color 0.22s ease;
+}
+/* Segmento giratorio (escáner / arco de circuito) */
+.hero-cursor-scan {
+  width: 52px;
+  height: 52px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 62%,
+    rgba(255, 153, 0, 0.95) 72% 86%,
+    transparent 92%
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+  animation: hero-cursor-spin 2.6s linear infinite;
+}
+/* Núcleo que late */
+.hero-cursor-core {
+  width: 6px;
+  height: 6px;
+  background: #ff9900;
+  box-shadow: 0 0 10px rgba(255, 153, 0, 0.9);
+  animation: hero-cursor-pulse 1.6s ease-in-out infinite;
+}
+/* Sobre botones/links: el retículo se agranda (feedback interactivo) */
+.hero-cursor-active .hero-cursor-ring {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(255, 153, 0, 0.85);
+}
+/* Variante WARNING · sección de problemas (.growth-section): triángulo de alerta */
+.hero-cursor-warn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  color: #ff9900;
+  filter: drop-shadow(0 0 9px rgba(255, 153, 0, 0.85));
+  transform: translate(-50%, -50%);
+  animation: hero-cursor-warn-pulse 1.05s ease-in-out infinite;
+}
+@keyframes hero-cursor-warn-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.18) rotate(-3deg);
+  }
+}
+@keyframes hero-cursor-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes hero-cursor-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.7);
+    opacity: 0.6;
+  }
+}
+/* Accesibilidad: si el usuario pide menos movimiento, frená las animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .hero-cursor-scan,
+  .hero-cursor-core {
+    animation: none;
+  }
+}
+/* Touch / sin hover: no mostramos el cursor custom ni escondemos el default */
+@media (hover: none) {
+  #home,
+  #home *,
+  .growth-section,
+  .growth-section * {
+    cursor: auto;
+  }
+  .hero-cursor {
+    display: none;
+  }
+}
 /* === END HERO EXPERIMENT === */
 
 .hero-art-right {
@@ -3804,9 +4015,9 @@ a {
 
 .growth-message-card {
   position: absolute;
-  width: max-content;
+  width: min(21rem, calc(100vw - 3rem));
   max-width: min(28rem, calc(100vw - 3rem));
-  padding: 0.38rem 0.74rem 0.4rem;
+  padding: 0.7rem 1.05rem;
   overflow: hidden;
   border: 1px solid rgba(255, 153, 0, 0.44);
   border-radius: 1.55rem;
@@ -3885,18 +4096,19 @@ a {
 .growth-message-copy p {
   margin: 0;
   padding-top: 0;
-  font-size: 0.72rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.32;
   color: #24334f;
 }
 
 .growth-message-icon {
   display: inline-flex;
+  flex: 0 0 auto; /* no se comprime → círculo perfecto (no óvalo) */
   align-items: center;
   justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 999px;
   color: #ffffff;
   background: linear-gradient(180deg, #ffb23f, #ff9900);
@@ -3914,7 +4126,7 @@ a {
 
 .growth-message-text {
   text-wrap: balance;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .growth-message-text-glitch {

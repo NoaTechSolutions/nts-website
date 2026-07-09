@@ -91,7 +91,7 @@ function GrowthMessageCard({
     >
       <div className="growth-message-copy">
         <span className="growth-message-icon" aria-hidden="true">
-          <TriangleAlert size={14} strokeWidth={2.2} />
+          <TriangleAlert size={22} strokeWidth={2.2} />
         </span>
         <p
           className={`growth-message-text ${

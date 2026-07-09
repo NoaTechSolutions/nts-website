@@ -446,6 +446,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 export function NavSettingsGear() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { locale, setLocale } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
@@ -462,7 +463,17 @@ export function NavSettingsGear() {
   }, [open]);
 
   return (
-    <div ref={ref} className={`nav-gear ${open ? "is-open" : ""}`}>
+    <div
+      ref={ref}
+      className={`nav-gear ${open ? "is-open" : ""}`}
+      onMouseEnter={() => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        closeTimer.current = setTimeout(() => setOpen(false), 160);
+      }}
+    >
       {/* Idioma */}
       <button
         type="button"

@@ -8,7 +8,8 @@ import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { translations } from "@/lib/i18n";
-import { HeroExperiment3D } from "./hero-experiment-3d";
+import { HeroRobot3D } from "./hero-robot-3d";
+import { HeroCursor } from "../hero-cursor";
 
 export function HeaderSection() {
   const { locale } = useLanguage();
@@ -149,9 +150,11 @@ export function HeaderSection() {
             ))}
           </div>
         </div>
-          <HeroExperiment3D />
         </div>
+        <HeroRobot3D />
+        <div className="hero-bottom-divider" aria-hidden="true" />
       </section>
+      <HeroCursor />
     </div>
   );
 }

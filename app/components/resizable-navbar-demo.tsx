@@ -51,10 +51,6 @@ export function ResizableNavbarDemo() {
       name: t.nav.about,
       link: "/nosotros",
     },
-    {
-      name: t.nav.contact,
-      link: "#contacto",
-    },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
