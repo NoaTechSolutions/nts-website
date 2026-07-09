@@ -7,41 +7,43 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
 import {
-  Globe,
-  Search,
-  Megaphone,
+  Code2,
   Palette,
+  Megaphone,
+  LifeBuoy,
   ArrowUpRight,
 } from "lucide-react";
 
+// 4 categorías del brief (web-structure.md §4). Orden: estrella primero.
+// Los `modifier` reutilizan los 4 estilos de color ya existentes en el CSS.
 const cardData = [
   {
-    icon: Globe,
-    badge: "Web",
-    footer: "Listo para vender mejor",
-    benefits: ["Mas visibilidad", "Carga veloz", "Mejor conversion"],
+    icon: Code2,
+    badge: "Web & Software",
+    footer: "Hecho para escalar tu negocio",
+    benefits: ["Software a medida", "Carga veloz", "Escalable"],
     modifier: "services-stack-card-web",
   },
   {
-    icon: Search,
-    badge: "SEO",
-    footer: "Optimizado para encontrarte",
-    benefits: ["Mas trafico", "Mejor posicion", "Base sostenible"],
-    modifier: "services-stack-card-seo",
+    icon: Palette,
+    badge: "Marca",
+    footer: "Creado para diferenciarte",
+    benefits: ["Branding", "Diseño gráfico", "Identidad sólida"],
+    modifier: "services-stack-card-branding",
   },
   {
     icon: Megaphone,
     badge: "Marketing",
     footer: "Pensado para convertir",
-    benefits: ["Mas leads", "Mensajes claros", "Campanas efectivas"],
+    benefits: ["Más leads", "Redes sociales", "Campañas efectivas"],
     modifier: "services-stack-card-marketing",
   },
   {
-    icon: Palette,
-    badge: "Branding",
-    footer: "Creado para diferenciarte",
-    benefits: ["Mas confianza", "Imagen premium", "Marca consistente"],
-    modifier: "services-stack-card-branding",
+    icon: LifeBuoy,
+    badge: "Soporte",
+    footer: "Listo para acompañarte",
+    benefits: ["Hosting", "Mantenimiento", "Asesoría tech"],
+    modifier: "services-stack-card-seo",
   },
 ];
 

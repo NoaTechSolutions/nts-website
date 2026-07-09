@@ -73,24 +73,24 @@ export const translations = {
       cardCta: "Mas info",
       items: [
         {
-          title: "Diseno web premium",
+          title: "Web y software a medida",
           description:
-            "Websites claros, veloces y alineados con una narrativa comercial que eleva la percepcion de tu marca.",
+            "Tu sitio web profesional y el software que tu negocio necesita: rápidos, escalables y hechos a la medida de tu operación.",
         },
         {
-          title: "SEO estrategico",
+          title: "Diseño y marca",
           description:
-            "Arquitectura, contenido y optimizacion tecnica para atraer trafico calificado con una base sostenible.",
+            "Branding, diseño gráfico y material corporativo para que tu marca se vea profesional, coherente y memorable.",
         },
         {
           title: "Marketing digital",
           description:
-            "Campanas, embudos y mensajes coordinados para convertir visitas en oportunidades reales.",
+            "Campañas, redes sociales y embudos coordinados para atraer tráfico calificado y convertir visitas en clientes reales.",
         },
         {
-          title: "Branding y direccion visual",
+          title: "Soporte y asesoría",
           description:
-            "Sistemas visuales consistentes para que cada punto de contacto se vea profesional y memorable.",
+            "Hosting, mantenimiento y asesoría tecnológica para que tu operación siga funcionando sin dolores de cabeza.",
         },
       ],
     },
@@ -441,24 +441,24 @@ export const translations = {
       cardCta: "More info",
       items: [
         {
-          title: "Premium web design",
+          title: "Web & custom software",
           description:
-            "Clear, fast websites aligned with a commercial narrative that elevates your brand perception.",
+            "Your professional website and the software your business needs: fast, scalable, and built to fit your operation.",
         },
         {
-          title: "Strategic SEO",
+          title: "Design & brand",
           description:
-            "Architecture, content, and technical optimization built to attract qualified traffic on a sustainable foundation.",
+            "Branding, graphic design, and corporate materials so your brand looks professional, consistent, and memorable.",
         },
         {
           title: "Digital marketing",
           description:
-            "Campaigns, funnels, and messaging aligned to turn visits into real opportunities.",
+            "Campaigns, social media, and coordinated funnels to attract qualified traffic and turn visits into real clients.",
         },
         {
-          title: "Branding and visual direction",
+          title: "Support & advisory",
           description:
-            "Consistent visual systems so every brand touchpoint feels professional and memorable.",
+            "Hosting, maintenance, and tech advisory so your operation keeps running without headaches.",
         },
       ],
     },
