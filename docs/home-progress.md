@@ -1,7 +1,7 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-07 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-08 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
 
 ---
 
@@ -12,7 +12,41 @@ Los cambios de esta sesión que estaban sin commitear **se commitean hoy** (ver 
 
 ---
 
-## 2. Hecho en esta sesión (✅)
+## 🆕 Sesión 2026-07-08
+
+### Footer — watermark P1 RESUELTO ✅
+- `components/ui/text-hover-effect.tsx`: `textLength={690}` + `lengthAdjust="spacingAndGlyphs"` + `fontSize={104}` en los 3 `<text>` (constantes FONT_SIZE/TEXT_LENGTH), viewBox 100→120. Como `textLength < 720` (ancho del viewBox), el texto **nunca se desborda** + efecto "alargado". Ojo: hubo que sacar `text-7xl` porque la font-size de la clase CSS le gana al atributo SVG `fontSize`.
+- `footer-section.tsx`: columna de contacto a 1024 — `lg:px-10 xl:px-14`, `lg:gap-6`, email `whitespace-nowrap lg:text-[13px]` → entra en 1 línea.
+
+### Hero — mascota Noa → robot Spline (SELF-HOSTED)
+- **Decisión del usuario**: reemplazar Noa por robot 3D de Spline (21st.dev) que sigue el cursor. Advertí (1) Noa es marca (NOA-269/271), (2) CDN externo violaría la decisión de §Descartado. Eligió **self-hosted**.
+- `public/spline/robot.splinecode` (1.3MB, servido local, **NO CDN**). Deps nuevas: `@splinetool/react-spline` + `@splinetool/runtime`.
+- `components/ui/splite.tsx` (SplineScene lazy) + `app/components/sections/hero-robot-3d.tsx` (HeroRobot3D).
+- `header-section.tsx`: import `HeroExperiment3D` → `HeroRobot3D`. **`hero-experiment-3d.tsx` (Noa) quedó INTACTO para revertir fácil** (re-importar y usar `<HeroExperiment3D />`).
+- Robot: sin card (transparente), canvas sangra al borde derecho (`right: calc(50% - 58vw); width: 76vw`), detrás del texto (z-index 1) para no tapar la navbar, divider full-width abajo (`.hero-bottom-divider`) que disuelve el corte de piernas.
+- Color: tinte azul dark on-brand `#022977` (navy DS) en `onLoad` — pinta todas las piezas (SKIP luces por nombre). **Para volver al original: borrar el `forEach` de color en `hero-robot-3d.tsx`.**
+
+### Cursor custom por zona (nuevo)
+- `app/components/hero-cursor.tsx`: retículo **tech** en `#home`, triángulo **warning** en `.growth-section`. Montado en header-section. Escucha `window` mousemove, `closest()` decide zona. CSS en globals (buscar "Cursor 3D tech"). Respeta `prefers-reduced-motion` + touch.
+
+### Nav — tuerca con hover + menú
+- `resizable-navbar.tsx` (NavSettingsGear): abre con **hover** (`onMouseEnter/Leave` + `closeTimer` 160ms para cruzar el hueco del abanico). Íconos del abanico más separados (globals `.nav-gear.is-open .nav-gear-item-*`).
+- Quitado item **"Contacto"** del menú (`resizable-navbar-demo.tsx` navItems) — ya existe el botón CONTACTAR.
+
+### SEO
+- **Subtítulo** hero (ES+EN) reescrito, corto + keywords (patrón "transformación primero"): *"Convertimos tu presencia digital en más clientes con diseño web, software a medida y marketing que da resultados."*
+- `layout.tsx` metadata: agregado **"software a medida"** (servicio estrella P1 que faltaba) a title/description/keywords/og/twitter + acentos corregidos.
+
+### Sección Problemas (cards warning)
+- `problems-section.tsx` + globals: letra `0.72→1.05rem`, texto a **2 líneas** (saqué `white-space: nowrap`, ancho card 21rem), ícono círculo `1.65→2.35rem` con `flex: 0 0 auto` (no óvalo) + `TriangleAlert` `14→22px`.
+
+### ⏳ Pendiente para mañana (de esta sesión)
+- **Color fino del robot**: hoy pinta todas las piezas del mismo navy (pierde detalle metálico). Para un pase por pieza (cuerpo/acentos/luz) faltan los **nombres de los objetos del scene** → pedírselos al usuario desde `F12 → Console → [robot-objects]` (el forwarding del server no los captura).
+- Validar cursor warning / hover tuerca / separación íconos según feedback del usuario.
+
+---
+
+## 2. Hecho en esta sesión (✅) · [histórico 2026-07-07]
 
 ### Responsive / sistema (ya commiteado antes de hoy)
 - **DS 03b · breakpoints canónicos** `768 / 1024 / 1440` + limpieza off-by-one en `globals.css`.
@@ -57,7 +91,7 @@ Los cambios de esta sesión que estaban sin commitear **se commitean hoy** (ver 
 
 ## 3. ⏳ TAREAS PENDIENTES (retomar acá mañana)
 
-### 🔴 P1 — Watermark del footer se desborda (pedido explícito)
+### ✅ P1 — RESUELTO (2026-07-08) · Watermark del footer se desborda (pedido explícito)
 El título grande **"NoaTechSolutions"** del footer **se desborda por derecha e izquierda**.
 - **Objetivo**: que NO se desborde.
 - **Restricción del usuario**: se puede **agrandar en tamaño (alto), NO en ancho**.
