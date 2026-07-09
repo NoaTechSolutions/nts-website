@@ -3438,9 +3438,11 @@ a {
 @keyframes hero-robot-spin {
   to { transform: rotate(360deg); }
 }
-/* Cursor 3D tech (#home) + cursor de warning (.growth-section) */
+/* Cursor 3D tech (#home + #servicios) + cursor de warning (.growth-section) */
 #home,
 #home *,
+#servicios,
+#servicios *,
 .growth-section,
 .growth-section * {
   cursor: none; /* escondemos el cursor default; lo reemplaza el custom */

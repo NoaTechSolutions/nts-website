@@ -2,9 +2,9 @@
 
 // ─────────────────────────────────────────────────────────────
 // Cursor custom por ZONA (coherencia de diseño):
-//   · #home            → retículo 3D tech (escáner + núcleo)
-//   · .growth-section  → triángulo de advertencia (warning)
-//   · resto            → oculto, vuelve el cursor default
+//   · #home, #servicios → retículo 3D tech (escáner + núcleo)
+//   · .growth-section   → triángulo de advertencia (warning)
+//   · resto             → oculto, vuelve el cursor default
 // Escucha en window y decide la zona con closest(). pointer-events:none.
 // El cursor default se esconde vía CSS en esas zonas.
 // ─────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ export function HeroCursor() {
     const move = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
       let z: Zone = null;
-      if (el?.closest("#home")) z = "tech";
+      if (el?.closest("#home, #servicios")) z = "tech";
       else if (el?.closest(".growth-section")) z = "warning";
 
       setZone(z);
