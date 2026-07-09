@@ -19,26 +19,29 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://noatechsolutions.com"),
   title: {
-    default: "NoaTechSolutions | Agencia de marketing digital, SEO y diseno web",
+    default:
+      "Diseño web, software a medida y marketing digital | NoaTechSolutions",
     template: "%s | NoaTechSolutions",
   },
   description:
-    "Agencia digital moderna especializada en diseno web, SEO y marketing digital para marcas que quieren crecer con una presencia clara, profesional y orientada a conversion.",
+    "Agencia digital especializada en diseño web, software a medida, SEO y marketing digital. Hacemos que tu negocio se vea profesional y convierta más clientes.",
   keywords: [
+    "diseño web profesional",
+    "software a medida",
+    "desarrollo de software a medida",
     "agencia de marketing digital",
     "agencia SEO",
-    "diseno web profesional",
     "desarrollo web",
     "branding digital",
-    "agencia creativa",
+    "e-commerce",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "NoaTechSolutions | Agencia digital moderna",
+    title: "NoaTechSolutions | Diseño web y software a medida",
     description:
-      "Diseno web, SEO y marketing digital con una base estrategica, visual y tecnica pensada para posicionar y convertir.",
+      "Diseño web, software a medida, SEO y marketing digital con una base estratégica, visual y técnica pensada para posicionar y convertir.",
     url: "https://noatechsolutions.com",
     siteName: "NoaTechSolutions",
     locale: "es_MX",
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NoaTechSolutions",
     description:
-      "Agencia digital moderna con enfoque en diseno web, SEO y marketing digital.",
+      "Agencia digital con enfoque en diseño web, software a medida, SEO y marketing digital.",
   },
   category: "marketing",
 };

@@ -36,7 +36,7 @@ export const translations = {
       ],
       accent: "A La Era Digital",
       copy:
-        "Creamos sitios web impresionantes, campanas de marketing digital poderosas y soluciones de software personalizadas que ayudan a emprendedores y pequenas empresas a prosperar en linea.",
+        "Convertimos tu presencia digital en más clientes con diseño web, software a medida y marketing que da resultados.",
       primaryCta: "Iniciar Tu Proyecto",
       secondaryCta: "Explorar Servicios",
       stats: [
@@ -404,7 +404,7 @@ export const translations = {
       ],
       accent: "Go Digital Era",
       copy:
-        "We create stunning websites, powerful digital marketing campaigns, and custom software solutions that help entrepreneurs and small businesses thrive online.",
+        "We turn your digital presence into more clients with web design, custom software, and marketing that delivers results.",
       primaryCta: "Start Your Project",
       secondaryCta: "Explore Services",
       stats: [
