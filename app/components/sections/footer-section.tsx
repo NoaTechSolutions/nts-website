@@ -66,9 +66,9 @@ export function FooterSection() {
     <footer className="bg-[#0F0F11] relative w-full overflow-visible text-gray-400">
       <FooterBackgroundGradient />
 
-      <div className="max-w-7xl mx-auto p-14 z-40 relative">
+      <div className="max-w-7xl mx-auto p-14 lg:px-10 xl:px-14 z-40 relative">
         {/* Grid principal */}
-        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10 xl:gap-16 pb-12">
+        <div className="nurui-footer-grid grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-6 xl:gap-16 pb-12">
           {/* Brand */}
           <div className="nurui-footer-brand flex flex-col space-y-4">
             <Image
@@ -123,12 +123,12 @@ export function FooterSection() {
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="hover:text-[#ff9900] transition-colors wrap-break-word min-w-0"
+                      className="hover:text-[#ff9900] transition-colors whitespace-nowrap lg:text-[13px] xl:text-sm"
                     >
                       {item.text}
                     </a>
                   ) : (
-                    <span className="wrap-break-word min-w-0">{item.text}</span>
+                    <span className="whitespace-nowrap">{item.text}</span>
                   )}
                 </li>
               ))}

@@ -20,6 +20,12 @@ export const TextHoverEffect = ({
   const [hovered, setHovered] = useState(false);
   const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
 
+  // Efecto "alargado" + anti-desborde: fijamos el ancho del texto por debajo del
+  // ancho del viewBox (720) y dejamos que lengthAdjust comprima los glifos.
+  // Resultado: letras altas y angostas que NUNCA se salen de los costados.
+  const FONT_SIZE = 104;
+  const TEXT_LENGTH = 690;
+
   useEffect(() => {
     if (svgRef.current && cursor.x !== null && cursor.y !== null) {
       const svgRect = svgRef.current.getBoundingClientRect();
@@ -39,7 +45,7 @@ export const TextHoverEffect = ({
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 720 100"
+      viewBox="0 0 720 120"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       role="presentation"
@@ -101,7 +107,10 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-200 font-[helvetica] text-7xl font-bold dark:stroke-neutral-800"
+        fontSize={FONT_SIZE}
+        textLength={TEXT_LENGTH}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-transparent stroke-neutral-200 font-[helvetica] font-bold dark:stroke-neutral-800"
         style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {text}
@@ -112,7 +121,10 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-[#05a5ff] font-[helvetica] text-7xl font-bold dark:stroke-[#05a5ff99]"
+        fontSize={FONT_SIZE}
+        textLength={TEXT_LENGTH}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-transparent stroke-[#05a5ff] font-[helvetica] font-bold dark:stroke-[#05a5ff99]"
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
           strokeDashoffset: 0,
@@ -133,7 +145,10 @@ export const TextHoverEffect = ({
         stroke="url(#textGradient)"
         strokeWidth="0.3"
         mask="url(#textMask)"
-        className="fill-transparent font-[helvetica] text-7xl font-bold"
+        fontSize={FONT_SIZE}
+        textLength={TEXT_LENGTH}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-transparent font-[helvetica] font-bold"
       >
         {text}
       </text>
