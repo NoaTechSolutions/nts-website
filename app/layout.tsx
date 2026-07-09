@@ -4,7 +4,6 @@ import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { LanguageProvider } from "./components/language-provider";
 import { ThemeProvider } from "./components/theme-provider";
-import { PageLoader } from "./components/page-loader";
 import { CrispChat } from "./components/crisp-chat";
 import { LenisProvider } from "./components/lenis-provider";
 
@@ -73,12 +72,23 @@ export default function RootLayout({
       <head>
         {/* Anti-FOUC: aplica clase dark ANTES de que React hidrate */}
         <script dangerouslySetInnerHTML={{ __html: ANTI_FOUC }} />
+        {/* Preload del scene 3D (1.3MB): el browser lo baja en paralelo con el
+            JS del runtime, no después → el robot aparece antes en prod. */}
+        <link
+          rel="preload"
+          href="/spline/robot.splinecode"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+        {/* Sin JS no corre la entrada escalonada → mostramos el hero completo */}
+        <noscript>
+          <style>{`.hero-reveal>div:first-child,.hero-reveal .hero-badge,.hero-reveal .hero-title-showcase,.hero-reveal .hero-copy-showcase,.hero-reveal .hero-actions,.hero-reveal .hero-stats,.page-settings-gear{opacity:1!important;transform:none!important;filter:none!important;}`}</style>
+        </noscript>
       </head>
       <body
         suppressHydrationWarning
         className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
-        <PageLoader />
         <ThemeProvider>
           <LanguageProvider>
             <LenisProvider>{children}</LenisProvider>

@@ -11,13 +11,24 @@ import { translations } from "@/lib/i18n";
 import { HeroRobot3D } from "./hero-robot-3d";
 import { HeroCursor } from "../hero-cursor";
 
-export function HeaderSection() {
+// El estado de entrada lo controla el padre (page.tsx), que lo comparte con
+// el gear de config. `onReveal` lo dispara la carga del robot 3D.
+export function HeaderSection({
+  entered,
+  onReveal,
+}: {
+  entered: boolean;
+  onReveal: () => void;
+}) {
   const { locale } = useLanguage();
   const t = translations[locale];
   const stats = t.hero.stats;
 
   return (
-    <div id="home" className="grid-shell section-space">
+    <div
+      id="home"
+      className={`grid-shell section-space hero-reveal${entered ? " is-entered" : ""}`}
+    >
       <ResizableNavbarDemo />
 
       <section className="hero-showcase is-hero-exp">
@@ -151,7 +162,7 @@ export function HeaderSection() {
           </div>
         </div>
         </div>
-        <HeroRobot3D />
+        <HeroRobot3D onReady={onReveal} />
         <div className="hero-bottom-divider" aria-hidden="true" />
       </section>
       <HeroCursor />

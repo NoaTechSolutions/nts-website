@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { NavSettingsGear } from "./components/ui/resizable-navbar";
 import { useLanguage } from "./components/language-provider";
@@ -16,9 +17,25 @@ import { FaqSection } from "./components/sections/faq-section";
 import { ContactSection } from "./components/sections/contact-section";
 import { FooterSection } from "./components/sections/footer-section";
 
+// Red-net: si el robot 3D no dispara onReady (red lenta o 1.3MB del scene
+// tardando), revelamos el hero igual pasado este tiempo. Mantenerlo corto
+// protege el LCP (el título del hero no espera indefinidamente al robot).
+const ENTRANCE_FALLBACK_MS = 2200;
+
 export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
+
+  // Estado de entrada compartido entre el hero (HeaderSection) y el gear de
+  // config (hermanos) → vive en el padre común. Lo dispara la carga del robot.
+  const [heroEntered, setHeroEntered] = useState(false);
+  const revealHero = useCallback(() => setHeroEntered(true), []);
+
+  useEffect(() => {
+    if (heroEntered) return;
+    const fallback = window.setTimeout(revealHero, ENTRANCE_FALLBACK_MS);
+    return () => window.clearTimeout(fallback);
+  }, [heroEntered, revealHero]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -40,12 +57,12 @@ export default function Home() {
       <div className="hero-glow hero-glow-left" aria-hidden="true" />
       <div className="hero-glow hero-glow-right" aria-hidden="true" />
       <MobileSpeedDial />
-      <div className="page-settings-gear">
+      <div className={`page-settings-gear${heroEntered ? " is-entered" : ""}`}>
         <NavSettingsGear />
       </div>
 
       {/* ── 1. HEADER ── */}
-      <HeaderSection />
+      <HeaderSection entered={heroEntered} onReveal={revealHero} />
 
       {/* ── 2. PROBLEMAS ── */}
       <ProblemsSection />

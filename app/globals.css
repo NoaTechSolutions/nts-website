@@ -2053,95 +2053,6 @@ a {
 /* === END NAV SETTINGS GEAR === */
 
 /* === PAGE LOADER (NOA-121) === */
-.page-loader-root {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: auto;
-}
-
-.page-loader-half {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 50vh;
-  background: #ffffff;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
-  z-index: 9999;
-}
-.page-loader-half-top {
-  top: 0;
-  transform: translateY(0);
-}
-.page-loader-half-bottom {
-  bottom: 0;
-  transform: translateY(0);
-}
-.page-loader-root.is-opening .page-loader-half-top {
-  transform: translateY(-100%);
-}
-.page-loader-root.is-opening .page-loader-half-bottom {
-  transform: translateY(100%);
-}
-
-.page-loader-center {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  transition: opacity 0.3s ease;
-}
-.page-loader-root.is-opening .page-loader-center {
-  opacity: 0;
-}
-
-.page-loader-logo {
-  width: 280px;
-  height: auto;
-  opacity: 0;
-  animation: loader-logo-in 0.3s ease forwards;
-}
-
-@keyframes loader-logo-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.page-loader-bar-track {
-  width: 280px;
-  height: 3px;
-  background: rgba(2, 41, 119, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.page-loader-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #022977, #0400f0, #05a5ff);
-  border-radius: 2px;
-  animation: loader-bar-fill 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards,
-    loader-bar-glow 0.3s ease 1.9s;
-  box-shadow: 0 0 0 rgba(4, 0, 240, 0);
-}
-
-@keyframes loader-bar-fill {
-  from { width: 0%; }
-  to { width: 100%; }
-}
-
-@keyframes loader-bar-glow {
-  0%, 100% { box-shadow: 0 0 0 rgba(4, 0, 240, 0); }
-  50% { box-shadow: 0 0 16px rgba(4, 0, 240, 0.7); }
-}
-
-/* === END PAGE LOADER === */
-
 /* ── Contact Form (NOA-80) ────────────────────────────── */
 .contact-form {
   position: relative;
@@ -3172,6 +3083,91 @@ a {
 
 .is-hero-exp .hero-stat-copy {
   text-align: left;
+}
+
+/* ── Entrada escalonada del hero ───────────────────────────
+   Los elementos del hero arrancan ocultos y se revelan en cascada
+   cuando HeaderSection agrega .is-entered (robot 3D listo, o el
+   fallback de seguridad a 3.5s). El robot NO se incluye acá: conserva
+   su propia animación de zoom del scene de Spline.
+
+   El navbar (> div:first-child) es position:fixed internamente → NO se
+   le aplica transform (crearía containing block y rompería el fixed).
+   Entra solo con opacity + blur. El resto usa transform + blur + scale. */
+
+/* Navbar: SOLO opacity. Es ancestro de un elemento position:fixed (el navbar
+   interno), y tanto `transform` como `filter` (¡incluido blur(0)!) crean un
+   containing block que reancla el fixed al wrapper en vez del viewport → lo
+   empujaría fuera del borde superior. opacity es la única prop segura acá.
+
+   z-index alto + NADA de will-change: el wrapper crea un stacking context (por
+   su z-index), y así el navbar interno (z-40) sube CON él por delante de las
+   secciones. Usar will-change:opacity crearía un stacking context de valor 0
+   que ATRAPA el navbar detrás del contenido al scrollear. */
+.hero-reveal > div:first-child {
+  position: relative;
+  z-index: 70;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.hero-reveal.is-entered > div:first-child {
+  opacity: 1;
+}
+
+/* Bloque de texto: fade + blur-in + subida + escala */
+.hero-reveal .hero-badge,
+.hero-reveal .hero-title-showcase,
+.hero-reveal .hero-copy-showcase,
+.hero-reveal .hero-actions,
+.hero-reveal .hero-stats {
+  opacity: 0;
+  filter: blur(14px);
+  transition:
+    opacity 0.95s ease,
+    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.95s ease;
+  will-change: opacity, transform, filter;
+}
+
+/* Estado inicial diferenciado por elemento (distancia + escala) */
+.hero-reveal .hero-badge { transform: translateY(22px) scale(0.9); }
+.hero-reveal .hero-title-showcase { transform: translateY(38px) scale(0.93); }
+.hero-reveal .hero-copy-showcase { transform: translateY(30px); }
+.hero-reveal .hero-actions { transform: translateY(28px) scale(0.97); }
+.hero-reveal .hero-stats { transform: translateY(26px); }
+
+/* Estado revelado */
+.hero-reveal.is-entered .hero-badge,
+.hero-reveal.is-entered .hero-title-showcase,
+.hero-reveal.is-entered .hero-copy-showcase,
+.hero-reveal.is-entered .hero-actions,
+.hero-reveal.is-entered .hero-stats {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Cascada con más aire: navbar → badge → título → copy → botones → stats */
+.hero-reveal.is-entered > div:first-child { transition-delay: 0s; }
+.hero-reveal.is-entered .hero-badge { transition-delay: 0.22s; }
+.hero-reveal.is-entered .hero-title-showcase { transition-delay: 0.4s; }
+.hero-reveal.is-entered .hero-copy-showcase { transition-delay: 0.62s; }
+.hero-reveal.is-entered .hero-actions { transition-delay: 0.82s; }
+.hero-reveal.is-entered .hero-stats { transition-delay: 1s; }
+
+/* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal > div:first-child,
+  .hero-reveal .hero-badge,
+  .hero-reveal .hero-title-showcase,
+  .hero-reveal .hero-copy-showcase,
+  .hero-reveal .hero-actions,
+  .hero-reveal .hero-stats {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Visual 3D */

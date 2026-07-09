@@ -12,8 +12,16 @@
 import { SplineScene } from "@/components/ui/splite";
 import type { Application } from "@splinetool/runtime";
 
-export function HeroRobot3D() {
+// Margen (ms) tras el onLoad de Spline para dejar correr la animación de
+// entrada (zoom) del propio scene antes de revelar el contenido del hero.
+const ROBOT_ENTRANCE_MS = 1100;
+
+export function HeroRobot3D({ onReady }: { onReady?: () => void }) {
   const handleLoad = (spline: Application) => {
+    // El scene ya está descargado y parseado. Su zoom de entrada corre ahora;
+    // avisamos al hero tras un margen para encadenar la entrada escalonada.
+    window.setTimeout(() => onReady?.(), ROBOT_ENTRANCE_MS);
+
     const objects = spline.getAllObjects();
 
     // Nombres de las piezas → mirar en DevTools del browser (F12 → Console).
