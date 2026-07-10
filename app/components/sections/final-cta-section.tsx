@@ -1,5 +1,7 @@
 "use client";
 
+import type { MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CreditCard, MessageCircle, Sparkles } from "lucide-react";
 import { useLanguage } from "../language-provider";
 import { Boxes } from "@/components/ui/background-boxes";
@@ -9,6 +11,30 @@ import { translations } from "@/lib/i18n";
 export function FinalCtaSection() {
   const { locale } = useLanguage();
   const t = translations[locale];
+
+  // Spotlight interactivo (mismo efecto que CTA1). Ver .cta-spotlight en CSS.
+  const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef(0);
+  const [lit, setLit] = useState(false);
+
+  const handleMove = (event: ReactMouseEvent<HTMLElement>) => {
+    const el = sectionRef.current;
+    if (!el || rafRef.current) return;
+    const { clientX, clientY } = event;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--spot-x", `${clientX - rect.left}px`);
+      el.style.setProperty("--spot-y", `${clientY - rect.top}px`);
+    });
+  };
+
+  useEffect(
+    () => () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    },
+    [],
+  );
 
   const ctaPriceHighlight =
     t.ctaSection.priceTag.match(/\$\d[\d.,]*/)?.[0] ?? t.ctaSection.priceTag;
@@ -59,7 +85,14 @@ export function FinalCtaSection() {
   );
 
   return (
-    <section id="contacto" className="section-divider contact-final-section">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setLit(true)}
+      onMouseLeave={() => setLit(false)}
+      id="contacto"
+      className={`section-divider contact-final-section cta-spotlight-section${lit ? " is-lit" : ""}`}
+    >
       <div className="contact-final-background" aria-hidden="true">
         <Boxes />
         <div
@@ -70,6 +103,10 @@ export function FinalCtaSection() {
           }}
         />
       </div>
+
+      {/* Spotlight: halo de luz + núcleo (cursor) que siguen al mouse */}
+      <div className="cta-spotlight" aria-hidden="true" />
+      <div className="cta-spotlight-core" aria-hidden="true" />
 
       <div className="contact-final-shell">
         <div className="contact-final-copy">

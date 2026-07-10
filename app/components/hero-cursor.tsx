@@ -2,9 +2,9 @@
 
 // ─────────────────────────────────────────────────────────────
 // Cursor custom por ZONA (coherencia de diseño):
-//   · #home, #servicios → retículo 3D tech (escáner + núcleo)
-//   · .growth-section   → triángulo de advertencia (warning)
-//   · resto             → oculto, vuelve el cursor default
+//   · default (toda la página) → retículo 3D tech (escáner + núcleo)
+//   · .growth-section          → triángulo de advertencia (warning)
+//   · CTAs (.cta-spotlight-section) y footer → oculto (tienen spotlight propio)
 // Escucha en window y decide la zona con closest(). pointer-events:none.
 // El cursor default se esconde vía CSS en esas zonas.
 // ─────────────────────────────────────────────────────────────
@@ -26,9 +26,10 @@ export function HeroCursor() {
   useEffect(() => {
     const move = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
-      let z: Zone = null;
-      if (el?.closest("#home, #servicios")) z = "tech";
-      else if (el?.closest(".growth-section")) z = "warning";
+      // Default: retículo tech en toda la página. Excepciones con efecto propio.
+      let z: Zone = "tech";
+      if (el?.closest(".growth-section")) z = "warning";
+      else if (el?.closest(".cta-spotlight-section, footer")) z = null;
 
       setZone(z);
       if (z) {

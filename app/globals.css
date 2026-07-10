@@ -3438,14 +3438,17 @@ a {
 @keyframes hero-robot-spin {
   to { transform: rotate(360deg); }
 }
-/* Cursor 3D tech (#home + #servicios) + cursor de warning (.growth-section) */
-#home,
-#home *,
-#servicios,
-#servicios *,
-.growth-section,
-.growth-section * {
-  cursor: none; /* escondemos el cursor default; lo reemplaza el custom */
+/* Cursor custom (retículo tech) en TODA la página; reemplaza el default.
+   Excepciones (otro efecto manda): CTAs y footer ocultan el retículo vía JS y
+   ponen su propio cursor:none. Los inputs conservan el cursor de texto. */
+body {
+  cursor: none;
+}
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  cursor: auto;
 }
 .hero-cursor {
   position: fixed;
@@ -4687,6 +4690,127 @@ a {
   z-index: 0;
   overflow: hidden;
   pointer-events: auto;
+}
+
+/* ── Spotlight interactivo (CTA1) ──────────────────────────
+   Un foco de luz sigue el cursor sobre el fondo oscuro. Vive en z-5:
+   ilumina el fondo (z-0, boxes) por mix-blend screen, pero el contenido
+   (shell, z-10) queda por encima intacto. El núcleo (z-20) hace de cursor.
+   Ambas capas se mueven con transform (GPU). Con JS activo se oculta el
+   cursor default. */
+.cta-spotlight-section.is-lit {
+  cursor: none;
+}
+
+.cta-spotlight,
+.cta-spotlight-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(var(--spot-x, 50%), var(--spot-y, 50%));
+  will-change: transform, opacity;
+}
+
+.cta-spotlight {
+  z-index: 5;
+  width: 980px;
+  height: 980px;
+  margin: -490px 0 0 -490px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 214, 146, 0.46) 0%,
+    rgba(255, 184, 98, 0.22) 32%,
+    rgba(255, 170, 80, 0.08) 50%,
+    transparent 68%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.4s ease;
+}
+
+.cta-spotlight-core {
+  z-index: 20;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #fff7cc 0%,
+    #ffdd33 42%,
+    transparent 72%
+  );
+  box-shadow: 0 0 28px 10px rgba(255, 221, 51, 0.62);
+  transition: opacity 0.25s ease;
+}
+
+.cta-spotlight-section.is-lit .cta-spotlight,
+.cta-spotlight-section.is-lit .cta-spotlight-core {
+  opacity: 1;
+}
+
+/* Mientras el cursor está en la sección, el CTA "late" con un halo amarillo
+   brillante que lo señala. Reemplaza el btn-glow-pulse base; conserva la
+   sombra 3D (0 4px 0 #b36b00). El overflow:hidden del botón NO recorta el
+   box-shadow, así que el anillo se expande fuera. El :hover lo cancela. */
+.cta-spotlight-section.is-lit .btn-cta-navy {
+  animation: mid-cta-signal 1.4s ease-out infinite;
+}
+@keyframes mid-cta-signal {
+  0% {
+    box-shadow:
+      0 4px 0 #b36b00,
+      0 0 18px rgba(255, 221, 51, 0.6),
+      0 0 0 0 rgba(255, 221, 51, 0.5);
+  }
+  70% {
+    box-shadow:
+      0 4px 0 #b36b00,
+      0 0 26px rgba(255, 221, 51, 0.75),
+      0 0 0 18px rgba(255, 221, 51, 0);
+  }
+  100% {
+    box-shadow:
+      0 4px 0 #b36b00,
+      0 0 18px rgba(255, 221, 51, 0.6),
+      0 0 0 0 rgba(255, 221, 51, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-spotlight-section.is-lit .btn-cta-navy {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-spotlight {
+    transition: none;
+  }
+}
+
+/* Variante del footer (fondo dark → luz blanca). Halo y núcleo van por encima
+   del contenido del footer (z-40) con mix-blend screen; el núcleo hace de
+   cursor. La opacidad del halo es baja para no lavar el texto. */
+.footer-spotlight .cta-spotlight {
+  z-index: 45;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 34%,
+    transparent 66%
+  );
+}
+.footer-spotlight .cta-spotlight-core {
+  z-index: 50;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.92) 45%,
+    transparent 72%
+  );
+  box-shadow: 0 0 26px 9px rgba(255, 255, 255, 0.42);
 }
 
 .mid-cta-distortion {

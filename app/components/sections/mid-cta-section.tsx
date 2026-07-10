@@ -1,5 +1,7 @@
 "use client";
 
+import type { MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../language-provider";
 import { Boxes } from "@/components/ui/background-boxes";
 import { translations } from "@/lib/i18n";
@@ -7,6 +9,32 @@ import { translations } from "@/lib/i18n";
 export function MidCtaSection() {
   const { locale } = useLanguage();
   const t = translations[locale];
+
+  // Spotlight interactivo: un foco de luz que sigue el cursor SOLO en esta
+  // sección (fondo oscuro). Actualiza --spot-x/--spot-y vía rAF y las capas se
+  // mueven con transform (GPU), sin re-render de React ni repaint del gradiente.
+  const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef(0);
+  const [lit, setLit] = useState(false);
+
+  const handleMove = (event: ReactMouseEvent<HTMLElement>) => {
+    const el = sectionRef.current;
+    if (!el || rafRef.current) return;
+    const { clientX, clientY } = event;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--spot-x", `${clientX - rect.left}px`);
+      el.style.setProperty("--spot-y", `${clientY - rect.top}px`);
+    });
+  };
+
+  useEffect(
+    () => () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    },
+    [],
+  );
 
   const midCtaTitle =
     locale === "es" ? (
@@ -24,7 +52,13 @@ export function MidCtaSection() {
     );
 
   return (
-    <section className="section-divider services-proof-section">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setLit(true)}
+      onMouseLeave={() => setLit(false)}
+      className={`section-divider services-proof-section cta-spotlight-section${lit ? " is-lit" : ""}`}
+    >
       <div className="mid-cta-background" aria-hidden="true">
         <Boxes />
         <div
@@ -35,6 +69,10 @@ export function MidCtaSection() {
           }}
         />
       </div>
+
+      {/* Spotlight: halo de luz + núcleo (cursor) que siguen al mouse */}
+      <div className="cta-spotlight" aria-hidden="true" />
+      <div className="cta-spotlight-core" aria-hidden="true" />
 
       <div className="mid-cta-shell">
         <h2 className="mid-cta-title">{midCtaTitle}</h2>
