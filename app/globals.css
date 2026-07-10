@@ -2223,10 +2223,7 @@ a {
   padding: 6.25rem 1.5rem 7rem;
   overflow: hidden;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 12% 12%, rgba(5, 165, 255, 0.14), transparent 22%),
-    radial-gradient(circle at 88% 14%, rgba(255, 153, 0, 0.15), transparent 20%),
-    linear-gradient(180deg, #f4f9ff 0%, #edf6ff 44%, #ffffff 100%);
+  background: var(--bg-page);
 }
 
 .contact-faq-background {
