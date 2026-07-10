@@ -12,6 +12,8 @@ import {
   Megaphone,
   LifeBuoy,
   ArrowUpRight,
+  Check,
+  Star,
 } from "lucide-react";
 
 // 4 categorías del brief (web-structure.md §4). Orden: estrella primero.
@@ -20,28 +22,25 @@ const cardData = [
   {
     icon: Code2,
     badge: "Web & Software",
-    footer: "Hecho para escalar tu negocio",
+    featured: true,
     benefits: ["Software a medida", "Carga veloz", "Escalable"],
     modifier: "services-stack-card-web",
   },
   {
     icon: Palette,
     badge: "Marca",
-    footer: "Creado para diferenciarte",
     benefits: ["Branding", "Diseño gráfico", "Identidad sólida"],
     modifier: "services-stack-card-branding",
   },
   {
     icon: Megaphone,
     badge: "Marketing",
-    footer: "Pensado para convertir",
     benefits: ["Más leads", "Redes sociales", "Campañas efectivas"],
     modifier: "services-stack-card-marketing",
   },
   {
     icon: LifeBuoy,
     badge: "Soporte",
-    footer: "Listo para acompañarte",
     benefits: ["Hosting", "Mantenimiento", "Asesoría tech"],
     modifier: "services-stack-card-seo",
   },
@@ -136,6 +135,7 @@ export function ServicesSection() {
                 index={index + 3}
                 incrementY={20}
                 incrementZ={8}
+                data-featured={card.featured ? "true" : undefined}
                 className={`services-stack-card ${card.modifier} w-full`}
                 style={{
                   ...(cardTop ? { top: cardTop } : {}),
@@ -143,24 +143,29 @@ export function ServicesSection() {
                   opacity: Math.max(1 - reversedIndex * 0.04, 0.88),
                 } as CSSProperties}
               >
-                <p className="services-stack-footer">{card.footer}</p>
                 <div className="services-stack-card-top">
                   <span className="services-stack-icon">
-                    <Icon size={18} strokeWidth={2.1} />
+                    <Icon size={20} strokeWidth={2.1} />
                   </span>
                   <span className="services-stack-card-badge">
+                    {card.featured ? (
+                      <Star size={12} strokeWidth={2.5} fill="currentColor" />
+                    ) : null}
                     {card.badge}
                   </span>
                 </div>
                 <h3 className="services-stack-title">{item.title}</h3>
                 <p className="services-stack-description">{item.description}</p>
-                <div className="services-stack-benefits">
+                <ul className="services-stack-benefits">
                   {card.benefits.map((b) => (
-                    <span key={b} className="services-stack-benefit">
+                    <li key={b} className="services-stack-benefit">
+                      <span className="services-stack-benefit-check">
+                        <Check size={13} strokeWidth={3} />
+                      </span>
                       {b}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
                 <div className="services-stack-card-actions">
                   <a href="/servicios" className="services-stack-card-cta">
                     <span>{t.servicesSection.cardCta}</span>

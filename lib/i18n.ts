@@ -68,7 +68,7 @@ export const translations = {
       eyebrow: "Soluciones digitales",
       title: "Impulsamos tu",
       copy:
-        "Combinamos estrategia, diseno, tecnologia y marketing para que tu marca se vea profesional, atraiga mejores oportunidades y convierta mas visitas en clientes reales.",
+        "Desde tu página web y software a medida hasta tu marca, marketing y soporte: reunimos todo lo que tu negocio necesita para crecer online en un solo equipo.",
       cta: "Ver soluciones",
       cardCta: "Mas info",
       items: [
@@ -436,7 +436,7 @@ export const translations = {
       eyebrow: "Digital solutions",
       title: "We grow your",
       copy:
-        "We combine strategy, design, technology, and marketing so your brand looks professional, attracts better opportunities, and turns more visits into real clients.",
+        "From your website and custom software to branding, marketing, and support: everything your business needs to grow online, brought together by one team.",
       cta: "View solutions",
       cardCta: "More info",
       items: [
