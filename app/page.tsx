@@ -79,7 +79,7 @@ export default function Home() {
       <MidCtaSection />
 
       {/* ── 5. PROCEDIMIENTO ── */}
-      <div id="proceso" className="grid-shell">
+      <div className="grid-shell">
         <ProcessSection />
       </div>
 
@@ -87,7 +87,7 @@ export default function Home() {
       <PortfolioSection />
 
       {/* ── 7. TESTIMONIOS ── */}
-      <div id="reviews" className="grid-shell">
+      <div className="grid-shell">
         <TestimonialsSection />
       </div>
 
