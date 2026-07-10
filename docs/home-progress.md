@@ -1,7 +1,44 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-08 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-09 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+
+---
+
+## 🔜 PARA MAÑANA (2026-07-10) — MODO TELÉFONO (mobile)
+
+> ⚠️ **Restricción del usuario:** trabajar **SOLO la vista de teléfono** (media queries `max-width`, ~≤767px). **NO mover nada** de tablet/desktop.
+
+**Tareas (en orden):**
+
+1. **Robot del header — reubicar en mobile** *(decisión abierta: definir dónde va)*
+   - Archivos: `app/components/sections/hero-robot-3d.tsx` + CSS `.hero-robot-stage` / `.hero-exp3d-stage` (`globals.css`, media queries mobile ~L3320-3365).
+   - Hoy el robot sangra al borde derecho detrás del texto. En pantalla chica hay que decidir: ¿arriba del texto? ¿más chico? ¿de fondo con opacidad? — **pendiente de definir con el usuario.**
+
+2. **Quitar el botón de configuración (gear) de la esquina superior DERECHA en mobile**
+   - Motivo: ya existe otro control arriba a la IZQUIERDA → `MobileSpeedDial` (`app/components/mobile-speed-dial.tsx`, montado en `app/page.tsx`). El gear es redundante en mobile.
+   - Acción: ocultar `.page-settings-gear` en mobile → `@media (max-width: 767px){ .page-settings-gear{ display:none } }` en `globals.css`. (El gear se renderiza en `page.tsx` → `<div className="page-settings-gear"><NavSettingsGear/></div>`.)
+   - Verificar que `MobileSpeedDial` cubra idioma + tema; si no, mover esas opciones ahí.
+
+3. **Centrar el header (título + botones + stats) en mobile**
+   - Hoy están a la izquierda: `.is-hero-exp .hero-content { justify-items:start; text-align:left }` (`globals.css` ~L3143).
+   - Acción: en la media query mobile de `.hero-content` (~L6831), centrar → `justify-items:center; text-align:center`, y `.hero-actions{ justify-content:center }`, stats centradas. Solo mobile.
+
+4. **Quitar el cursor custom en mobile** *(no sirve en touch)*
+   - `app/components/hero-cursor.tsx`: no montar/activar el efecto en `(hover: none)` o `(pointer: coarse)`. Ojo: hoy se agregó `body{ cursor:none }` global — revisar que en mobile no cause problemas (idealmente gatearlo también a dispositivos con hover).
+
+---
+
+## 🆕 Sesión 2026-07-09 (resumen — 6 commits, `145f2dc`→`ac7fed3`)
+
+- **feat(services)** `145f2dc`: rediseño color-por-servicio (var `--card-accent`) + estrella destacada (Web & Software).
+- **feat(process)** `a2f2568`: sección proceso reescrita a fases reales (descubrimiento/estrategia/construcción/lanzamiento) + barra de progreso vertical liberada + cards livianas (link subrayado) + imágenes WebP 1600×900 (~100KB, antes hasta 10MB).
+- **feat(ux)** `6d8cdf7`: cursor tech **global** (`body cursor:none`, inputs exceptuados; excepciones: warning, CTAs, footer) + **spotlight** interactivo (halo + núcleo amarillo + botón que late) en CTA1 y CTA2, generalizado a clases `.cta-spotlight`.
+- **fix(faq)** `265ceff`: fondo blanco (`var(--bg-page)`, antes gradiente azulado que cortaba).
+- **feat(footer)** `fed9be6`: spotlight blanco (fondo dark) + redes reales (Facebook/Instagram/**X**/**TikTok** con SVG propios) + labels de servicios a las 4 categorías + `/branding` roto→`/servicios` + **rutas portfolio unificadas a `/portfolio`** (`/portafolio` → 308 redirect) + subtítulo portfolio humanizado/SEO.
+- **chore** `ac7fed3`: limpieza de assets sin uso + dedupe de ids `#proceso`/`#reviews`.
+- Además: convertidas 4 imágenes del proceso a WebP con `sharp`; limpieza de ~28MB en `public/`.
+- **Pendientes:** Resend (infra DNS/API key para leads en `contact@`); optimizar los 8 `*-raw.png` del portfolio (~13MB) a WebP; mascota Noa huérfana (se MANTIENE por marca NOA-229); footer/chips proceso hardcoded en español (no localizados EN).
 
 ---
 
