@@ -232,9 +232,9 @@ export const translations = {
       ],
     },
     portfolioSection: {
-      title: "Trabajos Que Hablan Por Si Solos",
+      title: "Trabajos que hablan por sí solos",
       copy:
-        "Descubre una seleccion de proyectos creados para inspirar, transmitir confianza y demostrar hasta donde puede llegar una marca cuando su presencia digital se ve fuerte, cuidada y memorable.",
+        "Detrás de cada proyecto hay una persona que confió en nosotros para llevar su negocio más lejos. Sitios web, tiendas online y marcas reales, diseñadas para verse profesionales y convertir visitas en clientes.",
       accent: "El siguiente puede ser el tuyo.",
       ctaLabel: "Ver mas proyectos",
     },
@@ -600,9 +600,9 @@ export const translations = {
       ],
     },
     portfolioSection: {
-      title: "Work That Speaks For Itself",
+      title: "Work that speaks for itself",
       copy:
-        "Discover a curated selection of projects designed to inspire, build trust, and show how far a brand can go when its digital presence feels strong, polished, and memorable.",
+        "Behind every project there's a real person who trusted us to take their business further. Websites, online stores, and brands built to look professional and turn visitors into customers.",
       accent: "The next one could be yours.",
       ctaLabel: "See more projects",
     },

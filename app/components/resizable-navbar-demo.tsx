@@ -45,7 +45,7 @@ export function ResizableNavbarDemo() {
     },
     {
       name: t.nav.solutions,
-      link: "/portafolio",
+      link: "/portfolio",
     },
     {
       name: t.nav.about,

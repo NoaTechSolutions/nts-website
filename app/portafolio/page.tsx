@@ -1,12 +1,7 @@
-import type { Metadata } from "next";
-import { PlaceholderPage } from "../components/placeholder-page";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Portafolio de Proyectos",
-  description:
-    "Casos de estudio y proyectos destacados de NoaTechSolutions — diseño web, branding y soluciones digitales.",
-};
-
+// Ruta unificada: /portafolio (es) → /portfolio (la página real con el grid).
+// Redirect permanente (308) para no dejar contenido duplicado ni enlaces rotos.
 export default function PortafolioPage() {
-  return <PlaceholderPage title="Portafolio de Proyectos" />;
+  permanentRedirect("/portfolio");
 }
