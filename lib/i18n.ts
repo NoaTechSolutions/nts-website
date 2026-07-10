@@ -132,35 +132,35 @@ export const translations = {
       items: [
         {
           step: "01",
-          title: "Te damos ideas claras para hacer crecer tu marca",
+          title: "Escuchamos y entendemos tu negocio",
           detail:
-            "Analizamos tu negocio, detectamos oportunidades y te asesoramos con ideas practicas para que tu marca conecte mejor, venda mas y se vea mas fuerte en internet.",
+            "Nos sentamos contigo para conocer tu marca, tus objetivos y tus clientes. Sin un buen diagnóstico no hay una buena solución.",
           cardDetail:
-            "Te ayudamos a descubrir que hace especial a tu marca para que la gente la entienda rapido, la recuerde y quiera dar el siguiente paso contigo.",
+            "Analizamos tu marca, tu mercado y tu competencia para entender qué te hace diferente y por dónde conviene empezar.",
         },
         {
           step: "02",
-          title: "Mejoramos tu presencia en Google y en redes",
+          title: "Diseñamos el plan a tu medida",
           detail:
-            "Organizamos tu web y optimizamos tus redes con SEO claro, contenido util y mensajes que ayudan a que mas personas te encuentren y confien en ti.",
+            "Definimos la ruta: qué construir, con qué prioridad y para qué. En cada paso sabes qué sigue y por qué lo hacemos.",
           cardDetail:
-            "Hacemos que tu negocio se vea mejor en Google y redes con mensajes claros, contenido util y una presencia que inspire confianza desde el primer clic.",
+            "Convertimos ese diagnóstico en un plan concreto: objetivos, entregables y prioridades claras, sin humo ni promesas vacías.",
         },
         {
           step: "03",
-          title: "Integramos herramientas que te ahorran tiempo",
+          title: "Construimos tu proyecto",
           detail:
-            "Sumamos soluciones tecnologicas y recursos digitales que te ayudan a atender mejor, ordenar procesos y dar una imagen mas profesional a tu negocio.",
+            "Diseñamos y desarrollamos con estándar profesional y te mostramos avances en el camino, sin cajas negras ni sorpresas.",
           cardDetail:
-            "Incorporamos herramientas digitales que ordenan tu dia a dia, agilizan tu trabajo y hacen que atender clientes se sienta mas facil y mas profesional.",
+            "Damos vida al proyecto con diseño y desarrollo profesional, revisando contigo cada avance importante antes de seguir.",
         },
         {
           step: "04",
-          title: "Te acompanamos para seguir creciendo",
+          title: "Lanzamos y te acompañamos",
           detail:
-            "Te damos asesoria continua, revisamos que esta funcionando y ajustamos web, SEO y redes para atraer mas clientes y mejorar tus resultados con el tiempo.",
+            "Publicamos, medimos resultados y ajustamos para que sigas creciendo. No desaparecemos después de entregar.",
           cardDetail:
-            "No te dejamos solo despues del lanzamiento: medimos, ajustamos y seguimos afinando tu web, SEO y redes para que tu marca siga creciendo con claridad.",
+            "Medimos, optimizamos y te acompañamos con soporte continuo para que tu negocio siga creciendo con el tiempo.",
         },
       ],
     },
@@ -500,35 +500,35 @@ export const translations = {
       items: [
         {
           step: "01",
-          title: "We give you clear ideas to grow your brand",
+          title: "We listen and understand your business",
           detail:
-            "We analyze your business, uncover opportunities, and guide you with practical ideas so your brand connects better, sells more, and looks stronger online.",
+            "We sit down with you to learn your brand, your goals, and your customers. There's no good solution without a good diagnosis.",
           cardDetail:
-            "We help you uncover what makes your brand special so people understand it quickly, remember it, and feel ready to take the next step with you.",
+            "We analyze your brand, your market, and your competition to understand what sets you apart and where to begin.",
         },
         {
           step: "02",
-          title: "We improve your presence on Google and social media",
+          title: "We design a plan that fits you",
           detail:
-            "We organize your website and optimize your social channels with clear SEO, useful content, and messaging that helps more people find and trust you.",
+            "We map out the roadmap: what to build, in what order, and why. At every step you know what's next and the reason behind it.",
           cardDetail:
-            "We make your business look stronger on Google and social media with clear messaging, useful content, and a presence that builds trust from the first click.",
+            "We turn that diagnosis into a concrete plan: goals, deliverables, and clear priorities, with no fluff or empty promises.",
         },
         {
           step: "03",
-          title: "We integrate tools that save you time",
+          title: "We build your project",
           detail:
-            "We add technology solutions and digital tools that help you respond better, organize processes, and give your business a more professional image.",
+            "We design and develop to a professional standard and show you progress along the way, with no black boxes or surprises.",
           cardDetail:
-            "We bring in digital tools that streamline your day, make your workflow lighter, and help every client interaction feel smoother and more professional.",
+            "We bring the project to life with professional design and development, reviewing each key milestone with you before moving on.",
         },
         {
           step: "04",
-          title: "We stay with you so you keep growing",
+          title: "We launch and stay with you",
           detail:
-            "We provide ongoing guidance, review what is working, and refine your website, SEO, and social media so you can attract more clients over time.",
+            "We publish, measure results, and fine-tune so you keep growing. We don't disappear after delivery.",
           cardDetail:
-            "We stay with you after launch to measure, refine, and keep improving your website, SEO, and social media so your brand keeps growing with clarity.",
+            "We measure, optimize, and support you continuously so your business keeps growing over time.",
         },
       ],
     },

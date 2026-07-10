@@ -17,10 +17,10 @@ type ProcessItem = {
 };
 
 const processHighlights = [
-  ["Ideas claras", "Asesoria cercana", "Enfoque comercial"],
-  ["SEO entendible", "Redes optimizadas", "Mas alcance"],
-  ["Herramientas utiles", "Procesos mas agiles", "Mas confianza"],
-  ["Acompanamiento", "Resultados medibles", "Mejora continua"],
+  ["Diagnóstico real", "Escucha activa", "Enfoque comercial"],
+  ["Plan claro", "Prioridades", "Sin humo"],
+  ["Avances visibles", "Estándar pro", "Sin cajas negras"],
+  ["Soporte continuo", "Resultados medibles", "Mejora continua"],
 ];
 const processThemes = [
   "from-[#02004f] via-[#0400f0] to-[#3551ff]",
@@ -61,24 +61,24 @@ const processStepTextThemes = [
 ];
 const processCardImages = [
   {
-    src: "/noatechsolutions-brand-strategy-consulting-session.jpg",
-    alt: "Sesion de asesoria en estrategia de marca y crecimiento digital para negocios",
-    title: "Asesoria de estrategia de marca para fortalecer presencia digital y ventas",
+    src: "/noatechsolutions-descubrimiento-diagnostico-negocio.webp",
+    alt: "Sesión de descubrimiento donde escuchamos y entendemos el negocio, la marca y los objetivos del cliente",
+    title: "Paso 1: escuchamos y entendemos tu negocio antes de proponer soluciones",
   },
   {
-    src: "/noatechsolutions-social-media-marketing-visibility.jpg",
-    alt: "Gestion de redes sociales y marketing digital para mejorar visibilidad y alcance online",
-    title: "Marketing digital y redes sociales para ganar alcance, confianza y mas clientes",
+    src: "/noatechsolutions-estrategia-plan-digital.webp",
+    alt: "Planificación de la estrategia digital con hoja de ruta, prioridades y entregables claros",
+    title: "Paso 2: diseñamos el plan a tu medida con una ruta clara",
   },
   {
-    src: "/noatechsolutions-digital-tools-dashboard.jpg",
-    alt: "Herramientas digitales y panel de gestion para organizar procesos, tareas y clientes",
-    title: "Herramientas digitales para automatizar procesos y trabajar con mas orden",
+    src: "/noatechsolutions-desarrollo-web-software-medida.webp",
+    alt: "Diseño y desarrollo del proyecto web y software a medida con estándar profesional",
+    title: "Paso 3: construimos tu proyecto mostrándote los avances en el camino",
   },
   {
-    src: "/noatechsolutions-business-growth-strategy.jpg",
-    alt: "Estrategia de crecimiento digital con seguimiento, analisis y mejora continua para negocios",
-    title: "Acompanamiento estrategico para crecer con optimizacion y resultados medibles",
+    src: "/noatechsolutions-lanzamiento-resultados-acompanamiento.webp",
+    alt: "Lanzamiento, medición de resultados y acompañamiento continuo para seguir creciendo",
+    title: "Paso 4: lanzamos y te acompañamos con soporte continuo",
   },
 ];
 
@@ -168,34 +168,25 @@ export function ProcessSection() {
   const totalSegments = Math.max(content.length - 1, 1);
   const renderStageCard = (stageClassName: string) => (
     <div className={`process-sticky-stage ${stageClassName}`}>
-      <a
-        href="#contacto-form"
-        className="group block w-full pointer-events-auto"
-        aria-label={`${cardCtaLabel}: ${activeItem.title}`}
-      >
+      <div className="group block w-full pointer-events-auto">
         <CometCard
-          className={`flex min-h-[36rem] w-full cursor-pointer flex-col justify-between rounded-[2rem] bg-gradient-to-br ${activeItem.theme} p-8 text-white ${activeItem.shadowTheme}`}
+          className={`flex min-h-[34rem] w-full flex-col justify-between rounded-[2rem] bg-gradient-to-br ${activeItem.theme} p-8 text-white ${activeItem.shadowTheme}`}
           key={`${stageClassName}-${activeItem.step}`}
         >
           <div className="process-sticky-card-frame">
-            <div>
-              <div className="relative overflow-hidden rounded-[1.35rem] border border-white/18 bg-white/12">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_60%)]" />
-                <div className="relative h-[18rem] w-full">
-                  <Image
-                    src={activeItem.image.src}
-                    alt={activeItem.image.alt}
-                    title={activeItem.image.title}
-                    fill
-                    sizes="(min-width: 1536px) 560px, (min-width: 1280px) 38vw, (min-width: 1024px) 42vw, 100vw"
-                    quality={96}
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
+            <div className="relative overflow-hidden rounded-[1.35rem] border border-white/18 bg-white/12">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.32),transparent_60%)]" />
+              <div className="relative h-[20rem] w-full">
+                <Image
+                  src={activeItem.image.src}
+                  alt={activeItem.image.alt}
+                  title={activeItem.image.title}
+                  fill
+                  sizes="(min-width: 1536px) 560px, (min-width: 1280px) 38vw, (min-width: 1024px) 42vw, 100vw"
+                  quality={96}
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
               </div>
-              <p className="m-0 mt-6 max-w-[29rem] text-[1.02rem] leading-8 text-white/88">
-                {activeItem.cardDetail}
-              </p>
             </div>
 
             <div className="grid gap-5">
@@ -209,20 +200,22 @@ export function ProcessSection() {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center justify-between gap-4 border-t border-white/15 pt-4">
-                <p className="m-0 text-[0.82rem] font-medium uppercase tracking-[0.22em] text-white/82">
-                  {cardCtaLabel}
-                </p>
+              <a
+                href="#contacto-form"
+                className="process-card-link"
+                aria-label={`${cardCtaLabel}: ${activeItem.title}`}
+              >
+                <span>{cardCtaLabel}</span>
                 <ArrowUpRight
                   size={18}
-                  strokeWidth={2.2}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  strokeWidth={2.4}
+                  className="process-card-link-arrow"
                 />
-              </div>
+              </a>
             </div>
           </div>
         </CometCard>
-      </a>
+      </div>
     </div>
   );
 
@@ -325,7 +318,7 @@ export function ProcessSection() {
                     <article
                       key={item.step}
                       className={`grid w-full max-w-[42rem] grid-cols-[auto_1fr] items-start gap-5 text-left transition-all duration-200 ${
-                        isCurrent ? "translate-y-0 opacity-100" : "translate-y-3 opacity-30"
+                        isCurrent ? "translate-y-0" : "translate-y-1"
                       }`}
                     >
                       <div className="flex h-full flex-col items-center">
@@ -353,7 +346,11 @@ export function ProcessSection() {
                           </div>
                         ) : null}
                       </div>
-                      <div className="min-w-0">
+                      <div
+                        className={`min-w-0 transition-opacity duration-200 ${
+                          isCurrent ? "opacity-100" : "opacity-45"
+                        }`}
+                      >
                         <h3
                           className={`m-0 text-[1.5rem] font-medium leading-[1.05] tracking-[-0.04em] ${
                             isCurrent ? stepTextTheme.title : "text-[#022977]"
