@@ -7661,3 +7661,330 @@ select,
     display: contents;
   }
 }
+
+/* Puntero nativo en la página de Diseño Web: el `body { cursor: none }` global
+   (para el cursor custom del home) dejaba esta página sin puntero, porque acá no
+   se monta ese cursor. `.dw-page` (clase, > body en especificidad) lo restaura;
+   los botones/links conservan su cursor:pointer propio. */
+.dw-page {
+  cursor: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DISEÑO WEB · hero de página de servicio (/servicios/diseno-web)
+   Premium-first. Tokens que flipean en dark (--text-body, --bg-page) +
+   overrides .dark explícitos para el navy (que NO flipea solo).
+   ═══════════════════════════════════════════════════════════ */
+.dw-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem 5rem;
+  background: var(--bg-page);
+}
+
+.dw-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2rem;
+  width: min(52rem, 100%);
+}
+
+/* Bloque de texto — centrado en mobile/tablet, a la izquierda en desktop */
+.dw-hero-text {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+/* Columna 3D — oculta <1024px (no se monta); visible en desktop */
+.dw-hero-visual {
+  display: none;
+}
+
+.dw-hero-eyebrow {
+  color: var(--color-amber);
+}
+
+.dw-hero-title {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: var(--color-navy);
+}
+.dark .dw-hero-title {
+  color: #eaf1ff;
+}
+
+.dw-hero-subtitle {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.dw-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.dw-hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffb23f, var(--color-amber));
+  color: #241100;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 14px 30px rgba(255, 153, 0, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.dw-hero-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(255, 153, 0, 0.4);
+}
+.dw-hero-cta-primary svg {
+  transition: transform 0.2s ease;
+}
+.dw-hero-cta-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.dw-hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-navy) 22%, transparent);
+  color: var(--color-navy);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.dw-hero-cta-secondary:hover {
+  border-color: var(--color-navy);
+  background: color-mix(in srgb, var(--color-navy) 5%, transparent);
+}
+.dark .dw-hero-cta-secondary {
+  border-color: rgba(200, 216, 240, 0.3);
+  color: #eaf1ff;
+}
+.dark .dw-hero-cta-secondary:hover {
+  border-color: rgba(200, 216, 240, 0.6);
+  background: rgba(200, 216, 240, 0.06);
+}
+
+.dw-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4rem;
+  width: 100%;
+  max-width: 34rem;
+  margin-top: 2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-navy) 12%, transparent);
+}
+.dark .dw-hero-stats {
+  border-top-color: rgba(200, 216, 240, 0.14);
+}
+
+.dw-hero-stat {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.dw-hero-stat-value {
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.05em;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: var(--color-navy);
+}
+.dark .dw-hero-stat-value {
+  color: #eaf1ff;
+}
+
+.dw-hero-stat-label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-body);
+}
+
+/* Glows de fondo (premium, sin canvas → liviano) */
+.dw-hero-glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.dw-hero-glow-a {
+  top: -8%;
+  left: -6%;
+  width: 42vw;
+  height: 42vw;
+  max-width: 520px;
+  max-height: 520px;
+  background: radial-gradient(circle, rgba(5, 165, 255, 0.4), transparent 70%);
+}
+.dw-hero-glow-b {
+  right: -8%;
+  bottom: -12%;
+  width: 46vw;
+  height: 46vw;
+  max-width: 560px;
+  max-height: 560px;
+  background: radial-gradient(circle, rgba(2, 41, 119, 0.32), transparent 70%);
+}
+.dark .dw-hero-glow {
+  opacity: 0.65;
+}
+
+/* Desktop ≥1024: 2 columnas (texto izquierda + escena 3D derecha) */
+@media (min-width: 1024px) {
+  .dw-hero-inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 3rem;
+    width: min(80rem, 100%);
+  }
+  .dw-hero-text {
+    justify-items: start;
+    text-align: left;
+  }
+  .dw-hero-actions {
+    justify-content: flex-start;
+  }
+  .dw-hero-stats {
+    justify-content: flex-start;
+    max-width: none;
+  }
+  .dw-hero-visual {
+    display: block;
+    position: relative;
+    height: 34rem;
+    width: 100%;
+  }
+  /* El canvas de R3F llena el contenedor */
+  .dw-hero-visual canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .dw-hero {
+    padding: 7rem 1.25rem 4rem;
+  }
+  .dw-hero-stats {
+    gap: 1.4rem 2rem;
+  }
+}
+
+/* ── ANTES/DESPUÉS · pin + stage del wipe (diseno-web-showcase.tsx) ── */
+.dw-compare-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  min-height: 100vh;
+}
+/* Stage FULL-BLEED: ancho completo de la sección, alto relativo al viewport
+   (para que quepa en el pin junto al título). Sin border-radius → edge-to-edge. */
+.dw-compare-stage {
+  position: relative;
+  width: 100%;
+  height: 58vh;
+  overflow: hidden;
+  border-block: 1px solid rgba(2, 41, 119, 0.1);
+}
+.dark .dw-compare-stage {
+  border-block-color: rgba(255, 255, 255, 0.1);
+}
+.dw-compare-before,
+.dw-compare-after,
+.dw-compare-after-inner {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+.dw-compare-after {
+  overflow: hidden;
+}
+
+/* ── PORTFOLIO WEB · galería bento → fullscreen (diseno-web-gallery.tsx) ──
+   Efecto GSAP Flip: el bento se expande a pantalla completa al scrollear. */
+.dw-gallery-wrap {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.dw-gallery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: none;
+}
+.dw-gallery__item {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.dw-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dw-gallery--bento {
+  display: grid;
+  gap: 1vh;
+  grid-template-columns: repeat(3, 32.5vw);
+  grid-template-rows: repeat(4, 23vh);
+  justify-content: center;
+  align-content: center;
+}
+.dw-gallery--final.dw-gallery--bento {
+  gap: 1vh;
+  grid-template-columns: repeat(3, 100vw);
+  grid-template-rows: repeat(4, 49.5vh);
+}
+.dw-gallery--bento .dw-gallery__item:nth-child(1) { grid-area: 1 / 1 / 3 / 2; }
+.dw-gallery--bento .dw-gallery__item:nth-child(2) { grid-area: 1 / 2 / 2 / 3; }
+.dw-gallery--bento .dw-gallery__item:nth-child(3) { grid-area: 2 / 2 / 4 / 3; }
+.dw-gallery--bento .dw-gallery__item:nth-child(4) { grid-area: 1 / 3 / 3 / 3; }
+.dw-gallery--bento .dw-gallery__item:nth-child(5) { grid-area: 3 / 1 / 3 / 2; }
+.dw-gallery--bento .dw-gallery__item:nth-child(6) { grid-area: 3 / 3 / 5 / 4; }
+.dw-gallery--bento .dw-gallery__item:nth-child(7) { grid-area: 4 / 1 / 5 / 2; }
+.dw-gallery--bento .dw-gallery__item:nth-child(8) { grid-area: 4 / 2 / 5 / 3; }
