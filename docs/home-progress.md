@@ -1,31 +1,42 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-09 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-10 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
 
 ---
 
-## 🔜 PARA MAÑANA (2026-07-10) — MODO TELÉFONO (mobile)
+## 🆕 Sesión 2026-07-10 (resumen)
 
-> ⚠️ **Restricción del usuario:** trabajar **SOLO la vista de teléfono** (media queries `max-width`, ~≤767px). **NO mover nada** de tablet/desktop.
+**Mañana — home MODO TELÉFONO** (ver detalle abajo): robot oculto en mobile, gear oculto, header centrado, cursor fuera de touch, fondo **Vortex** (partículas navy/sky), ajuste de tamaño de título.
 
-**Tareas (en orden):**
+**Tarde — sección Servicios (home)**: reescrita a **scrollytelling pinneado** — las cards entran una por una desde la derecha y se apilan al centro, escrubeado por scroll (después de varias iteraciones: el approach final es sección alta 400vh + pin + `useScroll` con tramos por card). Card **rediseñada compacta** para mobile (bento chips, max-width para que sea cuadrada en teléfonos anchos).
 
-1. **Robot del header — reubicar en mobile** *(decisión abierta: definir dónde va)*
-   - Archivos: `app/components/sections/hero-robot-3d.tsx` + CSS `.hero-robot-stage` / `.hero-exp3d-stage` (`globals.css`, media queries mobile ~L3320-3365).
-   - Hoy el robot sangra al borde derecho detrás del texto. En pantalla chica hay que decidir: ¿arriba del texto? ¿más chico? ¿de fondo con opacidad? — **pendiente de definir con el usuario.**
+**Nueva página: DISEÑO WEB** (`/servicios/diseno-web`) — estructura completa de 12 secciones. 👉 **Ver `docs/diseno-web-page.md`** (mapa de secciones + estado + pendientes). Destacados: hero con **3D (React Three Fiber)**, **antes/después** (wipe scroll con Motion), **galería bento→fullscreen** (GSAP Flip), e **integración global Lenis↔ScrollTrigger**.
 
-2. **Quitar el botón de configuración (gear) de la esquina superior DERECHA en mobile**
-   - Motivo: ya existe otro control arriba a la IZQUIERDA → `MobileSpeedDial` (`app/components/mobile-speed-dial.tsx`, montado en `app/page.tsx`). El gear es redundante en mobile.
-   - Acción: ocultar `.page-settings-gear` en mobile → `@media (max-width: 767px){ .page-settings-gear{ display:none } }` en `globals.css`. (El gear se renderiza en `page.tsx` → `<div className="page-settings-gear"><NavSettingsGear/></div>`.)
-   - Verificar que `MobileSpeedDial` cubra idioma + tema; si no, mover esas opciones ahí.
+> ⚠️ **TODO sin commitear** (home mobile + página nueva). Asegurar en commits antes de seguir.
+> ⚠️ **Regla del usuario:** cambios "solo mobile" NO deben tocar tablet/desktop (usar `order`/`lg:` resets, media queries acotadas).
 
-3. **Centrar el header (título + botones + stats) en mobile**
-   - Hoy están a la izquierda: `.is-hero-exp .hero-content { justify-items:start; text-align:left }` (`globals.css` ~L3143).
-   - Acción: en la media query mobile de `.hero-content` (~L6831), centrar → `justify-items:center; text-align:center`, y `.hero-actions{ justify-content:center }`, stats centradas. Solo mobile.
+---
 
-4. **Quitar el cursor custom en mobile** *(no sirve en touch)*
-   - `app/components/hero-cursor.tsx`: no montar/activar el efecto en `(hover: none)` o `(pointer: coarse)`. Ojo: hoy se agregó `body{ cursor:none }` global — revisar que en mobile no cause problemas (idealmente gatearlo también a dispositivos con hover).
+## ✅ HECHO (2026-07-10) — MODO TELÉFONO (mobile) · las 4 tareas cerradas
+
+> ⚠️ **Restricción respetada:** todo acotado a **teléfono** (`max-width: 767px` / `hover: none`). **Tablet y desktop NO se tocaron.** Verificado: dev server HTTP 200, compila limpio, robot fuera del SSR, hero en SSR.
+
+1. **Robot del header — DECISIÓN: ocultar en mobile.** No se reubica; en teléfono no se muestra.
+   - `hero-robot-3d.tsx` es un scene Spline de **1.3MB + WebGL** (`lazy()`), peso muerto en mobile.
+   - Solución en `header-section.tsx`: estado `mountRobot` (`matchMedia("(min-width: 768px)")`, arranca `null` por SSR). `{mountRobot && <HeroRobot3D/>}` → **ni se monta** en ≤767px (no descarga el 1.3MB), no un `display:none`.
+   - **Gotcha clave:** el `onReveal` del robot dispara el reveal del hero. Sin robot, un `useEffect` llama `onReveal()` al instante en mobile (si no, el fallback de 2.2s de `page.tsx` L23 penalizaba el LCP).
+
+2. **Gear de config oculto en mobile** ✅
+   - `globals.css`: `@media (max-width: 767px){ .page-settings-gear{ display:none } }` (tras el bloque `.page-settings-gear`, ~L1953). Confirmado: `MobileSpeedDial` (izq) cubre idioma + tema.
+
+3. **Header centrado en mobile** ✅
+   - `globals.css`, dentro de `@media (max-width: 767px)` (~L7016): `.is-hero-exp .hero-content{ justify-items:center; text-align:center }` + `.hero-actions{ justify-content:center }` + `.hero-stat{ justify-items:center }` + `.hero-stat-copy{ text-align:center }`.
+   - **Ojo especificidad:** se usó el prefijo `.is-hero-exp` (0,0,2) para ganarle a las reglas base que alinean a la izquierda; con `.hero-content` solo NO alcanzaba.
+
+4. **Cursor custom fuera de touch** ✅
+   - `hero-cursor.tsx`: estado `enabled` (`matchMedia("(hover: hover) and (pointer: fine)")`); si es falso → `return null` (no listener, no springs). Deps `[x, y, enabled]`.
+   - `globals.css` `@media (hover: none)`: se agregó `body` (y `.cta-spotlight-section.is-lit`) al reset `cursor: auto` → tapa el agujero del `body{cursor:none}` global.
 
 ---
 
@@ -38,7 +49,7 @@
 - **feat(footer)** `fed9be6`: spotlight blanco (fondo dark) + redes reales (Facebook/Instagram/**X**/**TikTok** con SVG propios) + labels de servicios a las 4 categorías + `/branding` roto→`/servicios` + **rutas portfolio unificadas a `/portfolio`** (`/portafolio` → 308 redirect) + subtítulo portfolio humanizado/SEO.
 - **chore** `ac7fed3`: limpieza de assets sin uso + dedupe de ids `#proceso`/`#reviews`.
 - Además: convertidas 4 imágenes del proceso a WebP con `sharp`; limpieza de ~28MB en `public/`.
-- **Pendientes:** Resend (infra DNS/API key para leads en `contact@`); optimizar los 8 `*-raw.png` del portfolio (~13MB) a WebP; mascota Noa huérfana (se MANTIENE por marca NOA-229); footer/chips proceso hardcoded en español (no localizados EN).
+- **Pendientes:** Resend (infra DNS/API key para leads en `contact@`); ~~optimizar los 8 `*-raw.png` del portfolio a WebP~~ ✅ **HECHO 2026-07-11** (12.8MB→1.27MB, 90% menos); mascota Noa huérfana (se MANTIENE por marca NOA-229); footer/chips proceso hardcoded en español (no localizados EN).
 
 ---
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { ResizableNavbarDemo } from "../resizable-navbar-demo";
 import { HeroRotatingWord } from "../hero-rotating-word";
 import { useLanguage } from "../language-provider";
@@ -9,6 +10,8 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { translations } from "@/lib/i18n";
 import { HeroRobot3D } from "./hero-robot-3d";
+// import { HeroLinesBackdrop } from "../ui/hero-lines-backdrop"; // fondo alterno (líneas) — se mantiene por si se revierte
+import { Vortex } from "../ui/vortex";
 import { HeroCursor } from "../hero-cursor";
 
 // El estado de entrada lo controla el padre (page.tsx), que lo comparte con
@@ -24,6 +27,23 @@ export function HeaderSection({
   const t = translations[locale];
   const stats = t.hero.stats;
 
+  // El robot 3D (scene Spline de 1.3MB + runtime WebGL) NO se monta en teléfono
+  // (≤767px): sangra fuera de pantalla y es peso muerto en mobile. Arranca en
+  // `null` porque matchMedia no existe en SSR → nada se renderiza hasta resolver
+  // el viewport en el cliente (evita hydration mismatch). ≥768px conserva el
+  // robot intacto (tablet + desktop no se tocan).
+  const [mountRobot, setMountRobot] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setMountRobot(window.matchMedia("(min-width: 768px)").matches);
+  }, []);
+
+  // En mobile no hay robot que dispare onReveal → revelamos el hero al instante.
+  // Sin esto, el fallback de 2.2s de page.tsx penalizaría el LCP en teléfono.
+  useEffect(() => {
+    if (mountRobot === false) onReveal();
+  }, [mountRobot, onReveal]);
+
   return (
     <div
       id="home"
@@ -32,6 +52,22 @@ export function HeaderSection({
       <ResizableNavbarDemo />
 
       <section className="hero-showcase is-hero-exp">
+        {/* Mobile ≤767: fondo Vortex (partículas por ruido simplex) detrás del
+            texto. baseHue/rangeHue acotados a la banda navy-sky del brand.
+            backgroundColor transparent → flota sobre el hero en cualquier tema.
+            Client-only (mountRobot===false) → sin hydration mismatch. */}
+        {mountRobot === false && (
+          <div className="hero-lines-mobile" aria-hidden="true">
+            <Vortex
+              backgroundColor="transparent"
+              baseHue={205}
+              rangeHue={45}
+              particleCount={260}
+              rangeY={90}
+            />
+          </div>
+        )}
+
         <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
           <Image
             src="/noatechsolutions-digital-orb-hero.svg"
@@ -162,7 +198,7 @@ export function HeaderSection({
           </div>
         </div>
         </div>
-        <HeroRobot3D onReady={onReveal} />
+        {mountRobot && <HeroRobot3D onReady={onReveal} />}
         <div className="hero-bottom-divider" aria-hidden="true" />
       </section>
       <HeroCursor />

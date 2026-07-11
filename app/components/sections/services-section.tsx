@@ -1,8 +1,12 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import { useEffect, useRef, useState } from "react";
-import { ContainerScroll, CardSticky } from "@/components/ui/cards-stack";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { useLanguage } from "@/app/components/language-provider";
 import { translations } from "@/lib/i18n";
@@ -14,6 +18,7 @@ import {
   ArrowUpRight,
   Check,
   Star,
+  type LucideIcon,
 } from "lucide-react";
 
 // 4 categorías del brief (web-structure.md §4). Orden: estrella primero.
@@ -46,42 +51,104 @@ const cardData = [
   },
 ];
 
+type ServiceItem = { title: string; description: string };
+type ServiceCardMeta = (typeof cardData)[number];
+
+// ── Card del stack (scrollytelling pinneado). Absoluta, centrada al área de
+// cards. Entrada + apilado salen del MISMO progreso de scroll. Cada card tiene
+// un tramo escalonado → entran una por una desde la derecha al bajar. Offset
+// vertical (index*16px) → pila visible. useTransform clampa por defecto: antes
+// del tramo queda a la derecha invisible; después, fija en x=0.
+function ServiceStackCard({
+  item,
+  card,
+  index,
+  total,
+  progress,
+  cardCta,
+}: {
+  item: ServiceItem;
+  card: ServiceCardMeta;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  cardCta: string;
+}) {
+  const Icon: LucideIcon = card.icon;
+
+  // Las N cards entran escalonadas entre 0 y ~0.8 del scroll pinneado (el resto
+  // es margen para que las 4 completen ANTES de que el pin se suelte).
+  const ENTER_PHASE = 0.8;
+  const segment = ENTER_PHASE / total;
+  const start = index * segment;
+  const end = start + segment * 1.1; // solapa leve → cascada continua
+
+  // x en % del ANCHO de la card ("120%" = totalmente fuera de pantalla a la
+  // derecha, sin importar el tamaño del device) → NO asoma hasta su entrada.
+  // Sin opacity: la card aparece con su COLOR ENTERO (oculta solo por estar
+  // fuera de pantalla, no por transparencia).
+  const x = useTransform(progress, [start, end], ["120%", "0%"]);
+
+  return (
+    <motion.div
+      data-featured={card.featured ? "true" : undefined}
+      className={`services-stack-card ${card.modifier} absolute inset-x-0`}
+      style={{
+        top: `calc(50% + ${index * 16}px)`,
+        x,
+        y: "-50%",
+        zIndex: index,
+      }}
+    >
+      <div className="services-stack-card-top">
+        <span className="services-stack-icon">
+          <Icon size={20} strokeWidth={2.1} />
+        </span>
+        <span className="services-stack-card-badge">
+          {card.featured ? (
+            <Star size={12} strokeWidth={2.5} fill="currentColor" />
+          ) : null}
+          {card.badge}
+        </span>
+      </div>
+      <h3 className="services-stack-title">{item.title}</h3>
+      <p className="services-stack-description">{item.description}</p>
+      <ul className="services-stack-benefits">
+        {card.benefits.map((b) => (
+          <li key={b} className="services-stack-benefit">
+            <span className="services-stack-benefit-check">
+              <Check size={13} strokeWidth={3} />
+            </span>
+            {b}
+          </li>
+        ))}
+      </ul>
+      <div className="services-stack-card-actions">
+        <a href="/servicios" className="services-stack-card-cta">
+          <span>{cardCta}</span>
+          <ArrowUpRight size={16} strokeWidth={2.2} />
+        </a>
+      </div>
+    </motion.div>
+  );
+}
+
 export function ServicesSection() {
   const { locale } = useLanguage();
   const t = translations[locale];
   const items = t.servicesSection.items;
   const rotatingWords = t.hero.rotatingWords;
 
-  // Centra el stack de cards a 50vh (misma altura que el texto izquierdo, que
-  // usa items-center h-screen). Solo desktop (≥1024). Mide la altura REAL de la
-  // card y se aplica vía el `style` del CardSticky (Motion lo respeta), no CSS.
-  const stackRef = useRef<HTMLDivElement>(null);
-  const [cardTop, setCardTop] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    const el = stackRef.current;
-    if (!el) return;
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const compute = () => {
-      if (!mq.matches) {
-        setCardTop(undefined); // mobile/tablet: usa el top original del componente
-        return;
-      }
-      const card = el.querySelector(".services-stack-card") as HTMLElement | null;
-      if (card) {
-        setCardTop(`calc(50vh - ${Math.round(card.offsetHeight / 2)}px)`);
-      }
-    };
-    compute();
-    const settle = window.setTimeout(compute, 300); // tras montar cards/fuentes
-    mq.addEventListener("change", compute);
-    window.addEventListener("resize", compute);
-    return () => {
-      window.clearTimeout(settle);
-      mq.removeEventListener("change", compute);
-      window.removeEventListener("resize", compute);
-    };
-  }, [locale]);
+  // Altura EXPLÍCITA (400vh) → 300vh de scroll para el pin (el viewport interno
+  // es 100vh). Con 280vh solo entraban ~2 cards antes de soltarse el pin; 400vh
+  // da recorrido para las 4. Inline para no depender del arbitrary de Tailwind.
+  // El pin (sticky top-0 h-screen) aguanta fijo mientras la sección scrollea, y
+  // este progreso 0→1 escrubea la entrada escalonada de las cards.
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
   const CopyContent = (
     <div className="services-stack-copy">
@@ -107,75 +174,35 @@ export function ServicesSection() {
   );
 
   return (
-    <section className="bg-(--bg-page) relative w-full min-h-[180vh] lg:min-h-[210vh]">
+    <section
+      ref={sectionRef}
+      className="services-scroll-section bg-(--bg-page) relative w-full"
+      style={{ height: "400vh" }}
+    >
       <h2 className="sr-only">{t.servicesSection.title}</h2>
 
-      {/* Título mobile/tablet — estático arriba, solo visible < lg */}
-      <div className="lg:hidden px-6 pt-12 pb-6 text-center growth-v2-copy-mobile">{CopyContent}</div>
+      {/* Viewport PINNEADO — fijo mientras la sección scrollea */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div className="mx-auto flex h-full max-w-7xl flex-col px-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-12 xl:gap-12">
+          {/* Copy — arriba en mobile, columna izquierda en desktop */}
+          <div className="shrink-0 pt-14 pb-4 text-center lg:flex lg:h-full lg:items-center lg:pt-0 lg:pb-0 lg:text-left growth-v2-copy-mobile">
+            {CopyContent}
+          </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 w-full max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Columna izquierda — sticky centrada al viewport, solo desktop (≥lg) */}
-        <div className="hidden lg:flex sticky top-0 h-screen items-center">
-          {CopyContent}
-        </div>
-
-        {/* Columna derecha — cards apilándose con scroll nativo */}
-        <div className="py-12 col-span-1 md:col-span-1">
-        <ContainerScroll
-          ref={stackRef}
-          className="space-y-6 pb-[15vh] md:pb-[25vh] lg:pb-[30vh]"
-        >
-          {items.map((item, index) => {
-            const card = cardData[index];
-            const Icon = card.icon;
-            const reversedIndex = items.length - 1 - index;
-            return (
-              <CardSticky
+          {/* Área del stack — cards absolutas, centradas */}
+          <div className="relative min-h-0 flex-1 lg:h-[74vh]">
+            {items.map((item, index) => (
+              <ServiceStackCard
                 key={index}
-                index={index + 3}
-                incrementY={20}
-                incrementZ={8}
-                data-featured={card.featured ? "true" : undefined}
-                className={`services-stack-card ${card.modifier} w-full`}
-                style={{
-                  ...(cardTop ? { top: cardTop } : {}),
-                  ["--card-rotate" as string]: `perspective(1000px) rotateZ(${reversedIndex * 1.2}deg)`,
-                  opacity: Math.max(1 - reversedIndex * 0.04, 0.88),
-                } as CSSProperties}
-              >
-                <div className="services-stack-card-top">
-                  <span className="services-stack-icon">
-                    <Icon size={20} strokeWidth={2.1} />
-                  </span>
-                  <span className="services-stack-card-badge">
-                    {card.featured ? (
-                      <Star size={12} strokeWidth={2.5} fill="currentColor" />
-                    ) : null}
-                    {card.badge}
-                  </span>
-                </div>
-                <h3 className="services-stack-title">{item.title}</h3>
-                <p className="services-stack-description">{item.description}</p>
-                <ul className="services-stack-benefits">
-                  {card.benefits.map((b) => (
-                    <li key={b} className="services-stack-benefit">
-                      <span className="services-stack-benefit-check">
-                        <Check size={13} strokeWidth={3} />
-                      </span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <div className="services-stack-card-actions">
-                  <a href="/servicios" className="services-stack-card-cta">
-                    <span>{t.servicesSection.cardCta}</span>
-                    <ArrowUpRight size={16} strokeWidth={2.2} />
-                  </a>
-                </div>
-              </CardSticky>
-            );
-          })}
-        </ContainerScroll>
+                item={item}
+                card={cardData[index]}
+                index={index}
+                total={items.length}
+                progress={scrollYProgress}
+                cardCta={t.servicesSection.cardCta}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

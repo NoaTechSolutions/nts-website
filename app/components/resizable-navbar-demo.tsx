@@ -31,7 +31,7 @@ export function ResizableNavbarDemo() {
       children: [
         {
           name: t.nav.webDesign,
-          link: "/servicios",
+          link: "/servicios/diseno-web",
         },
         {
           name: t.nav.branding,

@@ -18,12 +18,20 @@ type Zone = "tech" | "warning" | null;
 export function HeroCursor() {
   const [zone, setZone] = useState<Zone>(null);
   const [active, setActive] = useState(false); // sobre un elemento interactivo (tech)
+  // Solo en dispositivos con puntero fino (mouse/trackpad). En touch no hay
+  // cursor que reemplazar → no montamos listener ni springs (ahorro en mobile).
+  const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(-200);
   const y = useMotionValue(-200);
   const sx = useSpring(x, { stiffness: 420, damping: 32, mass: 0.35 });
   const sy = useSpring(y, { stiffness: 420, damping: 32, mass: 0.35 });
 
   useEffect(() => {
+    setEnabled(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const move = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
       // Default: retículo tech en toda la página. Excepciones con efecto propio.
@@ -43,7 +51,9 @@ export function HeroCursor() {
 
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, [x, y]);
+  }, [x, y, enabled]);
+
+  if (!enabled) return null;
 
   return (
     <motion.div
