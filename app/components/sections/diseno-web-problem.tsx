@@ -37,11 +37,21 @@ const COPY = {
 } as const;
 
 // Gradientes on-brand por freno (navy/sky, el último con acento naranja).
+// Sirven de FONDO/placeholder mientras el video del freno no exista.
 const GRADIENTS = [
   "linear-gradient(135deg, #022977 0%, #0a3fb0 100%)",
   "linear-gradient(135deg, #0a3fb0 0%, #05a5ff 100%)",
   "linear-gradient(135deg, #012061 0%, #3f2fb0 100%)",
   "linear-gradient(135deg, #04122e 0%, #ff8c1a 100%)",
+];
+
+// Video por freno (mismo para ES/EN, es visual). "" = todavía sin video →
+// se muestra el gradiente + emoji de placeholder. Servido desde /public.
+const VIDEOS = [
+  "/noatechsolutions-diseno-web-carga-lenta.mp4",
+  "", // no se ve en el celular  → noatechsolutions-diseno-web-no-mobile.mp4
+  "", // no convierte            → noatechsolutions-diseno-web-no-convierte.mp4
+  "", // nadie la encuentra      → noatechsolutions-diseno-web-no-seo.mp4
 ];
 
 export function DisenoWebProblem() {
@@ -119,21 +129,36 @@ export function DisenoWebProblem() {
                 <div
                   key={it.title}
                   aria-hidden={active !== i}
-                  className={`absolute inset-0 flex flex-col items-center justify-center gap-4 p-10 text-center text-white transition-opacity duration-500 ${
+                  className={`absolute inset-0 transition-opacity duration-500 ${
                     active === i ? "opacity-100" : "opacity-0"
                   }`}
                   style={{ background: GRADIENTS[i] }}
                 >
-                  <span className="text-7xl drop-shadow-lg">{it.icon}</span>
-                  <span
-                    className="text-5xl font-bold"
-                    style={{ fontFamily: "var(--font-display), sans-serif" }}
-                  >
-                    {it.visual}
-                  </span>
-                  <span className="text-lg font-medium text-white/80">
-                    {it.title}
-                  </span>
+                  {VIDEOS[i] ? (
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      src={VIDEOS[i]}
+                      aria-label={`${it.title} — ${it.copy}`}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-10 text-center text-white">
+                      <span className="text-7xl drop-shadow-lg">{it.icon}</span>
+                      <span
+                        className="text-5xl font-bold"
+                        style={{ fontFamily: "var(--font-display), sans-serif" }}
+                      >
+                        {it.visual}
+                      </span>
+                      <span className="text-lg font-medium text-white/80">
+                        {it.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
