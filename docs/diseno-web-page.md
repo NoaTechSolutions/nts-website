@@ -52,8 +52,8 @@
 5. Hacer **bespoke** las secciones reusadas (proceso, testimonios, FAQ) con copy de diseño web.
 6. **Migrar copy** a `lib/i18n.ts` central.
 7. **Bug global del cursor**: el `body{cursor:none}` del home afecta a TODAS las páginas sin cursor custom (nosotros, servicios, etc.). Arreglar de raíz (no página por página).
-8. **Commits**: ✅ commiteado el 2026-07-11 → portfolio WebP (`c03719c`), home mobile (`76ba725`), página Diseño Web base (`b16c899`). **⚠️ Falta commitear:** CTA mask effect (`diseno-web-cta.tsx` + `mask.svg` + CSS `.dw-cta-*`) y Sticky Scroll de Problema (`diseno-web-problem.tsx`). Hacerlo al arrancar mañana.
-9. **🐛 Bug menú activo** (global, no solo esta página): `resizable-navbar.tsx:110` tiene `activeIndex = 0` hardcodeado → "Home" siempre activo. Derivar de `usePathname()`. Ver `docs/home-progress.md` → "PARA MAÑANA".
+8. **Commits**: ✅ portfolio WebP (`c03719c`), home mobile (`76ba725`), página Diseño Web base (`b16c899`). ✅ **2026-07-12:** CTA mask effect + Sticky Scroll de Problema (`6da68b8`).
+9. **🐛 Bug menú activo** (global, no solo esta página): ✅ **RESUELTO 2026-07-12** (`61a25e2`). Estaba hardcodeado en desktop y mobile; ahora se deriva de `usePathname()` vía helper `getActiveNavIndex`. Detalle en `docs/home-progress.md` → "HECHO (2026-07-12)".
 
 ---
 

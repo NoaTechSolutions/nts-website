@@ -21,19 +21,16 @@ Editar `app/globals.css` con el dev server corriendo **NO recompila el CSS** (qu
 
 ---
 
-## 🎯 PARA MAÑANA (2026-07-12)
+## ✅ HECHO (2026-07-12)
 
-1. **🔴 COMMITEAR primero** lo pendiente del 2026-07-11 (CTA mask + sticky scroll problema + docs). Conventional, sin Co-Authored-By. Ojo con el gotcha de `git commit <pathspec>` + staging parcial (ver commit `76ba725`, usar índice sin pathspec).
+1. **✅ COMMITEADO** lo pendiente del 2026-07-11 (CTA mask + sticky scroll problema + docs) → `6da68b8`. Un solo commit cohesivo: el `globals.css` es compartido entre la CTA y el sticky scroll, así que separar obligaba a staging parcial por hunks (el gotcha frágil). Se usó índice completo (`git add -A`, commit sin pathspec).
 
-2. **🐛 BUG del menú activo (pedido del usuario 2026-07-11).**
-   - **Síntoma:** el top-menu marca **"Home" siempre activo**, en cualquier página. En `/servicios/diseno-web` sigue "Home" resaltado en vez de "Servicios".
-   - **Causa raíz:** `app/components/ui/resizable-navbar.tsx:110` → `const activeIndex = 0;` **HARDCODEADO**.
-   - **Fix:** derivar el activo del `usePathname()` (Next). Items (en `resizable-navbar-demo.tsx:23`) son rutas: Home `/`, Servicios `/servicios` (+ hijo Diseño web `/servicios/diseno-web`), Soluciones `/portfolio`, Nosotros `/nosotros`.
-     - Home activo solo si `pathname === "/"`. Servicios activo si `pathname.startsWith("/servicios")` (incluye el hijo). Etc.
-     - Reemplazar el `activeIndex` fijo por uno calculado; mantener el indicador (spotlight/underline) que ya usa `syncIndicator(activeIndex)`.
-   - **Archivos:** `app/components/ui/resizable-navbar.tsx` (activeIndex + `NavItems`), verificar mobile menu también.
+2. **✅ BUG del menú activo RESUELTO** → `61a25e2`.
+   - **Era peor de lo anotado:** el hardcodeo estaba en DOS lugares, no uno. Desktop `resizable-navbar.tsx:110` (`activeIndex = 0`) **y** mobile `resizable-navbar-demo.tsx:166` (`idx === 0 ? naranja : blanco`).
+   - **Fix (una sola fuente de verdad):** helper exportado `getActiveNavIndex(items, pathname)` en `resizable-navbar.tsx` (Home = match exacto de `/`; resto = `pathname === link || startsWith(link + "/")` → `/servicios/diseno-web` activa "Servicios"; devuelve -1 si ninguna ruta es del nav). El container (`resizable-navbar-demo.tsx`) calcula con `usePathname()` y lo pasa como prop a `NavItems` (presentational) y al map del mobile. Se agregó `activeIndex` a las deps del `useLayoutEffect` del indicador para que el punto naranja siga la navegación client-side.
+   - **Verificado end-to-end** contra el HTML SSR: desktop y mobile marcan el item correcto en `/`, `/servicios/diseno-web`, `/nosotros`, `/portfolio`. `usePathname()` resuelve en SSR (App Router), así que el naranja ya viene en el HTML servido.
 
-3. **(Opcional) Validar copy** de la CTA (*"enamora y vende"*) y de los visuales del sticky scroll (hoy gradiente + emoji + dato; se pueden reemplazar por mockups reales).
+3. **(Opcional, sigue pendiente) Validar copy** de la CTA (*"enamora y vende"*) y de los visuales del sticky scroll (hoy gradiente + emoji + dato; se pueden reemplazar por mockups reales).
 
 ---
 
