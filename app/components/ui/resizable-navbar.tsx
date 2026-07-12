@@ -31,6 +31,20 @@ type NavItem = {
   }>;
 };
 
+/**
+ * Which nav item is active for the current route.
+ * Home ("/") matches only on exact path; every other item matches its own
+ * path or any child route beneath it (so "/servicios/diseno-web" → "Servicios").
+ * Returns -1 when no item owns the route (e.g. a page not in the nav).
+ */
+export function getActiveNavIndex(items: NavItem[], pathname: string): number {
+  return items.findIndex((item) =>
+    item.link === "/"
+      ? pathname === "/"
+      : pathname === item.link || pathname.startsWith(`${item.link}/`),
+  );
+}
+
 export function Navbar({ children }: { children: ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -105,9 +119,8 @@ export function NavbarLogo() {
   );
 }
 
-export function NavItems({ items }: { items: NavItem[] }) {
+export function NavItems({ items, activeIndex }: { items: NavItem[]; activeIndex: number }) {
   const { isScrolled } = useContext(NavbarContext);
-  const activeIndex = 0;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
   const [indicatorLeft, setIndicatorLeft] = useState(0);
@@ -137,7 +150,7 @@ export function NavItems({ items }: { items: NavItem[] }) {
       window.clearTimeout(timeoutId);
       window.removeEventListener("resize", update);
     };
-  }, [hoveredIndex, isScrolled]);
+  }, [hoveredIndex, activeIndex, isScrolled]);
 
   return (
     <nav
