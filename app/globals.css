@@ -7988,3 +7988,146 @@ select,
 .dw-gallery--bento .dw-gallery__item:nth-child(6) { grid-area: 3 / 3 / 5 / 4; }
 .dw-gallery--bento .dw-gallery__item:nth-child(7) { grid-area: 4 / 1 / 5 / 2; }
 .dw-gallery--bento .dw-gallery__item:nth-child(8) { grid-area: 4 / 2 / 5 / 3; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CTA "SVG Mask Effect" (.dw-cta) — página Diseño Web.
+   Dos capas full-section: base (navy, DOLOR) + reveal (blanca, SOLUCIÓN con
+   palabra clave en NARANJA), recortada por un spotlight que sigue al cursor
+   (mask SVG + CSS vars --mask-x/--mask-y). `.is-hovered` también cambia el
+   color del botón/eyebrow de la base.
+   ══════════════════════════════════════════════════════════════════════════ */
+.dw-cta {
+  position: relative;
+  background: #010b28;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Capas apiladas que cubren TODA la sección */
+.dw-cta-layer {
+  inset: 0;
+}
+.dw-cta-layer--base {
+  position: relative;
+  z-index: 1;
+}
+.dw-cta-layer--reveal {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: #ffffff;
+  /* opacidad 0 al salir → mata cualquier residuo del spotlight al encogerse */
+  opacity: 0;
+  --mask-size: 0px;
+  -webkit-mask-image: url(/mask.svg);
+  mask-image: url(/mask.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: var(--mask-size);
+  mask-size: var(--mask-size);
+  -webkit-mask-position: calc(var(--mask-x, 50%) - var(--mask-size) / 2)
+    calc(var(--mask-y, 50%) - var(--mask-size) / 2);
+  mask-position: calc(var(--mask-x, 50%) - var(--mask-size) / 2)
+    calc(var(--mask-y, 50%) - var(--mask-size) / 2);
+  transition:
+    opacity 0.3s ease,
+    -webkit-mask-position 0.1s ease-out,
+    mask-position 0.1s ease-out,
+    -webkit-mask-size 0.4s ease,
+    mask-size 0.4s ease;
+}
+.dw-cta.is-hovered .dw-cta-layer--reveal {
+  opacity: 1;
+  --mask-size: 760px;
+}
+
+/* Contenido (idéntico en ambas capas → alineación perfecta) */
+.dw-cta-inner {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(4.5rem, 11vw, 7.5rem) 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+.dw-cta-eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 0.35s ease;
+}
+.dw-cta-headline {
+  margin: 0 auto;
+  /* ancho acotado → la frase entera entra DENTRO del spotlight (si es más ancha
+     que la luz, los extremos muestran la capa de atrás y "se pierden") */
+  max-width: 22ch;
+  /* alto fijo → el DOLOR y la SOLUCIÓN ocupan el mismo espacio y quedan alineados */
+  min-height: clamp(6rem, 15vw, 9rem);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  text-wrap: balance;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4.6vw, 2.9rem);
+  line-height: 1.14;
+}
+
+/* Paleta APAGADA (capa base, navy) */
+.dw-cta-layer--base .dw-cta-eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+.dw-cta-layer--base .dw-cta-headline {
+  color: #ffffff;
+}
+/* Al pasar el mouse: el eyebrow de la base vira al NARANJA */
+.dw-cta.is-hovered .dw-cta-layer--base .dw-cta-eyebrow {
+  color: #ffb060;
+}
+
+/* Paleta ENCENDIDA (capa reveal, bajo la luz blanca) */
+.dw-cta-layer--reveal .dw-cta-eyebrow {
+  color: #6d80ad;
+}
+.dw-cta-layer--reveal .dw-cta-headline {
+  color: #022977;
+}
+
+/* Frase clave en NARANJA (emocional + beneficio para el cliente) */
+.dw-cta-hl {
+  color: #ff7a00;
+  text-shadow: 0 2px 18px rgba(255, 122, 0, 0.35);
+}
+
+/* Fallback estático (touch / reduced-motion) */
+.dw-cta--static .dw-cta-headline {
+  min-height: 0;
+}
+.dw-cta--static .dw-cta-eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+.dw-cta--static .dw-cta-headline--pain {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+}
+.dw-cta--static .dw-cta-headline--solution {
+  color: #ffffff;
+}
+
+/* Utilidad sr-only (por si Tailwind no la emite) */
+.dw-cta .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

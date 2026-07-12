@@ -1,7 +1,39 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-10 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-11 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+
+---
+
+## 🆕 Sesión 2026-07-11 (resumen)
+
+**Foco: página Diseño Web (`/servicios/diseno-web`) + assets.** Detalle en `docs/diseno-web-page.md`.
+
+- **perf: portfolio a WebP** — 8 capturas `*-raw.png` (~12.8MB) → WebP q80 (~1.27MB, **90% menos**). `lib/portfolio-projects.ts` actualizado. **✅ COMMITEADO** (`c03719c`).
+- **CTA "SVG Mask Effect"** (nueva sección `diseno-web-cta.tsx`, reemplaza al `mid-cta` en la página): dos capas full-section (base navy = DOLOR / reveal blanca = SOLUCIÓN con frase clave en **naranja**), spotlight que sigue el cursor. Sin botón ni hint (pedido del usuario). Copy: *"Tu web se ve linda… pero no te trae clientes"* → *"Nosotros creamos la que enamora y vende."* Fallback estático en touch.
+- **Sticky Scroll Reveal** en la sección **Problema** (`diseno-web-problem.tsx`): scroll de página + `position:sticky` + `IntersectionObserver` (Lenis-safe). Desktop: 4 frenos que cambian + panel sticky con gradientes. Mobile: tarjetas apiladas.
+- **home mobile + página Diseño Web completa** (trabajo del 2026-07-10): **✅ COMMITEADOS** (`76ba725` home mobile, `b16c899` página diseño web).
+
+> ⚠️ **SIN COMMITEAR (2026-07-11):** la CTA mask effect (`diseno-web-cta.tsx` + `mask.svg` + CSS `.dw-cta-*`) y el Sticky Scroll de Problema (`diseno-web-problem.tsx`). Más docs. **Commitear al arrancar mañana.**
+
+### 🐛 GOTCHA importante (Turbopack + Windows)
+Editar `app/globals.css` con el dev server corriendo **NO recompila el CSS** (queda stale; el JS/HTML sí actualiza). Pasó 3 veces. **Fix confiable:** parar server → `taskkill //PID <pid> //F` (matar el node que toma el 3006, `TaskStop` no libera el puerto) → `rm -rf .next` → `npm run dev`. Editar solo componentes + Tailwind (sin globals) NO tiene el bug. Detalle en engram.
+
+---
+
+## 🎯 PARA MAÑANA (2026-07-12)
+
+1. **🔴 COMMITEAR primero** lo pendiente del 2026-07-11 (CTA mask + sticky scroll problema + docs). Conventional, sin Co-Authored-By. Ojo con el gotcha de `git commit <pathspec>` + staging parcial (ver commit `76ba725`, usar índice sin pathspec).
+
+2. **🐛 BUG del menú activo (pedido del usuario 2026-07-11).**
+   - **Síntoma:** el top-menu marca **"Home" siempre activo**, en cualquier página. En `/servicios/diseno-web` sigue "Home" resaltado en vez de "Servicios".
+   - **Causa raíz:** `app/components/ui/resizable-navbar.tsx:110` → `const activeIndex = 0;` **HARDCODEADO**.
+   - **Fix:** derivar el activo del `usePathname()` (Next). Items (en `resizable-navbar-demo.tsx:23`) son rutas: Home `/`, Servicios `/servicios` (+ hijo Diseño web `/servicios/diseno-web`), Soluciones `/portfolio`, Nosotros `/nosotros`.
+     - Home activo solo si `pathname === "/"`. Servicios activo si `pathname.startsWith("/servicios")` (incluye el hijo). Etc.
+     - Reemplazar el `activeIndex` fijo por uno calculado; mantener el indicador (spotlight/underline) que ya usa `syncIndicator(activeIndex)`.
+   - **Archivos:** `app/components/ui/resizable-navbar.tsx` (activeIndex + `NavItems`), verificar mobile menu también.
+
+3. **(Opcional) Validar copy** de la CTA (*"enamora y vende"*) y de los visuales del sticky scroll (hoy gradiente + emoji + dato; se pueden reemplazar por mockups reales).
 
 ---
 

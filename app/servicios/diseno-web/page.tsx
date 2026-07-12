@@ -9,7 +9,7 @@ import { DisenoWebWhy } from "@/app/components/sections/diseno-web-why";
 import { DisenoWebGallery } from "@/app/components/sections/diseno-web-gallery";
 import { ProcessSection } from "@/app/components/sections/process-section";
 import { TestimonialsSection } from "@/app/components/sections/testimonials-section";
-import { MidCtaSection } from "@/app/components/sections/mid-cta-section";
+import { DisenoWebCta } from "@/app/components/sections/diseno-web-cta";
 import { FaqSection } from "@/app/components/sections/faq-section";
 import { ContactSection } from "@/app/components/sections/contact-section";
 import { FooterSection } from "@/app/components/sections/footer-section";
@@ -88,8 +88,8 @@ export default function DisenoWebPage() {
         <TestimonialsSection />
       </div>
 
-      {/* ── 9. CTA FINAL ── */}
-      <MidCtaSection />
+      {/* ── 9. CTA FINAL · SVG mask effect (dolor → solución) ── */}
+      <DisenoWebCta />
 
       {/* ── 10. FAQ ── */}
       <FaqSection />
