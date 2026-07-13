@@ -21,7 +21,7 @@ const COPY = {
       { title: "Carga lenta", subtitle: "Tu cliente no espera: si tarda, se va con la competencia." },
       { title: "Rota en el celular", subtitle: "8 de cada 10 te miran desde el teléfono… y ven un desastre." },
       { title: "Linda pero vacía", subtitle: "Entran, miran y se van sin dejarte un solo mensaje." },
-      { title: "Invisible en Google", subtitle: "Si no te encuentran, para tus clientes no existís." },
+      { title: "Invisible en Google", subtitle: "Tu competencia aparece arriba. Vos quedás al fondo, donde nadie llega." },
     ],
   },
   en: {
@@ -32,7 +32,7 @@ const COPY = {
       { title: "Slow to load", subtitle: "Your customer won't wait — if it lags, they're gone." },
       { title: "Broken on mobile", subtitle: "8 in 10 visit from their phone… and see a mess." },
       { title: "Pretty but empty", subtitle: "They come, they look, they leave without a word." },
-      { title: "Invisible on Google", subtitle: "If they can't find you, to them you don't exist." },
+      { title: "Invisible on Google", subtitle: "Your competition ranks above you. You're at the bottom, where no one looks." },
     ],
   },
 } as const;
