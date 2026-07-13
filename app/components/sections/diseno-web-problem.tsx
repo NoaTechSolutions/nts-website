@@ -49,9 +49,9 @@ const GRADIENTS = [
 // se muestra el gradiente + emoji de placeholder. Servido desde /public.
 const VIDEOS = [
   "/noatechsolutions-diseno-web-carga-lenta.mp4",
-  "", // no se ve en el celular  → noatechsolutions-diseno-web-no-mobile.mp4
-  "", // no convierte            → noatechsolutions-diseno-web-no-convierte.mp4
-  "", // nadie la encuentra      → noatechsolutions-diseno-web-no-seo.mp4
+  "/noatechsolutions-diseno-web-no-mobile.mp4",
+  "/noatechsolutions-diseno-web-no-convierte.mp4",
+  "/noatechsolutions-diseno-web-no-seo.mp4",
 ];
 
 export function DisenoWebProblem() {
@@ -124,7 +124,7 @@ export function DisenoWebProblem() {
 
           {/* Derecha: panel PEGADO que muestra el freno activo */}
           <div>
-            <div className="sticky top-[18vh] h-[64vh] overflow-hidden rounded-3xl shadow-[0_24px_60px_rgba(2,41,119,0.28)]">
+            <div className="sticky top-[18vh] h-[64vh] overflow-hidden rounded-3xl border-2 border-[#022977] shadow-[0_24px_60px_rgba(2,41,119,0.28)] dark:border-white">
               {t.items.map((it, i) => (
                 <div
                   key={it.title}
