@@ -124,7 +124,7 @@ export function DisenoWebProblem() {
 
           {/* Derecha: panel PEGADO que muestra el freno activo */}
           <div>
-            <div className="sticky top-[18vh] h-[64vh] overflow-hidden rounded-3xl border-2 border-[#022977] shadow-[0_24px_60px_rgba(2,41,119,0.28)] dark:border-white">
+            <div className="sticky top-[32vh] aspect-video w-full overflow-hidden rounded-3xl border-2 border-[#022977] shadow-[0_24px_60px_rgba(2,41,119,0.28)] dark:border-white">
               {t.items.map((it, i) => (
                 <div
                   key={it.title}
@@ -136,7 +136,7 @@ export function DisenoWebProblem() {
                 >
                   {VIDEOS[i] ? (
                     <video
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="absolute inset-0 h-full w-full object-contain"
                       src={VIDEOS[i]}
                       aria-label={`${it.title} — ${it.copy}`}
                       autoPlay
