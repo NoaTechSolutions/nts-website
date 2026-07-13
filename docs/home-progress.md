@@ -1,7 +1,7 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-11 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-12 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
 
 ---
 
@@ -30,7 +30,24 @@ Editar `app/globals.css` con el dev server corriendo **NO recompila el CSS** (qu
    - **Fix (una sola fuente de verdad):** helper exportado `getActiveNavIndex(items, pathname)` en `resizable-navbar.tsx` (Home = match exacto de `/`; resto = `pathname === link || startsWith(link + "/")` → `/servicios/diseno-web` activa "Servicios"; devuelve -1 si ninguna ruta es del nav). El container (`resizable-navbar-demo.tsx`) calcula con `usePathname()` y lo pasa como prop a `NavItems` (presentational) y al map del mobile. Se agregó `activeIndex` a las deps del `useLayoutEffect` del indicador para que el punto naranja siga la navegación client-side.
    - **Verificado end-to-end** contra el HTML SSR: desktop y mobile marcan el item correcto en `/`, `/servicios/diseno-web`, `/nosotros`, `/portfolio`. `usePathname()` resuelve en SSR (App Router), así que el naranja ya viene en el HTML servido.
 
-3. **(Opcional, sigue pendiente) Validar copy** de la CTA (*"enamora y vende"*) y de los visuales del sticky scroll (hoy gradiente + emoji + dato; se pueden reemplazar por mockups reales).
+3. **(Opcional, sigue pendiente) Validar copy** de la CTA (*"enamora y vende"*).
+
+### 🎬 Tarde 2026-07-12 · Videos + rediseño de la sección Problema (`diseno-web-problem.tsx`)
+
+Los "gradiente + emoji" del sticky panel se reemplazaron por **4 videos reales** (uno por freno). Commits `36977bb`, `5ac70f8`, `b8abd52`, `08edc70`, `1c133be`, `8d5e429`.
+
+- **Pipeline de video establecido** (ver engram `assets/video-pipeline`): videos en `public/` con nombre SEO (`noatechsolutions-diseno-web-<concepto>.mp4`), `<video muted autoPlay loop playsInline object-contain>`. Comprimidos con **ffmpeg** (instalado hoy vía winget; binario en `.../WinGet/Packages/Gyan.FFmpeg_.../bin/ffmpeg.exe`, el PATH no se refresca en la shell). Comando: `ffmpeg -y -i in.mp4 -an -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -movflags +faststart out.mp4` → ~1.3-1.8MB a ~400-780KB. **Comprimir SIEMPRE antes del primer commit** (git guarda el blob pesado para siempre).
+- **Videos:** `carga-lenta`, `no-mobile` (reemplazado por v2), `no-convierte`, `no-seo`. Vienen 1920×1080 (16:9). El panel es `aspect-video` + `object-contain` para mostrarlos **completos, sin recorte**.
+- **Detector de scroll REESCRITO:** el `IntersectionObserver` con banda de `rootMargin` se clavaba en el freno 0 en viewports bajos (1024×768). Ahora es scroll-based: marca activo el paso cuyo **centro está más cerca del centro del viewport** (Lenis scrollea nativo → `window scroll` dispara). Robusto a cualquier alto.
+- **Título de sección centrado:** `.section-title` (globals.css) tiene `max-width:18ch` **sin `margin:auto`** → en `text-center` la caja quedaba pegada a la izquierda. Fix: `mx-auto` en el `<h2>` (el subtítulo ya lo tenía). **Ojo: esto afecta a `.section-title` en cualquier header centrado del sitio.**
+- **Color por freno** (`ACCENTS = ["#1e63e6","#05a5ff","#7c5cff","#ff9900"]`): pinta el título del texto izquierdo y el borde del card activo (transición al scrollear).
+- **Copy nuevo:** sin emoji; cada freno = título breve + subtítulo emocional en 1ª persona.
+
+## 🎯 PARA MAÑANA (2026-07-13)
+
+1. **🔴 Optimización de carga de los 4 videos (pedido pendiente).** Hoy los 4 `<video autoPlay>` están en el DOM a la vez → cargan y decodifican los **~2.7MB juntos** al entrar (solo desktop). Fix: `preload="none"` + refs, reproducir **solo el activo** y pausar el resto. Baja el arranque a ~650KB. Mantener el crossfade.
+2. **(Opcional) Validar** en pantalla real el centrado del video en el sticky (`top-[32vh]`) y el borde de color por freno; ajustar valores si hace falta.
+3. **(Opcional) Bug global del cursor** (`body{cursor:none}` afecta páginas sin cursor custom) — ver `docs/diseno-web-page.md` punto 7.
 
 ---
 

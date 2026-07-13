@@ -13,7 +13,7 @@
 |---|---------|---------|------|----------------|
 | 1 | **Hero** | `app/components/sections/diseno-web-hero.tsx` (+ `ui/hero-3d-scene.tsx`) | 🆕 propia | Título rotativo + **3D R3F** (blob, solo desktop) + glows en mobile. Copy con keywords SEO. Layout 2-col desktop / centrado mobile. |
 | 2 | **Barra de confianza** | `diseno-web-trust.tsx` | 🆕 propia | Logos placeholder (texto). Social proof temprano. |
-| 3 | **Problema** | `diseno-web-problem.tsx` | 🆕 propia | **Sticky Scroll Reveal** (Aceternity) recreado con scroll de PÁGINA + `position:sticky` + `IntersectionObserver` (compatible con Lenis; el scroll interno del original pelearía con el smooth scroll). Desktop ≥1024: 4 "frenos" a la izquierda que van cambiando con el scroll + panel visual pegado (gradientes on-brand) a la derecha. Mobile: tarjetas apiladas (fallback). Íconos emoji (placeholder). |
+| 3 | **Problema** | `diseno-web-problem.tsx` | 🆕 propia | **Sticky Scroll Reveal** recreado con scroll de PÁGINA + `position:sticky`. Desktop ≥1024: 4 "frenos" a la izquierda (título breve de color + subtítulo emocional, **sin emoji**) + panel sticky `aspect-video`/`object-contain` a la derecha con **4 videos reales** (uno por freno), borde que toma el color del freno activo. Detector de activo por **proximidad al centro del viewport** (el `IntersectionObserver` fallaba a 1024×768). Mobile: tarjetas apiladas con borde de acento. Videos en `public/` (nombre SEO, ffmpeg CRF22). **2026-07-12.** |
 | 4 | **Qué incluye** | `diseno-web-includes.tsx` | 🆕 propia | Grid **bento** de 6 features. |
 | 5 | **Proceso** | `process-section.tsx` | ♻️ reusada | Contenido de la home (hacer bespoke). |
 | 6a | **Antes / Después** | `diseno-web-showcase.tsx` | 🆕 propia | **Wipe scroll-linked** (Motion). Full-bleed. Mockups placeholder. |
@@ -47,7 +47,7 @@
 
 1. ~~**Imágenes de la galería**: son `*-raw.png`. **Convertir a WebP** (crítico para performance).~~ ✅ **HECHO (2026-07-11)**: las 8 capturas (`*-raw.png`, ~12.8MB total, 1600×2200) convertidas a WebP q80 con `sharp` → ~1.27MB total (**90% menos**). Referencias en `lib/portfolio-projects.ts` actualizadas a `/{slug}.webp`. PNG viejos borrados (quedan en historial git).
 2. **Capturas reales** para Antes/Después (hoy son gradientes placeholder).
-3. **Íconos**: reemplazar emoji (problema, includes) por lucide-react.
+3. **Íconos**: reemplazar emoji por lucide-react. ✅ En **Problema** ya no hay emoji (2026-07-12, se reemplazó por videos). Falta en **includes** ("Qué incluye").
 4. **Logos reales** en la barra de confianza (hoy texto).
 5. Hacer **bespoke** las secciones reusadas (proceso, testimonios, FAQ) con copy de diseño web.
 6. **Migrar copy** a `lib/i18n.ts` central.
