@@ -1,7 +1,7 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-12 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-13 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
 
 ---
 
@@ -43,15 +43,49 @@ Los "gradiente + emoji" del sticky panel se reemplazaron por **4 videos reales**
 - **Color por freno** (`ACCENTS = ["#1e63e6","#05a5ff","#7c5cff","#ff9900"]`): pinta el título del texto izquierdo y el borde del card activo (transición al scrollear).
 - **Copy nuevo:** sin emoji; cada freno = título breve + subtítulo emocional en 1ª persona.
 
-## ✅ HECHO (2026-07-13)
+## ✅ HECHO (2026-07-13) · Sesión larga: Problema (optimización + efectos) + Bento "Qué incluye"
 
-1. **✅ Optimización de carga de los 4 videos** (`diseno-web-problem.tsx`). Antes: 4 `<video autoPlay>` → el browser descargaba **y decodificaba los ~2.7MB juntos** al entrar (gotcha: `autoPlay` **ignora** `preload`; y con `preload="none"` setear `src` NO baja nada hasta `play()`/`load()`). Ahora control **imperativo por refs**: sacado `autoPlay`, `preload` **dinámico** (`"none"` frío / `"auto"` warm), `src` condicional, `IntersectionObserver` (rootMargin 200px) → no baja nada fuera de pantalla, estado `warm` (activo + siguiente, solo crece) y se **reproduce solo el activo** (1 decoder) pausando el resto. **Cero pérdida de calidad** (los `.mp4` no se tocan). Compila limpio, SSR 200. **⚠️ SIN COMMITEAR** + falta validar en pantalla real (scroll + Network panel).
+> **Todo commiteado hoy.** Commits: `1bc6736`, `ae22a28`, `14daae0` (mañana) + el commit del cierre (bento backgrounds). Branch `develop`, **~44 commits sin pushear a origin**.
 
-## 🎯 PENDIENTES
+### A · Sección Problema (`app/components/sections/diseno-web-problem.tsx`) — commit `1bc6736`
 
-1. **Commitear** la optimización de carga de video (conventional, en inglés).
-2. **(Opcional) Validar** en pantalla real: que solo baje el activo+siguiente (Network panel), el crossfade sin flash, el centrado del video sticky (`top-[32vh]`) y el borde de color por freno.
-3. **(Opcional) Bug global del cursor** (`body{cursor:none}` afecta páginas sin cursor custom) — ver `docs/diseno-web-page.md` punto 7.
+1. **Optimización de carga de los 4 videos.** Antes: 4 `<video autoPlay>` → descargaba **y decodificaba ~2.7MB juntos**. GOTCHAS: `autoPlay` **ignora** `preload`; y con `preload="none"` setear `src` **NO baja nada** hasta `play()`/`load()`. Ahora control **imperativo por refs**: sin `autoPlay`, `preload` **dinámico** (`none` frío / `auto` warm), `src` condicional, `IntersectionObserver` (rootMargin 200px) → 0 bytes fuera de pantalla, estado `warm` (activo + siguiente, solo crece), se **reproduce solo el activo** (1 decoder). Cero pérdida de calidad (no se tocan los `.mp4`).
+2. **Centrado título/subtítulo — GOTCHA Tailwind v4** (ver engram `tailwind/unlayered-beats-utilities`): `.section-title`/`.section-copy` tienen `margin:0` y `max-width` **fuera de `@layer`** → el CSS unlayered **le gana a las utilities** (`mx-auto`, `max-w-*` no funcionan). Fix scoped: **`style` inline** (`marginInline:"auto"`, `maxWidth:"min(92vw,72rem)"`) — inline gana a todo. **Fix global pendiente (mejor):** `margin:0` → `margin-block:0` en globals.css (requiere gotcha Turbopack).
+3. **Alineación video ↔ texto:** panel sticky `top-[32vh]` → **`top-[42vh]`** para que el top del video coincida con el top del texto activo.
+4. **Copy nuevo (opción D, ES/EN):** *"Tu web puede ser tu mejor vendedor… o tu peor enemigo"* / *"Se ve bien, pero si carga lento… cada día perdés clientes que ni sabés que tuviste."* Título en **2 filas** desktop (`lg:block` en la 2ª parte), subtítulo eliminado.
+5. **Efecto MagicUI Highlighter** (`app/components/ui/highlighter.tsx`, rough-notation + motion, ambos ya instalados): **subrayado** azul en "tu mejor vendedor" + **resaltado** naranja en "peor enemigo". `isView` → se dibuja al scrollear.
+6. **Efecto MagicUI TextReveal** adaptado (`app/components/ui/scroll-reveal-text.tsx`): los textos de cada freno se **revelan palabra por palabra** con el scroll, en sync con el crossfade del video. El componente original trae su propio contenedor de scroll (h-200vh) que NO encaja → se reusó solo el MECANISMO (`useScroll` del propio texto, offset `["start 0.92","start 0.32"]`).
+7. **Ritmo más lento + espaciado:** bloques `62vh → 80vh`, crossfade `500ms → 700ms`, más aire entre filas del título (`lineHeight 1.45` + `lg:mt-8`), gap header→video `mt-6 → mt-16`.
+
+### B · Bento "Qué incluye" (`app/components/sections/diseno-web-includes.tsx`) — commit `ae22a28` + cierre
+
+**Efecto bento (MagicUI, reimplementado con estilos de marca, sin deps radix/shadcn):** glow al hover, contenido que se eleva (`lg:group-hover:-translate-y-7`), CTA **"✓ Incluido"** que sube desde abajo — ahora **píldora/badge** azul con texto blanco. Overlay sutil.
+
+**Íconos emoji QUITADOS** de la esquina de todas las cards (texto fijado abajo con `mt-auto`). **Título/subtítulo de la card destacada MÁS grandes** (`text-2xl lg:text-3xl` / `text-base`, acotados `lg:max-w-[54%]`).
+
+**Fondos animados por card — TODO EN CÓDIGO (motion, solo transform/opacity → GPU). Weightless: cero video/decoders/banding, escala infinito.** Se identifican por `c.icon` (estable ES/EN). Hechos 3 de 6:
+- **🎨 "Diseño a medida"** (destacada) → `app/components/ui/design-canvas-bg.tsx`: **mockup de landing completa EN INGLÉS** (navbar "Your Company" + logo, hero "More clients for your business" con caret que titila + "Photo" placeholder, features, trust strip, testimonio ⭐, footer). **Al lado** (no encima): herramientas de arte (paleta, pincel, lápiz) + digitales (**sliders/ajustes** + cursor). **Zoom + enfoque al hover** (capa externa = scale, interna = float motion, separadas para no pisar transforms). Blur leve `0.5px` que se enfoca al hover. **`TitleScrim`** = degradado vertical leve sobre todo el card, más fuerte abajo (texto legible, theme-aware). **Versión MOBILE compacta aparte** (`lg:hidden`): mini-ventana + 1 paleta (el desktop no se toca, gateado por breakpoint).
+- **⚡ "Carga ultra-rápida"** → `app/components/ui/carga-rapida-bg.tsx`: **medidor de performance** (tipo Lighthouse) que se llena a ~99 + rayo + **"0.1s"** + **chips de assets** (Photo, Video, Animation, Font) que pasan volando con estela.
+- **📱 "100% responsive"** → `app/components/ui/responsive-bg.tsx`: **laptop + tablet + teléfono** con la misma web y **reflow real** (3 col → 2 → 1). Cada dispositivo se activa en secuencia (pulse + glow).
+
+### C · Decisión de arquitectura: animaciones a CÓDIGO, no video/GIF (ver engram `diseno-web/animaciones-estrategia`)
+
+Consultado con el Claude-Remotion. **Regla central: el cuello de botella son los DECODERS simultáneos, no el peso** (WebM/AV1 ahorra bytes pero no decoders → el peso es un pescado rojo). **GIF descartado** (256 colores = banding, 15-30x más pesado, sin HW decode). **Ganador: portar a componentes React/CSS/SVG** (las animaciones ya son código en Remotion). Fallback: video con gating (IntersectionObserver) + **source downscaleado** (~600×400, no 1080p).
+
+**El Claude-Remotion entregó ports en `app/components/sections/animations/` (WIP, sin integrar):**
+- `diseno-a-medida-bg.tsx` — versión SVG de "diseño a medida". **SIN USAR** (fuimos con `design-canvas-bg.tsx` mío, que al usuario le gustó más). Decidir: mantener o borrar.
+- `website-not-found-bg.tsx` — port del freno "invisible en Google" (scroll a lista, sitio enterrado #12). **Para la parte C.**
+- `card-video-bg.tsx` — componente de video con gating IntersectionObserver, para la tortuga (carga-lenta) que NO se pudo portar. **Para la parte C.**
+- Faltan 2 ports del Claude-Remotion: `no-mobile` (responsive) y `no-convierte` (marquee).
+
+## 🎯 PARA MAÑANA (2026-07-14) — retomar acá
+
+1. **Terminar los fondos del bento (faltan 3 cards):** **🔍 SEO**, **🛠️ Autogestionable**, **🔒 Segura + hosting**. **Patrón:** crear `app/components/ui/<concepto>-bg.tsx` (motion, transform/opacity, weightless) → importar en `diseno-web-includes.tsx` → `const isX = c.icon === "<emoji>"` → render `{isX && <XBg />}`. Ideas: SEO = ranking que sube al #1 en Google / lupa; Autogestionable = editor/CMS con cursor editando un bloque; Segura = candado + escudo + SSL + backups.
+2. **Validar en pantalla real (lo que no pude ver yo):** las 3 cards nuevas en **mobile** y en **dark mode** (legibilidad del texto sobre los fondos), que los elementos no se pisen con el texto (abajo-izq) ni el gauge.
+3. **Parte C — portar los 4 videos de la sección Problema a código:** integrar `website-not-found-bg` (freno SEO) y `card-video-bg` (tortuga, con source downscaleado); pedir al Claude-Remotion los 2 ports que faltan (`no-mobile`, `no-convierte`). **Ojo integración:** los SVG son **3:2** (viewBox 1200×800) y el panel de Problema es **16:9** (`aspect-video`) → ajustar aspect del panel o viewBox (con `slice` recorta arriba/abajo).
+4. **Decidir** sobre `animations/diseno-a-medida-bg.tsx` (sin usar): mantener o borrar.
+5. **Pendientes viejos:** validar carga de video de Problema en Network panel; bug global del cursor (`body{cursor:none}`, ver `docs/diseno-web-page.md` punto 7); fix global del centrado (`margin-block:0` en globals.css).
+6. **Pushear** los ~44 commits de `develop` a `origin/develop`.
 
 ---
 
