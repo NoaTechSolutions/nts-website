@@ -3,6 +3,8 @@
 // SECCIÓN 4 · Qué incluye tu web (grid BENTO). Value prop / entregables.
 import { useLanguage } from "../language-provider";
 import { DesignCanvasBg } from "../ui/design-canvas-bg";
+import { CargaRapidaBg } from "../ui/carga-rapida-bg";
+import { ResponsiveBg } from "../ui/responsive-bg";
 
 const COPY = {
   es: {
@@ -51,40 +53,52 @@ export function DisenoWebIncludes() {
           {t.cards.map((c) => {
             // Card destacada (col-span-2 row-span-2) → lleva fondo animado.
             const isFeatured = c.span.includes("row-span-2");
+            const isFast = c.icon === "⚡";
+            const isResponsive = c.icon === "📱";
             return (
             <div
               key={c.title}
               className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#022977]/10 bg-white p-7 shadow-[0_10px_30px_rgba(2,41,119,0.06)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10 dark:bg-white/4 ${c.span}`}
             >
               {isFeatured && <DesignCanvasBg />}
+              {isFast && <CargaRapidaBg />}
+              {isResponsive && <ResponsiveBg />}
               {/* Glow de fondo: aparece al hover (contenido en overflow-hidden). */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#05a5ff]/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
               />
 
-              {/* Ícono: se achica un toque al hover. */}
-              <div className="relative z-10 origin-left text-3xl transition-transform duration-300 group-hover:scale-90">
-                {c.icon}
-              </div>
-
-              {/* Texto: se eleva al hover (desktop) para dejar aparecer el CTA. */}
-              <div className="relative z-10 mt-6 transform-gpu transition-transform duration-300 lg:group-hover:-translate-y-7">
+              {/* Texto abajo (mt-auto) — sin ícono emoji, el fondo animado y el
+                  título llevan el peso visual. Se eleva al hover (desktop) para
+                  dejar aparecer el CTA. La destacada: título más grande y acotado
+                  a la izquierda (para no meterse debajo del mockup). */}
+              <div
+                className={`relative z-10 mt-auto transform-gpu transition-transform duration-300 lg:group-hover:-translate-y-7 ${
+                  isFeatured ? "lg:max-w-[54%]" : ""
+                }`}
+              >
                 <h3
-                  className="text-xl font-semibold text-[#022977] dark:text-white"
+                  className={`font-semibold text-[#022977] dark:text-white ${
+                    isFeatured ? "text-2xl lg:text-3xl" : "text-xl"
+                  }`}
                   style={{ fontFamily: "var(--font-display), sans-serif" }}
                 >
                   {c.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#022977]/65 dark:text-[#c8d8f0]/70">
+                <p
+                  className={`mt-2 leading-relaxed text-[#022977]/65 dark:text-[#c8d8f0]/70 ${
+                    isFeatured ? "text-base" : "text-sm"
+                  }`}
+                >
                   {c.copy}
                 </p>
               </div>
 
-              {/* CTA que se revela deslizándose desde abajo (efecto bento). */}
-              <div className="pointer-events-none absolute inset-x-7 bottom-6 z-10 flex translate-y-4 items-center gap-1.5 text-sm font-semibold text-[#1e63e6] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 dark:text-[#5fa8ff]">
-                <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden>
-                  <path d="M4 10.5l4 4 8-9" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              {/* CTA que se revela desde abajo (efecto bento) — píldora/badge. */}
+              <div className="pointer-events-none absolute bottom-6 left-7 z-10 flex translate-y-4 items-center gap-1.5 rounded-full bg-[#1e63e6] px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-[0_6px_16px_rgba(30,99,230,0.35)] transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <svg viewBox="0 0 20 20" fill="none" className="h-3.5 w-3.5" aria-hidden>
+                  <path d="M4 10.5l4 4 8-9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {t.included}
               </div>
