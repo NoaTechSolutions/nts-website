@@ -43,10 +43,14 @@ Los "gradiente + emoji" del sticky panel se reemplazaron por **4 videos reales**
 - **Color por freno** (`ACCENTS = ["#1e63e6","#05a5ff","#7c5cff","#ff9900"]`): pinta el título del texto izquierdo y el borde del card activo (transición al scrollear).
 - **Copy nuevo:** sin emoji; cada freno = título breve + subtítulo emocional en 1ª persona.
 
-## 🎯 PARA MAÑANA (2026-07-13)
+## ✅ HECHO (2026-07-13)
 
-1. **🔴 Optimización de carga de los 4 videos (pedido pendiente).** Hoy los 4 `<video autoPlay>` están en el DOM a la vez → cargan y decodifican los **~2.7MB juntos** al entrar (solo desktop). Fix: `preload="none"` + refs, reproducir **solo el activo** y pausar el resto. Baja el arranque a ~650KB. Mantener el crossfade.
-2. **(Opcional) Validar** en pantalla real el centrado del video en el sticky (`top-[32vh]`) y el borde de color por freno; ajustar valores si hace falta.
+1. **✅ Optimización de carga de los 4 videos** (`diseno-web-problem.tsx`). Antes: 4 `<video autoPlay>` → el browser descargaba **y decodificaba los ~2.7MB juntos** al entrar (gotcha: `autoPlay` **ignora** `preload`; y con `preload="none"` setear `src` NO baja nada hasta `play()`/`load()`). Ahora control **imperativo por refs**: sacado `autoPlay`, `preload` **dinámico** (`"none"` frío / `"auto"` warm), `src` condicional, `IntersectionObserver` (rootMargin 200px) → no baja nada fuera de pantalla, estado `warm` (activo + siguiente, solo crece) y se **reproduce solo el activo** (1 decoder) pausando el resto. **Cero pérdida de calidad** (los `.mp4` no se tocan). Compila limpio, SSR 200. **⚠️ SIN COMMITEAR** + falta validar en pantalla real (scroll + Network panel).
+
+## 🎯 PENDIENTES
+
+1. **Commitear** la optimización de carga de video (conventional, en inglés).
+2. **(Opcional) Validar** en pantalla real: que solo baje el activo+siguiente (Network panel), el crossfade sin flash, el centrado del video sticky (`top-[32vh]`) y el borde de color por freno.
 3. **(Opcional) Bug global del cursor** (`body{cursor:none}` afecta páginas sin cursor custom) — ver `docs/diseno-web-page.md` punto 7.
 
 ---
