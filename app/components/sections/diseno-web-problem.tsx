@@ -10,9 +10,14 @@
 // Mobile: tarjetas apiladas (el sticky 2-col no aplica).
 // ═══════════════════════════════════════════════════════════
 import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useLanguage } from "../language-provider";
 import { Highlighter } from "../ui/highlighter";
 import { ScrollRevealText } from "../ui/scroll-reveal-text";
+import { CargaLentaBg } from "./animations/carga-lenta-bg";
+import { BrokenMobileBg } from "./animations/broken-mobile-bg";
+import { NoConvierteBg } from "./animations/no-convierte-bg";
+import { InvisibleGoogleBg } from "./animations/invisible-google-bg";
 
 const COPY = {
   es: {
@@ -52,13 +57,13 @@ const COPY = {
 const GRADIENTS = [
   "linear-gradient(135deg, #022977 0%, #0a3fb0 100%)",
   "linear-gradient(135deg, #0a3fb0 0%, #05a5ff 100%)",
-  "linear-gradient(135deg, #012061 0%, #3f2fb0 100%)",
+  "linear-gradient(135deg, #012061 0%, #1e50ff 100%)",
   "linear-gradient(135deg, #04122e 0%, #ff8c1a 100%)",
 ];
 
 // Color de acento por freno — distinto para cada uno, on-brand y visible en
 // claro y oscuro. Pinta el título del texto (izquierda) y el borde del card.
-const ACCENTS = ["#1e63e6", "#05a5ff", "#7c5cff", "#ff9900"];
+const ACCENTS = ["#1e63e6", "#05a5ff", "#1e50ff", "#ff9900"];
 
 // Video por freno (mismo para ES/EN, es visual). "" = todavía sin video →
 // se muestra el gradiente + emoji de placeholder. Servido desde /public.
@@ -68,6 +73,81 @@ const VIDEOS = [
   "/noatechsolutions-diseno-web-no-convierte.mp4",
   "/noatechsolutions-diseno-web-no-seo.mp4",
 ];
+
+// Fondos en CÓDIGO que reemplazan los videos (null = todavía usa video/placeholder).
+const PROBLEM_BGS = [CargaLentaBg, BrokenMobileBg, NoConvierteBg, InvisibleGoogleBg] as const;
+
+// Las animaciones están diseñadas en px fijos para el panel ancho del desktop
+// (~544×306, 16:9). ScaleStage las renderiza a ese tamaño y las ESCALA para
+// caber en cualquier contenedor (móvil/tablet) sin rediseñar cada una. Escala
+// máx 1 (nunca agranda) → el desktop, que ya usa el panel a tamaño real, no se
+// toca (allá se sigue montando la animación directa, sin ScaleStage).
+function ScaleStage({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => setScale(el.clientWidth ? Math.min(1, el.clientWidth / 544) : 0);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="absolute inset-0 overflow-hidden">
+      <div style={{ position: "absolute", left: 0, top: 0, width: 544, height: 306, transformOrigin: "top left", transform: `scale(${scale})` }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Card del stack (mobile/tablet): pegada (sticky) → cada una ENTRA desde la
+// derecha con el scroll y se APILA encima de la anterior (mismo lugar). El
+// offset de `top` + z creciente deja ver un borde de las de abajo (efecto mazo).
+function StackCard({
+  it,
+  i,
+  Bg,
+  accent,
+  gradient,
+}: {
+  it: { title: string; subtitle: string };
+  i: number;
+  Bg: (typeof PROBLEM_BGS)[number];
+  accent: string;
+  gradient: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 42%"] });
+  const x = useTransform(scrollYProgress, [0, 1], [120, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
+  return (
+    <div ref={ref} className="sticky" style={{ top: `${88 + i * 14}px`, zIndex: i + 1 }}>
+      <motion.div
+        style={{ x, opacity }}
+        className="mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-[#022977]/10 bg-white text-center shadow-[0_20px_50px_rgba(2,41,119,0.2)] dark:border-white/12 dark:bg-[#0b1220]"
+      >
+        {Bg && (
+          <div className="relative aspect-video w-full overflow-hidden border-b-4" style={{ background: gradient, borderBottomColor: accent }}>
+            <ScaleStage>
+              <Bg />
+            </ScaleStage>
+          </div>
+        )}
+        <div className="p-6 text-center">
+          <h3 className="text-xl font-semibold" style={{ fontFamily: "var(--font-display), sans-serif", color: accent }}>
+            {it.title}
+          </h3>
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-[#022977]/70 dark:text-[#c8d8f0]/75">
+            {it.subtitle}
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export function DisenoWebProblem() {
   const { locale } = useLanguage();
@@ -242,7 +322,9 @@ export function DisenoWebProblem() {
               className="sticky top-[42vh] aspect-video w-full overflow-hidden rounded-3xl border-2 shadow-[0_24px_60px_rgba(2,41,119,0.28)] transition-colors duration-500"
               style={{ borderColor: ACCENTS[active] }}
             >
-              {t.items.map((it, i) => (
+              {t.items.map((it, i) => {
+                const Bg = PROBLEM_BGS[i];
+                return (
                 <div
                   key={it.title}
                   aria-hidden={active !== i}
@@ -251,7 +333,9 @@ export function DisenoWebProblem() {
                   }`}
                   style={{ background: GRADIENTS[i] }}
                 >
-                  {VIDEOS[i] ? (
+                  {Bg ? (
+                    <Bg className="absolute inset-0 h-full w-full" />
+                  ) : VIDEOS[i] ? (
                     <video
                       ref={(el) => {
                         videoRefs.current[i] = el;
@@ -284,32 +368,21 @@ export function DisenoWebProblem() {
                     </div>
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* ── Fallback MOBILE (<1024): tarjetas apiladas ── */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:hidden">
+        {/* ── MOBILE / TABLET (<1024): STACK de cards que entran desde la derecha
+            con el scroll y se apilan una encima de otra (efecto mazo) ── */}
+        <div className="mt-12 pb-[40vh] lg:hidden">
           {t.items.map((it, i) => (
-            <div
-              key={it.title}
-              className="rounded-2xl border-l-4 border-y border-r border-[#022977]/10 bg-white p-6 text-left shadow-[0_10px_30px_rgba(2,41,119,0.06)] dark:border-y-white/10 dark:border-r-white/10 dark:bg-white/4"
-              style={{ borderLeftColor: ACCENTS[i] }}
-            >
-              <h3
-                className="text-xl font-semibold"
-                style={{ fontFamily: "var(--font-display), sans-serif", color: ACCENTS[i] }}
-              >
-                {it.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#022977]/70 dark:text-[#c8d8f0]/75">
-                {it.subtitle}
-              </p>
-            </div>
+            <StackCard key={it.title} it={it} i={i} Bg={PROBLEM_BGS[i]} accent={ACCENTS[i]} gradient={GRADIENTS[i]} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+
