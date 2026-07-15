@@ -53,7 +53,7 @@ const COPY = {
 } as const;
 
 // Gradientes on-brand por freno (navy/sky, el último con acento naranja).
-// Sirven de FONDO/placeholder mientras el video del freno no exista.
+// Fondo base de cada panel/card, detrás del fondo animado en código.
 const GRADIENTS = [
   "linear-gradient(135deg, #022977 0%, #0a3fb0 100%)",
   "linear-gradient(135deg, #0a3fb0 0%, #05a5ff 100%)",
@@ -65,16 +65,8 @@ const GRADIENTS = [
 // claro y oscuro. Pinta el título del texto (izquierda) y el borde del card.
 const ACCENTS = ["#1e63e6", "#05a5ff", "#1e50ff", "#ff9900"];
 
-// Video por freno (mismo para ES/EN, es visual). "" = todavía sin video →
-// se muestra el gradiente + emoji de placeholder. Servido desde /public.
-const VIDEOS = [
-  "/noatechsolutions-diseno-web-carga-lenta.mp4",
-  "/noatechsolutions-diseno-web-no-mobile.mp4",
-  "/noatechsolutions-diseno-web-no-convierte.mp4",
-  "/noatechsolutions-diseno-web-no-seo.mp4",
-];
-
-// Fondos en CÓDIGO que reemplazan los videos (null = todavía usa video/placeholder).
+// Fondos animados en CÓDIGO por freno (reemplazaron a los 4 videos .mp4 que había
+// antes; motion + transform/opacity → weightless, sin decoders ni peso de assets).
 const PROBLEM_BGS = [CargaLentaBg, BrokenMobileBg, NoConvierteBg, InvisibleGoogleBg] as const;
 
 // Las animaciones están diseñadas en px fijos para el panel ancho del desktop
@@ -218,20 +210,6 @@ export function DisenoWebProblem() {
   const titleSize = locale === "en" ? "clamp(1.65rem, 4vw, 3.4rem)" : "clamp(2.1rem, 4vw, 3.4rem)";
   const [active, setActive] = useState(0);
   const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
-  // ── Optimización de carga de video (sin tocar los .mp4, cero pérdida de
-  // calidad) ──────────────────────────────────────────────────────────────
-  // Antes: los 4 <video> tenían autoPlay → el navegador descargaba Y decodificaba
-  // los ~2.7MB en paralelo al entrar (autoPlay ignora preload). Ahora control
-  // imperativo por refs: preload dinámico ("none" frío / "auto" warm) + src
-  // condicional (no baja nada hasta que hace falta), se reproduce SOLO el
-  // activo (1 decoder) y se pausa el
-  // resto. `inView` (IntersectionObserver) evita cargar nada mientras la sección
-  // está fuera de pantalla; `warm` mantiene precargado el activo + el SIGUIENTE
-  // para que el crossfade entre suave (el siguiente buffereado pero quieto).
-  const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
-  const [warm, setWarm] = useState<Set<number>>(() => new Set());
 
   // ── MOBILE: pinned stage con entrada scroll-scrubbed ───────────────────────
   // Todo el bloque (título + cards) es UN solo elemento sticky pinneado mientras
@@ -305,49 +283,8 @@ export function DisenoWebProblem() {
     };
   }, []);
 
-  // Descarga NADA hasta que la sección se acerca al viewport (rootMargin 200px
-  // → warming apenas antes de entrar). Solo desktop monta los <video>.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { rootMargin: "200px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // Marca "warm" (a precargar) el activo y el SIGUIENTE, solo cuando la sección
-  // está en vista. El set solo CRECE → nunca se recarga uno ya visto (evita el
-  // flash al scrollear para atrás).
-  useEffect(() => {
-    if (!inView) return;
-    setWarm((prev) => {
-      const needed = [active, active + 1].filter((i) => i < VIDEOS.length);
-      if (needed.every((i) => prev.has(i))) return prev;
-      const next = new Set(prev);
-      needed.forEach((i) => next.add(i));
-      return next;
-    });
-  }, [active, inView]);
-
-  // Reproduce SOLO el activo (1 decoder), pausa el resto. Fuera de vista, todos
-  // pausados. play() puede rechazar si el buffer aún no llegó → se ignora.
-  useEffect(() => {
-    videoRefs.current.forEach((v, i) => {
-      if (!v) return;
-      if (i === active && inView) {
-        const p = v.play();
-        if (p) p.catch(() => {});
-      } else {
-        v.pause();
-      }
-    });
-  }, [active, inView, warm]);
-
   return (
-    <section ref={sectionRef} className="relative w-full px-6 py-20 md:py-28">
+    <section className="relative w-full px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         {/* Header (desktop ≥1024): estático, arriba del grid de 2 columnas. En
             mobile el título va DENTRO del stack (sticky) — ver bloque de abajo. */}
@@ -407,40 +344,7 @@ export function DisenoWebProblem() {
                   }`}
                   style={{ background: GRADIENTS[i] }}
                 >
-                  {Bg ? (
-                    <Bg className="absolute inset-0 h-full w-full" />
-                  ) : VIDEOS[i] ? (
-                    <video
-                      ref={(el) => {
-                        videoRefs.current[i] = el;
-                      }}
-                      className="absolute inset-0 h-full w-full object-contain"
-                      // src + preload solo cuando está "warm". OJO: con
-                      // preload="none" setear src NO descarga nada (el browser
-                      // respeta el none hasta un play()/load()). Por eso el
-                      // preload es DINÁMICO: "auto" en warm → el activo Y su
-                      // siguiente SÍ buffean de verdad (crossfade suave); "none"
-                      // en los fríos → 0 bytes hasta que les toca.
-                      src={warm.has(i) ? VIDEOS[i] : undefined}
-                      aria-label={`${it.title} — ${it.subtitle}`}
-                      loop
-                      muted
-                      playsInline
-                      preload={warm.has(i) ? "auto" : "none"}
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-10 text-center text-white">
-                      <span
-                        className="text-4xl font-bold"
-                        style={{ fontFamily: "var(--font-display), sans-serif" }}
-                      >
-                        {it.title}
-                      </span>
-                      <span className="text-lg font-medium text-white/80">
-                        {it.subtitle}
-                      </span>
-                    </div>
-                  )}
+                  <Bg className="absolute inset-0 h-full w-full" />
                 </div>
                 );
               })}
