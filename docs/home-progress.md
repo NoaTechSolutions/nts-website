@@ -1,7 +1,55 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-13 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-14 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+
+---
+
+## ✅ HECHO (2026-07-14) · Bento "Qué incluye" completo + Sección Problema a código
+
+> **Todo compila (HTTP 200). SIN COMMITEAR al momento de escribir esto → se commitea al cerrar la sesión** (3 commits: bento / problema / docs). Branch `develop`.
+
+### A · Bento "Qué incluye" (`diseno-web-includes.tsx`) — los 3 fondos que faltaban + refinamientos
+
+Se cerraron los **6 fondos animados** del bento (todo en código, motion, transform/opacity → GPU). Se identifican por `c.icon` y flag `isX`. Nuevos hoy:
+- **🔍 SEO** → `app/components/ui/seo-bg.tsx`: **UNA escena hub-and-spoke**. Centro = tarjeta-navegador **"Your Company"** (tu web); de ahí salen líneas + pulsos hacia **plataformas** (Google logo real de 4 colores, Bing, Yahoo, Facebook, Instagram, X), el **panel SERP #1** (izq) y el **gráfico de tráfico** subiendo (der). Los 3 antes parecían sueltos → se unificaron para que "todo encaje en 1".
+- **🛠️ Autogestionable** → `app/components/ui/autogestionable-bg.tsx`: **biblioteca de medios** (izq) + **cursor "YOU"** que arrastra una foto de **izq→der** al dropzone **"Upload new photo"** de tu web (der, **fija**, no flota) → aparece con **check**. Web con "● Live" + botón "Publish".
+- **🔒 Segura + hosting** → `app/components/ui/secure-hosting-bg.tsx`: **domo grande** con 4 nodos etiquetados adentro (**You / Clients / Info / Web**) + **barrera** que DEFIENDE. Ataques con iconos reconocibles (**virus, ladrón/máscara, bug, calavera, phishing/anzuelo, bomba**) que llegan y **rebotan**. Laterales: **candado que se bloquea** (izq, `LockModule`) + **radar de monitoreo** (der, `Radar`, más grande).
+- **Zoom al hover en TODOS los fondos** (patrón del card destacado): wrapper `group-hover:scale-[1.04] transition-transform duration-500`.
+
+### B · Título de la sección "Qué incluye" — centrado + SEO + FlipWords
+
+- **Centrado (bug real):** `.section-title` (globals.css) tiene `max-width:18ch` **sin `margin:auto`** → la caja quedaba a la izquierda. Fix: **clase custom `.dw-includes-title`** con `text-align:center` + `max-width:none` (las utilities `text-center`/`mx-auto` NO pisan el CSS base unlayered — GOTCHA reafirmado).
+- **Copy SEO + emocional (elegido por el usuario):** *"Nos ocupamos de todo: tu web completa que impulsa tu **[Negocio→Marca→Proyecto→Idea→Futuro]**"*. La **última palabra rota** con **FlipWords** (mismo efecto del hero) + **highlight naranja** (`.dw-flip-shell > div` con `background:var(--color-amber)` + `color:#fff !important` + `text-transform:capitalize`; el `!important` porque las utilities de color de FlipWords pisaban).
+- **2 filas centradas** (título dividido en spans block) + **subtítulo centrado y separado** (`.dw-includes-copy`, `margin:1.85rem auto 0`).
+- **Distribución bento en TABLET:** movido de `lg:` → `md:` (en `diseno-web-includes.tsx` + `design-canvas-bg.tsx`) → el bento 4-col aparece desde 768px. **Mobile:** filas más altas (`auto-rows-[minmax(14rem,auto)]` base, `11rem` desde `sm`).
+
+### C · Sección Problema (`diseno-web-problem.tsx`) — los 4 videos → animaciones en código
+
+Reemplazados los 4 `<video>` por fondos en código (array `PROBLEM_BGS`; el render usa `<Bg/>` en vez de `<video>`). **Los `.mp4` ya NO se usan** (quedan en `/public`).
+- **Carga lenta** → `animations/carga-lenta-bg.tsx` (NEW): spinner lento + barra de progreso **trabada en ~38%** + "still loading…" + skeletons con shimmer + **caracol** cruzando.
+- **Rota en el celular** → `animations/broken-mobile-bg.tsx` (NEW): **split** → desktop OK (**✓**) vs **tablet + móvil** con la misma web ROTA (**✗**): overflow horizontal, menú cortado, imagen rota, cards que se salen.
+- **Linda pero vacía** → `animations/no-convierte-bg.tsx` (NEW): sitio lindo (izq, CTA "Contact us" que late) + **visitantes** (cursores) que entran **"Client"** (lento) y se van **"✗ Missing client"** + tablero (**1,248 visitas** vs **0 mensajes**, 97% bounce).
+- **Invisible en Google** → `animations/invisible-google-bg.tsx` (NEW): SERP; **competidores arriba** llevándose el click (cursor + "✓ clicked") vs **tu sitio enterrado #14** en rojo con **"0 clicks"** y "nobody scrolls this far". **Reemplaza** al `website-not-found-bg.tsx` (SVG portado, ya no se usa).
+- **Color freno #3:** de **morado `#7c5cff`** (no es de paleta) → **azul eléctrico `#1e50ff`** (en `ACCENTS[2]`, `GRADIENTS[2]`, y dentro de `no-convierte`/`broken-mobile`).
+
+### D · Sección Problema en MOBILE (sin tocar desktop)
+
+- **`ScaleStage`** (en `diseno-web-problem.tsx`): las animaciones están en **px fijos** (diseñadas para el panel ancho ~544×306, 16:9). Mide el contenedor con `ResizeObserver` y **escala** la animación para caber en cualquier ancho (escala **máx 1**, nunca agranda). Solo se usa en el bloque mobile → **desktop intacto** (allá el panel monta la animación directa).
+- **`StackCard`** (efecto mazo): cada card es **`sticky`** + `useScroll`/`useTransform` → **entra desde la derecha** con el scroll (`x:120→0`) y se **apila ENCIMA** de la anterior (offset de `top` + z creciente = se ve el borde de las de abajo). Contenido **centrado**. El grid 2-col de tablet se cambió por **stack vertical centrado** (`max-w-md`).
+
+### 🐛 GOTCHA de la sesión
+`ReferenceError: WebsiteNotFoundBg is not defined` tras cambiar el import → era **estado viejo de HMR** (la fuente estaba limpia, `grep` sin matches). Se resolvió tocando el archivo (recompile fresco).
+
+## 🎯 PARA MAÑANA (2026-07-15) — retomar acá
+
+1. **Validar en pantalla real (lo que no pude ver yo):**
+   - Los 3 fondos nuevos del bento (SEO/CMS/Segura) en **mobile** y **dark mode** (legibilidad, que no se pisen con el texto).
+   - Las 4 animaciones de Problema en **mobile**: el **efecto stack** (`StackCard` — que entren de la derecha y se apilen bien, ver el `top` del sticky por si la navbar tapa) y el **escalado** (`ScaleStage`).
+2. **Calibrar números si hace falta:** `StackCard` sticky `top` (`88 + i·14px`), distancia de entrada (`x:120`); `ScaleStage` designW (`544`).
+3. **Limpieza de código muerto de video** en `diseno-web-problem.tsx`: ya ningún freno usa `<video>` → sacar `videoRefs`, `inView`, `warm`, el `IntersectionObserver` de warming, el array `VIDEOS` y el branch `VIDEOS[i] ?`. Decidir borrar los `.mp4` de `/public` + `animations/website-not-found-bg.tsx` + `card-video-bg.tsx` + `diseno-a-medida-bg.tsx` (sin usar).
+4. **Detalles finos del bento "Qué incluye"** (el usuario dijo "pequeños detalles pero después").
+5. **Pushear** `develop` a `origin/develop` (~muchos commits acumulados).
 
 ---
 
