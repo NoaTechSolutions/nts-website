@@ -10,7 +10,7 @@
 // Mobile: tarjetas apiladas (el sticky 2-col no aplica).
 // ═══════════════════════════════════════════════════════════
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { type MotionValue, motion, useMotionValue, useTransform } from "motion/react";
 import { useLanguage } from "../language-provider";
 import { Highlighter } from "../ui/highlighter";
 import { ScrollRevealText } from "../ui/scroll-reveal-text";
@@ -103,55 +103,119 @@ function ScaleStage({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Card del stack (mobile/tablet): pegada (sticky) → cada una ENTRA desde la
-// derecha con el scroll y se APILA encima de la anterior (mismo lugar). El
-// offset de `top` + z creciente deja ver un borde de las de abajo (efecto mazo).
-function StackCard({
+// Título de la sección (eyebrow + h2 con los efectos Highlighter). Se extrae
+// porque se renderiza DOS veces: una en desktop (arriba del grid, estático) y
+// otra en mobile (dentro del mismo contenedor que el stack, sticky). Cada
+// breakpoint muestra solo el suyo (hidden lg:block / lg:hidden).
+function ProblemHeading({ t, titleSize }: { t: (typeof COPY)[keyof typeof COPY]; titleSize?: string }) {
+  return (
+    <>
+      <p className="eyebrow">{t.eyebrow}</p>
+      {/* marginInline + maxWidth inline (NO mx-auto / NO max-w-*): en Tailwind v4
+          el CSS sin @layer (.section-title con `margin:0` y `max-width`) le gana
+          a las utilities. lineHeight amplio → aire entre las 2 filas. */}
+      <h2
+        className="section-title mt-3"
+        style={{ marginInline: "auto", maxWidth: "min(92vw, 72rem)", lineHeight: 1.45, fontSize: titleSize }}
+      >
+        {/* Fila 1 (mobile): "Tu web puede ser". En desktop (lg:inline) vuelve a
+            fluir con la fila 2 → desktop se queda en 2 filas, sin tocar. */}
+        <span className="block lg:inline">{t.title.l1.pre}</span>
+        {/* Fila 2 (mobile): "tu mejor vendedor…" con subrayado. mt-1 = poco aire
+            (la fila 1 ya deja leading suficiente); en desktop inline sin margen. */}
+        <span className="mt-1 block lg:mt-0 lg:inline">
+          <Highlighter action="underline" color="#1e63e6" strokeWidth={3} padding={4} animationDuration={800} isView>
+            {t.title.l1.mark}
+          </Highlighter>
+          {t.title.l1.post}
+        </span>{" "}
+        {/* Fila 3 (mobile) / Fila 2 (desktop): "o tu peor enemigo" resaltado. */}
+        <span className="mt-5 block lg:mt-8">
+          {t.title.l2.pre}
+          <Highlighter action="highlight" color="#ff9900" padding={6} animationDuration={900} isView>
+            {t.title.l2.mark}
+          </Highlighter>
+          {t.title.l2.post}
+        </span>
+      </h2>
+    </>
+  );
+}
+
+// Card del stack en MOBILE, DENTRO del pinned stage. Se posiciona ABSOLUTA (todas
+// apiladas en el mismo lugar; offset de `top` + z creciente deja ver el borde de
+// las de abajo = efecto mazo). Su entrada (slide desde la derecha + fade) la
+// maneja el PROGRESO del scroll del track, NO un sticky propio → así el stage
+// entero (título + cards) se despega y se va JUNTO al final, sin peel ni el
+// título tapando nada (son la misma pieza).
+function ProblemMobileCard({
   it,
   i,
+  n,
   Bg,
   accent,
   gradient,
+  progress,
 }: {
   it: { title: string; subtitle: string };
   i: number;
+  n: number;
   Bg: (typeof PROBLEM_BGS)[number];
   accent: string;
   gradient: string;
+  progress: MotionValue<number>;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 42%"] });
-  const x = useTransform(scrollYProgress, [0, 1], [120, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
+  // Entrada ATADA AL SCROLL (scrub), 3D y SIN fade. Cada card ocupa su tramo del
+  // progreso dejando un HUECO antes de la siguiente (span*0.7 → más tiempo entre
+  // una card y la otra). En vez de opacidad, "flipea" desde canto (rotateY -90 =
+  // casi invisible) hasta ponerse de frente, con un leve pop (scale) y subida (y):
+  // así entra en su COLOR ENTERO, sin transparencia, y mucho más vistoso. Al subir
+  // el scroll se des-apila (motion sigue el progreso en ambos sentidos).
+  const span = 1 / n;
+  const start = i * span;
+  const end = start + span * 0.7;
+  const rotateY = useTransform(progress, [start, end], [-90, 0], { clamp: true });
+  const scale = useTransform(progress, [start, end], [0.82, 1], { clamp: true });
+  const y = useTransform(progress, [start, end], [46, 0], { clamp: true });
   return (
-    <div ref={ref} className="sticky" style={{ top: `${88 + i * 14}px`, zIndex: i + 1 }}>
-      <motion.div
-        style={{ x, opacity }}
-        className="mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-[#022977]/10 bg-white text-center shadow-[0_20px_50px_rgba(2,41,119,0.2)] dark:border-white/12 dark:bg-[#0b1220]"
-      >
-        {Bg && (
-          <div className="relative aspect-video w-full overflow-hidden border-b-4" style={{ background: gradient, borderBottomColor: accent }}>
-            <ScaleStage>
-              <Bg />
-            </ScaleStage>
-          </div>
-        )}
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-semibold" style={{ fontFamily: "var(--font-display), sans-serif", color: accent }}>
-            {it.title}
-          </h3>
-          <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-[#022977]/70 dark:text-[#c8d8f0]/75">
-            {it.subtitle}
-          </p>
+    <motion.div
+      style={{
+        rotateY,
+        scale,
+        y,
+        top: i * 12,
+        zIndex: i + 1,
+        transformPerspective: 1000,
+        transformOrigin: "center",
+      }}
+      className="absolute inset-x-0 mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-[#022977]/10 bg-white text-center shadow-[0_20px_50px_rgba(2,41,119,0.2)] dark:border-white/12 dark:bg-[#0b1220]"
+    >
+      {Bg && (
+        <div className="relative aspect-video w-full overflow-hidden border-b-4" style={{ background: gradient, borderBottomColor: accent }}>
+          <ScaleStage>
+            <Bg />
+          </ScaleStage>
         </div>
-      </motion.div>
-    </div>
+      )}
+      <div className="p-6 text-center">
+        <h3 className="text-xl font-semibold" style={{ fontFamily: "var(--font-display), sans-serif", color: accent }}>
+          {it.title}
+        </h3>
+        <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-[#022977]/70 dark:text-[#c8d8f0]/75">
+          {it.subtitle}
+        </p>
+      </div>
+    </motion.div>
   );
 }
 
 export function DisenoWebProblem() {
   const { locale } = useLanguage();
   const t = COPY[locale];
+  // El título EN es más largo → en mobile se iba a 4 filas. Reducimos SOLO el
+  // mínimo del clamp para EN: ese mínimo actúa únicamente en viewports chicos
+  // (mobile) → desktop queda idéntico (usa la parte 4vw/cap) y ES no se toca.
+  const titleSize = locale === "en" ? "clamp(1.65rem, 4vw, 3.4rem)" : "clamp(2.1rem, 4vw, 3.4rem)";
   const [active, setActive] = useState(0);
   const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
   // ── Optimización de carga de video (sin tocar los .mp4, cero pérdida de
@@ -168,6 +232,41 @@ export function DisenoWebProblem() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
   const [warm, setWarm] = useState<Set<number>>(() => new Set());
+
+  // ── MOBILE: pinned stage con entrada scroll-scrubbed ───────────────────────
+  // Todo el bloque (título + cards) es UN solo elemento sticky pinneado mientras
+  // el "track" (un div alto) scrollea → al final se despega y se va COMPLETO
+  // (título + cards juntos), imposible que el título tape las cards en la salida.
+  // La ENTRADA está atada al scroll: calculamos el progreso 0→1 A MANO desde la
+  // posición del track (mismo mecanismo confiable que la detección de `active`,
+  // NO useScroll que se colgaba con el hijo pinneado) y lo guardamos en un
+  // MotionValue (sin re-render). Cada card mapea su tramo → scrub en ambos sentidos.
+  const mobileTrackRef = useRef<HTMLDivElement>(null);
+  const mobileProgress = useMotionValue(0);
+  useEffect(() => {
+    const track = mobileTrackRef.current;
+    if (!track) return;
+    let raf = 0;
+    const compute = () => {
+      raf = 0;
+      if (!track.offsetHeight) return; // desktop: track lg:hidden (offsetHeight 0)
+      const top = track.getBoundingClientRect().top;
+      // 0 cuando el stage recién se pega (top ~88px); 1 tras `entrance` px de scroll.
+      const entrance = window.innerHeight * 1.35;
+      mobileProgress.set(Math.min(1, Math.max(0, (88 - top) / entrance)));
+    };
+    const onScroll = () => {
+      if (!raf) raf = window.requestAnimationFrame(compute);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    compute();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [mobileProgress]);
 
   useEffect(() => {
     // En cada scroll, marca activo el paso cuyo CENTRO está más cerca del centro
@@ -250,35 +349,10 @@ export function DisenoWebProblem() {
   return (
     <section ref={sectionRef} className="relative w-full px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="text-center">
-          <p className="eyebrow">{t.eyebrow}</p>
-          {/* marginInline + maxWidth inline (NO mx-auto / NO max-w-*): en
-              Tailwind v4 el CSS sin @layer (.section-title/.section-copy con
-              `margin:0` y `max-width`) le gana a las utilities. Inline lo fuerza.
-              maxWidth min(92vw, 72rem) = responsive con un solo valor: desktop
-              usa hasta 72rem (aprovecha el ancho → título en 2 filas, subtítulo
-              en 1), mobile usa 92vw. La 2ª parte del título va en su fila con
-              lg:block (salto controlado solo en desktop). */}
-          {/* lineHeight amplio (1.45 vs el 1.05 de .section-title) → aire entre
-              las 2 filas para que el subrayado y el resaltado respiren. */}
-          <h2
-            className="section-title mt-3"
-            style={{ marginInline: "auto", maxWidth: "min(92vw, 72rem)", lineHeight: 1.45 }}
-          >
-            {t.title.l1.pre}
-            <Highlighter action="underline" color="#1e63e6" strokeWidth={3} padding={4} animationDuration={800} isView>
-              {t.title.l1.mark}
-            </Highlighter>
-            {t.title.l1.post}{" "}
-            <span className="lg:mt-8 lg:block">
-              {t.title.l2.pre}
-              <Highlighter action="highlight" color="#ff9900" padding={6} animationDuration={900} isView>
-                {t.title.l2.mark}
-              </Highlighter>
-              {t.title.l2.post}
-            </span>
-          </h2>
+        {/* Header (desktop ≥1024): estático, arriba del grid de 2 columnas. En
+            mobile el título va DENTRO del stack (sticky) — ver bloque de abajo. */}
+        <div className="hidden text-center lg:block">
+          <ProblemHeading t={t} titleSize={titleSize} />
         </div>
 
         {/* ── STICKY SCROLL REVEAL (desktop ≥1024) ── */}
@@ -374,12 +448,38 @@ export function DisenoWebProblem() {
           </div>
         </div>
 
-        {/* ── MOBILE / TABLET (<1024): STACK de cards que entran desde la derecha
-            con el scroll y se apilan una encima de otra (efecto mazo) ── */}
-        <div className="mt-12 pb-[40vh] lg:hidden">
-          {t.items.map((it, i) => (
-            <StackCard key={it.title} it={it} i={i} Bg={PROBLEM_BGS[i]} accent={ACCENTS[i]} gradient={GRADIENTS[i]} />
-          ))}
+        {/* ── MOBILE / TABLET (<1024): PINNED STAGE. Todo el bloque (título +
+            cards) es UN elemento sticky que se mantiene pinneado mientras el
+            "track" (este div alto) scrollea. Las cards entran animadas por el
+            progreso del scroll y se apilan. Al terminar el track, el stage se
+            despega y se va COMPLETO → el título nunca tapa las cards en la salida
+            (son la misma pieza). La altura del track da el scroll de las entradas. ── */}
+        <div ref={mobileTrackRef} className="lg:hidden" style={{ height: "280vh" }}>
+          <div
+            className="sticky top-[88px] flex flex-col"
+            style={{ height: "calc(100vh - 108px)" }}
+          >
+            {/* Título — dentro del stage → queda fijo mientras el stage está pinneado */}
+            <div className="shrink-0 text-center">
+              <ProblemHeading t={t} titleSize={titleSize} />
+            </div>
+            {/* Zona del stack: las cards se apilan absolutas y su entrada la maneja
+                el progreso del scroll (scrub) — ver ProblemMobileCard. */}
+            <div className="relative mt-6 flex-1">
+              {t.items.map((it, i) => (
+                <ProblemMobileCard
+                  key={it.title}
+                  it={it}
+                  i={i}
+                  n={t.items.length}
+                  Bg={PROBLEM_BGS[i]}
+                  accent={ACCENTS[i]}
+                  gradient={GRADIENTS[i]}
+                  progress={mobileProgress}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
