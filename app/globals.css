@@ -742,6 +742,47 @@ a {
   line-height: 1.95;
 }
 
+/* Título de la sección "Qué incluye" (diseño web): 3 filas centradas + última
+   palabra rotativa con highlight naranja. Ancho libre para que cada fila entre
+   en una línea; font un poco menor en mobile para que no desborde. */
+.dw-includes-title {
+  max-width: none;
+  text-align: center;
+  line-height: 1.34;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+/* Subtítulo de la sección: centrado y con aire respecto al título (las utilities
+   de Tailwind no pisan el CSS base del proyecto, así que se fuerza acá). */
+.dw-includes-copy {
+  margin: 1.85rem auto 0;
+  text-align: center;
+}
+
+.dw-flip-shell {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  position: relative;
+  min-width: 8.5ch;
+  vertical-align: baseline;
+}
+
+/* Highlight naranja + negrita sobre la palabra que rota. Se targetea el div
+   interno de FlipWords (y sus hijos) para ganarle a sus utilities de color. */
+.dw-flip-shell > div {
+  background: var(--color-amber);
+  color: #fff !important;
+  font-weight: 800;
+  border-radius: 0.3em;
+  padding: 0.05em 0.34em;
+  text-transform: capitalize;
+}
+
+.dw-flip-shell > div * {
+  color: #fff !important;
+}
+
 .portfolio-parallax-header {
   display: grid;
   gap: 1.35rem;

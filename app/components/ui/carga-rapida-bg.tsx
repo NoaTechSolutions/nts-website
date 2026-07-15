@@ -63,6 +63,8 @@ function AssetIcon({ type }: { type: AssetType }) {
 export function CargaRapidaBg() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Toda la escena hace zoom al hover (igual que el card destacado). */}
+      <div className="absolute inset-0 origin-center transform-gpu transition-transform duration-500 ease-out group-hover:scale-[1.04]">
       {/* Líneas de velocidad finas (whoosh). */}
       {[0, 1].map((i) => (
         <motion.span
@@ -144,6 +146,7 @@ export function CargaRapidaBg() {
       >
         0.1s
       </motion.div>
+      </div>
     </div>
   );
 }

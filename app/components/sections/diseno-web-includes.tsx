@@ -2,35 +2,47 @@
 
 // SECCIÓN 4 · Qué incluye tu web (grid BENTO). Value prop / entregables.
 import { useLanguage } from "../language-provider";
+import { FlipWords } from "@/components/ui/flip-words";
 import { DesignCanvasBg } from "../ui/design-canvas-bg";
 import { CargaRapidaBg } from "../ui/carga-rapida-bg";
 import { ResponsiveBg } from "../ui/responsive-bg";
+import { SeoBg } from "../ui/seo-bg";
+import { AutogestionableBg } from "../ui/autogestionable-bg";
+import { SecureHostingBg } from "../ui/secure-hosting-bg";
 
 const COPY = {
   es: {
-    eyebrow: "Qué incluye",
-    title: "Todo lo que tu web necesita para vender",
-    copy: "No solo diseño. Una web completa, rápida y lista para crecer.",
+    eyebrow: "Todo incluido",
+    titleLead1: "Nos ocupamos de todo:",
+    titleLead2: "tu web completa que",
+    titleLead3: "impulsa tu",
+    titleWords: ["negocio", "marca", "proyecto", "idea", "futuro"],
+    titleAria: "Nos ocupamos de todo: tu web completa que impulsa tu negocio",
+    copy: "No solo diseño. Nos encargamos de todo —velocidad, SEO, seguridad y hosting— para darte una web profesional y completa, lista para convertir visitas en clientes.",
     included: "Incluido",
     cards: [
-      { icon: "🎨", title: "Diseño a medida", copy: "Nada de plantillas. Cada pixel pensado para tu marca y tu público.", span: "lg:col-span-2 lg:row-span-2" },
+      { icon: "🎨", title: "Diseño a medida", copy: "Nada de plantillas. Cada pixel pensado para tu marca y tu público.", span: "md:col-span-2 md:row-span-2" },
       { icon: "⚡", title: "Carga ultra-rápida", copy: "Optimizada para <2s. Más velocidad = más conversión.", span: "" },
       { icon: "📱", title: "100% responsive", copy: "Impecable en teléfono, tablet y desktop.", span: "" },
-      { icon: "🔍", title: "SEO técnico", copy: "Estructura pensada para rankear en Google desde el día uno.", span: "lg:col-span-2" },
+      { icon: "🔍", title: "SEO técnico", copy: "Estructura pensada para rankear en Google desde el día uno.", span: "md:col-span-2" },
       { icon: "🛠️", title: "Autogestionable", copy: "Editá tu contenido sin depender de nadie (CMS).", span: "" },
       { icon: "🔒", title: "Segura y con hosting", copy: "SSL, backups y mantenimiento incluidos.", span: "" },
     ],
   },
   en: {
-    eyebrow: "What's included",
-    title: "Everything your site needs to sell",
-    copy: "Not just design. A complete, fast website ready to grow.",
+    eyebrow: "Everything included",
+    titleLead1: "We handle everything:",
+    titleLead2: "a complete website that",
+    titleLead3: "powers your",
+    titleWords: ["business", "brand", "project", "growth", "vision"],
+    titleAria: "We handle everything: a complete website that powers your business",
+    copy: "Not just design. We handle everything —speed, SEO, security and hosting— to give you a professional, complete website ready to turn visitors into customers.",
     included: "Included",
     cards: [
-      { icon: "🎨", title: "Custom design", copy: "No templates. Every pixel built for your brand and audience.", span: "lg:col-span-2 lg:row-span-2" },
+      { icon: "🎨", title: "Custom design", copy: "No templates. Every pixel built for your brand and audience.", span: "md:col-span-2 md:row-span-2" },
       { icon: "⚡", title: "Ultra-fast load", copy: "Optimized for <2s. More speed = more conversion.", span: "" },
       { icon: "📱", title: "100% responsive", copy: "Flawless on phone, tablet and desktop.", span: "" },
-      { icon: "🔍", title: "Technical SEO", copy: "Built to rank on Google from day one.", span: "lg:col-span-2" },
+      { icon: "🔍", title: "Technical SEO", copy: "Built to rank on Google from day one.", span: "md:col-span-2" },
       { icon: "🛠️", title: "Self-manageable", copy: "Edit your content without depending on anyone (CMS).", span: "" },
       { icon: "🔒", title: "Secure + hosting", copy: "SSL, backups and maintenance included.", span: "" },
     ],
@@ -45,16 +57,28 @@ export function DisenoWebIncludes() {
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="eyebrow">{t.eyebrow}</p>
-          <h2 className="section-title mt-3">{t.title}</h2>
-          <p className="section-copy mx-auto mt-4 max-w-2xl">{t.copy}</p>
+          <h2 className="section-title dw-includes-title mx-auto mt-3 text-center">
+            <span className="block">{t.titleLead1} {t.titleLead2}</span>
+            <span className="block">
+              {t.titleLead3}{" "}
+              <span className="dw-flip-shell" aria-live="polite">
+                <span className="sr-only">{t.titleAria}</span>
+                <FlipWords words={[...t.titleWords]} duration={2300} className="dw-flip-word" />
+              </span>
+            </span>
+          </h2>
+          <p className="section-copy dw-includes-copy max-w-2xl">{t.copy}</p>
         </div>
 
-        <div className="mt-12 grid auto-rows-[minmax(11rem,auto)] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid auto-rows-[minmax(14rem,auto)] grid-cols-1 gap-4 sm:auto-rows-[minmax(11rem,auto)] sm:grid-cols-2 md:grid-cols-4">
           {t.cards.map((c) => {
             // Card destacada (col-span-2 row-span-2) → lleva fondo animado.
             const isFeatured = c.span.includes("row-span-2");
             const isFast = c.icon === "⚡";
             const isResponsive = c.icon === "📱";
+            const isSeo = c.icon === "🔍";
+            const isCms = c.icon === "🛠️";
+            const isSecure = c.icon === "🔒";
             return (
             <div
               key={c.title}
@@ -63,6 +87,9 @@ export function DisenoWebIncludes() {
               {isFeatured && <DesignCanvasBg />}
               {isFast && <CargaRapidaBg />}
               {isResponsive && <ResponsiveBg />}
+              {isSeo && <SeoBg />}
+              {isCms && <AutogestionableBg />}
+              {isSecure && <SecureHostingBg />}
               {/* Glow de fondo: aparece al hover (contenido en overflow-hidden). */}
               <div
                 aria-hidden
@@ -74,13 +101,13 @@ export function DisenoWebIncludes() {
                   dejar aparecer el CTA. La destacada: título más grande y acotado
                   a la izquierda (para no meterse debajo del mockup). */}
               <div
-                className={`relative z-10 mt-auto transform-gpu transition-transform duration-300 lg:group-hover:-translate-y-7 ${
-                  isFeatured ? "lg:max-w-[54%]" : ""
+                className={`relative z-10 mt-auto transform-gpu transition-transform duration-300 md:group-hover:-translate-y-7 ${
+                  isFeatured ? "md:max-w-[54%]" : ""
                 }`}
               >
                 <h3
                   className={`font-semibold text-[#022977] dark:text-white ${
-                    isFeatured ? "text-2xl lg:text-3xl" : "text-xl"
+                    isFeatured ? "text-2xl md:text-3xl" : "text-xl"
                   }`}
                   style={{ fontFamily: "var(--font-display), sans-serif" }}
                 >

@@ -43,7 +43,7 @@ export function DesignCanvasBg() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* ══════════ DESKTOP (lg+) ══════════ */}
-      <div className="absolute inset-0 hidden lg:block">
+      <div className="absolute inset-0 hidden md:block">
         {/* ── Herramientas AL LADO (izquierda): arte + digitales ── */}
         {/* Paleta de artista */}
         <motion.div
@@ -259,7 +259,7 @@ export function DesignCanvasBg() {
       </div>
 
       {/* ══════════ MOBILE (<lg) · versión compacta ══════════ */}
-      <div className="absolute inset-0 block lg:hidden">
+      <div className="absolute inset-0 block md:hidden">
         <motion.div
           className="absolute right-3 top-4 w-[52%] overflow-hidden rounded-xl border border-[#022977]/10 bg-white/90 shadow-[0_14px_30px_rgba(2,41,119,0.14)] dark:border-white/10 dark:bg-white/[0.07]"
           animate={{ y: [0, -6, 0] }}
