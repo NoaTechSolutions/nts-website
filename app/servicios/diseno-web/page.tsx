@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { MobileSpeedDial } from "@/app/components/mobile-speed-dial";
+import { NavSettingsGear } from "@/app/components/ui/resizable-navbar";
 import { ResizableNavbarDemo } from "@/app/components/resizable-navbar-demo";
 import { DisenoWebHero } from "@/app/components/sections/diseno-web-hero";
 import { DisenoWebTrust } from "@/app/components/sections/diseno-web-trust";
@@ -52,6 +54,15 @@ export default function DisenoWebPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
+      {/* Controles idioma/tema (mismos que la home): FAB en mobile + engranaje en
+          desktop. `is-entered` fijo → visibles ya (esta página no tiene la entrada
+          del hero que dispara el fade del gear en la home). El idioma persiste vía
+          localStorage (LanguageProvider en el layout raíz). */}
+      <MobileSpeedDial />
+      <div className="page-settings-gear is-entered">
+        <NavSettingsGear />
+      </div>
 
       <ResizableNavbarDemo />
 
