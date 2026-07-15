@@ -14,6 +14,7 @@ import {
   getActiveNavIndex,
 } from "./ui/resizable-navbar";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "./language-provider";
 import { translations } from "@/lib/i18n";
@@ -148,7 +149,7 @@ export function ResizableNavbarDemo() {
                       }`}
                     >
                       {item.children.map((child) => (
-                          <a
+                          <Link
                             key={child.name}
                             href={child.link}
                             onClick={() => {
@@ -160,12 +161,12 @@ export function ResizableNavbarDemo() {
                             <span className="relative flex items-center justify-between pr-6">
                               <span>{child.name}</span>
                             </span>
-                          </a>
+                          </Link>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <a
+                  <Link
                     key={`mobile-link-${idx}`}
                     href={item.link}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -176,7 +177,7 @@ export function ResizableNavbarDemo() {
                     <span className="relative flex items-center justify-between pr-6">
                       <span className="block">{item.name}</span>
                     </span>
-                  </a>
+                  </Link>
                 ),
               )}
               <div className="flex w-full flex-col gap-4">
