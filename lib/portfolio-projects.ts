@@ -1,8 +1,8 @@
 export const portfolioProjects = [
   {
-    title: "Mi Casita Musical",
-    link: "https://micasitamusical.com/",
-    thumbnail: "/micasitamusical.webp",
+    title: "Edna's Home 4 Childcare",
+    link: "https://ednashome4childcare.com/",
+    thumbnail: "/ednashome4childcare.webp",
   },
   {
     title: "Zapana",
@@ -10,9 +10,9 @@ export const portfolioProjects = [
     thumbnail: "/zapana.webp",
   },
   {
-    title: "Edna's Home 4 Childcare",
-    link: "https://ednashome4childcare.com/",
-    thumbnail: "/ednashome4childcare.webp",
+    title: "Mi Casita Musical",
+    link: "https://micasitamusical.com/",
+    thumbnail: "/micasitamusical.webp",
   },
   {
     title: "Laura Bravo Music",
