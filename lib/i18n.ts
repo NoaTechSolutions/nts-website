@@ -314,9 +314,9 @@ export const translations = {
       submit: "Enviar mensaje",
       sending: "Enviando...",
       successTitle: "¡Mensaje enviado!",
-      successBody: "Revisá tu email para la confirmación.",
-      errorGeneric: "Algo salió mal. Intentá de nuevo.",
-      rateLimit: "Demasiados mensajes. Intentá en 24 horas.",
+      successBody: "Revisa tu email para la confirmación.",
+      errorGeneric: "Algo salió mal. Intenta de nuevo.",
+      rateLimit: "Demasiados mensajes. Intenta en 24 horas.",
     },
     footerSection: {
       eyebrow: "Soluciones tecnologicas",

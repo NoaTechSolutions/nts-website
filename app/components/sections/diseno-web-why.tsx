@@ -14,7 +14,7 @@ const COPY = {
     points: [
       { title: "Diseño a medida", copy: "Nada de temas genéricos. Cada web nace de tu marca y tu público." },
       { title: "Rápida y optimizada para SEO", copy: "Velocidad y estructura pensadas para rankear y convertir." },
-      { title: "Un solo equipo, trato directo", copy: "Hablás con quien diseña tu web. Sin intermediarios ni demoras." },
+      { title: "Un solo equipo, trato directo", copy: "Hablas con quien diseña tu web. Sin intermediarios ni demoras." },
       { title: "Soporte después de lanzar", copy: "No desaparecemos: te acompañamos con cambios y mejoras." },
     ],
     proofLabel: "El resultado",

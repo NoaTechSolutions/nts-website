@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     const ipLimit = await getRatelimitByIp().limit(ip);
     if (!ipLimit.success) {
       return NextResponse.json<ContactResponse>(
-        { ok: false, error: "Demasiados mensajes. Intentá de nuevo en 24 horas." },
+        { ok: false, error: "Demasiados mensajes. Intenta de nuevo en 24 horas." },
         { status: 429, headers: { "X-RateLimit-Remaining": String(ipLimit.remaining) } },
       );
     }
@@ -111,12 +111,12 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json<ContactResponse>(
-      { ok: true, message: "Mensaje enviado. Revisá tu email para la confirmación." },
+      { ok: true, message: "Mensaje enviado. Revisa tu email para la confirmación." },
       { status: 200 },
     );
   } catch {
     return NextResponse.json<ContactResponse>(
-      { ok: false, error: "Error interno del servidor. Intentá más tarde." },
+      { ok: false, error: "Error interno del servidor. Intenta más tarde." },
       { status: 500 },
     );
   }

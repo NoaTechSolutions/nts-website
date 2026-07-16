@@ -4,7 +4,7 @@ import { PlaceholderPage } from "../components/placeholder-page";
 export const metadata: Metadata = {
   title: "Sobre Nosotros",
   description:
-    "Conocé al equipo y la filosofía de NoaTechSolutions — una agencia digital enfocada en resultados.",
+    "Conoce al equipo y la filosofía de NoaTechSolutions — una agencia digital enfocada en resultados.",
 };
 
 export default function NosotrosPage() {

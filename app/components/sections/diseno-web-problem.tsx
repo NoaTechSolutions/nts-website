@@ -28,12 +28,12 @@ const COPY = {
       l1: { pre: "Tu web puede ser ", mark: "tu mejor vendedor", post: "…" },
       l2: { pre: "o tu ", mark: "peor enemigo", post: "" },
     },
-    copy: "Se ve bien, pero si carga lento, no anda en el celu o Google no la muestra, cada día perdés clientes que ni sabés que tuviste.",
+    copy: "Se ve bien, pero si carga lento, no funciona en el celular o Google no la muestra, cada día pierdes clientes que ni sabes que tuviste.",
     items: [
       { title: "Carga lenta", subtitle: "Tu cliente no espera: si tarda, se va con la competencia." },
       { title: "Rota en el celular", subtitle: "8 de cada 10 te miran desde el teléfono… y ven un desastre." },
       { title: "Linda pero vacía", subtitle: "Entran, miran y se van sin dejarte un solo mensaje." },
-      { title: "Invisible en Google", subtitle: "Tu competencia aparece arriba. Vos quedás al fondo, donde nadie llega." },
+      { title: "Invisible en Google", subtitle: "Tu competencia aparece arriba. Quedas al fondo, donde nadie llega." },
     ],
   },
   en: {

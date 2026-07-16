@@ -4,7 +4,7 @@ import { PlaceholderPage } from "../components/placeholder-page";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Empezá tu proyecto con NoaTechSolutions — contactanos para consultas, cotizaciones o asesoría inicial gratis.",
+    "Empieza tu proyecto con NoaTechSolutions — contáctanos para consultas, cotizaciones o asesoría inicial gratis.",
 };
 
 export default function ContactoPage() {
