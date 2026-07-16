@@ -1,7 +1,50 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-14 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-15 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+
+---
+
+## ✅ HECHO (2026-07-15) · Showcase antes/después (caso real) + Galería (capturas nuevas + Sparkles) + Español neutral
+
+> Sesión larga sobre `/servicios/diseno-web`. **Commiteado al cierre.** Branch `develop`.
+
+### A · Sección "Antes / Después" (`diseno-web-showcase.tsx`) — CASO REAL
+- Reemplazados los mockups placeholder por un **caso real: Laura Bravo** (sitio anterior vs rediseño). Assets `noatechsolutions-caso-laura-bravo-antes.webp` / `-despues.webp` (1600×804, recortadas al HERO para que ambas COINCIDAN en el wipe; ~70-80KB). Los PNG originales (antes.png/despues.png) se borraron.
+- **Título emocional en 2 filas** ("Hacemos el cambio" / "que te mereces") + efecto **highlight (pintado) naranja** en la 2ª fila (mismo `Highlighter` que Problema). Centrado con `maxWidth:none` inline (gotcha .section-title 18ch sin margin).
+- **Badges ANTES (rojo) / DESPUÉS (naranja + check)** grandes y diferenciados.
+- **Marcadores animados** (radar doble-ping + float) que señalan errores del antes (rojo) y aciertos del después (verde). Imagen COMPLETA (aspect fijo 1600/804) para que los marcadores caigan bien en cualquier pantalla.
+- **Fix z-index**: `isolate` en `.dw-compare-before` → los marcadores rojos ya no se escapaban sobre el "después" (el `transform` del wipe crea stacking context).
+- **Solo mobile**: aspecto 3/2 (más alto), marcadores/badges más chicos (`sm:` resetea desktop/tablet).
+
+### B · Galería "Nuestro trabajo" (`diseno-web-gallery.tsx`)
+- **8 capturas NUEVAS** de los sitios reales (solo el HERO), reemplazan las de página completa que se recortaban feo. WebP 1920×1080 (~85-140KB).
+- **Título con efecto Sparkles Text** (MagicUI recreado → `app/components/ui/sparkles-text.tsx`) con colores de marca (sky/azul/naranja). Centrado, emocional ("Webs que enamoran y venden"), sin subtítulo.
+- **Orden**: Edna's en la celda ancla (col1), Mi Casita (col2). OJO: la animación del bento está atada a la POSICIÓN (nth-child → grid-area) → mover una imagen cambia qué imagen protagoniza el zoom.
+- **MOBILE (<768) = carrusel horizontal scroll-linked** (NUEVO): 8 webs en línea, avanzan a la izquierda con el scroll (GSAP pin + scrub vía `gsap.matchMedia`). Cada card = link al sitio, con **URL + señal "Online"** (punto verde pulsante) debajo. Contenedor compacto, imágenes 88vw.
+- **TABLET + DESKTOP (≥768) = bento 3 columnas** (Flip → fullscreen) como estaba.
+
+### C · Español NEUTRAL en toda la web (quitado el voseo)
+Corregido en: `diseno-web-problem.tsx` (perdés→pierdes, celu→celular, "Vos quedás"→"Quedas"), `diseno-web-why.tsx` (Hablás→Hablas), `diseno-web-gallery.tsx`, `diseno-web-showcase.tsx`, `contacto/page.tsx`, `nosotros/page.tsx`, `lib/i18n.ts`, `api/contact/route.ts` (Revisá/Intentá→Revisa/Intenta). Verificado con grep: cero voseo en copy visible.
+
+### 🛠️ Técnica nueva: screenshots de sitios en vivo (sin puppeteer)
+Chrome headless por CLI (`/c/Program Files/Google/Chrome/Application/chrome.exe`):
+```
+chrome.exe --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 \
+  --window-size=1600,900 --virtual-time-budget=8000 --screenshot="out.png" "https://url"
+```
+→ 3200×1800 (retina) del hero. Luego `sharp().resize(1920,1080,{fit:'cover'}).webp({quality:82})`.
+
+### 🐛 GOTCHAS
+- **globals.css + Turbopack (Windows)**: reconfirmado — editar globals.css NO recompila. Fix: `taskkill //PID <pid> //F` (netstat del 3006) + `rm -rf .next` + `npm run dev`. (Pasó 3+ veces hoy.)
+- **GSAP + HMR**: editar el componente de la galería deja el ScrollTrigger/pin a medias → efecto roto ("solo la 1ª imagen"). Server limpio + hard refresh lo arregla.
+
+## 🎯 PARA MAÑANA (2026-07-16) — retomar acá
+
+1. **⚠️ VERIFICAR carrusel mobile (galería)**: el usuario reportó que el scroll horizontal "solo mostraba la 1ª imagen". Reinicié el server limpio (probable HMR). **Confirmar en teléfono con hard refresh si el scroll horizontal anda.** Si NO anda → es estructural: el contenedor compacto pineado (`overflow-hidden py-4` en `diseno-web-gallery.tsx`) es muy bajo; volver a pinnear un contenedor más alto (la versión que andaba tenía `h-[100svh] items-center` con la row adentro) pero manteniendo las imágenes compactas.
+2. **Validar en pantalla real** (mobile + dark): showcase (marcadores/badges/wipe), galería (bento tablet/desktop + carrusel mobile), Sparkles del título.
+3. **Pushear** `develop` → `origin/develop` (MUCHOS commits acumulados de varias sesiones + los de hoy).
+4. **Pendiente viejo**: detalles finos del bento "Qué incluye".
 
 ---
 
