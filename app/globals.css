@@ -7713,6 +7713,29 @@ select,
   cursor: auto;
 }
 
+/* Carrusel de logos (barra de confianza · diseno-web) — scroll infinito + pausa
+   al hover para poder apreciar las tarjetas 3D. */
+@keyframes dw-logos-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.dw-logos-track {
+  animation: dw-logos-scroll 42s linear infinite;
+  will-change: transform;
+}
+.dw-logos-mask:hover .dw-logos-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dw-logos-track {
+    animation: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    DISEÑO WEB · hero de página de servicio (/servicios/diseno-web)
    Premium-first. Tokens que flipean en dark (--text-body, --bg-page) +
@@ -7758,9 +7781,10 @@ select,
 
 .dw-hero-title {
   margin: 0;
+  max-width: 20ch;
   font-family: var(--font-display), sans-serif;
   font-weight: 600;
-  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-size: clamp(2.7rem, 7vw, 5.8rem);
   line-height: 1.03;
   letter-spacing: -0.03em;
   color: var(--color-navy);
@@ -7770,9 +7794,9 @@ select,
 }
 
 .dw-hero-subtitle {
-  margin: 0;
-  max-width: 42ch;
-  font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+  margin: 0 auto;
+  max-width: 52ch;
+  font-size: clamp(1.05rem, 1.7vw, 1.32rem);
   line-height: 1.6;
   color: var(--text-body);
 }
@@ -7908,32 +7932,25 @@ select,
 
 /* Desktop ≥1024: 2 columnas (texto izquierda + escena 3D derecha) */
 @media (min-width: 1024px) {
+  /* Sin la columna 3D → hero centrado en una sola columna */
   .dw-hero-inner {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 3rem;
-    width: min(80rem, 100%);
+    grid-template-columns: 1fr;
+    width: min(66rem, 100%);
+    justify-items: center;
   }
   .dw-hero-text {
-    justify-items: start;
-    text-align: left;
+    justify-items: center;
+    text-align: center;
   }
   .dw-hero-actions {
-    justify-content: flex-start;
+    justify-content: center;
   }
   .dw-hero-stats {
-    justify-content: flex-start;
+    justify-content: center;
     max-width: none;
   }
   .dw-hero-visual {
-    display: block;
-    position: relative;
-    height: 34rem;
-    width: 100%;
-  }
-  /* El canvas de R3F llena el contenedor */
-  .dw-hero-visual canvas {
-    width: 100% !important;
-    height: 100% !important;
+    display: none;
   }
 }
 
@@ -8083,6 +8100,29 @@ select,
 .dw-cta.is-hovered .dw-cta-layer--reveal {
   opacity: 1;
   --mask-size: 760px;
+}
+
+/* Touch / tablet: sin cursor. La sección ALTERNA sola entre el DOLOR (navy) y la
+   SOLUCIÓN (encendida) con un crossfade automático. Robusto (sin mask/puntero). */
+.dw-cta--auto .dw-cta-layer--reveal {
+  opacity: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+  animation: dw-cta-crossfade 7.5s ease-in-out infinite;
+}
+@keyframes dw-cta-crossfade {
+  0%,
+  14% {
+    opacity: 0;
+  }
+  40%,
+  72% {
+    opacity: 1;
+  }
+  94%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Contenido (idéntico en ambas capas → alineación perfecta) */

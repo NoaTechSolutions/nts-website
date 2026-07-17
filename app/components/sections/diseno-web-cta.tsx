@@ -17,17 +17,17 @@ import { useLanguage } from "../language-provider";
 
 const COPY = {
   es: {
-    eyebrow: "¿Te suena familiar?",
-    pain: "Tu web se ve linda… pero no te trae clientes.",
-    solutionLead: "Nosotros creamos la que ",
-    solutionHighlight: "enamora y vende.",
+    eyebrow: "Seamos honestos",
+    pain: "Cada día con una web que no convence, es un cliente que elige a otro.",
+    solutionLead: "Creemos juntos la que ",
+    solutionHighlight: "enamora, inspira confianza y vende.",
     solutionTail: "",
   },
   en: {
-    eyebrow: "Sound familiar?",
-    pain: "Your website looks nice… but it brings you no clients.",
-    solutionLead: "We create the one that ",
-    solutionHighlight: "wins hearts and sells.",
+    eyebrow: "Let's be honest",
+    pain: "Every day with a website that doesn't convince is a client choosing someone else.",
+    solutionLead: "Let's build the one that ",
+    solutionHighlight: "wins hearts, earns trust and sells.",
     solutionTail: "",
   },
 } as const;
@@ -39,19 +39,26 @@ export function DisenoWebCta() {
   const sectionRef = useRef<HTMLElement>(null);
   const rafRef = useRef(0);
 
-  // interactive = hover real + sin reduced-motion. Arranca false (SSR) y se
-  // resuelve en el cliente → mismo patrón que el robot del hero, sin hydration
-  // mismatch (SSR y primer render cliente coinciden en la rama estática).
-  const [interactive, setInteractive] = useState(false);
+  // mode: "static" (reduced-motion), "interactive" (desktop, spotlight sigue al
+  // cursor), "auto" (touch/tablet → spotlight se mueve SOLO para que el reveal
+  // se aprecie sin cursor). Arranca "static" (SSR) → se resuelve en el cliente.
+  const [mode, setMode] = useState<"static" | "interactive" | "auto">("static");
 
   useEffect(() => {
-    const hoverCapable = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    ).matches;
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    setInteractive(hoverCapable && !reduced);
+    const resolve = () => {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) return setMode("static");
+      const hoverCapable = window.matchMedia(
+        "(hover: hover) and (pointer: fine)",
+      ).matches;
+      // Teléfono/tablet (por ancho) o sin puntero fino → animación AUTOMÁTICA
+      // (no hay mouse para pasar por encima). Desktop → spotlight con el cursor.
+      if (window.innerWidth < 1024 || !hoverCapable) setMode("auto");
+      else setMode("interactive");
+    };
+    resolve();
+    window.addEventListener("resize", resolve);
+    return () => window.removeEventListener("resize", resolve);
   }, []);
 
   useEffect(
@@ -81,8 +88,8 @@ export function DisenoWebCta() {
     </>
   );
 
-  // ── Fallback estático (touch / reduced-motion) ──
-  if (!interactive) {
+  // ── Fallback estático (reduced-motion) ──
+  if (mode === "static") {
     return (
       <section className="dw-cta dw-cta--static section-divider">
         <div className="dw-cta-inner">
@@ -96,17 +103,25 @@ export function DisenoWebCta() {
     );
   }
 
-  // ── Interactivo (desktop): dos capas full-section + spotlight ──
+  // ── Con capas + spotlight. Desktop: sigue al cursor. Touch/tablet ("auto"):
+  //    el spotlight se mueve solo (clase dw-cta--auto, animación en globals). ──
+  const isAuto = mode === "auto";
   return (
     <section
       ref={sectionRef}
-      className="dw-cta section-divider"
-      onMouseMove={handleMove}
-      onMouseEnter={(event) => {
-        sectionRef.current?.classList.add("is-hovered");
-        handleMove(event);
-      }}
-      onMouseLeave={() => sectionRef.current?.classList.remove("is-hovered")}
+      className={`dw-cta section-divider${isAuto ? " dw-cta--auto" : ""}`}
+      onMouseMove={isAuto ? undefined : handleMove}
+      onMouseEnter={
+        isAuto
+          ? undefined
+          : (event) => {
+              sectionRef.current?.classList.add("is-hovered");
+              handleMove(event);
+            }
+      }
+      onMouseLeave={
+        isAuto ? undefined : () => sectionRef.current?.classList.remove("is-hovered")
+      }
     >
       {/* Capa base — el DOLOR (paleta apagada). Contenido real para SEO/a11y. */}
       <div className="dw-cta-layer dw-cta-layer--base">

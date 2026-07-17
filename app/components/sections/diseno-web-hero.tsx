@@ -7,48 +7,31 @@
 // para SEO. Título con keyword rotativa, entrada en cascada, CTA ámbar (10%).
 // ─────────────────────────────────────────────────────────────
 
-import { Suspense, lazy, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useLanguage } from "../language-provider";
 import { HeroRotatingWord } from "../hero-rotating-word";
-import { NumberTicker } from "@/components/ui/number-ticker";
-
-// Escena 3D: chunk aparte (three/drei son pesados) → solo se descarga cuando
-// realmente se monta (desktop). Lazy + gate por matchMedia.
-const Hero3DScene = lazy(() =>
-  import("../ui/hero-3d-scene").then((m) => ({ default: m.Hero3DScene })),
-);
+import { WavyBackground } from "../ui/wavy-background";
 
 const COPY = {
   es: {
-    eyebrow: "Diseño Web",
-    lead: "Diseño web que",
+    eyebrow: "Diseño y Desarrollo Web",
+    lead: "Diseño web a medida que",
     rotating: ["convierte", "vende", "enamora", "posiciona"],
-    rotatingAria: "Diseño web que convierte, vende, enamora y posiciona.",
+    rotatingAria: "Diseño web a medida que convierte, vende, enamora y posiciona.",
     subtitle:
-      "Estudio de diseño y desarrollo web a medida. Creamos páginas web profesionales, rápidas y optimizadas para convertir visitas en clientes reales.",
-    primaryCta: "Cotizá tu proyecto",
+      "Estudio de diseño y desarrollo web a medida: creamos páginas web profesionales, rápidas y optimizadas para SEO, pensadas para convertir tus visitas en clientes reales.",
+    primaryCta: "Cotiza tu proyecto",
     secondaryCta: "Ver trabajos",
-    stats: [
-      { value: 150, suffix: "+", label: "Proyectos entregados", delay: 0 },
-      { value: 99, suffix: "%", label: "Clientes satisfechos", delay: 0.15 },
-      { value: 48, suffix: "h", label: "Tiempo de respuesta", delay: 0.3 },
-    ],
   },
   en: {
-    eyebrow: "Web Design",
-    lead: "Web design that",
+    eyebrow: "Web Design & Development",
+    lead: "Custom web design that",
     rotating: ["converts", "sells", "delights", "ranks"],
-    rotatingAria: "Web design that converts, sells, delights and ranks.",
+    rotatingAria: "Custom web design that converts, sells, delights and ranks.",
     subtitle:
-      "A custom web design and development studio. We build fast, professional websites optimized to turn visitors into real customers.",
+      "A custom web design and development studio: we build fast, professional, SEO-optimized websites made to turn your visitors into real customers.",
     primaryCta: "Get a quote",
     secondaryCta: "See our work",
-    stats: [
-      { value: 150, suffix: "+", label: "Projects delivered", delay: 0 },
-      { value: 99, suffix: "%", label: "Happy clients", delay: 0.15 },
-      { value: 48, suffix: "h", label: "Response time", delay: 0.3 },
-    ],
   },
 } as const;
 
@@ -71,19 +54,20 @@ export function DisenoWebHero() {
   const { locale } = useLanguage();
   const t = COPY[locale];
 
-  // 3D solo en desktop (≥1024) y si el usuario no pidió menos movimiento.
-  const [show3D, setShow3D] = useState(false);
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)").matches;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setShow3D(desktop && !reduce);
-  }, []);
-
   return (
     <section className="dw-hero">
-      {/* Backdrop premium: glows suaves navy/sky (sin canvas → rápido) */}
+      {/* Fondo Wavy Background (Aceternity) — ondas navy/sky por ruido simplex.
+          El fill se adapta al tema (lee var(--bg-page)). Detrás del contenido. */}
+      <WavyBackground
+        colors={["#05a5ff", "#38b6ff", "#0a4fd0", "#7cc4ff", "#022977"]}
+        waveOpacity={0.5}
+        amplitude={160}
+        blur={11}
+        speed="fast"
+      />
+      {/* Backdrop anterior (glows) — se mantiene comentado por si se revierte:
       <div className="dw-hero-glow dw-hero-glow-a" aria-hidden="true" />
-      <div className="dw-hero-glow dw-hero-glow-b" aria-hidden="true" />
+      <div className="dw-hero-glow dw-hero-glow-b" aria-hidden="true" /> */}
 
       <div className="dw-hero-inner">
         <motion.div
@@ -127,28 +111,7 @@ export function DisenoWebHero() {
               {t.secondaryCta}
             </a>
           </motion.div>
-
-          <motion.div className="dw-hero-stats" variants={item}>
-            {t.stats.map((stat) => (
-              <div key={stat.label} className="dw-hero-stat">
-                <p className="dw-hero-stat-value">
-                  <NumberTicker value={stat.value} delay={stat.delay} />
-                  <span>{stat.suffix}</span>
-                </p>
-                <p className="dw-hero-stat-label">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
-
-        {/* Columna visual 3D — solo desktop (montaje client-only) */}
-        <div className="dw-hero-visual" aria-hidden="true">
-          {show3D && (
-            <Suspense fallback={null}>
-              <Hero3DScene />
-            </Suspense>
-          )}
-        </div>
       </div>
     </section>
   );

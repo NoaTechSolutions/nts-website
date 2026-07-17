@@ -61,7 +61,7 @@ export function MacbookScroll({ title, children }: { title?: ReactNode; children
 
   return (
     <div ref={ref} className="relative min-h-[340vh] w-full">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden py-8">
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-start overflow-hidden pb-0 pt-[5vh] md:pt-[7vh]">
         {/* Título FIJO */}
         <div
           className="mb-8 max-w-2xl px-6 text-center text-2xl font-bold text-[#022977] md:mb-12 md:text-4xl dark:text-white"
