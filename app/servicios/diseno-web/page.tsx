@@ -103,7 +103,7 @@ export default function DisenoWebPage() {
       <DisenoWebCta />
 
       {/* ── 10. FAQ ── */}
-      <FaqSection />
+      <FaqSection variant="diseno-web" />
 
       {/* ── 11. CONTACTO ── */}
       <ContactSection />
