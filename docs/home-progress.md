@@ -1,7 +1,48 @@
 # Progreso Home + Handoff · NoaTechSolutions
 
 > Bitácora detallada del trabajo sobre la home para **retomar mañana donde quedamos**.
-> Última sesión: 2026-07-15 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+> Última sesión: 2026-07-16 · Branch: `develop` · Dev server: `npm run dev` → puerto **3006**.
+
+---
+
+## ✅ HECHO (2026-07-16) · MacBook Scroll "Por qué elegirnos" + FAQ cliente + Logos carrusel 3D + CTA touch + Wavy hero
+
+> Sesión larga sobre `/servicios/diseno-web`. **Todo commiteado.** Branch `develop` (sin pushear).
+
+### A · Sección "Por qué elegirnos" → efecto MacBook Scroll (`ui/macbook-scroll.tsx` NUEVO + `diseno-web-why.tsx`)
+- Recreado de Aceternity **sin deps nuevas** (usa `motion` + `cn`). La sección `diseno-web-why` ahora es una laptop **pinneada** (`sticky`) que se **abre al scrollear** (`rotateX -28→0`), la pantalla **crece y "sale"** (grow) y **flota** (bob), y el **teclado se desvanece**.
+- **Dentro de la pantalla**: una "web" de fondo claro → **logo NTS full-color** (`noatechsolutions-logo-full.svg`) + tagline + **4 mini-cards emocionales** (íconos lucide) + un **cursor** que recorre cada card con zoom/hover. Todo localizado.
+- **Título** (fijo, sin fade) en 2 filas: fila 2 en Title Case con **subrayado naranja** (`Highlighter` rough-notation). Copy final: "Tu esencia, nuestra estrategia: / Una Web Que Te Representa".
+- **GOTCHAS clave** (mucho ida y vuelta): (1) el teclado se veía **gris hasta scrollear** → era `opacity` de motion creando capa GPU; fix = opacidad por **CSS** gateada con estado (`fading`), no motion. (2) **Borroso** = upscaling del `transform: scale`; cap de escala en **1.0** (nunca agranda por CSS). (3) el zoom pixelaba → `growMax` moderado y **responsivo** (no desborda en teléfono). (4) contenido "no encaja en ángulo" = `preserve-3d` lo aplanaba; sacado. (5) subido con `pt-[5vh]`/`md:pt-[7vh]` para que la laptop entre completa. (6) `globals.css`: `html overflow-x hidden → clip` para que el `position:sticky` funcione.
+
+### B · FAQ específica de diseño-web (`faq-section.tsx`)
+- `FaqSection` acepta `variant="diseno-web"` con copy propio **co-locado bilingüe**. La home NO se toca.
+- **6 preguntas de cliente que NO es de tecnología** (explicadas en simple): tecnología, precio/pago, tiempos, Google, dominio/hosting, soporte post-lanzamiento. JSON-LD refleja las nuevas.
+
+### C · Barra de confianza → carrusel de logos 3D (`diseno-web-trust.tsx`)
+- **14 logos de clientes reales** procesados a **webp con nombres SEO** (sharp: `trim` + resize alto 240; los **3 JPG** con fondo blanco → **transparente** por quita-blanco con falloff). Ver mapa de nombres abajo.
+- **Marquee** infinito (CSS keyframes `dw-logos-scroll` en globals, **pausa al hover**), máscara para fundir bordes. Cada logo en **tarjeta vidrio 3D** (`bg-white/50 backdrop-blur`): inclinación `rotateX` al hover + el logo "sale" con `translateZ`. Gap achicado en mobile.
+
+### D · CTA (`diseno-web-cta.tsx`)
+- **Copy nuevo** impactante/urgente: dolor "Cada día con una web que no convence, es un cliente que elige a otro." / solución (naranja) "Creemos juntos la que enamora, inspira confianza y vende."
+- **Touch/tablet** (ancho < 1024, sin cursor): **crossfade automático** dolor→solución (`.dw-cta--auto` en globals). Desktop mantiene el spotlight que sigue al mouse. (El auto-roam del spotlight con `@property` era frágil → se descartó por el crossfade.)
+
+### E · Hero diseño-web (`diseno-web-hero.tsx` + `ui/wavy-background.tsx` NUEVO)
+- **Wavy Background** de Aceternity (simplex noise, colores de marca navy/sky, `speed: fast`, `amplitude: 160`). El `backgroundFill` **lee `var(--bg-page)`** y observa el cambio de tema (claro/oscuro) → se funde solo.
+- **Quitada la esfera 3D** (R3F). Hero **centrado** en una sola columna. **SEO**: eyebrow "Diseño y Desarrollo Web", H1 "Diseño web a medida que [rotativa]", subtítulo con "optimizadas para SEO". Ancho fluido por dispositivo. **Quitados los stats** (números 150+/99%/48h) y su línea separadora (`border-top`).
+
+### 🗂️ Mapa de nombres de logos (origen → webp SEO)
+`Ada Luz…→ada-luz-home-daycare-logo` · `logo-alfredo-reyes→alfredo-reyes-music-logo` · `alonso_zapta→alonso-zapata-logo` · `carla→carla-negocio-logo` · `Spanish Inmersion…→spanish-immersion-logo` · `G&G…→gyg-auto-servicio-logo` · `logo_share_→share-marca-logo` · `javier→javier-negocio-logo` · `LAURA-BRAVO2…→laura-bravo-music-logo` · `logo-marizol-bisso→marisol-bisso-logo` · `casita_musical…→mi-casita-musical-logo` · `logo-removebg…→cliente-marca-noatechsolutions-logo` · `tacos→tacos-negocio-logo` · `logo-2→cliente-negocio-noatechsolutions-logo`
+
+### 📌 Commits de hoy
+`c72fbd9` MacBook scroll section · `419b491` mobile gallery · `d74e4c7` FAQ cliente · `c4e856d` logos webp · `a0e2484` carrusel+CTA+wavy+polish
+
+### ⏳ PENDIENTE (para mañana 2026-07-17)
+1. **Confirmar los 3 logos transparentados** (`alonso-zapata`, `spanish-immersion`, `cliente-negocio-…/logo-2`) → revisar que no tengan halo/hueco del quita-blanco.
+2. **Nombres reales de 6 logos** sin identificar (carla, javier, tacos, share, logo-2, logo-removebg) → renombrar webp + alt para SEO fino.
+3. **Borrar los originales** de logos (nombres con espacios, sin trackear en `public/`) una vez confirmadas las transparencias.
+4. **Pushear `develop` → `origin`** (MUCHOS commits acumulados de varias sesiones).
+5. Revisar **performance del hero** (Wavy = canvas rAF continuo) y del MacBook scroll.
 
 ---
 
