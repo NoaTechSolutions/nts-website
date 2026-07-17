@@ -131,7 +131,9 @@
 
 html {
   background: #ffffff;
-  overflow-x: hidden;
+  /* `clip` (no `hidden`): clampea el desborde horizontal SIN crear contenedor
+     de scroll → no rompe `position: sticky` de los hijos (MacBook Scroll, etc.). */
+  overflow-x: clip;
 }
 
 body {
