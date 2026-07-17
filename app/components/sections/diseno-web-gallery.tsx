@@ -38,13 +38,14 @@ export function DisenoWebGallery() {
   const t = COPY[locale];
   const bentoRef = useRef<HTMLDivElement>(null);
   const carouselSectionRef = useRef<HTMLDivElement>(null);
+  const carouselViewportRef = useRef<HTMLDivElement>(null);
   const carouselRowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Reduced-motion: sin animaciones. El carrusel del teléfono queda swipeable
     // a mano (overflow-x auto); el bento queda estático.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const viewport = carouselSectionRef.current?.firstElementChild as HTMLElement | null;
+      const viewport = carouselViewportRef.current;
       if (viewport) viewport.style.overflowX = "auto";
       return;
     }
@@ -123,7 +124,9 @@ export function DisenoWebGallery() {
 
   return (
     <section className="relative w-full">
-      <div className="mx-auto max-w-3xl px-6 pb-4 pt-14 text-center md:pb-10 md:pt-28">
+      {/* Título compartido — SOLO tablet+desktop. En mobile va DENTRO del
+          contenedor pineado (abajo) para que quede visible durante el scroll. */}
+      <div className="mx-auto hidden max-w-3xl px-6 text-center md:block md:pb-10 md:pt-28">
         <p className="eyebrow">{t.eyebrow}</p>
         <h2 className="section-title mt-3" style={{ maxWidth: "none" }}>
           <SparklesText text={t.title} />
@@ -144,20 +147,36 @@ export function DisenoWebGallery() {
         </div>
       </div>
 
-      {/* ── TELÉFONO (<768): carrusel horizontal que avanza con el scroll.
-          Contenedor COMPACTO (alto = imagen + pie), no 100svh → menos espacio
-          arriba (título) y abajo. Cada card es link al sitio, con URL + "Online". ── */}
-      <div ref={carouselSectionRef} className="overflow-hidden py-4 md:hidden">
-        <div ref={carouselRowRef} className="flex items-start gap-4 px-4">
+      {/* ── TELÉFONO (<768): sección de ALTO COMPLETO que se pinea con el
+          TÍTULO ADENTRO. Al entrar en vista, título + carrusel quedan centrados
+          (justify-center); recién ahí arranca el scroll horizontal (start top top).
+          El título queda pegado arriba durante todo el efecto. Cada card es link
+          al sitio, con URL + "Online". ── */}
+      <div
+        ref={carouselSectionRef}
+        className="flex min-h-svh flex-col justify-center md:hidden"
+      >
+        {/* Título dentro del pin → visible arriba durante todo el scroll */}
+        <div className="mx-auto max-w-3xl px-6 pb-8 text-center">
+          <p className="eyebrow">{t.eyebrow}</p>
+          <h2 className="section-title mt-3" style={{ maxWidth: "none" }}>
+            <SparklesText text={t.title} />
+          </h2>
+        </div>
+        {/* Viewport que recorta el carrusel horizontalmente */}
+        <div ref={carouselViewportRef} className="overflow-hidden">
+          {/* Padding lateral simétrico = (100vw − 93vw)/2 → la primera card
+              arranca centrada y la última TERMINA centrada (mismo tween). */}
+          <div ref={carouselRowRef} className="flex items-start gap-4 px-[3.5vw]">
           {portfolioProjects.map((p) => (
             <a
               key={p.title}
               href={p.link}
               target="_blank"
               rel="noreferrer"
-              className="w-[88vw] shrink-0"
+              className="w-[93vw] shrink-0"
             >
-              <div className="aspect-video overflow-hidden rounded-2xl border border-[#022977]/10 shadow-[0_16px_40px_rgba(2,41,119,0.18)] dark:border-white/10">
+              <div className="aspect-video overflow-hidden rounded-2xl border border-black/5 shadow-[0_16px_40px_rgba(0,0,0,0.14)] dark:border-white/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={p.thumbnail}
@@ -166,9 +185,10 @@ export function DisenoWebGallery() {
                   className="h-full w-full object-cover"
                 />
               </div>
-              {/* Pie: dominio + señal "Online" (punto verde con pulso) */}
-              <div className="mt-2.5 flex items-center justify-between gap-2 px-1">
-                <span className="truncate text-sm font-medium text-[#5f7398] dark:text-[#8fa6c8]">
+              {/* Pie: dominio + señal "Online" (punto verde con pulso) —
+                  2 filas centradas: dominio arriba, estado "Online" abajo. */}
+              <div className="mt-2.5 flex flex-col items-center gap-1 px-1 text-center">
+                <span className="max-w-full truncate text-sm font-medium text-[#5f7398] dark:text-[#8fa6c8]">
                   {formatDomain(p.link)}
                 </span>
                 <span className="flex shrink-0 items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
@@ -181,6 +201,7 @@ export function DisenoWebGallery() {
               </div>
             </a>
           ))}
+          </div>
         </div>
       </div>
     </section>
