@@ -24,13 +24,6 @@ export function HeroRobot3D({ onReady }: { onReady?: () => void }) {
 
     const objects = spline.getAllObjects();
 
-    // Nombres de las piezas → mirar en DevTools del browser (F12 → Console).
-    // Con estos nombres podemos pintar cuerpo/acentos por separado (pase fino).
-    console.log(
-      "[robot-objects]",
-      objects.map((o) => `${o.name} (${o.id})`).join(" || ")
-    );
-
     // PRIMER PASE (tosco): azul dark on-brand (navy del DS) en todas las piezas.
     // Para VOLVER AL COLOR ORIGINAL del robot: borrar este forEach completo.
     // Saltea luces/cámara/vacíos por nombre para no romper la iluminación.
