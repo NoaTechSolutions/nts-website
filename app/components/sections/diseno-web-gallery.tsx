@@ -14,6 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
 import { ExpoScaleEase } from "gsap/EasePack";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { portfolioProjects } from "@/lib/portfolio-projects";
 import { SparklesText } from "../ui/sparkles-text";
 
@@ -127,7 +128,7 @@ export function DisenoWebGallery() {
       {/* Título compartido — SOLO tablet+desktop. En mobile va DENTRO del
           contenedor pineado (abajo) para que quede visible durante el scroll. */}
       <div className="mx-auto hidden max-w-3xl px-6 text-center md:block md:pb-10 md:pt-28">
-        <p className="eyebrow">{t.eyebrow}</p>
+        <GradientBadge icon="images">{t.eyebrow}</GradientBadge>
         <h2 className="section-title mt-3" style={{ maxWidth: "none" }}>
           <SparklesText text={t.title} />
         </h2>
@@ -158,7 +159,7 @@ export function DisenoWebGallery() {
       >
         {/* Título dentro del pin → visible arriba durante todo el scroll */}
         <div className="mx-auto max-w-3xl px-6 pb-8 text-center">
-          <p className="eyebrow">{t.eyebrow}</p>
+          <GradientBadge icon="images">{t.eyebrow}</GradientBadge>
           <h2 className="section-title mt-3" style={{ maxWidth: "none" }}>
             <SparklesText text={t.title} />
           </h2>

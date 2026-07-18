@@ -9,6 +9,7 @@
 import { motion } from "motion/react";
 import { PenTool, Zap, Users, LifeBuoy, type LucideIcon } from "lucide-react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { MacbookScroll } from "../ui/macbook-scroll";
 import { Highlighter } from "../ui/highlighter";
 
@@ -55,7 +56,9 @@ export function DisenoWebWhy() {
       <MacbookScroll
         title={
           <>
-            <span className="eyebrow block">{t.eyebrow}</span>
+            <span className="block text-center">
+              <GradientBadge icon="star">{t.eyebrow}</GradientBadge>
+            </span>
             <span className="mt-3 block">{t.titleLine1}</span>
             <span className="mt-1.5 block">
               <Highlighter action="underline" color="#ff9900" strokeWidth={3.5} padding={3} isView>

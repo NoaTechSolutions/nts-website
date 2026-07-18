@@ -13,6 +13,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { Highlighter } from "../ui/highlighter";
 
 const COPY = {
@@ -143,7 +144,7 @@ export function DisenoWebShowcase() {
     <section ref={ref} className="relative w-full" style={{ height: "200vh" }}>
       <div className="dw-compare-pin">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="eyebrow">{t.eyebrow}</p>
+          <GradientBadge icon="wand">{t.eyebrow}</GradientBadge>
           {/* maxWidth none (inline) destraba el centrado: .section-title tiene
               max-width:18ch sin margin:auto → sin esto la caja queda a la izq.
               lineHeight amplio = más aire entre las 2 filas para que respire el

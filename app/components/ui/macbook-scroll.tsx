@@ -41,8 +41,8 @@ export function MacbookScroll({ title, children }: { title?: ReactNode; children
       setScale(s);
       // Al crecer, la pantalla no debe pasar de este % del ancho (en teléfono
       // más margen para que no quede pegada a los bordes).
-      const growW = mobile ? 0.86 : 0.96;
-      setGrowMax(Math.min(1.3, (vw * growW) / (SCREEN_W * s)));
+      const growW = mobile ? 0.88 : 0.98;
+      setGrowMax(Math.min(1.42, (vw * growW) / (SCREEN_W * s)));
     };
     compute();
     window.addEventListener("resize", compute);
@@ -64,7 +64,7 @@ export function MacbookScroll({ title, children }: { title?: ReactNode; children
       <div className="sticky top-0 flex h-screen flex-col items-center justify-start overflow-hidden pb-0 pt-[5vh] md:pt-[7vh]">
         {/* Título FIJO */}
         <div
-          className="mb-8 max-w-2xl px-6 text-center text-2xl font-bold text-[#022977] md:mb-12 md:text-4xl dark:text-white"
+          className="mb-12 max-w-2xl px-6 text-center text-2xl font-bold text-[#022977] md:mb-20 md:text-4xl dark:text-white"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {title}
@@ -85,7 +85,7 @@ export function MacbookScroll({ title, children }: { title?: ReactNode; children
                 rotateX: rotate,
                 transformOrigin: "bottom center",
               }}
-              animate={fading ? { y: [64, 50, 64] } : { y: 0 }}
+              animate={fading ? { y: [104, 90, 104] } : { y: 0 }}
               transition={
                 fading
                   ? { duration: 5, repeat: Infinity, ease: "easeInOut" }

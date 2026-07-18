@@ -1,7 +1,9 @@
 "use client";
 
 // SECCIÓN 4 · Qué incluye tu web (grid BENTO). Value prop / entregables.
+import { motion } from "motion/react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { FlipWords } from "@/components/ui/flip-words";
 import { DesignCanvasBg } from "../ui/design-canvas-bg";
 import { CargaRapidaBg } from "../ui/carga-rapida-bg";
@@ -56,7 +58,7 @@ export function DisenoWebIncludes() {
     <section className="relative w-full px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
-          <p className="eyebrow">{t.eyebrow}</p>
+          <GradientBadge icon="check">{t.eyebrow}</GradientBadge>
           <h2 className="section-title dw-includes-title mx-auto mt-3 text-center">
             <span className="block">{t.titleLead1} {t.titleLead2}</span>
             <span className="block">
@@ -71,7 +73,7 @@ export function DisenoWebIncludes() {
         </div>
 
         <div className="mt-12 grid auto-rows-[minmax(14rem,auto)] grid-cols-1 gap-4 sm:auto-rows-[minmax(11rem,auto)] sm:grid-cols-2 md:grid-cols-4">
-          {t.cards.map((c) => {
+          {t.cards.map((c, i) => {
             // Card destacada (col-span-2 row-span-2) → lleva fondo animado.
             const isFeatured = c.span.includes("row-span-2");
             const isFast = c.icon === "⚡";
@@ -80,9 +82,19 @@ export function DisenoWebIncludes() {
             const isCms = c.icon === "🛠️";
             const isSecure = c.icon === "🔒";
             return (
-            <div
+            // Wrapper: entrada 3D en cascada (tilt + rise). El card interno
+            // conserva su hover (transform propio) → sin conflicto de transforms.
+            <motion.div
               key={c.title}
-              className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#022977]/10 bg-white p-7 shadow-[0_10px_30px_rgba(2,41,119,0.06)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10 dark:bg-white/4 ${c.span}`}
+              className={c.span}
+              style={{ transformPerspective: 1000 }}
+              initial={{ opacity: 0, y: 46, rotateX: -22, scale: 0.92 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+            >
+            <div
+              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-[#022977]/10 bg-white p-7 shadow-[0_10px_30px_rgba(2,41,119,0.06)] transition-transform duration-300 hover:-translate-y-1 dark:border-white/10 dark:bg-white/4"
             >
               {isFeatured && <DesignCanvasBg />}
               {isFast && <CargaRapidaBg />}
@@ -133,6 +145,7 @@ export function DisenoWebIncludes() {
               {/* Overlay sutil al hover. */}
               <div className="pointer-events-none absolute inset-0 transition-colors duration-300 group-hover:bg-[#022977]/2 dark:group-hover:bg-white/3" />
             </div>
+            </motion.div>
             );
           })}
         </div>

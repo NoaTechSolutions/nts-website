@@ -7,31 +7,30 @@
 // para SEO. Título con keyword rotativa, entrada en cascada, CTA ámbar (10%).
 // ─────────────────────────────────────────────────────────────
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useLanguage } from "../language-provider";
-import { HeroRotatingWord } from "../hero-rotating-word";
 import { WavyBackground } from "../ui/wavy-background";
+import { HeroVideoWord } from "../ui/hero-video-word";
+import { MagneticButton } from "../ui/magnetic-button";
+import { GradientBadge } from "../ui/gradient-badge";
 
 const COPY = {
   es: {
     eyebrow: "Diseño y Desarrollo Web",
-    lead: "Diseño web a medida que",
-    rotating: ["convierte", "vende", "enamora", "posiciona"],
-    rotatingAria: "Diseño web a medida que convierte, vende, enamora y posiciona.",
+    titleLead: "La web que",
+    titleAccent: "Siempre Imaginaste",
     subtitle:
-      "Estudio de diseño y desarrollo web a medida: creamos páginas web profesionales, rápidas y optimizadas para SEO, pensadas para convertir tus visitas en clientes reales.",
-    primaryCta: "Cotiza tu proyecto",
-    secondaryCta: "Ver trabajos",
+      "Diseño y desarrollo web a medida, veloz y optimizado para SEO. Creamos una página que enamora a tus visitantes desde el primer segundo y los transforma en clientes reales. Empieza hoy.",
+    primaryCta: "Habla con un experto",
   },
   en: {
     eyebrow: "Web Design & Development",
-    lead: "Custom web design that",
-    rotating: ["converts", "sells", "delights", "ranks"],
-    rotatingAria: "Custom web design that converts, sells, delights and ranks.",
+    titleLead: "The website you",
+    titleAccent: "Always Imagined",
     subtitle:
-      "A custom web design and development studio: we build fast, professional, SEO-optimized websites made to turn your visitors into real customers.",
-    primaryCta: "Get a quote",
-    secondaryCta: "See our work",
+      "Custom web design and development, fast and SEO-optimized. We build a site that wins over your visitors from the very first second and turns them into real customers. Start today.",
+    primaryCta: "Talk to an expert",
   },
 } as const;
 
@@ -53,6 +52,17 @@ const item = {
 export function DisenoWebHero() {
   const { locale } = useLanguage();
   const t = COPY[locale];
+
+  // Teléfono / phablet (≤600px): la palabra del video se apila en 2 filas para
+  // que las letras sean más grandes y no toquen los bordes.
+  const [isPhone, setIsPhone] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 600px)");
+    const update = () => setIsPhone(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   return (
     <section className="dw-hero">
@@ -76,13 +86,19 @@ export function DisenoWebHero() {
           initial="hidden"
           animate="show"
         >
-          <motion.span className="eyebrow dw-hero-eyebrow" variants={item}>
-            {t.eyebrow}
+          <motion.span className="dw-hero-badge-wrap" variants={item}>
+            <GradientBadge icon="palette">{t.eyebrow}</GradientBadge>
           </motion.span>
 
           <motion.h1 className="dw-hero-title" variants={item}>
-            {t.lead}{" "}
-            <HeroRotatingWord words={t.rotating} ariaLabel={t.rotatingAria} />
+            {t.titleLead}
+            <br />
+            <HeroVideoWord
+              text={t.titleAccent}
+              src="/diseno-web-hero-ocean-loop.webm"
+              className="dw-hero-title-accent"
+              stack={isPhone}
+            />
           </motion.h1>
 
           <motion.p className="dw-hero-subtitle" variants={item}>
@@ -90,26 +106,28 @@ export function DisenoWebHero() {
           </motion.p>
 
           <motion.div className="dw-hero-actions" variants={item}>
-            <a href="#contacto-form" className="dw-hero-cta-primary">
-              {t.primaryCta}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                width="18"
-                height="18"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14" />
-                <path d="M12 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a href="#portfolio" className="dw-hero-cta-secondary">
-              {t.secondaryCta}
-            </a>
+            <MagneticButton
+              href="#contacto-form"
+              className="dw-hero-cta-primary"
+            >
+              <span className="dw-hero-cta-label">
+                {t.primaryCta}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  width="18"
+                  height="18"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </MagneticButton>
           </motion.div>
         </motion.div>
       </div>

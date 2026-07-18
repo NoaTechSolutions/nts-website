@@ -12,6 +12,7 @@
 import { useEffect, useRef, useState } from "react";
 import { type MotionValue, motion, useMotionValue, useTransform } from "motion/react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { Highlighter } from "../ui/highlighter";
 import { ScrollRevealText } from "../ui/scroll-reveal-text";
 import { CargaLentaBg } from "./animations/carga-lenta-bg";
@@ -102,7 +103,7 @@ function ScaleStage({ children }: { children: React.ReactNode }) {
 function ProblemHeading({ t, titleSize }: { t: (typeof COPY)[keyof typeof COPY]; titleSize?: string }) {
   return (
     <>
-      <p className="eyebrow">{t.eyebrow}</p>
+      <GradientBadge icon="alert">{t.eyebrow}</GradientBadge>
       {/* marginInline + maxWidth inline (NO mx-auto / NO max-w-*): en Tailwind v4
           el CSS sin @layer (.section-title con `margin:0` y `max-width`) le gana
           a las utilities. lineHeight amplio → aire entre las 2 filas. */}

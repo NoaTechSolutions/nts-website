@@ -87,9 +87,7 @@ export default function DisenoWebPage() {
       <DisenoWebShowcase />
 
       {/* ── 6b. PORTFOLIO WEB · galería bento → fullscreen (GSAP Flip) ── */}
-      <div id="portfolio">
-        <DisenoWebGallery />
-      </div>
+      <DisenoWebGallery />
 
       {/* ── 7. POR QUÉ NOATECH ── */}
       <DisenoWebWhy />

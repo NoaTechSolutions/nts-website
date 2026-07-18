@@ -218,7 +218,7 @@ export function FooterSection() {
 
       {/* TextHoverEffect watermark */}
       <div
-        className="lg:flex hidden h-48 -mt-4 overflow-visible"
+        className="md:flex hidden h-48 -mt-4 overflow-visible"
         style={{ position: "relative", zIndex: 10 }}
       >
         <TextHoverEffect text="NoaTechSolutions" duration={0.3} />

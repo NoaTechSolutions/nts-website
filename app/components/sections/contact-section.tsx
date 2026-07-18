@@ -2,6 +2,7 @@
 
 import { useLanguage } from "../language-provider";
 import { ContactForm } from "../contact-form";
+import { GradientBadge } from "../ui/gradient-badge";
 
 export function ContactSection() {
   const { locale } = useLanguage();
@@ -11,9 +12,9 @@ export function ContactSection() {
       <div className="grid-shell">
         <div className="contact-form-layout">
           <div className="contact-form-motivation">
-            <span className="pill-amber">
-              ✦ {locale === "es" ? "Hablemos" : "Let's talk"}
-            </span>
+            <GradientBadge icon="chat">
+              {locale === "es" ? "Hablemos" : "Let's talk"}
+            </GradientBadge>
             <h2 className="contact-form-motivation-title">
               {locale === "es"
                 ? "¿Tienes un proyecto en mente?"

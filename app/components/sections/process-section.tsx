@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { GradientBadge } from "../ui/gradient-badge";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CometCard } from "@/components/ui/comet-card";
@@ -88,7 +89,9 @@ export function ProcessSection() {
   const eyebrow = t.processSection.eyebrow;
   const title = t.processSection.title;
   const rotatingWords = t.hero.rotatingWords;
-  const items = t.processSection.items;
+  // `translations` es `as const` → items con tipos literales; al unir ES/EN la
+  // intersección de literales da `never`. Se ensancha a ProcessItem[].
+  const items = t.processSection.items as readonly ProcessItem[];
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -232,7 +235,7 @@ export function ProcessSection() {
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">
           <div className="process-sticky-shell" style={{ opacity: shellOpacity }}>
             <div className="process-sticky-copy">
-              <p className="eyebrow">{eyebrow}</p>
+              <GradientBadge icon="growth">{eyebrow}</GradientBadge>
               <div className="process-phone-only process-sticky-heading">
                 <p className="process-sticky-title-top">{titleLead}</p>
                 <div className="process-sticky-title-inline justify-center">

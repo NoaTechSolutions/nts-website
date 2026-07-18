@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { translations } from "@/lib/i18n";
 
 const faqIcons = [Rocket, CreditCard, Clock3, Search, ShieldCheck, BadgeCheck];
@@ -127,7 +128,7 @@ export function FaqSection({ variant }: { variant?: "diseno-web" }) {
       <div className="contact-faq-background" aria-hidden="true" />
       <div className="grid-shell contact-faq-shell">
         <div className="contact-faq-copy">
-          <p className="eyebrow contact-faq-eyebrow">{content.eyebrow}</p>
+          <GradientBadge icon="help">{content.eyebrow}</GradientBadge>
           <h2 className="section-title contact-faq-title">{content.title}</h2>
           <p className="section-copy contact-faq-body">{content.copy}</p>
 

@@ -3,6 +3,7 @@
 import { type CSSProperties, type TouchEvent, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { useLanguage } from "../language-provider";
+import { GradientBadge } from "../ui/gradient-badge";
 import { translations } from "@/lib/i18n";
 
 type ReviewItem = {
@@ -280,7 +281,7 @@ export function TestimonialsSection() {
     <section id="reviews" className="section-divider reviews-marquee-section">
       <div className="reviews-marquee-header">
         <div className="reviews-marquee-heading">
-          <p className="eyebrow">{eyebrow}</p>
+          <GradientBadge icon="quote">{eyebrow}</GradientBadge>
           <h2 className="section-title reviews-marquee-title">{title}</h2>
         </div>
       </div>
