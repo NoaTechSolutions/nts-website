@@ -27,6 +27,9 @@ export function HeroCursor() {
   const sy = useSpring(y, { stiffness: 420, damping: 32, mass: 0.35 });
 
   useEffect(() => {
+    // Detección de puntero fino: matchMedia solo existe en el cliente, así que
+    // se resuelve post-mount (intencional, no hay hydration mismatch posible).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   }, []);
 

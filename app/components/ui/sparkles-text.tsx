@@ -72,6 +72,9 @@ export function SparklesText({
       lifespan: Math.random() * 10 + 5,
     });
 
+    // Sparkles iniciales generados post-mount (usan Math.random → deben ser
+    // client-only para no romper la hidratación). Intencional.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSparkles(Array.from({ length: sparklesCount }, gen));
     const interval = setInterval(() => {
       setSparkles((prev) =>

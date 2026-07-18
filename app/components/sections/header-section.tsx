@@ -35,6 +35,9 @@ export function HeaderSection({
   const [mountRobot, setMountRobot] = useState<boolean | null>(null);
 
   useEffect(() => {
+    // Viewport resuelto post-mount: matchMedia no existe en SSR y el gate del
+    // robot 3D depende del ancho real del cliente (intencional, sin mismatch).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMountRobot(window.matchMedia("(min-width: 768px)").matches);
   }, []);
 
