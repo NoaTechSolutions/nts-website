@@ -32,6 +32,21 @@ const COPY = {
   },
 } as const;
 
+type Copy = (typeof COPY)[keyof typeof COPY];
+
+// Fragmento de la SOLUCIÓN (lead + highlight naranja + tail). Se usa en el
+// fallback estático y en la capa reveal → vive a nivel de módulo para no
+// recrearse en cada render.
+function Solution({ t }: { t: Copy }) {
+  return (
+    <>
+      {t.solutionLead}
+      <span className="dw-cta-hl">{t.solutionHighlight}</span>
+      {t.solutionTail}
+    </>
+  );
+}
+
 export function DisenoWebCta() {
   const { locale } = useLanguage();
   const t = COPY[locale];
@@ -80,14 +95,6 @@ export function DisenoWebCta() {
     });
   };
 
-  const Solution = () => (
-    <>
-      {t.solutionLead}
-      <span className="dw-cta-hl">{t.solutionHighlight}</span>
-      {t.solutionTail}
-    </>
-  );
-
   // ── Fallback estático (reduced-motion) ──
   if (mode === "static") {
     return (
@@ -96,7 +103,7 @@ export function DisenoWebCta() {
           <p className="dw-cta-eyebrow">{t.eyebrow}</p>
           <p className="dw-cta-headline dw-cta-headline--pain">{t.pain}</p>
           <p className="dw-cta-headline dw-cta-headline--solution">
-            <Solution />
+            <Solution t={t} />
           </p>
         </div>
       </section>
@@ -142,7 +149,7 @@ export function DisenoWebCta() {
         <div className="dw-cta-inner">
           <p className="dw-cta-eyebrow">{t.eyebrow}</p>
           <p className="dw-cta-headline">
-            <Solution />
+            <Solution t={t} />
           </p>
         </div>
       </div>

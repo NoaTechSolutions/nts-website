@@ -41,6 +41,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const resolvedLocale = detectBrowserLocale();
     if (resolvedLocale !== defaultLocale) {
+      // Preferencia real resuelta post-mount para no romper la hidratación
+      // (el primer render cliente/servidor debe coincidir en defaultLocale).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLocaleState(resolvedLocale);
     }
   }, []);

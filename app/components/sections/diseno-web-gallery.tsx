@@ -62,7 +62,7 @@ export function DisenoWebGallery() {
 
       const createTween = () => {
         const items = gallery.querySelectorAll(".dw-gallery__item");
-        flipCtx && flipCtx.revert();
+        flipCtx?.revert();
         gallery.classList.remove("dw-gallery--final");
 
         flipCtx = gsap.context(() => {
@@ -91,7 +91,7 @@ export function DisenoWebGallery() {
       window.addEventListener("resize", createTween);
       return () => {
         window.removeEventListener("resize", createTween);
-        flipCtx && flipCtx.revert();
+        flipCtx?.revert();
       };
     });
 

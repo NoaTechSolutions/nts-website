@@ -109,7 +109,6 @@ function ScreenContent({ t }: { t: Copy }) {
         />
 
         {/* Logo NTS original a color */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <motion.img
           src="/noatechsolutions-logo-full.svg"
           alt="NoaTechSolutions"
