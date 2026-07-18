@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -18,9 +18,25 @@ export type ContactResponse =
   | { ok: true; message: string }
   | { ok: false; error: string; fields?: Record<string, string> };
 
-function getResend() {
-  return new Resend(process.env.RESEND_API_KEY);
+// Transporte SMTP (SiteGround). Los valores se cargan por env, scopeados por
+// contexto en Netlify (prod vs staging). Puerto 465 = SSL implícito (secure),
+// 587 = STARTTLS. Se instancia por request (serverless, sin estado compartido).
+function getTransport() {
+  const port = Number(process.env.SMTP_PORT ?? 465);
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port,
+    secure: port === 465,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
 }
+
+// Destino interno del formulario y remitente. El `from` DEBE coincidir con el
+// buzón autenticado (SMTP_USER) o SiteGround rechaza el envío.
+const CONTACT_INBOX = "contact@noatechsolutions.com";
 
 function getRatelimitByIp() {
   return new Ratelimit({
@@ -82,10 +98,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const resend = getResend();
-    await resend.emails.send({
-      from: "NoaTechSolutions <noreply@noatechsolutions.com>",
-      to: "contact@noatechsolutions.com",
+    const transport = getTransport();
+    const from = `NoaTechSolutions <${process.env.SMTP_USER}>`;
+
+    await transport.sendMail({
+      from,
+      to: CONTACT_INBOX,
       subject: `Nuevo contacto: ${nombre}`,
       replyTo: email,
       text: [
@@ -97,8 +115,8 @@ export async function POST(req: NextRequest) {
       ].join("\n"),
     });
 
-    await resend.emails.send({
-      from: "NoaTechSolutions <noreply@noatechsolutions.com>",
+    await transport.sendMail({
+      from,
       to: email,
       subject: "Recibimos tu mensaje — NoaTechSolutions",
       text: [
