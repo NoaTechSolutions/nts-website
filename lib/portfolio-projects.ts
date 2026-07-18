@@ -1,42 +1,42 @@
 export const portfolioProjects = [
   {
-    title: "Mi Casita Musical",
-    link: "https://micasitamusical.com/",
-    thumbnail: "/micasitamusical-raw.png",
+    title: "Edna's Home 4 Childcare",
+    link: "https://ednashome4childcare.com/",
+    thumbnail: "/ednashome4childcare.webp",
   },
   {
     title: "Zapana",
     link: "https://zapana.com/",
-    thumbnail: "/zapana-raw.png",
+    thumbnail: "/zapana.webp",
   },
   {
-    title: "Edna's Home 4 Childcare",
-    link: "https://ednashome4childcare.com/",
-    thumbnail: "/ednashome4childcare-raw.png",
+    title: "Mi Casita Musical",
+    link: "https://micasitamusical.com/",
+    thumbnail: "/micasitamusical.webp",
   },
   {
     title: "Laura Bravo Music",
     link: "https://laurabravomusic.com/",
-    thumbnail: "/laurabravomusic-raw.png",
+    thumbnail: "/laurabravomusic.webp",
   },
   {
     title: "Maricruz Bisso",
     link: "https://maricruzbisso.com/",
-    thumbnail: "/maricruzbisso-raw.png",
+    thumbnail: "/maricruzbisso.webp",
   },
   {
     title: "Ada Luz Home Daycare",
     link: "https://adaluzhomedaycare.com/",
-    thumbnail: "/adaluzhomedaycare-raw.png",
+    thumbnail: "/adaluzhomedaycare.webp",
   },
   {
     title: "Alfredo R Music",
     link: "https://alfredormusic.com/",
-    thumbnail: "/alfredormusic-raw.png",
+    thumbnail: "/alfredormusic.webp",
   },
   {
     title: "World Pavers Co",
     link: "https://worldpaversco.com/",
-    thumbnail: "/worldpaversco-raw.png",
+    thumbnail: "/worldpaversco.webp",
   },
 ] as const;

@@ -36,7 +36,7 @@ export const translations = {
       ],
       accent: "A La Era Digital",
       copy:
-        "Creamos sitios web impresionantes, campanas de marketing digital poderosas y soluciones de software personalizadas que ayudan a emprendedores y pequenas empresas a prosperar en linea.",
+        "Convertimos tu presencia digital en más clientes con diseño web, software a medida y marketing que da resultados.",
       primaryCta: "Iniciar Tu Proyecto",
       secondaryCta: "Explorar Servicios",
       stats: [
@@ -44,11 +44,11 @@ export const translations = {
         {
           value: 99,
           suffix: "%",
-          label: "Satisfaccion del Cliente",
+          label: "Satisfacción del Cliente",
           mobileLabel: "Satisf. del Cliente",
           delay: 0.1,
         },
-        { value: 15, suffix: "+", label: "Anos de Experiencia", delay: 0.2 },
+        { value: 15, suffix: "+", label: "Años de Experiencia", delay: 0.2 },
         { value: 125, suffix: "+", label: "Clientes Satisfechos", delay: 0.3 },
       ],
     },
@@ -68,29 +68,29 @@ export const translations = {
       eyebrow: "Soluciones digitales",
       title: "Impulsamos tu",
       copy:
-        "Combinamos estrategia, diseno, tecnologia y marketing para que tu marca se vea profesional, atraiga mejores oportunidades y convierta mas visitas en clientes reales.",
+        "Desde tu página web y software a medida hasta tu marca, marketing y soporte: reunimos todo lo que tu negocio necesita para crecer online en un solo equipo.",
       cta: "Ver soluciones",
       cardCta: "Mas info",
       items: [
         {
-          title: "Diseno web premium",
+          title: "Web y software a medida",
           description:
-            "Websites claros, veloces y alineados con una narrativa comercial que eleva la percepcion de tu marca.",
+            "Tu sitio web profesional y el software que tu negocio necesita: rápidos, escalables y hechos a la medida de tu operación.",
         },
         {
-          title: "SEO estrategico",
+          title: "Diseño y marca",
           description:
-            "Arquitectura, contenido y optimizacion tecnica para atraer trafico calificado con una base sostenible.",
+            "Branding, diseño gráfico y material corporativo para que tu marca se vea profesional, coherente y memorable.",
         },
         {
           title: "Marketing digital",
           description:
-            "Campanas, embudos y mensajes coordinados para convertir visitas en oportunidades reales.",
+            "Campañas, redes sociales y embudos coordinados para atraer tráfico calificado y convertir visitas en clientes reales.",
         },
         {
-          title: "Branding y direccion visual",
+          title: "Soporte y asesoría",
           description:
-            "Sistemas visuales consistentes para que cada punto de contacto se vea profesional y memorable.",
+            "Hosting, mantenimiento y asesoría tecnológica para que tu operación siga funcionando sin dolores de cabeza.",
         },
       ],
     },
@@ -132,35 +132,35 @@ export const translations = {
       items: [
         {
           step: "01",
-          title: "Te damos ideas claras para hacer crecer tu marca",
+          title: "Escuchamos y entendemos tu negocio",
           detail:
-            "Analizamos tu negocio, detectamos oportunidades y te asesoramos con ideas practicas para que tu marca conecte mejor, venda mas y se vea mas fuerte en internet.",
+            "Nos sentamos contigo para conocer tu marca, tus objetivos y tus clientes. Sin un buen diagnóstico no hay una buena solución.",
           cardDetail:
-            "Te ayudamos a descubrir que hace especial a tu marca para que la gente la entienda rapido, la recuerde y quiera dar el siguiente paso contigo.",
+            "Analizamos tu marca, tu mercado y tu competencia para entender qué te hace diferente y por dónde conviene empezar.",
         },
         {
           step: "02",
-          title: "Mejoramos tu presencia en Google y en redes",
+          title: "Diseñamos el plan a tu medida",
           detail:
-            "Organizamos tu web y optimizamos tus redes con SEO claro, contenido util y mensajes que ayudan a que mas personas te encuentren y confien en ti.",
+            "Definimos la ruta: qué construir, con qué prioridad y para qué. En cada paso sabes qué sigue y por qué lo hacemos.",
           cardDetail:
-            "Hacemos que tu negocio se vea mejor en Google y redes con mensajes claros, contenido util y una presencia que inspire confianza desde el primer clic.",
+            "Convertimos ese diagnóstico en un plan concreto: objetivos, entregables y prioridades claras, sin humo ni promesas vacías.",
         },
         {
           step: "03",
-          title: "Integramos herramientas que te ahorran tiempo",
+          title: "Construimos tu proyecto",
           detail:
-            "Sumamos soluciones tecnologicas y recursos digitales que te ayudan a atender mejor, ordenar procesos y dar una imagen mas profesional a tu negocio.",
+            "Diseñamos y desarrollamos con estándar profesional y te mostramos avances en el camino, sin cajas negras ni sorpresas.",
           cardDetail:
-            "Incorporamos herramientas digitales que ordenan tu dia a dia, agilizan tu trabajo y hacen que atender clientes se sienta mas facil y mas profesional.",
+            "Damos vida al proyecto con diseño y desarrollo profesional, revisando contigo cada avance importante antes de seguir.",
         },
         {
           step: "04",
-          title: "Te acompanamos para seguir creciendo",
+          title: "Lanzamos y te acompañamos",
           detail:
-            "Te damos asesoria continua, revisamos que esta funcionando y ajustamos web, SEO y redes para atraer mas clientes y mejorar tus resultados con el tiempo.",
+            "Publicamos, medimos resultados y ajustamos para que sigas creciendo. No desaparecemos después de entregar.",
           cardDetail:
-            "No te dejamos solo despues del lanzamiento: medimos, ajustamos y seguimos afinando tu web, SEO y redes para que tu marca siga creciendo con claridad.",
+            "Medimos, optimizamos y te acompañamos con soporte continuo para que tu negocio siga creciendo con el tiempo.",
         },
       ],
     },
@@ -232,9 +232,9 @@ export const translations = {
       ],
     },
     portfolioSection: {
-      title: "Trabajos Que Hablan Por Si Solos",
+      title: "Trabajos que hablan por sí solos",
       copy:
-        "Descubre una seleccion de proyectos creados para inspirar, transmitir confianza y demostrar hasta donde puede llegar una marca cuando su presencia digital se ve fuerte, cuidada y memorable.",
+        "Detrás de cada proyecto hay una persona que confió en nosotros para llevar su negocio más lejos. Sitios web, tiendas online y marcas reales, diseñadas para verse profesionales y convertir visitas en clientes.",
       accent: "El siguiente puede ser el tuyo.",
       ctaLabel: "Ver mas proyectos",
     },
@@ -292,12 +292,17 @@ export const translations = {
       copy:
         "Si ya sabes que tu marca necesita verse mas profesional, este es un buen momento para empezar. Podemos lanzar una base clara, atractiva y pensada para vender, y si lo necesitas revisamos contigo opciones de pago para que avanzar sea mas facil.",
       primary: "Iniciar ahora",
-      secondary: "Preguntar por pagos",
+      directMail: "O escríbenos directo",
       priceTag: "Desde $299",
       highlights: [
         "Asesoria inicial gratis",
         "Opciones de pago a plazos",
       ],
+    },
+    contactSection: {
+      eyebrow: "Hablemos",
+      title: "Cuéntanos tu proyecto",
+      copy: "Responderemos en menos de 24 horas.",
     },
     contactForm: {
       nombre: "Nombre",
@@ -309,14 +314,14 @@ export const translations = {
       submit: "Enviar mensaje",
       sending: "Enviando...",
       successTitle: "¡Mensaje enviado!",
-      successBody: "Revisá tu email para la confirmación.",
-      errorGeneric: "Algo salió mal. Intentá de nuevo.",
-      rateLimit: "Demasiados mensajes. Intentá en 24 horas.",
+      successBody: "Revisa tu email para la confirmación.",
+      errorGeneric: "Algo salió mal. Intenta de nuevo.",
+      rateLimit: "Demasiados mensajes. Intenta en 24 horas.",
     },
     footerSection: {
       eyebrow: "Soluciones tecnologicas",
       watermark: "NoaTechSolutions",
-      copyright: "\u00A9 NoaTechSolutions. Todos los derechos reservados.",
+      copyright: "\u00A9 2026 NoaTechSolutions. Todos los derechos reservados.",
       columns: [
         {
           title: "Mapa",
@@ -341,19 +346,19 @@ export const translations = {
           links: [
             { label: "Portfolio", href: "/portfolio" },
             { label: "Reviews", href: "#reviews" },
-            { label: "Contacto", href: "#contacto" },
-            { label: "Base desde $299", href: "#contacto" },
+            { label: "Contacto", href: "#contacto-form" },
+            { label: "Base desde $299", href: "#contacto-form" },
           ],
         },
         {
           title: "Contacto",
           links: [
-            { label: "Iniciar proyecto", href: "#contacto" },
-            { label: "Asesoria inicial gratis", href: "#contacto" },
+            { label: "Iniciar proyecto", href: "#contacto-form" },
+            { label: "Asesoria inicial gratis", href: "#contacto-form" },
             {
-              label: "hello@noatechsolutions.com",
+              label: "contact@noatechsolutions.com",
               href:
-                "mailto:hello@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
+                "mailto:contact@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
               external: true,
             },
             { label: "Baja California + California" },
@@ -399,7 +404,7 @@ export const translations = {
       ],
       accent: "Go Digital Era",
       copy:
-        "We create stunning websites, powerful digital marketing campaigns, and custom software solutions that help entrepreneurs and small businesses thrive online.",
+        "We turn your digital presence into more clients with web design, custom software, and marketing that delivers results.",
       primaryCta: "Start Your Project",
       secondaryCta: "Explore Services",
       stats: [
@@ -411,7 +416,7 @@ export const translations = {
           mobileLabel: "Client Sat.",
           delay: 0.1,
         },
-        { value: 15, suffix: "+", label: "Years Experience", delay: 0.2 },
+        { value: 15, suffix: "+", label: "Years of Experience", delay: 0.2 },
         { value: 125, suffix: "+", label: "Happy Clients", delay: 0.3 },
       ],
     },
@@ -431,29 +436,29 @@ export const translations = {
       eyebrow: "Digital solutions",
       title: "We grow your",
       copy:
-        "We combine strategy, design, technology, and marketing so your brand looks professional, attracts better opportunities, and turns more visits into real clients.",
+        "From your website and custom software to branding, marketing, and support: everything your business needs to grow online, brought together by one team.",
       cta: "View solutions",
       cardCta: "More info",
       items: [
         {
-          title: "Premium web design",
+          title: "Web & custom software",
           description:
-            "Clear, fast websites aligned with a commercial narrative that elevates your brand perception.",
+            "Your professional website and the software your business needs: fast, scalable, and built to fit your operation.",
         },
         {
-          title: "Strategic SEO",
+          title: "Design & brand",
           description:
-            "Architecture, content, and technical optimization built to attract qualified traffic on a sustainable foundation.",
+            "Branding, graphic design, and corporate materials so your brand looks professional, consistent, and memorable.",
         },
         {
           title: "Digital marketing",
           description:
-            "Campaigns, funnels, and messaging aligned to turn visits into real opportunities.",
+            "Campaigns, social media, and coordinated funnels to attract qualified traffic and turn visits into real clients.",
         },
         {
-          title: "Branding and visual direction",
+          title: "Support & advisory",
           description:
-            "Consistent visual systems so every brand touchpoint feels professional and memorable.",
+            "Hosting, maintenance, and tech advisory so your operation keeps running without headaches.",
         },
       ],
     },
@@ -495,35 +500,35 @@ export const translations = {
       items: [
         {
           step: "01",
-          title: "We give you clear ideas to grow your brand",
+          title: "We listen and understand your business",
           detail:
-            "We analyze your business, uncover opportunities, and guide you with practical ideas so your brand connects better, sells more, and looks stronger online.",
+            "We sit down with you to learn your brand, your goals, and your customers. There's no good solution without a good diagnosis.",
           cardDetail:
-            "We help you uncover what makes your brand special so people understand it quickly, remember it, and feel ready to take the next step with you.",
+            "We analyze your brand, your market, and your competition to understand what sets you apart and where to begin.",
         },
         {
           step: "02",
-          title: "We improve your presence on Google and social media",
+          title: "We design a plan that fits you",
           detail:
-            "We organize your website and optimize your social channels with clear SEO, useful content, and messaging that helps more people find and trust you.",
+            "We map out the roadmap: what to build, in what order, and why. At every step you know what's next and the reason behind it.",
           cardDetail:
-            "We make your business look stronger on Google and social media with clear messaging, useful content, and a presence that builds trust from the first click.",
+            "We turn that diagnosis into a concrete plan: goals, deliverables, and clear priorities, with no fluff or empty promises.",
         },
         {
           step: "03",
-          title: "We integrate tools that save you time",
+          title: "We build your project",
           detail:
-            "We add technology solutions and digital tools that help you respond better, organize processes, and give your business a more professional image.",
+            "We design and develop to a professional standard and show you progress along the way, with no black boxes or surprises.",
           cardDetail:
-            "We bring in digital tools that streamline your day, make your workflow lighter, and help every client interaction feel smoother and more professional.",
+            "We bring the project to life with professional design and development, reviewing each key milestone with you before moving on.",
         },
         {
           step: "04",
-          title: "We stay with you so you keep growing",
+          title: "We launch and stay with you",
           detail:
-            "We provide ongoing guidance, review what is working, and refine your website, SEO, and social media so you can attract more clients over time.",
+            "We publish, measure results, and fine-tune so you keep growing. We don't disappear after delivery.",
           cardDetail:
-            "We stay with you after launch to measure, refine, and keep improving your website, SEO, and social media so your brand keeps growing with clarity.",
+            "We measure, optimize, and support you continuously so your business keeps growing over time.",
         },
       ],
     },
@@ -595,9 +600,9 @@ export const translations = {
       ],
     },
     portfolioSection: {
-      title: "Work That Speaks For Itself",
+      title: "Work that speaks for itself",
       copy:
-        "Discover a curated selection of projects designed to inspire, build trust, and show how far a brand can go when its digital presence feels strong, polished, and memorable.",
+        "Behind every project there's a real person who trusted us to take their business further. Websites, online stores, and brands built to look professional and turn visitors into customers.",
       accent: "The next one could be yours.",
       ctaLabel: "See more projects",
     },
@@ -654,12 +659,17 @@ export const translations = {
       copy:
         "If you already know your brand needs to look more professional, this is a great time to start. We can launch a clear, attractive, conversion-ready foundation, and if needed we can walk you through flexible payment options so moving forward feels easier.",
       primary: "Start now",
-      secondary: "Ask about payments",
+      directMail: "Or write us directly",
       priceTag: "From $299",
       highlights: [
         "Free initial strategy call",
         "Installment payment options",
       ],
+    },
+    contactSection: {
+      eyebrow: "Let's talk",
+      title: "Tell us about your project",
+      copy: "We'll respond within 24 hours.",
     },
     contactForm: {
       nombre: "Name",
@@ -678,7 +688,7 @@ export const translations = {
     footerSection: {
       eyebrow: "Technology solutions",
       watermark: "NoaTechSolutions",
-      copyright: "\u00A9 NoaTechSolutions. All rights reserved.",
+      copyright: "\u00A9 2026 NoaTechSolutions. All rights reserved.",
       columns: [
         {
           title: "Map",
@@ -703,19 +713,19 @@ export const translations = {
           links: [
             { label: "Portfolio", href: "/portfolio" },
             { label: "Reviews", href: "#reviews" },
-            { label: "Contact", href: "#contacto" },
-            { label: "Start from $299", href: "#contacto" },
+            { label: "Contact", href: "#contacto-form" },
+            { label: "Start from $299", href: "#contacto-form" },
           ],
         },
         {
           title: "Contact",
           links: [
-            { label: "Start your project", href: "#contacto" },
-            { label: "Free strategy call", href: "#contacto" },
+            { label: "Start your project", href: "#contacto-form" },
+            { label: "Free strategy call", href: "#contacto-form" },
             {
-              label: "hello@noatechsolutions.com",
+              label: "contact@noatechsolutions.com",
               href:
-                "mailto:hello@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
+                "mailto:contact@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
               external: true,
             },
             { label: "Baja California + California" },

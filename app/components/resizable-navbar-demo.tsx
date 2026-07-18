@@ -11,52 +11,53 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-  ThemeToggle,
+  getActiveNavIndex,
 } from "./ui/resizable-navbar";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "./language-provider";
 import { translations } from "@/lib/i18n";
 
 export function ResizableNavbarDemo() {
   const { locale } = useLanguage();
   const t = translations[locale];
+  const pathname = usePathname();
 
   const navItems = [
     {
       name: t.nav.home,
-      link: "#home",
+      link: "/",
     },
     {
       name: t.nav.services,
-      link: "#servicios",
+      link: "/servicios",
       children: [
         {
           name: t.nav.webDesign,
-          link: "#website-design",
+          link: "/servicios/diseno-web",
         },
         {
           name: t.nav.branding,
-          link: "#branding",
+          link: "/servicios",
         },
         {
           name: t.nav.businessCards,
-          link: "#business-card",
+          link: "/servicios",
         },
       ],
     },
     {
       name: t.nav.solutions,
-      link: "#solutions",
+      link: "/portfolio",
     },
     {
       name: t.nav.about,
-      link: "#about-us",
-    },
-    {
-      name: t.nav.contact,
-      link: "#contacto",
+      link: "/nosotros",
     },
   ];
+
+  const activeIndex = getActiveNavIndex(navItems, pathname);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
@@ -85,9 +86,8 @@ export function ResizableNavbarDemo() {
       <Navbar>
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} />
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
+          <NavItems items={navItems} activeIndex={activeIndex} />
+          <div className="flex items-center gap-3 lg:justify-self-end">
             <NavbarButton variant="primary">{t.nav.cta}</NavbarButton>
           </div>
         </NavBody>
@@ -132,7 +132,9 @@ export function ResizableNavbarDemo() {
                           current === item.name ? null : item.name,
                         );
                       }}
-                      className="flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-medium text-white transition-colors"
+                      className={`flex w-full items-center justify-between rounded-xl px-1 py-2 text-left text-base font-medium transition-colors ${
+                        idx === activeIndex ? "text-[#ff9900]" : "text-white"
+                      }`}
                     >
                       <span className="relative flex items-center justify-between pr-6">
                         <span>{item.name}</span>
@@ -147,7 +149,7 @@ export function ResizableNavbarDemo() {
                       }`}
                     >
                       {item.children.map((child) => (
-                          <a
+                          <Link
                             key={child.name}
                             href={child.link}
                             onClick={() => {
@@ -159,30 +161,26 @@ export function ResizableNavbarDemo() {
                             <span className="relative flex items-center justify-between pr-6">
                               <span>{child.name}</span>
                             </span>
-                          </a>
+                          </Link>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <a
+                  <Link
                     key={`mobile-link-${idx}`}
                     href={item.link}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`rounded-xl px-1 py-2 text-base font-medium transition-colors ${
-                      idx === 0 ? "text-[#ff9900]" : "text-white"
+                      idx === activeIndex ? "text-[#ff9900]" : "text-white"
                     }`}
                   >
                     <span className="relative flex items-center justify-between pr-6">
                       <span className="block">{item.name}</span>
                     </span>
-                  </a>
+                  </Link>
                 ),
               )}
               <div className="flex w-full flex-col gap-4">
-                <div className="flex items-center justify-between rounded-xl px-1 py-1">
-                  <span className="text-sm text-white/70">Tema</span>
-                  <ThemeToggle />
-                </div>
                 <NavbarButton
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="primary"

@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────────────────
+# Netlify · NoaTechSolutions (Next.js 16)
+# El runtime de Next lo aplica Netlify automáticamente (SSR + /api/contact →
+# funciones Node). Los VALORES secretos de las env vars (RESEND_API_KEY,
+# UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN) se cargan en el PANEL de
+# Netlify, scopeados por contexto: production vs branch:develop (staging).
+# ─────────────────────────────────────────────────────────────
+
+[build]
+  command = "next build"
+
+[build.environment]
+  # Next 16 requiere Node >= 20.9. Pineamos una LTS para evitar builds con un
+  # Node viejo por defecto.
+  NODE_VERSION = "22"
+
+# ── Ambientes por branch ──
+# main → producción (dominio real)
+[context.production.environment]
+  NEXT_PUBLIC_ENV = "production"
+
+# develop → staging (URL de branch-deploy o staging.noatechsolutions.com)
+[context.develop.environment]
+  NEXT_PUBLIC_ENV = "staging"
+
+# Pull Requests → deploy preview temporal
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_ENV = "preview"

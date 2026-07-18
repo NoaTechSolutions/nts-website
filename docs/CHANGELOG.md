@@ -1,5 +1,247 @@
 # CHANGELOG — NoaTechSolutions Website
 
+## [2026-04-17] — Noa mascot assets desde Figma (NOA-159)
+
+### Assets descargados
+- Fuente: Figma file "Noa Mascot NTS" (fileKey `4Bv96hNRzdDdQ7vIsjWwMB`), 3 imágenes 1536×1024 generadas con ChatGPT
+- Descarga vía `figma-developer-mcp` (MCP), optimización con `sharp` (resize 1200px, WebP quality 85)
+
+### Archivos en `public/noa/`
+| Asset | PNG | WebP (1200×800) |
+| -- | -- | -- |
+| `noa-mascot-original` | 1.1 MB | 40 KB |
+| `noa-expressions-8poses` | 1.4 MB | 100 KB |
+| `noa-expressions-celebrate-wake` | 1.3 MB | 56 KB |
+
+### Convención de uso
+- Next.js `<Image>` → apuntar al PNG (Next genera WebP/AVIF on-the-fly)
+- CSS `background-image` o `<img>` crudo → usar `.webp` pre-optimizado
+
+### MCP figma
+- Fix: `~/.claude.json` → agregado flag `--stdio` a `args` del server figma. Sin ese flag el binario no arranca en modo MCP stdio y Claude Code no puede conectarse.
+
+### Siguiente paso
+Vectorizar en Figma con plugin Image Tracer para separar a Noa en capas (cuerpo, cabeza, ojos, brazos, antena), exportar SVGs por expresión y animar en LottieFiles.
+
+### Linear
+- `NOA-159` → **In Progress** (assets listos, pendiente vectorización + animación)
+
+---
+
+## [2026-04-17] — Perf GridDistortion, infraestructura 3D, tipografía fluida, breakpoints (NOA-149–NOA-155)
+
+### GridDistortion → MouseGlowBg (NOA-155)
+- Eliminado `grid-distortion.tsx` (310 líneas, WebGL shader) + `grid-distortion.css`
+- Creado `app/components/ui/mouse-glow-bg.tsx`: CSS radial-gradient mouse-tracking (77 líneas, 0KB extra)
+- Reemplazadas 2 instancias en `page.tsx`: mid-CTA (electric glow) y contact-final (amber glow)
+- Desinstalado `three` + `@types/three` (~700KB eliminados del bundle JS)
+
+### Infraestructura 3D (NOA-154)
+- Instalados: `lenis` (smooth scroll), `@react-three/fiber`, `@react-three/drei`, `@splinetool/react-spline`
+- `app/components/lenis-provider.tsx`: dynamic import, smooth scroll global (duration 1.2, easing exponencial)
+- `app/components/ui/spline-scene.tsx`: wrapper lazy-loaded para escenas Spline 3D
+- `app/hooks/use-touch-device.ts`: hook con `useSyncExternalStore` para detectar touch vs hover
+- `LenisProvider` integrado en `app/layout.tsx` dentro de `LanguageProvider`
+- Verificado: 4 secciones con `useScroll` usan `target: ref` — sin conflicto con Lenis
+
+### Contact + Crisp + FAB (NOA-149)
+- Sección contacto centrada en mobile/tablet (≤1023px)
+- Crisp widget en esquina inferior derecha, FAB speed-dial a la izquierda
+- Footer: copyright único dinámico, gradient navy, watermark `clamp(2rem, 5.8vw, 10rem)` fluido con mask-image fade
+
+### Breakpoints normalizados (NOA-150)
+- Sistema único: 479/767/768/1023/1024/1279/1439/1440
+- Documentado en `docs/design-system.md` sección 9
+
+### Tipografía fluida (NOA-153)
+- 32 font-size convertidos a `clamp()`, 10 valores `px` normalizados a `rem`
+- 0 font-size con `px` restantes en globals.css
+
+### Linear
+- `NOA-149` → PR abierto
+- `NOA-150` → **Done**
+- `NOA-153` → **In Review** (PR #37)
+- `NOA-154` → **Done** (PR #41)
+- `NOA-155` → **Done** (PR #39)
+
+---
+
+## [2026-04-16] — Hydration fix, LCP, Crisp position (NOA-146, NOA-134, NOA-107, NOA-126)
+
+### PageLoader SSR fix
+- `page-loader.tsx`: migrado a `useSyncExternalStore` para evitar hydration mismatch (`null` en SSR, render en client)
+- Hero images: `priority` + `loading="eager"` para mejorar LCP
+
+### Crisp widget reposicionado
+- `crisp-chat.tsx`: `position:reverse` → widget en esquina inferior izquierda
+- `globals.css`: `.crisp-client .cc-kv6t` sube a `bottom: 80px`, `100px` en ≥1440px
+
+### Dependencias limpiadas (NOA-145)
+- Eliminados `@base-ui/react`, `class-variance-authority`, `crisp-sdk-web`, shadcn residuales
+
+### Linear
+- Issues `NOA-134`, `NOA-107`, `NOA-126` → **Done**
+- Issue `NOA-146` → **Done** (PR #29)
+
+---
+
+## [2026-04-15] — Contact form visible + Crisp chat (NOA-135)
+
+### ContactForm en homepage
+- Integrado `<ContactForm />` en la sección `#contacto` sobre el fondo navy (estilos glassmorphism ya existentes)
+- Layout `.contact-final-layout` grid 2 columnas desktop (1fr 1fr gap 4rem) → 1 columna mobile (≤1023px)
+- Columna izquierda: pills + título + botón mailto secundario "O escríbenos directo" / "Or write us directly"
+- Columna derecha: `ContactForm` conectado a `/api/contact` (Resend + Zod + Upstash ratelimit 3/24h)
+- i18n nueva key: `ctaSection.directMail` (ES + EN)
+- Botón mailto: ícono email hover muestra `hello@noatechsolutions.com`
+
+### Crisp chat integration
+- `app/components/crisp-chat.tsx`: script injection (`window.$crisp` + `CRISP_WEBSITE_ID` + `client.crisp.chat/l.js`), solo activa si `NEXT_PUBLIC_CRISP_ID` tiene valor
+- `types/crisp.d.ts`: type augmentation de `Window` con `$crisp: unknown[]` y `CRISP_WEBSITE_ID: string`
+- `CrispChat` integrado en `app/layout.tsx` como último hijo del body
+- `.env.example`: `NEXT_PUBLIC_CRISP_ID=` agregado
+- Dependency: `crisp-sdk-web` instalado (no usado, dejado para futura migración al SDK tipado)
+
+---
+
+## [2026-04-15] — Placeholder pages + fix anclas (NOA-134, NOA-137)
+
+### Páginas placeholder creadas
+- `/servicios` — "Nuestros Servicios"
+- `/portafolio` — "Portafolio de Proyectos"
+- `/blog` — "Blog & Recursos"
+- `/nosotros` — "Sobre Nosotros"
+- `/contacto` — "Contacto"
+
+Cada página usa `<PlaceholderPage title="...">` wrapper compartido con navbar + badge "Próximamente" + título clamp + footer. `export const metadata` con title + description.
+
+### Componentes auxiliares
+- `app/components/placeholder-page.tsx` — wrapper compartido
+- `app/components/site-footer-i18n.tsx` — SiteFooter con i18n automático (páginas server-side no pasan props)
+
+### Nav links actualizados (fix anclas rotas NOA-134)
+- Home: `#home` → `/`
+- Servicios: `#servicios` → `/servicios`
+- Soluciones: `#solutions` (roto) → `/portafolio`
+- Nosotros: `#about-us` (roto) → `/nosotros`
+- Contacto: `#contacto` (sin cambio)
+
+---
+
+## [2026-04-15] — Documentación nomenclatura (NOA-136)
+
+### docs/COMPONENTS.md
+- 10 secciones de homepage con nombre canónico, componente, archivo, ID, animación
+- 13 componentes de sección con props
+- 14 componentes UI reutilizables
+- 11 tipos de botones del sistema
+- Tabla de páginas actuales + planificadas
+- Variables CSS principales (colores, espaciado responsive, texto)
+- Guía de uso para referirse a secciones/botones en Linear y Claude Code
+
+---
+
+## [2026-04-15] — Reorganización de secciones + fix anclas (NOA-132)
+
+### Nuevo orden de secciones en `app/page.tsx`
+1. `#home` — Hero
+2. GrowthMessagesSection
+3. `#servicios` — ServicesStackSection (scroll-stacking)
+4. `#proceso` — ProcessStickySection (sticky pin)
+5. HeroParallaxDemo (parallax horizontal)
+6. `#reviews` — ReviewsMarqueeSection
+7. Mid-CTA (`.services-proof-section`)
+8. `#contacto` — Contact final
+9. `#faq` — FAQ accordion
+10. SiteFooter
+
+### Anclas DOM agregadas
+- `id="servicios"` → wrapper de `ServicesStackSection`
+- `id="proceso"` → wrapper de `ProcessStickySection`
+- `id="reviews"` → wrapper de `ReviewsMarqueeSection`
+- `id="contacto"` ya existía
+- `id="faq"` ya existía
+
+### Pendiente (issues separados)
+- `#solutions` y `#about-us` del nav no tienen ID destino
+- Sección de contacto visible (ContactForm) antes del FAQ
+- Integración Crisp chat
+
+---
+
+## [2026-04-15] — Fixes técnicos múltiples (NOA-125 / NOA-126)
+
+### Botones
+- `.btn-cta-navy`: `min-width: fit-content`, text-hover centrado `left:0 right:0 width:100% justify-content:center`
+- `.btn-body-primary .btn-text-hover`: mismo patrón centrado, `padding: 0 12px`
+- Mobile: sin hover en touch (`:hover → transform: none`), solo 3D press en `:active`
+- Botón secundario CTA "Preguntar por pagos" eliminado
+- Ghost button: sin blur (eliminado `filter: drop-shadow`), wrapper transparente, orb `display: none`, hover con border-glow
+
+### Footer
+- Wrapper `<div className="site-footer-bottom">` agrupa watermark + copyright-brand
+- Mobile: grid 2 columnas, watermark `clamp(2.8rem, 12vw, 4.5rem)` sin desborde, copyright con `order: 2`
+- Logo sin contenedor, height 4rem, fondo navy `#0c1e4a`
+
+### FAB mobile
+- Ícono hamburger → sliders SVG con círculos rellenos
+- Mini menú: idioma (ES/EN) + tema (sol/luna), stagger 80ms, spring `cubic-bezier(0.34, 1.56, 0.64, 1)`
+
+### Navbar tablet/desktop
+- Mobile: controles solo en FAB
+- Tablet normal: theme + lang fixed top-right con gap
+- Tablet/Desktop scrolled: theme top-LEFT + lang top-right (transition 0.3s)
+- Desktop normal: ambos dentro del navbar (`NavInlineControls`)
+
+### CTA section
+- `$299` con `AuroraText` colores `["#ffffff", "#ff9900", "#ffcc00", "#ff6600"]`
+- Pills amber `#ff9900` con `rgba(255,153,0,0.15)` bg
+- Ícono "regalo" → rayo tecnológico `M13 2L3 14h9l-1 8 10-12h-9l1-8z`
+- Línea azul entre secciones eliminada (`.section-divider` → `border-top: none`)
+
+### PageLoader (NOA-121)
+- `/app/components/page-loader.tsx` con logo fade-in 0.3s + barra progreso 1.6s (navy→electric→sky)
+- Cortina split cubic-bezier, unmount a 2800ms via `sessionStorage["nts-loaded"]`
+
+### Linear
+- Issues `NOA-117`, `NOA-119`, `NOA-120`, `NOA-121`, `NOA-122`, `NOA-123`, `NOA-124`, `NOA-125`, `NOA-126`, `NOA-132` → **Done**
+
+---
+
+## [2026-04-12] — Sistema completo de botones (NOA-117)
+
+### Button System CSS (`globals.css`)
+- 7 tipos de botón: `btn-body-primary`, `btn-body-amber`, `btn-body-ghost`, `btn-cta-navy`, `btn-cta-ghost-navy`, `btn-body-electric`, `btn-nav-primary`, `btn-nav-ghost`
+- Efecto 3D press (translateY + box-shadow) en todos los tipos
+- `btn-body-primary`: anillo pulsante idle + text swap hover (idle → hover con ícono)
+- `btn-cta-navy`: glow pulse amber + text swap hover (flecha → regalo)
+- `btn-body-ghost` / `btn-cta-ghost-navy`: orb navy/blanco orbitando el borde
+- 3 keyframes: `btn-ring-pulse`, `btn-orbit`, `btn-glow-pulse`
+- Mobile: full-width en `≤767px`
+- Dark mode: primary → sky `#05a5ff`, ghost → orb sky, nav → sky
+
+### Componentes reutilizables
+- `app/components/ui/btn-primary-hero.tsx` — `BtnPrimaryHero`: desktop `<a>` + mobile `HoverBorderGradient`
+- `app/components/ui/btn-ghost-moving.tsx` — `BtnGhostMoving`: `MovingBorderButton` con orb amber
+
+### page.tsx
+- Mid-CTA: `MovingBorderButton` → `btn-cta-navy` con text swap (flecha → regalo + "¡Vamos allá!")
+- Contact-final: `MovingBorderButton` → `btn-cta-navy` + `btn-cta-ghost-navy` secundario
+
+### Correcciones visuales previas (NOA-105, NOA-106, NOA-107, NOA-108)
+- Precio $299: `AuroraText` con colores `#ffffff, #ff9900, #ffcc00, #ff6600`
+- Pills CTA: `color: #ff9900`, `background: rgba(255,153,0,0.15)`, iconos amber
+- Línea azul entre secciones: `.section-divider` → `border-top: none`
+- Footer: fondo `#0c1e4a`, textos blancos, socials bordes blancos, watermark sutil
+
+### Documentación
+- `docs/design-system.md`: sección 3.1 "Sistema de botones" con tabla de 8 tipos + estructuras HTML
+
+### Linear
+- Issue `NOA-117` movido a estado **Done**
+
+---
+
 ## [2026-04-12] — Formulario de contacto con Resend (NOA-80)
 
 ### API Route

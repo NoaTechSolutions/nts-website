@@ -26,7 +26,8 @@ export function HoverBorderGradient<T extends React.ElementType = "button">({
   clockwise = true,
   ...props
 }: React.PropsWithChildren<HoverBorderGradientProps<T>>) {
-  const Tag = (as ?? "button") as React.ElementType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Tag = (as ?? "button") as any;
 
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");

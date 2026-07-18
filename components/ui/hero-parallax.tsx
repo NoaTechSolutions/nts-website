@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import {
   motion,
   useScroll,
@@ -74,6 +73,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
+      style={{ position: "relative" }}
       className={`${isCompactLayout ? "h-[220vh]" : "h-[300vh]"} py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]`}
     >
       <Header title={title} subtitle={subtitle} />
@@ -109,34 +109,24 @@ export const HeroParallax = ({
         })}
         {ctaLabel && ctaHref ? (
           <div className="mt-12 flex justify-center lg:hidden">
-            <MovingBorderButton
-              as="a"
-              href={ctaHref}
-              duration={2800}
-              borderRadius="999px"
-              containerClassName="button-outline-moving portfolio-parallax-cta-wrapper"
-              borderClassName="button-outline-moving-border"
-              className="button-outline button-outline-hero"
-            >
-              {ctaLabel}
-            </MovingBorderButton>
+            <div className="btn-body-ghost">
+              <div className="btn-ghost-orb" />
+              <a href={ctaHref} className="btn-ghost-inner">
+                {ctaLabel}
+              </a>
+            </div>
           </div>
         ) : null}
       </motion.div>
       {ctaLabel && ctaHref ? (
         <div className="portfolio-parallax-footer absolute inset-x-0 bottom-14 z-30 mx-auto hidden w-full max-w-7xl px-4 lg:block">
           <div className="flex justify-end">
-            <MovingBorderButton
-              as="a"
-              href={ctaHref}
-              duration={2800}
-              borderRadius="999px"
-              containerClassName="button-outline-moving portfolio-parallax-cta-wrapper"
-              borderClassName="button-outline-moving-border"
-              className="button-outline button-outline-hero"
-            >
-              {ctaLabel}
-            </MovingBorderButton>
+            <div className="btn-body-ghost">
+              <div className="btn-ghost-orb" />
+              <a href={ctaHref} className="btn-ghost-inner">
+                {ctaLabel}
+              </a>
+            </div>
           </div>
         </div>
       ) : null}
@@ -191,9 +181,9 @@ export const ProductCard = ({
         />
       </a>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 text-sm text-white opacity-0 group-hover/product:opacity-100 md:text-base">
+      <h3 className="absolute bottom-4 left-4 text-sm text-white opacity-0 group-hover/product:opacity-100 md:text-base">
         {product.title}
-      </h2>
+      </h3>
     </motion.div>
   );
 };

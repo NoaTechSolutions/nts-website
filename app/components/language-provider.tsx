@@ -33,7 +33,17 @@ function detectBrowserLocale(): Locale {
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => detectBrowserLocale());
+  // El primer render del cliente DEBE coincidir con el del server (defaultLocale).
+  // La preferencia real (localStorage / navigator.language) se resuelve recién
+  // después del mount para evitar hydration mismatch.
+  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+
+  useEffect(() => {
+    const resolvedLocale = detectBrowserLocale();
+    if (resolvedLocale !== defaultLocale) {
+      setLocaleState(resolvedLocale);
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = locale;

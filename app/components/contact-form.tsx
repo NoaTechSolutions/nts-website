@@ -36,6 +36,7 @@ export function ContactForm() {
           email: formData.get("email"),
           mensaje: formData.get("mensaje"),
           _honeypot: formData.get("_honeypot") ?? "",
+          website: formData.get("website") ?? "",
         }),
       });
 
@@ -78,9 +79,10 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form" noValidate>
-      {/* Honeypot — hidden from real users */}
-      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>
-        <input type="text" name="_honeypot" tabIndex={-1} autoComplete="off" />
+      {/* Honeypots — hidden from real users, attractive to bots */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 0, height: 0, overflow: "hidden" }}>
+        <input type="text" name="_honeypot" tabIndex={-1} autoComplete="off" suppressHydrationWarning />
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" suppressHydrationWarning />
       </div>
 
       <div className="contact-form-grid">
@@ -98,6 +100,7 @@ export function ContactForm() {
             onChange={(e) => setNombre(e.target.value)}
             placeholder={t.nombrePlaceholder}
             className={`contact-form-input ${fieldErrors.nombre ? "contact-form-input-error" : ""}`}
+            suppressHydrationWarning
           />
           {fieldErrors.nombre && (
             <span className="contact-form-error">{fieldErrors.nombre}</span>
@@ -117,6 +120,7 @@ export function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder={t.emailPlaceholder}
             className={`contact-form-input ${fieldErrors.email ? "contact-form-input-error" : ""}`}
+            suppressHydrationWarning
           />
           {fieldErrors.email && (
             <span className="contact-form-error">{fieldErrors.email}</span>
@@ -138,6 +142,7 @@ export function ContactForm() {
           onChange={(e) => setMensaje(e.target.value)}
           placeholder={t.mensajePlaceholder}
           className={`contact-form-textarea ${fieldErrors.mensaje ? "contact-form-input-error" : ""}`}
+          suppressHydrationWarning
         />
         {fieldErrors.mensaje && (
           <span className="contact-form-error">{fieldErrors.mensaje}</span>
@@ -150,6 +155,7 @@ export function ContactForm() {
         type="submit"
         disabled={status === "loading"}
         className="contact-form-submit"
+        suppressHydrationWarning
       >
         {status === "loading" ? t.sending : t.submit}
       </button>

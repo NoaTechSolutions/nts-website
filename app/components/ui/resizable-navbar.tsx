@@ -31,6 +31,20 @@ type NavItem = {
   }>;
 };
 
+/**
+ * Which nav item is active for the current route.
+ * Home ("/") matches only on exact path; every other item matches its own
+ * path or any child route beneath it (so "/servicios/diseno-web" → "Servicios").
+ * Returns -1 when no item owns the route (e.g. a page not in the nav).
+ */
+export function getActiveNavIndex(items: NavItem[], pathname: string): number {
+  return items.findIndex((item) =>
+    item.link === "/"
+      ? pathname === "/"
+      : pathname === item.link || pathname.startsWith(`${item.link}/`),
+  );
+}
+
 export function Navbar({ children }: { children: ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -55,10 +69,10 @@ export function NavBody({ children }: { children: ReactNode }) {
 
   return (
     <header
-      className={`mt-3 hidden items-center justify-between transition-[width,padding,gap,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
+      className={`hidden items-center transition-[width,padding,gap,margin,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isScrolled
-          ? "mx-auto w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,41,119,0.10)]"
-          : "gap-8 bg-transparent px-0 py-3"
+          ? "mt-3 mx-auto flex w-fit max-w-full gap-1.5 rounded-[18px] border border-[#8da3c8] bg-[#c5d2e9] px-[5px] py-[5px] shadow-[0_10px_24px_rgba(2,41,119,0.10)] lg:flex"
+          : "mt-0 gap-8 bg-transparent px-0 py-2 lg:grid lg:grid-cols-[1fr_auto_1fr]"
       }`}
     >
       {children}
@@ -105,9 +119,8 @@ export function NavbarLogo() {
   );
 }
 
-export function NavItems({ items }: { items: NavItem[] }) {
+export function NavItems({ items, activeIndex }: { items: NavItem[]; activeIndex: number }) {
   const { isScrolled } = useContext(NavbarContext);
-  const activeIndex = 0;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
   const [indicatorLeft, setIndicatorLeft] = useState(0);
@@ -137,7 +150,7 @@ export function NavItems({ items }: { items: NavItem[] }) {
       window.clearTimeout(timeoutId);
       window.removeEventListener("resize", update);
     };
-  }, [hoveredIndex, isScrolled]);
+  }, [hoveredIndex, activeIndex, isScrolled]);
 
   return (
     <nav
@@ -291,38 +304,24 @@ export function NavbarButton({
   );
 }
 
-export function LanguageSwitcher() {
+export function LanguageToggle() {
   const { locale, setLocale } = useLanguage();
-
-  const options: Array<{ locale: Locale; label: string }> = [
-    { locale: "es", label: "ES" },
-    { locale: "en", label: "EN" },
-  ];
+  const { isScrolled } = useContext(NavbarContext);
+  const next: Locale = locale === "es" ? "en" : "es";
 
   return (
-    <div
-      className="inline-flex items-center gap-1 rounded-[16px] border border-[#9fb0cf] bg-white/92 p-1 shadow-[0_10px_24px_rgba(2,41,119,0.12)] backdrop-blur-md"
-      aria-label="Selector de idioma"
+    <button
+      type="button"
+      onClick={() => setLocale(next)}
+      aria-label={locale === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+      className={`inline-flex items-center justify-center rounded-[14px] border font-[var(--font-body)] font-medium uppercase tracking-[0.08em] text-[#022977] transition-colors ${
+        isScrolled
+          ? "h-[43px] min-w-[43px] border-[#90a5cb] bg-white/85 px-3 text-[0.8rem] hover:bg-white"
+          : "h-11 min-w-[44px] border-[#9fb0cf] bg-white/92 px-3 text-[0.82rem] shadow-[0_10px_24px_rgba(2,41,119,0.12)] hover:bg-white"
+      }`}
     >
-      {options.map((option) => {
-        const active = locale === option.locale;
-
-        return (
-          <button
-            key={option.locale}
-            type="button"
-            onClick={() => setLocale(option.locale)}
-            className={`inline-flex min-w-[52px] items-center justify-center rounded-[12px] px-3 py-2 text-[0.74rem] font-medium uppercase tracking-[0.08em] transition-colors ${
-              active
-                ? "bg-[#0400f0] text-white"
-                : "text-[#022977] hover:bg-[rgba(4,0,240,0.08)]"
-            }`}
-          >
-            <span>{option.label}</span>
-          </button>
-        );
-      })}
-    </div>
+      {locale.toUpperCase()}
+    </button>
   );
 }
 
@@ -420,6 +419,7 @@ export function MobileNavMenu({
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
+  const { isScrolled } = useContext(NavbarContext);
   const isDark = theme === "dark";
 
   return (
@@ -427,25 +427,97 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       type="button"
       onClick={toggleTheme}
       aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-      className={`relative inline-flex h-7 w-[3.1rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#05a5ff] ${
-        isDark ? "bg-[#05a5ff]" : "bg-[#022977]"
-      } ${className}`}
+      className={`inline-flex items-center justify-center rounded-[14px] border text-[#022977] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#05a5ff] ${
+        isScrolled
+          ? "h-[43px] w-[43px] border-[#90a5cb] bg-white/85 hover:bg-white"
+          : "h-11 w-11 border-[#9fb0cf] bg-white/92 shadow-[0_10px_24px_rgba(2,41,119,0.12)] hover:bg-white"
+      } ${className}`.trim()}
     >
-      {/* Knob */}
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none inline-flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ${
-          isDark ? "translate-x-[1.55rem]" : "translate-x-0.5"
-        }`}
+      {isDark ? (
+        /* Moon icon */
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      ) : (
+        /* Sun icon */
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="4" />
+          <line x1="12" y1="20" x2="12" y2="22" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="2" y1="12" x2="4" y2="12" />
+          <line x1="20" y1="12" x2="22" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+export function NavSettingsGear() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { locale, setLocale } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!ref.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [open]);
+
+  return (
+    <div
+      ref={ref}
+      className={`nav-gear ${open ? "is-open" : ""}`}
+      onMouseEnter={() => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        closeTimer.current = setTimeout(() => setOpen(false), 160);
+      }}
+    >
+      {/* Idioma */}
+      <button
+        type="button"
+        aria-label={locale === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+        tabIndex={open ? 0 : -1}
+        onClick={() => {
+          setLocale(locale === "es" ? "en" : "es");
+          setOpen(false);
+        }}
+        className="nav-gear-item nav-gear-item-lang"
+      >
+        <span className="nav-gear-item-label">{locale.toUpperCase()}</span>
+      </button>
+
+      {/* Tema */}
+      <button
+        type="button"
+        aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        tabIndex={open ? 0 : -1}
+        onClick={() => {
+          toggleTheme();
+          setOpen(false);
+        }}
+        className="nav-gear-item nav-gear-item-theme"
       >
         {isDark ? (
-          /* Moon icon */
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" className="text-[#05a5ff]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         ) : (
-          /* Sun icon */
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-[#022977]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
             <line x1="12" y1="2" x2="12" y2="4" />
             <line x1="12" y1="20" x2="12" y2="22" />
@@ -457,7 +529,50 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
         )}
-      </span>
-    </button>
+      </button>
+
+      {/* Tuerca */}
+      <button
+        type="button"
+        aria-label="Configuración"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+        className="nav-gear-main"
+      >
+        <svg
+          className="nav-gear-icon"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+export function NavFloatingControls() {
+  const { isScrolled } = useContext(NavbarContext);
+  const state = isScrolled ? "is-scrolled" : "is-normal";
+  return (
+    <div className={`nav-float-gear ${state}`}>
+      <NavSettingsGear />
+    </div>
+  );
+}
+
+export function NavInlineControls() {
+  return (
+    <div className="hidden md:flex items-center">
+      <NavSettingsGear />
+    </div>
   );
 }
