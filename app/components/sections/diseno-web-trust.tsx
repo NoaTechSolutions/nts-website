@@ -17,15 +17,15 @@ const LOGOS = [
   { src: "/alfredo-reyes-music-logo.webp", alt: "Logo de Alfredo Reyes Music, cliente de NoaTechSolutions" },
   { src: "/mi-casita-musical-logo.webp", alt: "Logo de Mi Casita Musical, cliente de NoaTechSolutions" },
   { src: "/gyg-auto-servicio-logo.webp", alt: "Logo de G&G Auto Servicio, cliente de NoaTechSolutions" },
-  { src: "/spanish-immersion-logo.webp", alt: "Logo de Spanish Immersion, cliente de NoaTechSolutions" },
+  { src: "/ednas-home-4-childcare-logo.webp", alt: "Logo de Edna's Home 4 Childcare, cliente de NoaTechSolutions" },
   { src: "/marisol-bisso-logo.webp", alt: "Logo de Marisol Bisso, cliente de NoaTechSolutions" },
   { src: "/alonso-zapata-logo.webp", alt: "Logo de Alonso Zapata, cliente de NoaTechSolutions" },
-  { src: "/carla-negocio-logo.webp", alt: "Logo de Carla, cliente de NoaTechSolutions" },
-  { src: "/javier-negocio-logo.webp", alt: "Logo de Javier, cliente de NoaTechSolutions" },
-  { src: "/tacos-negocio-logo.webp", alt: "Logo de negocio de tacos, cliente de NoaTechSolutions" },
-  { src: "/share-marca-logo.webp", alt: "Logo de Share, cliente de NoaTechSolutions" },
-  { src: "/cliente-marca-noatechsolutions-logo.webp", alt: "Logo de marca cliente de NoaTechSolutions" },
-  { src: "/cliente-negocio-noatechsolutions-logo.webp", alt: "Logo de negocio cliente de NoaTechSolutions" },
+  { src: "/carla-tortas-y-detalles-logo.webp", alt: "Logo de Carla Tortas y Detalles, cliente de NoaTechSolutions" },
+  { src: "/j1-window-cleaning-logo.webp", alt: "Logo de J1 Window Cleaning, cliente de NoaTechSolutions" },
+  { src: "/tacos-la-poblanita-logo.webp", alt: "Logo de Tacos La Poblanita, cliente de NoaTechSolutions" },
+  { src: "/hector-zapana-logo.webp", alt: "Logo de Hector Zapana, cliente de NoaTechSolutions" },
+  { src: "/normita-cholita-logo.webp", alt: "Logo de Normita Cholita Peruvian Cuisine, cliente de NoaTechSolutions" },
+  { src: "/world-pavers-company-logo.webp", alt: "Logo de World Pavers Company, cliente de NoaTechSolutions" },
 ];
 
 export function DisenoWebTrust() {
