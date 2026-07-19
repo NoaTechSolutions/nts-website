@@ -3228,34 +3228,6 @@ a {
 .hero-reveal.is-entered .hero-actions { transition-delay: 0.82s; }
 .hero-reveal.is-entered .hero-stats { transition-delay: 1s; }
 
-/* ── Red de seguridad para el LCP ──────────────────────────────────────────
-   El reveal de arriba depende de que el JS agregue .is-entered. En redes lentas
-   la hidratación del bundle tarda (~13s en 4G) y el hero —el elemento LCP—
-   quedaba invisible hasta entonces. Esta animación CSS revela el hero a ~0.7s
-   SIN esperar al JS. Si el JS hidrata a tiempo y agrega .is-entered, se cancela
-   (animation:none) y manda la cascada coreografiada original por transición. */
-@keyframes hero-enter {
-  to { opacity: 1; filter: blur(0); transform: none; }
-}
-@keyframes hero-enter-fade {
-  to { opacity: 1; }
-}
-.hero-reveal > div:first-child { animation: hero-enter-fade 0.8s ease 0.4s both; }
-.hero-reveal .hero-badge { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
-.hero-reveal .hero-title-showcase { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.62s both; }
-.hero-reveal .hero-copy-showcase { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.76s both; }
-.hero-reveal .hero-actions { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.9s both; }
-.hero-reveal .hero-stats { animation: hero-enter 0.9s cubic-bezier(0.16,1,0.3,1) 1s both; }
-/* Si el JS llega a tiempo (.is-entered), cede a la cascada por transición. */
-.hero-reveal.is-entered > div:first-child,
-.hero-reveal.is-entered .hero-badge,
-.hero-reveal.is-entered .hero-title-showcase,
-.hero-reveal.is-entered .hero-copy-showcase,
-.hero-reveal.is-entered .hero-actions,
-.hero-reveal.is-entered .hero-stats {
-  animation: none;
-}
-
 /* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-reveal > div:first-child,
@@ -3268,7 +3240,6 @@ a {
     filter: none;
     transform: none;
     transition: none;
-    animation: none;
   }
 }
 
