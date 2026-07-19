@@ -3228,6 +3228,21 @@ a {
 .hero-reveal.is-entered .hero-actions { transition-delay: 0.82s; }
 .hero-reveal.is-entered .hero-stats { transition-delay: 1s; }
 
+/* El TÍTULO y la COPY del hero son los candidatos a elemento LCP → visibles
+   desde el primer frame (sin fade/blur/transform ni esperar la hidratación JS)
+   para que el LCP ~= FCP. El resto (badge, botones, stats) conserva la entrada.
+   Con las secciones below-the-fold en ssr:false, el hero hidrata liviano. #99 */
+.hero-reveal .hero-title-showcase,
+.hero-reveal.is-entered .hero-title-showcase,
+.hero-reveal .hero-copy-showcase,
+.hero-reveal.is-entered .hero-copy-showcase {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  animation: none;
+  transition: none;
+}
+
 /* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-reveal > div:first-child,
