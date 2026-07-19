@@ -72,14 +72,10 @@ export default function RootLayout({
       <head>
         {/* Anti-FOUC: aplica clase dark ANTES de que React hidrate */}
         <script dangerouslySetInnerHTML={{ __html: ANTI_FOUC }} />
-        {/* Preload del scene 3D (1.3MB): el browser lo baja en paralelo con el
-            JS del runtime, no después → el robot aparece antes en prod. */}
-        <link
-          rel="preload"
-          href="/spline/robot.splinecode"
-          as="fetch"
-          crossOrigin="anonymous"
-        />
+        {/* NOTA: se quitó el preload de /spline/robot.splinecode (1.3MB). En 4G
+            lenta saturaba la conexión (~10s), retrasaba CSS+JS de hidratación y
+            disparaba el LCP a ~14s en mobile — donde el robot NI SE MONTA. El
+            scene se baja solo cuando SplineScene se monta (desktop). Ver #90. */}
         {/* Sin JS no corre la entrada escalonada → mostramos el hero completo */}
         <noscript>
           <style>{`.hero-reveal>div:first-child,.hero-reveal .hero-badge,.hero-reveal .hero-title-showcase,.hero-reveal .hero-copy-showcase,.hero-reveal .hero-actions,.hero-reveal .hero-stats,.page-settings-gear{opacity:1!important;transform:none!important;filter:none!important;}`}</style>
