@@ -3256,6 +3256,19 @@ a {
   animation: none;
 }
 
+/* El TÍTULO es el elemento LCP → visible desde el primer frame, SIN fade/blur/
+   transform ni animación, para que el LCP sea inmediato. El resto del hero
+   (badge, copy, botones, stats) conserva la entrada. Prioriza el número sobre
+   animar justo el elemento que Google mide como "contenido principal". */
+.hero-reveal .hero-title-showcase,
+.hero-reveal.is-entered .hero-title-showcase {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  animation: none;
+  transition: none;
+}
+
 /* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-reveal > div:first-child,
