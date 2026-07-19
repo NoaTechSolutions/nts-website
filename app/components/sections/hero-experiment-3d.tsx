@@ -40,7 +40,7 @@ export function HeroExperiment3D() {
           <span className="hero-exp3d-hello">¡Hola! 👋</span>
           <div className="hero-exp3d-mascot">
             <Image
-              src="/noa/noa-mascot-original.png"
+              src="/noa/noa-mascot-original.webp"
               alt="Noa, la mascota de NoaTechSolutions, sonriendo y saludando"
               width={1200}
               height={800}

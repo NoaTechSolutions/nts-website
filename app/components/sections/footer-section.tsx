@@ -27,23 +27,23 @@ function TikTokIcon({ size = 20 }: { size?: number }) {
   );
 }
 
+// Solo links a páginas/secciones construidas. Ocultos hasta construirse:
+// /servicios (placeholder), /nosotros, /blog, y /portfolio. Se apunta a la
+// página real (Diseño Web) y a secciones reales del home (#proceso, #faq,
+// #contacto).
 const footerColumns = [
   {
     title: "Servicios",
     links: [
-      { label: "Web y software a medida", href: "/servicios" },
-      { label: "Diseño y marca", href: "/servicios" },
-      { label: "Marketing digital", href: "/servicios" },
-      { label: "Soporte y asesoría", href: "/servicios" },
+      { label: "Diseño Web", href: "/servicios/diseno-web" },
+      { label: "Nuestro proceso", href: "/#proceso" },
     ],
   },
   {
     title: "Empresa",
     links: [
-      { label: "Nosotros", href: "/nosotros" },
-      { label: "Portafolio", href: "/portfolio" },
-      { label: "Blog", href: "/blog" },
-      { label: "FAQ", href: "/#faq" },
+      { label: "Preguntas frecuentes", href: "/#faq" },
+      { label: "Contacto", href: "/#contacto" },
     ],
   },
 ];

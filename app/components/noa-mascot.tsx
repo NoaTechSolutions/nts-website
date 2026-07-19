@@ -37,7 +37,7 @@ export function NoaMascot({
     setCurrentExpression(expression);
   }, [expression]);
 
-  const imageSrc = "/noa/noa-mascot-original.png";
+  const imageSrc = "/noa/noa-mascot-original.webp";
 
   const expressions: NoaExpression[] = ["wave", "thumbs-up", "celebrate"];
 

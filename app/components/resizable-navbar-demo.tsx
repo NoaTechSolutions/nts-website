@@ -24,36 +24,24 @@ export function ResizableNavbarDemo() {
   const t = translations[locale];
   const pathname = usePathname();
 
-  const navItems = [
+  // Nav solo con páginas construidas. Ocultas hasta que se construyan: Nosotros
+  // (/nosotros), Soluciones/Portafolio (/portfolio), y los servicios Branding y
+  // Tarjetas de Presentación (/servicios). "Servicios" apunta directo a la única
+  // construida (Diseño Web) para no caer en el placeholder /servicios.
+  // `children` opcional: al re-agregar servicios, el dropdown vuelve solo.
+  type NavItem = {
+    name: string;
+    link: string;
+    children?: { name: string; link: string }[];
+  };
+  const navItems: NavItem[] = [
     {
       name: t.nav.home,
       link: "/",
     },
     {
       name: t.nav.services,
-      link: "/servicios",
-      children: [
-        {
-          name: t.nav.webDesign,
-          link: "/servicios/diseno-web",
-        },
-        {
-          name: t.nav.branding,
-          link: "/servicios",
-        },
-        {
-          name: t.nav.businessCards,
-          link: "/servicios",
-        },
-      ],
-    },
-    {
-      name: t.nav.solutions,
-      link: "/portfolio",
-    },
-    {
-      name: t.nav.about,
-      link: "/nosotros",
+      link: "/servicios/diseno-web",
     },
   ];
 
