@@ -3256,12 +3256,14 @@ a {
   animation: none;
 }
 
-/* El TÍTULO es el elemento LCP → visible desde el primer frame, SIN fade/blur/
-   transform ni animación, para que el LCP sea inmediato. El resto del hero
-   (badge, copy, botones, stats) conserva la entrada. Prioriza el número sobre
-   animar justo el elemento que Google mide como "contenido principal". */
+/* El TÍTULO y la COPY son los candidatos a elemento LCP (los bloques de texto
+   grandes del hero) → visibles desde el primer frame, SIN fade/blur/transform ni
+   animación, para que el LCP sea inmediato. El resto (badge, botones, stats)
+   conserva la entrada. Se prioriza el número sobre animar el texto principal. */
 .hero-reveal .hero-title-showcase,
-.hero-reveal.is-entered .hero-title-showcase {
+.hero-reveal.is-entered .hero-title-showcase,
+.hero-reveal .hero-copy-showcase,
+.hero-reveal.is-entered .hero-copy-showcase {
   opacity: 1;
   filter: none;
   transform: none;
