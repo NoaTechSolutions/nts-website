@@ -1,21 +1,31 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { MobileSpeedDial } from "./components/mobile-speed-dial";
 import { NavSettingsGear } from "./components/ui/resizable-navbar";
 import { useLanguage } from "./components/language-provider";
 import { translations } from "@/lib/i18n";
+// Above/near the fold → estáticas (se hidratan de una con el hero).
 import { HeaderSection } from "./components/sections/header-section";
 import { ProblemsSection } from "./components/sections/problems-section";
-import { ServicesSection } from "./components/sections/services-section";
-import { MidCtaSection } from "./components/sections/mid-cta-section";
-import { ProcessSection } from "./components/sections/process-section";
-import { PortfolioSection } from "./components/sections/portfolio-section";
-import { TestimonialsSection } from "./components/sections/testimonials-section";
-import { FinalCtaSection } from "./components/sections/final-cta-section";
-import { FaqSection } from "./components/sections/faq-section";
-import { ContactSection } from "./components/sections/contact-section";
-import { FooterSection } from "./components/sections/footer-section";
+
+// Below-the-fold → code-split (chunks aparte, no bloquean la hidratación del
+// hero → LCP más rápido). Placeholder con min-height para acotar el CLS. #99
+const holder = (h: string) => {
+  const Holder = () => <div aria-hidden style={{ minHeight: h }} />;
+  Holder.displayName = "SectionPlaceholder";
+  return Holder;
+};
+const ServicesSection = dynamic(() => import("./components/sections/services-section").then((m) => m.ServicesSection), { loading: holder("80vh") });
+const MidCtaSection = dynamic(() => import("./components/sections/mid-cta-section").then((m) => m.MidCtaSection), { loading: holder("40vh") });
+const ProcessSection = dynamic(() => import("./components/sections/process-section").then((m) => m.ProcessSection), { loading: holder("80vh") });
+const PortfolioSection = dynamic(() => import("./components/sections/portfolio-section").then((m) => m.PortfolioSection), { loading: holder("80vh") });
+const TestimonialsSection = dynamic(() => import("./components/sections/testimonials-section").then((m) => m.TestimonialsSection), { loading: holder("70vh") });
+const FinalCtaSection = dynamic(() => import("./components/sections/final-cta-section").then((m) => m.FinalCtaSection), { loading: holder("60vh") });
+const FaqSection = dynamic(() => import("./components/sections/faq-section").then((m) => m.FaqSection), { loading: holder("70vh") });
+const ContactSection = dynamic(() => import("./components/sections/contact-section").then((m) => m.ContactSection), { loading: holder("70vh") });
+const FooterSection = dynamic(() => import("./components/sections/footer-section").then((m) => m.FooterSection), { loading: holder("40vh") });
 
 // Red-net: si el robot 3D no dispara onReady (red lenta o 1.3MB del scene
 // tardando), revelamos el hero igual pasado este tiempo. Mantenerlo corto
