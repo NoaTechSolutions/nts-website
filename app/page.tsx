@@ -17,15 +17,15 @@ const holder = (h: string) => {
   Holder.displayName = "SectionPlaceholder";
   return Holder;
 };
-const ServicesSection = dynamic(() => import("./components/sections/services-section").then((m) => m.ServicesSection), { loading: holder("80vh") });
-const MidCtaSection = dynamic(() => import("./components/sections/mid-cta-section").then((m) => m.MidCtaSection), { loading: holder("40vh") });
-const ProcessSection = dynamic(() => import("./components/sections/process-section").then((m) => m.ProcessSection), { loading: holder("80vh") });
-const PortfolioSection = dynamic(() => import("./components/sections/portfolio-section").then((m) => m.PortfolioSection), { loading: holder("80vh") });
-const TestimonialsSection = dynamic(() => import("./components/sections/testimonials-section").then((m) => m.TestimonialsSection), { loading: holder("70vh") });
-const FinalCtaSection = dynamic(() => import("./components/sections/final-cta-section").then((m) => m.FinalCtaSection), { loading: holder("60vh") });
-const FaqSection = dynamic(() => import("./components/sections/faq-section").then((m) => m.FaqSection), { loading: holder("70vh") });
-const ContactSection = dynamic(() => import("./components/sections/contact-section").then((m) => m.ContactSection), { loading: holder("70vh") });
-const FooterSection = dynamic(() => import("./components/sections/footer-section").then((m) => m.FooterSection), { loading: holder("40vh") });
+const ServicesSection = dynamic(() => import("./components/sections/services-section").then((m) => m.ServicesSection), { loading: holder("80vh"), ssr: false });
+const MidCtaSection = dynamic(() => import("./components/sections/mid-cta-section").then((m) => m.MidCtaSection), { loading: holder("40vh"), ssr: false });
+const ProcessSection = dynamic(() => import("./components/sections/process-section").then((m) => m.ProcessSection), { loading: holder("80vh"), ssr: false });
+const PortfolioSection = dynamic(() => import("./components/sections/portfolio-section").then((m) => m.PortfolioSection), { loading: holder("80vh"), ssr: false });
+const TestimonialsSection = dynamic(() => import("./components/sections/testimonials-section").then((m) => m.TestimonialsSection), { loading: holder("70vh"), ssr: false });
+const FinalCtaSection = dynamic(() => import("./components/sections/final-cta-section").then((m) => m.FinalCtaSection), { loading: holder("60vh"), ssr: false });
+const FaqSection = dynamic(() => import("./components/sections/faq-section").then((m) => m.FaqSection), { loading: holder("70vh"), ssr: false });
+const ContactSection = dynamic(() => import("./components/sections/contact-section").then((m) => m.ContactSection), { loading: holder("70vh"), ssr: false });
+const FooterSection = dynamic(() => import("./components/sections/footer-section").then((m) => m.FooterSection), { loading: holder("40vh"), ssr: false });
 
 // Red-net: si el robot 3D no dispara onReady (red lenta o 1.3MB del scene
 // tardando), revelamos el hero igual pasado este tiempo. Mantenerlo corto
