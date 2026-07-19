@@ -71,19 +71,21 @@ export function HeaderSection({
           </div>
         )}
 
-        <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
-          {/* Orb DECORATIVO (aria-hidden). Pesa 780KB → NO debe ser priority ni
-              el elemento LCP. Lazy: el browser pinta primero el texto del hero
-              (LCP rápido) y el orb carga después. Optimizar peso: issue #79. */}
-          <Image
-            src="/noatechsolutions-digital-orb-hero.svg"
-            alt=""
-            width={420}
-            height={420}
-            loading="lazy"
-            className="hero-floating-object"
-          />
-        </div>
+        {/* Orb DECORATIVO (aria-hidden), 780KB. SOLO en desktop (mountRobot):
+            en mobile domina el LCP y ahí ya está el fondo Vortex. No se renderiza
+            en SSR (null) ni en mobile (false). Optimizar el peso del asset: #79. */}
+        {mountRobot && (
+          <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
+            <Image
+              src="/noatechsolutions-digital-orb-hero.svg"
+              alt=""
+              width={420}
+              height={420}
+              loading="lazy"
+              className="hero-floating-object"
+            />
+          </div>
+        )}
 
         <div className="hero-exp-grid">
         <div className="hero-content">
