@@ -3241,8 +3241,7 @@ a {
    desde el primer frame (sin fade/blur/transform ni esperar la hidratación JS)
    para que el LCP ~= FCP. El resto (badge, botones, stats) conserva la entrada.
    Con las secciones below-the-fold en ssr:false, el hero hidrata liviano. #99 */
-.hero-reveal .hero-title-showcase,
-.hero-reveal.is-entered .hero-title-showcase,
+/* Copy: instantánea (candidata a LCP), sin animación. */
 .hero-reveal .hero-copy-showcase,
 .hero-reveal.is-entered .hero-copy-showcase {
   opacity: 1;
@@ -3250,6 +3249,26 @@ a {
   transform: none;
   animation: none;
   transition: none;
+}
+
+/* Título (elemento LCP): SIEMPRE opacity:1 → visible desde el frame 1. Entrada
+   de SOLO movimiento (translateY, sin opacity/blur/scale) que autoejecuta al
+   pintar, independiente del JS. Como el texto nunca se oculta, el LCP se
+   registra temprano igual; transform no dispara layout shift → CLS 0. Medido. */
+.hero-reveal .hero-title-showcase,
+.hero-reveal.is-entered .hero-title-showcase {
+  opacity: 1;
+  filter: none;
+  transition: none;
+  animation: hero-title-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes hero-title-rise {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
