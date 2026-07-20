@@ -27,11 +27,6 @@ const FaqSection = dynamic(() => import("./components/sections/faq-section").the
 const ContactSection = dynamic(() => import("./components/sections/contact-section").then((m) => m.ContactSection), { loading: holder("70vh"), ssr: false });
 const FooterSection = dynamic(() => import("./components/sections/footer-section").then((m) => m.FooterSection), { loading: holder("40vh"), ssr: false });
 
-// Red-net: si el robot 3D no dispara onReady (red lenta o 1.3MB del scene
-// tardando), revelamos el hero igual pasado este tiempo. Mantenerlo corto
-// protege el LCP (el título del hero no espera indefinidamente al robot).
-const ENTRANCE_FALLBACK_MS = 2200;
-
 export default function Home() {
   const { locale } = useLanguage();
   const t = translations[locale];
@@ -41,11 +36,15 @@ export default function Home() {
   const [heroEntered, setHeroEntered] = useState(false);
   const revealHero = useCallback(() => setHeroEntered(true), []);
 
+  // Disparamos la entrada del hero apenas hidrata (siguiente frame), SIN esperar
+  // al robot 3D (1.3MB de Spline). El robot conserva su propia animación y
+  // aparece cuando carga, sin frenar la cascada de badge/botones/stats. Antes
+  // esto esperaba al robot (onReady) o a un fallback de 2.2s → el contenido
+  // aparecía tarde. El navbar ya no depende de esto (entra por animación CSS).
   useEffect(() => {
-    if (heroEntered) return;
-    const fallback = window.setTimeout(revealHero, ENTRANCE_FALLBACK_MS);
-    return () => window.clearTimeout(fallback);
-  }, [heroEntered, revealHero]);
+    const id = window.requestAnimationFrame(revealHero);
+    return () => window.cancelAnimationFrame(id);
+  }, [revealHero]);
 
   const jsonLd = {
     "@context": "https://schema.org",

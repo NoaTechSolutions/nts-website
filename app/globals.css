@@ -3180,11 +3180,20 @@ a {
 .hero-reveal > div:first-child {
   position: relative;
   z-index: 70;
-  opacity: 0;
-  transition: opacity 0.9s ease;
+  /* El navbar es UI crítica y NO puede depender del JS: se revela con una
+     animación CSS que autoejecuta al pintar (independiente de la hidratación y
+     del robot 3D). Antes esperaba .is-entered (JS) → en mobile lento el menú
+     desaparecía ~3s y parpadeaba al scrollear (#100). Solo opacity: es ancestro
+     de un position:fixed y transform/filter romperían el anclaje al viewport. */
+  animation: hero-nav-enter 0.9s ease both;
 }
-.hero-reveal.is-entered > div:first-child {
-  opacity: 1;
+@keyframes hero-nav-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Bloque de texto: fade + blur-in + subida + escala */
@@ -3220,8 +3229,8 @@ a {
   transform: translateY(0) scale(1);
 }
 
-/* Cascada con más aire: navbar → badge → título → copy → botones → stats */
-.hero-reveal.is-entered > div:first-child { transition-delay: 0s; }
+/* Cascada con más aire: badge → título → copy → botones → stats.
+   (El navbar ya no entra por .is-entered: usa su propia animación CSS.) */
 .hero-reveal.is-entered .hero-badge { transition-delay: 0.22s; }
 .hero-reveal.is-entered .hero-title-showcase { transition-delay: 0.4s; }
 .hero-reveal.is-entered .hero-copy-showcase { transition-delay: 0.62s; }
@@ -3255,6 +3264,7 @@ a {
     filter: none;
     transform: none;
     transition: none;
+    animation: none;
   }
 }
 
