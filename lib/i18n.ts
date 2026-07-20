@@ -3,6 +3,35 @@ export type Locale = "es" | "en";
 export const defaultLocale: Locale = "es";
 export const localeStorageKey = "nts-locale";
 
+function isLocale(value: string | null | undefined): value is Locale {
+  return value === "es" || value === "en";
+}
+
+/**
+ * Resuelve el locale en el SERVER (request-time) para poder SSR el idioma
+ * correcto y evitar el flip de idioma en el cliente (que penalizaba el LCP del
+ * usuario EN en ~5.4s). Prioridad:
+ *   1. Cookie `nts-locale` → preferencia explícita del usuario (gana siempre).
+ *   2. `Accept-Language` → idioma de mayor prioridad del browser.
+ *   3. defaultLocale (`es`) → mercado principal.
+ * Función pura (sin dependencias de Next) para poder testearla aislada.
+ */
+export function resolveLocale(
+  cookieValue: string | null | undefined,
+  acceptLanguage: string | null | undefined,
+): Locale {
+  if (isLocale(cookieValue)) {
+    return cookieValue;
+  }
+
+  const firstLang = (acceptLanguage ?? "")
+    .toLowerCase()
+    .split(",")[0]
+    ?.trim();
+
+  return firstLang?.startsWith("en") ? "en" : defaultLocale;
+}
+
 export const translations = {
   es: {
     nav: {

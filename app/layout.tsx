@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
 import "./globals.css";
 import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { localeStorageKey, resolveLocale } from "@/lib/i18n";
 import { LanguageProvider } from "./components/language-provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { CrispChat } from "./components/crisp-chat";
@@ -55,14 +57,23 @@ export const metadata: Metadata = {
   category: "marketing",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Resolvemos el idioma en el SERVER (cookie → Accept-Language) para SSR el
+  // idioma correcto y evitar el flip en cliente que penalizaba el LCP del
+  // usuario EN (~5.4s). Leer cookies()/headers() hace esta ruta dinámica.
+  const [cookieStore, headerStore] = await Promise.all([cookies(), headers()]);
+  const initialLocale = resolveLocale(
+    cookieStore.get(localeStorageKey)?.value,
+    headerStore.get("accept-language"),
+  );
+
   return (
     <html
-      lang="es"
+      lang={initialLocale}
       suppressHydrationWarning
       className={cn(
         "h-full scroll-smooth",
@@ -86,7 +97,7 @@ export default function RootLayout({
         className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
         <ThemeProvider>
-          <LanguageProvider>
+          <LanguageProvider initialLocale={initialLocale}>
             <LenisProvider>{children}</LenisProvider>
           </LanguageProvider>
         </ThemeProvider>
