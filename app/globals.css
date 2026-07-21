@@ -3209,7 +3209,7 @@ a {
 
 @keyframes hero-rise {
   from {
-    transform: translateY(22px);
+    transform: translateY(32px);
   }
   to {
     transform: translateY(0);
@@ -3226,13 +3226,14 @@ a {
   }
 }
 
-/* LCP (título + copy): solo movimiento, nunca se ocultan */
+/* LCP (título + copy): solo movimiento, nunca se ocultan. Efecto un poco más
+   largo (1.3s) y con más recorrido para que se aprecie mejor la entrada. */
 .hero-reveal .hero-title-showcase,
 .hero-reveal .hero-copy-showcase {
   opacity: 1;
   filter: none;
   transition: none;
-  animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-rise 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* No-LCP (badge, botones, stats): fade + movimiento */
