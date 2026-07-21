@@ -99,7 +99,7 @@ export const translations = {
       copy:
         "Desde tu página web y software a medida hasta tu marca, marketing y soporte: reunimos todo lo que tu negocio necesita para crecer online en un solo equipo.",
       cta: "Ver soluciones",
-      cardCta: "Mas info",
+      cardCta: "Más info",
       items: [
         {
           title: "Web y software a medida",

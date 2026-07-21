@@ -56,6 +56,14 @@ export function NoaMascot({
         visible ? "noa-mascot-visible" : ""
       }`}
       onClick={handleClick}
+      /* Se anunciaba como botón y era focusable, pero Enter/Space no hacían
+         nada: promesa incumplida al usuario de teclado. */
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleClick();
+        }
+      }}
       role="button"
       aria-label="Saludar a Noa"
       tabIndex={0}

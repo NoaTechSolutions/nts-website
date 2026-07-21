@@ -23,7 +23,7 @@ export function PlaceholderPage({ title }: { title: string }) {
             fontWeight: 500,
             textTransform: "uppercase",
             letterSpacing: "0.1em",
-            color: "var(--color-amber)",
+            color: "var(--color-amber-text)",
           }}
         >
           Próximamente

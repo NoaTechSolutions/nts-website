@@ -32,6 +32,10 @@ export function MobileSpeedDial() {
       <button
         type="button"
         aria-label="Cambiar idioma"
+        /* Con el FAB cerrado estos botones son opacity:0 + pointer-events:none,
+           pero seguían en el tab order: el foco de teclado se perdía dentro de
+           elementos invisibles. Mismo patrón que ya usa NavSettingsGear. */
+        tabIndex={open ? 0 : -1}
         onClick={() => {
           toggleLocale();
           setOpen(false);
@@ -47,6 +51,7 @@ export function MobileSpeedDial() {
       <button
         type="button"
         aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        tabIndex={open ? 0 : -1}
         onClick={() => {
           toggleTheme();
           setOpen(false);

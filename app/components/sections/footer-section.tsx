@@ -143,9 +143,11 @@ export function FooterSection() {
           <div className="nurui-footer-links-wrapper">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h4 className="text-white text-lg font-semibold mb-6">
+                {/* h2, no h4: el footer va en todas las páginas y saltaba de
+                    h1/h2 a h4. El tamaño lo fija text-lg, no el nivel. */}
+                <h2 className="text-white text-lg font-semibold mb-6">
                   {col.title}
-                </h4>
+                </h2>
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
@@ -164,7 +166,7 @@ export function FooterSection() {
 
           {/* Contacto */}
           <div className="nurui-footer-contact">
-            <h4 className="text-white text-lg font-semibold mb-6">Contacto</h4>
+            <h2 className="text-white text-lg font-semibold mb-6">Contacto</h2>
             <ul className="space-y-4">
               {contactInfo.map((item) => (
                 <li
@@ -196,7 +198,10 @@ export function FooterSection() {
 
         {/* Barra inferior */}
         <div className="nurui-footer-bottom flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
-          <div className="flex space-x-6 text-gray-400">
+          {/* space-x-2 + área de 44px por link: el icono se sigue viendo de
+              20px, pero el área tocable pasa de 20px a 44px sin mover el
+              layout (el -m-2 reabsorbe el padding extra). */}
+          <div className="flex space-x-2 text-gray-400">
             {socialLinks.map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
@@ -204,13 +209,14 @@ export function FooterSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="hover:text-[#ff9900] transition-colors"
+                className="-m-2 inline-flex h-11 w-11 items-center justify-center hover:text-[#ff9900] transition-colors"
               >
                 <Icon size={20} />
               </a>
             ))}
           </div>
-          <p className="text-center text-gray-500 text-xs">
+          {/* gray-400 sobre #0F0F11 = 7.3:1 (AA). gray-500 daba 3.9:1 y fallaba. */}
+          <p className="text-center text-gray-400 text-xs">
             © 2026 NoaTechSolutions. Todos los derechos reservados.
           </p>
         </div>

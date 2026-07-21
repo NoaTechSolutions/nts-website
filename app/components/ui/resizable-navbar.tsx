@@ -108,8 +108,8 @@ export function NavbarLogo() {
       <Image
         src="/noatechsolutions-logo-mark-white.png"
         alt="Isotipo blanco de NoaTechSolutions"
-        width={190}
-        height={88}
+        width={900}
+        height={579}
         priority
         className={`absolute h-auto w-[36px] transition-[opacity,filter,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled ? "opacity-100" : "pointer-events-none scale-[0.995] opacity-0 blur-0"
@@ -361,6 +361,7 @@ export function MobileNavToggle({
       type="button"
       onClick={onClick}
       aria-expanded={isOpen}
+      aria-label={isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
       className={`inline-flex h-11 w-11 flex-col items-center justify-center gap-1 rounded-[14px] ${
         isOpen
           ? "border border-[#ffb84d] bg-[#ff9900]"
