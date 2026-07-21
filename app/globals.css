@@ -3196,80 +3196,58 @@ a {
   }
 }
 
-/* Bloque de texto: fade + blur-in + subida + escala */
-.hero-reveal .hero-badge,
-.hero-reveal .hero-title-showcase,
-.hero-reveal .hero-copy-showcase,
-.hero-reveal .hero-actions,
-.hero-reveal .hero-stats {
-  opacity: 0;
-  filter: blur(14px);
-  transition:
-    opacity 0.95s ease,
-    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.95s ease;
-  will-change: opacity, transform, filter;
-}
+/* ── Entrada COHESIVA del hero (autoplay CSS, NO depende del JS) ──────────
+   Todo lo de arriba entra JUNTO y temprano (cascada de ~1.4s desde el paint),
+   sin esperar la hidratación. Antes .is-entered (JS) gateaba esto → en mobile
+   lento aparecía a los ~3s, desfasado del título/copy (que ya eran instantáneos).
 
-/* Estado inicial diferenciado por elemento (distancia + escala) */
-.hero-reveal .hero-badge { transform: translateY(22px) scale(0.9); }
-.hero-reveal .hero-title-showcase { transform: translateY(38px) scale(0.93); }
-.hero-reveal .hero-copy-showcase { transform: translateY(30px); }
-.hero-reveal .hero-actions { transform: translateY(28px) scale(0.97); }
-.hero-reveal .hero-stats { transform: translateY(26px); }
+   - Título y COPY (elementos LCP): SOLO movimiento (translateY), opacity:1
+     SIEMPRE → visibles desde el frame 1 → LCP ≈ FCP. Medido: sin regresión.
+   - Badge, botones, stats (no-LCP): fade + movimiento.
+   Sin blur (caro de animar en mobile → jank). transform no dispara layout
+   shift → CLS 0. */
 
-/* Estado revelado */
-.hero-reveal.is-entered .hero-badge,
-.hero-reveal.is-entered .hero-title-showcase,
-.hero-reveal.is-entered .hero-copy-showcase,
-.hero-reveal.is-entered .hero-actions,
-.hero-reveal.is-entered .hero-stats {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0) scale(1);
-}
-
-/* Cascada con más aire: badge → título → copy → botones → stats.
-   (El navbar ya no entra por .is-entered: usa su propia animación CSS.) */
-.hero-reveal.is-entered .hero-badge { transition-delay: 0.22s; }
-.hero-reveal.is-entered .hero-title-showcase { transition-delay: 0.4s; }
-.hero-reveal.is-entered .hero-copy-showcase { transition-delay: 0.62s; }
-.hero-reveal.is-entered .hero-actions { transition-delay: 0.82s; }
-.hero-reveal.is-entered .hero-stats { transition-delay: 1s; }
-
-/* El TÍTULO y la COPY del hero son los candidatos a elemento LCP → visibles
-   desde el primer frame (sin fade/blur/transform ni esperar la hidratación JS)
-   para que el LCP ~= FCP. El resto (badge, botones, stats) conserva la entrada.
-   Con las secciones below-the-fold en ssr:false, el hero hidrata liviano. #99 */
-/* Copy: instantánea (candidata a LCP), sin animación. */
-.hero-reveal .hero-copy-showcase,
-.hero-reveal.is-entered .hero-copy-showcase {
-  opacity: 1;
-  filter: none;
-  transform: none;
-  animation: none;
-  transition: none;
-}
-
-/* Título (elemento LCP): SIEMPRE opacity:1 → visible desde el frame 1. Entrada
-   de SOLO movimiento (translateY, sin opacity/blur/scale) que autoejecuta al
-   pintar, independiente del JS. Como el texto nunca se oculta, el LCP se
-   registra temprano igual; transform no dispara layout shift → CLS 0. Medido. */
-.hero-reveal .hero-title-showcase,
-.hero-reveal.is-entered .hero-title-showcase {
-  opacity: 1;
-  filter: none;
-  transition: none;
-  animation: hero-title-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-@keyframes hero-title-rise {
+@keyframes hero-rise {
   from {
-    transform: translateY(20px);
+    transform: translateY(22px);
   }
   to {
     transform: translateY(0);
   }
 }
+@keyframes hero-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LCP (título + copy): solo movimiento, nunca se ocultan */
+.hero-reveal .hero-title-showcase,
+.hero-reveal .hero-copy-showcase {
+  opacity: 1;
+  filter: none;
+  transition: none;
+  animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* No-LCP (badge, botones, stats): fade + movimiento */
+.hero-reveal .hero-badge,
+.hero-reveal .hero-actions,
+.hero-reveal .hero-stats {
+  animation: hero-fade-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Cascada cohesiva: badge → título → copy → botones → stats */
+.hero-reveal .hero-badge { animation-delay: 0.04s; }
+.hero-reveal .hero-title-showcase { animation-delay: 0.12s; }
+.hero-reveal .hero-copy-showcase { animation-delay: 0.22s; }
+.hero-reveal .hero-actions { animation-delay: 0.34s; }
+.hero-reveal .hero-stats { animation-delay: 0.46s; }
 
 /* Accesibilidad: sin desplazamiento, blur ni retardo para quien reduce motion */
 @media (prefers-reduced-motion: reduce) {
@@ -3502,6 +3480,23 @@ a {
   width: 100% !important;
   height: 100% !important;
   background: transparent !important;
+}
+/* El robot aparece con un fade LENTO y apreciable recién cuando el scene de
+   Spline terminó de cargar (.is-loaded), en vez de un "pop" seco del canvas.
+   HeroRobot3D agrega .is-loaded en onLoad, con red de seguridad por timeout
+   (si el scene nunca dispara onLoad, igual se muestra). */
+.hero-robot-stage .hero-robot-canvas {
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.hero-robot-stage.is-loaded .hero-robot-canvas {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-robot-stage .hero-robot-canvas {
+    opacity: 1;
+    transition: none;
+  }
 }
 /* Divider 3D · full viewport width, cruza toda la pantalla.
    Disuelve el corte de las piernas del robot hacia el fondo, como una
