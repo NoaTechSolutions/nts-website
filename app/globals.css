@@ -152,6 +152,12 @@ a {
   position: relative;
   padding-bottom: 0;
   background: var(--bg-page);
+  /* Contiene el overflow horizontal de los full-bleed (width:100vw;
+     margin-left:-50vw) que ensanchaba el viewport de layout → el navbar fixed y
+     los títulos centrados se descentraban/desbordaban en mobile (S24). `clip`
+     (no `hidden`) NO crea scroll container → no rompe sticky/pinned, y los
+     elementos fixed no dependen de esto. overflow-y queda visible. */
+  overflow-x: clip;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
