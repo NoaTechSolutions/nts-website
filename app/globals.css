@@ -688,7 +688,10 @@ a {
 }
 
 .hero-title-accent {
-  color: var(--color-amber);
+  /* Token de texto, no el ámbar pleno: #ff9900 sobre el hero claro daba
+     2.14:1 (reprueba WCAG hasta para texto grande). En dark el token vuelve
+     al ámbar de marca, que ahí ya contrasta de sobra. */
+  color: var(--color-amber-text);
 }
 
 .hero-rotating-shell {
