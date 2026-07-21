@@ -93,10 +93,9 @@ export function ProcessSection() {
   // intersección de literales da `never`. Se ensancha a ProcessItem[].
   const items = t.processSection.items as readonly ProcessItem[];
   const sectionRef = useRef<HTMLElement | null>(null);
+  const shellRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [shellOpacity, setShellOpacity] = useState(1);
-  const [scrollProgressValue, setScrollProgressValue] = useState(0);
   const formatStepLabel = (step: string) => String(Number.parseInt(step, 10) || step);
 
   const { scrollYProgress } = useScroll({
@@ -105,10 +104,14 @@ export function ProcessSection() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    setScrollProgressValue(value);
     const steps = Math.max(items.length - 1, 1);
     const nextIndex = Math.min(items.length - 1, Math.max(0, Math.round(value * steps)));
+    // setActiveIndex re-renderiza SOLO al cruzar de paso (React descarta el
+    // mismo valor). El progreso continuo del conector va por CSS var imperativa
+    // (mutación directa del DOM, sin re-render por frame → mata el jank).
     setActiveIndex(nextIndex);
+    const fill = Math.min(1, Math.max(0, value * steps - nextIndex));
+    shellRef.current?.style.setProperty("--process-fill", String(fill));
   });
 
   useEffect(() => {
@@ -125,8 +128,13 @@ export function ProcessSection() {
       const fadeIn = Math.min(Math.max((-rect.top) / fadeDistance, 0), 1);
       const fadeOut = Math.min(Math.max(rect.bottom / fadeDistance, 0), 1);
 
+      // isActive solo cambia al entrar/salir (React descarta el mismo valor).
+      // La opacidad continua del shell va por CSS var imperativa → sin re-render.
       setIsActive(withinSection);
-      setShellOpacity(Math.min(fadeIn, fadeOut));
+      shellRef.current?.style.setProperty(
+        "--shell-opacity",
+        String(Math.min(fadeIn, fadeOut)),
+      );
     };
 
     updatePinned();
@@ -168,7 +176,6 @@ export function ProcessSection() {
     : "ruta clara y estrategica.";
   const titleTabletBottomLine = `${titleInline} ${titleBottom}`.trim();
   const cardCtaLabel = /^with\b/i.test(titleTail) ? "Let's get started" : "Empecemos ahora";
-  const totalSegments = Math.max(content.length - 1, 1);
   const renderStageCard = (stageClassName: string) => (
     <div className={`process-sticky-stage ${stageClassName}`}>
       <div className="group block w-full pointer-events-auto">
@@ -233,7 +240,11 @@ export function ProcessSection() {
 
       {isActive ? (
         <div className="pointer-events-none fixed inset-0 z-[14] flex items-center justify-center">
-          <div className="process-sticky-shell" style={{ opacity: shellOpacity }}>
+          <div
+            ref={shellRef}
+            className="process-sticky-shell"
+            style={{ opacity: "var(--shell-opacity, 1)" }}
+          >
             <div className="process-sticky-copy">
               <GradientBadge icon="growth">{eyebrow}</GradientBadge>
               <div className="process-phone-only process-sticky-heading">
@@ -304,14 +315,14 @@ export function ProcessSection() {
                   const isCurrent = index === activeIndex;
                   const stepBadgeTheme = processStepBadgeThemes[index] ?? processStepBadgeThemes[0];
                   const stepTextTheme = processStepTextThemes[index] ?? processStepTextThemes[0];
-                  const connectorFill = Math.min(
-                    1,
+                  // El conector del paso ACTIVO se rellena por CSS var (scroll);
+                  // los ya pasados van llenos, los futuros vacíos. Sin re-render.
+                  const connectorTransform =
                     index < activeIndex
-                      ? 1
+                      ? "scaleY(1)"
                       : index === activeIndex
-                        ? Math.max(0, scrollProgressValue * totalSegments - index)
-                        : 0
-                  );
+                        ? "scaleY(var(--process-fill, 0))"
+                        : "scaleY(0)";
                   const currentStepColor = processStepAccentColors[index] ?? processStepAccentColors[0];
                   const nextStepColor =
                     processStepAccentColors[index + 1] ??
@@ -341,8 +352,8 @@ export function ProcessSection() {
                                 className="absolute inset-0 origin-top rounded-full transition-transform duration-300 ease-out"
                                 style={{
                                   backgroundImage: `linear-gradient(180deg, ${currentStepColor} 0%, ${nextStepColor} 100%)`,
-                                  opacity: connectorFill > 0 ? 1 : 0,
-                                  transform: `scaleY(${connectorFill})`,
+                                  opacity: index <= activeIndex ? 1 : 0,
+                                  transform: connectorTransform,
                                 }}
                               />
                             </span>
