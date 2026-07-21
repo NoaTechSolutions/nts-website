@@ -24,10 +24,6 @@
      Para fondos/bordes se sigue usando --color-sky. */
   --color-sky-text: #0b6ca8;
   --color-amber: #ff9900;
-  /* Ámbar legible COMO TEXTO sobre fondo claro. #ff9900 sobre blanco da
-     2.14:1 y reprueba WCAG AA (4.5:1); este da 5.01:1 y mantiene el ámbar
-     de marca. Usar SOLO para texto: para fondos/rellenos va --color-amber. */
-  --color-amber-text: #a35f00;
   --shadow-soft: 0 24px 70px rgba(2, 41, 119, 0.08);
   --shadow-card: 0 16px 40px rgba(2, 41, 119, 0.08);
   --background: oklch(1 0 0);
@@ -130,9 +126,8 @@
   --border-default: rgba(255, 255, 255, 0.08);
   --color-navy: #022977;
   --color-amber: #ff9900;
-  /* En oscuro los colores plenos ya contrastan de sobra sobre #0b0f1a,
-     así que los tokens de texto vuelven al color de marca. */
-  --color-amber-text: #ff9900;
+  /* En oscuro el sky pleno ya contrasta de sobra sobre #0b0f1a,
+     así que el token de texto vuelve al color de marca. */
   --color-sky-text: #05a5ff;
   --bg-cta-final: #022977;
 }
@@ -688,10 +683,10 @@ a {
 }
 
 .hero-title-accent {
-  /* Token de texto, no el ámbar pleno: #ff9900 sobre el hero claro daba
-     2.14:1 (reprueba WCAG hasta para texto grande). En dark el token vuelve
-     al ámbar de marca, que ahí ya contrasta de sobra. */
-  color: var(--color-amber-text);
+  /* Ámbar de marca (#ff9900). Es EL color identitario en el elemento más
+     visible del sitio → decisión de marca del usuario por encima del contraste
+     WCAG (queda como excepción documentada). */
+  color: var(--color-amber);
 }
 
 .hero-rotating-shell {

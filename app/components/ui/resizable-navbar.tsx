@@ -209,7 +209,7 @@ export function NavItems({ items, activeIndex }: { items: NavItem[]; activeIndex
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
                     : `text-[0.98rem] font-medium tracking-[0.04em] ${
-                        highlighted ? "text-(--color-amber-text)" : "text-[#0400f0]"
+                        highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                     }`
                 }`}
                 onMouseEnter={() => {
@@ -233,7 +233,7 @@ export function NavItems({ items, activeIndex }: { items: NavItem[]; activeIndex
                         highlighted ? "text-[#ff9900]" : "text-white"
                       }`
                     : `text-[0.98rem] font-medium tracking-[0.04em] ${
-                        highlighted ? "text-(--color-amber-text)" : "text-[#0400f0]"
+                        highlighted ? "text-[#ff9900]" : "text-[#0400f0]"
                       }`
                 }`}
               >
