@@ -19,7 +19,15 @@
   --bg-section: #f0f4ff;
   --color-accent: #0400f0;
   --color-sky: #05a5ff;
+  /* Sky legible COMO TEXTO sobre fondo claro. #05a5ff sobre blanco da 2.68:1
+     y reprueba AA; este da 5.64:1 sobre blanco y 5.13:1 sobre --bg-section.
+     Para fondos/bordes se sigue usando --color-sky. */
+  --color-sky-text: #0b6ca8;
   --color-amber: #ff9900;
+  /* Ámbar legible COMO TEXTO sobre fondo claro. #ff9900 sobre blanco da
+     2.14:1 y reprueba WCAG AA (4.5:1); este da 5.01:1 y mantiene el ámbar
+     de marca. Usar SOLO para texto: para fondos/rellenos va --color-amber. */
+  --color-amber-text: #a35f00;
   --shadow-soft: 0 24px 70px rgba(2, 41, 119, 0.08);
   --shadow-card: 0 16px 40px rgba(2, 41, 119, 0.08);
   --background: oklch(1 0 0);
@@ -122,6 +130,10 @@
   --border-default: rgba(255, 255, 255, 0.08);
   --color-navy: #022977;
   --color-amber: #ff9900;
+  /* En oscuro los colores plenos ya contrastan de sobra sobre #0b0f1a,
+     así que los tokens de texto vuelven al color de marca. */
+  --color-amber-text: #ff9900;
+  --color-sky-text: #05a5ff;
   --bg-cta-final: #022977;
 }
 
@@ -137,7 +149,8 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  /* dvh: acá SÍ queremos que llene la pantalla y siga a la barra de URL. */
+  min-height: 100dvh;
   margin: 0;
   font-family: var(--font-body-stack), sans-serif;
   color: var(--text-body);
@@ -643,7 +656,7 @@ a {
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-sky);
+  color: var(--color-sky-text);
 }
 
 .hero-title,
@@ -1452,7 +1465,8 @@ a {
   transform: translateY(0);
   opacity: 1;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
-  will-change: transform;
+  /* Sin will-change: transform/opacity ya se compositan en GPU por sí solos.
+     Permanente solo reservaba un layer de más (09-motion.md:252). */
 }
 .btn-body-primary:hover .btn-text-idle {
   transform: translateY(-200%);
@@ -1474,7 +1488,6 @@ a {
   text-overflow: ellipsis;
   padding-right: 12px;
   z-index: 2;
-  will-change: transform;
 }
 .btn-body-primary:hover .btn-text-hover {
   transform: translateY(0);
@@ -1611,7 +1624,6 @@ a {
   transform: translateY(0);
   opacity: 1;
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
-  will-change: transform;
 }
 .btn-cta-navy:hover .btn-text-idle {
   transform: translateY(-200%);
@@ -1633,7 +1645,6 @@ a {
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
   white-space: nowrap;
   z-index: 2;
-  will-change: transform;
   padding: 0;
 }
 .btn-cta-navy:hover .btn-text-hover {
@@ -4004,12 +4015,12 @@ select,
   position: relative;
   --growth-step-size: 14rem;
   --growth-step-count: 5;
-  min-height: calc(100vh + (var(--growth-step-size) * var(--growth-step-count)));
+  min-height: calc(100svh + (var(--growth-step-size) * var(--growth-step-count)));
   padding-block: 0;
 }
 
 .growth-stage-spacer {
-  height: 100vh;
+  height: 100svh;
 }
 
 .growth-stage-frame {
@@ -4017,7 +4028,7 @@ select,
   top: 0;
   left: 50%;
   width: min(100%, 74rem);
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   z-index: 1;
   background: transparent;
@@ -4319,7 +4330,7 @@ select,
   position: relative;
   --services-step-size: 14rem;
   --services-step-count: 5;
-  min-height: calc(100vh + (var(--services-step-size) * var(--services-step-count)));
+  min-height: calc(100svh + (var(--services-step-size) * var(--services-step-count)));
 }
 
 .services-stack-spacer {
@@ -4334,7 +4345,7 @@ select,
   display: grid;
   grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
   gap: 3.6rem;
-  height: 100vh;
+  height: 100svh;
   padding: 1.5rem 1.25rem 2.25rem;
   align-items: center;
   overflow: visible;
@@ -4362,7 +4373,7 @@ select,
   position: absolute;
   top: 0;
   left: 50%;
-  height: 100vh;
+  height: 100svh;
   pointer-events: none;
   transform: translateX(-50%);
 }
@@ -4486,7 +4497,10 @@ select,
   overflow: visible;
 }
 
-.card {
+/* Scopeado a .card-swap-container: `.card` suelto es un selector demasiado
+   genérico para cargar will-change + preserve-3d. Cualquier elemento que
+   estrene esa clase se llevaba un layer de GPU permanente sin pedirlo. */
+.card-swap-container .card {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -5876,10 +5890,13 @@ select,
   .reviews-mobile-dots {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    /* 1rem + punto de 0.5rem = 24px de paso entre centros: las áreas
+       tocables de 24px quedan pegadas pero SIN solaparse (WCAG 2.5.8). */
+    gap: 1rem;
   }
 
   .reviews-mobile-dot {
+    position: relative;
     width: 0.5rem;
     height: 0.5rem;
     padding: 0;
@@ -5890,6 +5907,18 @@ select,
       width 180ms ease,
       background-color 180ms ease,
       transform 180ms ease;
+  }
+
+  /* El punto se ve de 8px pero se toca en 24px. Área invisible centrada:
+     no cambia nada visualmente, solo deja de ser imposible de acertar. */
+  .reviews-mobile-dot::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translate(-50%, -50%);
   }
 
   .reviews-mobile-dot.is-active {
@@ -6279,7 +6308,7 @@ select,
   .services-stack-section {
     --services-step-size: 10rem;
     margin-top: -5.5rem;
-    min-height: calc(100vh + (var(--services-step-size) * var(--services-step-count)));
+    min-height: calc(100svh + (var(--services-step-size) * var(--services-step-count)));
   }
 
   .services-stack-spacer {
@@ -6290,7 +6319,7 @@ select,
     width: min(calc(100% - 2.5rem), 62rem);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0;
-    height: 100vh;
+    height: 100svh;
     padding: 0.75rem 1.25rem 1.5rem;
   }
 
@@ -6332,7 +6361,7 @@ select,
 @media (max-width: 767px) {
   .services-stack-section {
     --services-step-size: 7rem;
-    min-height: calc(100vh + (var(--services-step-size) * var(--services-step-count)));
+    min-height: calc(100svh + (var(--services-step-size) * var(--services-step-count)));
     padding: 0;
   }
 
@@ -6351,7 +6380,7 @@ select,
     justify-content: flex-start;
     gap: 1.35rem;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     padding: 9rem 1rem 1.5rem;
     overflow: visible;
     transform: translateX(-50%);
@@ -7305,13 +7334,13 @@ select,
 
   .growth-section {
     --growth-step-size: 8rem;
-    min-height: calc(100vh + (var(--growth-step-size) * var(--growth-step-count)));
+    min-height: calc(100svh + (var(--growth-step-size) * var(--growth-step-count)));
     padding: 0;
   }
 
   .growth-stage-spacer {
     display: block;
-    height: 100vh;
+    height: 100svh;
   }
 
   .growth-stage-frame,
@@ -7320,7 +7349,7 @@ select,
     top: 0;
     left: 50%;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     overflow: hidden;
     transform: translateX(-50%);
   }
@@ -8329,7 +8358,7 @@ select,
   flex-direction: column;
   justify-content: center;
   gap: 2.5rem;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 /* Stage FULL-BLEED: ancho completo de la sección, alto relativo al viewport
    (para que quepa en el pin junto al título). Sin border-radius → edge-to-edge. */
@@ -8361,7 +8390,7 @@ select,
   position: relative;
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -8573,4 +8602,37 @@ select,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ==========================================================================
+   RED DE SEGURIDAD GLOBAL — prefers-reduced-motion
+   Requisito DS-022 (docs/brand-manual/09-motion.md).
+
+   Va AL FINAL del archivo a propósito: misma especificidad que los bloques
+   de reduced-motion puntuales de arriba, así que gana por orden de cascada
+   y cubre lo que ellos no contemplan.
+
+   Cubre los loops infinitos que hoy quedaban sueltos con reduced-motion
+   activo: badge-shimmer, btn-glow-pulse, hero-exp3d-shine, hero-noa-wave,
+   hero-hello-pop, hero-float, growth-warning-pulse, aurora-text-shift,
+   noa-float, dw-cta-crossfade.
+
+   `iteration-count: 1` es imprescindible: sin él, un `infinite` con duración
+   0.01ms sigue reciclando el keyframe para siempre y quema CPU.
+
+   No sustituye a los bloques específicos: aquellos ajustan el ESTADO FINAL
+   (posiciones, opacidades) para que el resultado estático se vea bien. Esto
+   es solo el piso mínimo.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
 }
