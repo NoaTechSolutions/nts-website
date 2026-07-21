@@ -40,7 +40,11 @@ export const HeroParallax = ({
   });
   const isCompactLayout = rows.length <= 2;
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+  // `bounce` en Motion va de 0 a 1: el 100 anterior creaba un resorte
+  // híper-oscilatorio que NUNCA se asentaba → las filas del portfolio (más
+  // anchas que el viewport) rebotaban solas en loop → el ancho del documento
+  // oscilaba y el navbar/botones fixed saltaban en toda la web. Resorte sano.
+  const springConfig = { stiffness: 300, damping: 30 };
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
