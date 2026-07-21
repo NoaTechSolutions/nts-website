@@ -69,8 +69,10 @@ export function Highlighter({
         currentAnnotation.show();
       });
 
+      // Solo observamos el ELEMENTO. Observar document.body hacía redibujar la
+      // anotación en CADA cambio de alto del body (constante durante el scroll y
+      // las secciones pinned) → redibujos en loop y reposicionado del SVG.
       resizeObserver.observe(element);
-      resizeObserver.observe(document.body);
     }
 
     return () => {

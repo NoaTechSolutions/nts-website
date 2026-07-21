@@ -18,39 +18,45 @@ const LanguageContext = createContext<LanguageContextValue | undefined>(
   undefined,
 );
 
-function detectBrowserLocale(): Locale {
-  if (typeof window === "undefined") {
-    return defaultLocale;
-  }
+// Un año. La cookie es la fuente de verdad que lee el SERVER en cada request
+// para SSR el idioma correcto (sin flip en cliente → sin penalización de LCP).
+const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
-  const storedLocale = window.localStorage.getItem(localeStorageKey);
-  if (storedLocale === "es" || storedLocale === "en") {
-    return storedLocale;
-  }
-
-  const browserLocale = window.navigator.language.toLowerCase();
-  return browserLocale.startsWith("en") ? "en" : "es";
+function persistLocale(locale: Locale) {
+  document.documentElement.lang = locale;
+  window.localStorage.setItem(localeStorageKey, locale);
+  document.cookie = `${localeStorageKey}=${locale};path=/;max-age=${LOCALE_COOKIE_MAX_AGE};samesite=lax`;
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  // El primer render del cliente DEBE coincidir con el del server (defaultLocale).
-  // La preferencia real (localStorage / navigator.language) se resuelve recién
-  // después del mount para evitar hydration mismatch.
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+export function LanguageProvider({
+  children,
+  initialLocale = defaultLocale,
+}: {
+  children: ReactNode;
+  // Resuelto en el server (cookie → Accept-Language). El primer render de
+  // cliente y servidor coinciden en este valor → sin hydration mismatch.
+  initialLocale?: Locale;
+}) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
 
+  // Migración one-shot: usuarios previos a este cambio guardaban su preferencia
+  // solo en localStorage. Si no tienen cookie todavía pero sí un valor en
+  // localStorage distinto al que resolvió el server, lo adoptamos (una vez) y
+  // la cookie pasa a mandar de acá en adelante.
   useEffect(() => {
-    const resolvedLocale = detectBrowserLocale();
-    if (resolvedLocale !== defaultLocale) {
-      // Preferencia real resuelta post-mount para no romper la hidratación
-      // (el primer render cliente/servidor debe coincidir en defaultLocale).
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLocaleState(resolvedLocale);
+    const hasCookie = document.cookie.includes(`${localeStorageKey}=`);
+    if (hasCookie) return;
+    const stored = window.localStorage.getItem(localeStorageKey);
+    if ((stored === "es" || stored === "en") && stored !== initialLocale) {
+      setLocaleState(stored);
     }
+    // Solo al montar: es una migración puntual, no una detección recurrente.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Refleja el locale en <html lang>, localStorage y cookie ante cada cambio.
   useEffect(() => {
-    document.documentElement.lang = locale;
-    window.localStorage.setItem(localeStorageKey, locale);
+    persistLocale(locale);
   }, [locale]);
 
   const setLocale = (nextLocale: Locale) => {

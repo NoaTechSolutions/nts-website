@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
 import "./globals.css";
 import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { localeStorageKey, resolveLocale } from "@/lib/i18n";
+import { themeStorageKey } from "@/lib/theme";
 import { LanguageProvider } from "./components/language-provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { CrispChat } from "./components/crisp-chat";
 import { LenisProvider } from "./components/lenis-provider";
-
-const ANTI_FOUC = `(function(){try{var t=localStorage.getItem('ntssign-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -55,23 +56,37 @@ export const metadata: Metadata = {
   category: "marketing",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Resolvemos el idioma en el SERVER (cookie → Accept-Language) para SSR el
+  // idioma correcto y evitar el flip en cliente que penalizaba el LCP del
+  // usuario EN (~5.4s). Leer cookies()/headers() hace esta ruta dinámica.
+  const [cookieStore, headerStore] = await Promise.all([cookies(), headers()]);
+  const initialLocale = resolveLocale(
+    cookieStore.get(localeStorageKey)?.value,
+    headerStore.get("accept-language"),
+  );
+  // Tema resuelto en el SERVER desde la cookie → el <html> ya llega con (o sin)
+  // la clase `dark` desde el primer byte. Así se elimina el flash de tema
+  // (antes el anti-FOUC agregaba `dark` en cliente y React lo reseteaba al
+  // hidratar → parpadeo oscuro→claro). Default claro si no hay cookie.
+  const initialTheme =
+    cookieStore.get(themeStorageKey)?.value === "dark" ? "dark" : "light";
+
   return (
     <html
-      lang="es"
+      lang={initialLocale}
       suppressHydrationWarning
       className={cn(
         "h-full scroll-smooth",
         spaceGrotesk.variable,
+        initialTheme === "dark" && "dark",
       )}
     >
       <head>
-        {/* Anti-FOUC: aplica clase dark ANTES de que React hidrate */}
-        <script dangerouslySetInnerHTML={{ __html: ANTI_FOUC }} />
         {/* NOTA: se quitó el preload de /spline/robot.splinecode (1.3MB). En 4G
             lenta saturaba la conexión (~10s), retrasaba CSS+JS de hidratación y
             disparaba el LCP a ~14s en mobile — donde el robot NI SE MONTA. El
@@ -85,8 +100,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
-        <ThemeProvider>
-          <LanguageProvider>
+        <ThemeProvider initialTheme={initialTheme}>
+          <LanguageProvider initialLocale={initialLocale}>
             <LenisProvider>{children}</LenisProvider>
           </LanguageProvider>
         </ThemeProvider>

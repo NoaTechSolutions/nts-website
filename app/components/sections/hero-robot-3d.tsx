@@ -9,18 +9,31 @@
 // ./hero-experiment-3d y usar <HeroExperiment3D />.
 // ─────────────────────────────────────────────────────────────
 
+import { useEffect, useState } from "react";
 import { SplineScene } from "@/components/ui/splite";
 import type { Application } from "@splinetool/runtime";
 
-// Margen (ms) tras el onLoad de Spline para dejar correr la animación de
-// entrada (zoom) del propio scene antes de revelar el contenido del hero.
-const ROBOT_ENTRANCE_MS = 1100;
+// Red de seguridad: si el scene nunca dispara onLoad (falla de red/WebGL),
+// mostramos el canvas igual pasado este tiempo para no dejar el robot invisible.
+const ROBOT_FADE_FALLBACK_MS = 4000;
 
 export function HeroRobot3D({ onReady }: { onReady?: () => void }) {
+  // Al cargar el scene marcamos .is-loaded → el canvas hace su fade lento de
+  // entrada (CSS). El hero ya no depende de esto para revelarse (lo hace en
+  // mount vía rAF), pero seguimos avisando onReady por compatibilidad.
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (loaded) return;
+    const timer = window.setTimeout(() => setLoaded(true), ROBOT_FADE_FALLBACK_MS);
+    return () => window.clearTimeout(timer);
+  }, [loaded]);
+
   const handleLoad = (spline: Application) => {
     // El scene ya está descargado y parseado. Su zoom de entrada corre ahora;
-    // avisamos al hero tras un margen para encadenar la entrada escalonada.
-    window.setTimeout(() => onReady?.(), ROBOT_ENTRANCE_MS);
+    // marcamos loaded para disparar el fade lento del canvas.
+    setLoaded(true);
+    onReady?.();
 
     const objects = spline.getAllObjects();
 
@@ -41,7 +54,9 @@ export function HeroRobot3D({ onReady }: { onReady?: () => void }) {
 
   return (
     <div className="hero-exp3d">
-      <div className="hero-exp3d-stage hero-robot-stage">
+      <div
+        className={`hero-exp3d-stage hero-robot-stage${loaded ? " is-loaded" : ""}`}
+      >
         <SplineScene
           scene="/spline/robot.splinecode"
           className="hero-robot-canvas"
