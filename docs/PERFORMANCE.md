@@ -27,9 +27,20 @@ A11y y SEO se re-midieron contra el dev server y **cerraron en 100** (los audits
 | SEO | 92 | **100** |
 | Best practices | 96 | **100** |
 
-### ⏳ NO verificado todavía
+### 📊 Medido en STAGING (tras deploy, Lighthouse local)
 
-**El impacto en TBT/Performance no está medido.** Requiere build de producción + medición externa, y el build está prohibido localmente. Los cambios de JS son direccionalmente correctos (menos módulos en el chunk inicial, 1550 componentes de Motion menos) pero **el número hay que confirmarlo tras deployar**.
+| | Baseline prod | Staging nuevo |
+| --- | --- | --- |
+| Perf mobile | 74 | **80** |
+| Perf desktop | 62 | ~60 (ver abajo) |
+| A11y mobile | 82 | **100** ✅ |
+| A11y desktop | 91 | **100** ✅ |
+| SEO | 92 | **100** ✅ |
+| Best practices | 96 | **100** ✅ |
+
+### ⏳ El TBT NO se puede medir con confianza local — PROBADO
+
+Corrí desktop **3 veces seguidas** en staging: TBT dio **1630 / 2500 / 2140 ms**. Una varianza de **±870 ms entre runs idénticos** — más grande que cualquier delta real. **Conclusión dura: el número absoluto de TBT desde esta máquina es ruido.** El main-thread work sí bajó (8.7 s → 6.0 s), consistente con menos JS, pero el TBT hay que medirlo con **PageSpeed Insights (externo)** o el teléfono. PSI dio 429 (cuota) — reintentar con API key o desde la web.
 
 ### Qué se hizo (3 commits en `develop`)
 
