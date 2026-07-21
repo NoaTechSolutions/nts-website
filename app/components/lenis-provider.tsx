@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Smooth-scroll global (Lenis) INTEGRADO con GSAP ScrollTrigger (integración
 // canónica): Lenis se maneja desde el ticker de GSAP y notifica su scroll a
@@ -15,15 +13,28 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     null,
   );
   const pathname = usePathname();
+  // gsap se resuelve dentro del effect (import dinámico) → hace falta guardarlo
+  // para poder desmontar el ticker en el cleanup.
+  const gsapRef = useRef<typeof import("gsap").default | null>(null);
 
   useEffect(() => {
     let tickerFn: ((time: number) => void) | null = null;
     let mounted = true;
 
     (async () => {
-      const Lenis = (await import("lenis")).default;
+      // PERF (TBT): LenisProvider vive en el ROOT layout, así que importar gsap
+      // + ScrollTrigger estáticamente los embarcaba en el bundle compartido de
+      // TODAS las rutas (~39KB gzip / ~110KB min), incluida la home, donde nadie
+      // crea ScrollTriggers. Ahora se cargan dinámicamente junto a Lenis: mismo
+      // orden de inicialización, misma lógica, solo fuera del chunk inicial.
+      const [Lenis, gsap, { ScrollTrigger }] = await Promise.all([
+        import("lenis").then((m) => m.default),
+        import("gsap").then((m) => m.default),
+        import("gsap/ScrollTrigger"),
+      ]);
       if (!mounted) return;
 
+      gsapRef.current = gsap;
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({
@@ -48,7 +59,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       mounted = false;
-      if (tickerFn) gsap.ticker.remove(tickerFn);
+      if (tickerFn) gsapRef.current?.ticker.remove(tickerFn);
       lenisRef.current?.destroy();
       lenisRef.current = null;
     };

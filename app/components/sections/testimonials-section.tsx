@@ -289,6 +289,7 @@ export function TestimonialsSection() {
       <div className="reviews-mobile-slider-shell">
         <div
           className="reviews-mobile-stage"
+          role="region"
           aria-label={`${title} en formato deslizable`}
           onTouchStart={handleMobileTouchStart}
           onTouchMove={handleMobileTouchMove}
@@ -306,7 +307,7 @@ export function TestimonialsSection() {
         </div>
 
         {items.length > 1 ? (
-          <div className="reviews-mobile-controls" aria-label="Controles de reviews">
+          <div className="reviews-mobile-controls" role="group" aria-label="Controles de reviews">
             <div className="reviews-mobile-arrows">
               <button
                 type="button"
@@ -326,7 +327,7 @@ export function TestimonialsSection() {
               </button>
             </div>
 
-            <div className="reviews-mobile-dots" aria-label="Posicion actual del slider">
+            <div className="reviews-mobile-dots" role="group" aria-label="Posición actual del slider">
               {items.map((item, index) => (
                 <button
                   key={`review-dot-${item.author}-${index}`}
@@ -344,7 +345,7 @@ export function TestimonialsSection() {
         ) : null}
       </div>
 
-      <div className="reviews-marquee" aria-label={title}>
+      <div className="reviews-marquee" role="group" aria-label={title}>
         <div className="reviews-marquee-rail">
           <div className="reviews-marquee-group">
             {items.map((item, index) => (

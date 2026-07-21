@@ -124,8 +124,14 @@ function ServiceStackCard({
         ))}
       </ul>
       <div className="services-stack-card-actions">
+        {/* Las 4 cards decían solo "Más info" → indistinguibles fuera de
+            contexto (falla link-text de Lighthouse y confunde a un lector de
+            pantalla). El texto del servicio va en un sr-only DENTRO del <a>:
+            aria-label acá NO alcanza, porque link-text es una regla de SEO que
+            lee el textContent visible, no el nombre accesible. */}
         <a href="/servicios" className="services-stack-card-cta">
           <span>{cardCta}</span>
+          <span className="sr-only">{` sobre ${item.title}`}</span>
           <ArrowUpRight size={16} strokeWidth={2.2} />
         </a>
       </div>

@@ -213,7 +213,7 @@ export function ProblemsSection() {
           </h2>
         </div>
 
-        <div className="growth-message-orbit" aria-label={title}>
+        <div className="growth-message-orbit" role="group" aria-label={title}>
           {items.map((message, index) => (
             <GrowthMessageCard
               key={`${index}-${message}`}

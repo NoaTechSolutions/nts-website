@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ResizableNavbarDemo } from "../resizable-navbar-demo";
 import { HeroRotatingWord } from "../hero-rotating-word";
@@ -9,10 +10,25 @@ import { Button as MovingBorderButton } from "@/components/ui/moving-border";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { translations } from "@/lib/i18n";
-import { HeroRobot3D } from "./hero-robot-3d";
 // import { HeroLinesBackdrop } from "../ui/hero-lines-backdrop"; // fondo alterno (líneas) — se mantiene por si se revierte
-import { Vortex } from "../ui/vortex";
 import { HeroCursor } from "../hero-cursor";
+
+// PERF (TBT): robot 3D y Vortex se montan condicionalmente por viewport y NUNCA
+// a la vez. Importarlos estáticamente metía AMBOS módulos (Spline runtime +
+// simplex-noise + ~280 líneas de partículas) en el chunk eager del home, que se
+// parseaba y ejecutaba aunque no se usara. Con next/dynamic + ssr:false cada uno
+// se descarga solo en el viewport que lo renderiza. No cambia nada visual: el
+// robot conserva su fade interno y el Vortex ya era client-only (se renderiza
+// recién cuando matchMedia resuelve mountRobot === false).
+const HeroRobot3D = dynamic(
+  () => import("./hero-robot-3d").then((m) => m.HeroRobot3D),
+  { ssr: false },
+);
+
+const Vortex = dynamic(
+  () => import("../ui/vortex").then((m) => m.Vortex),
+  { ssr: false },
+);
 
 // El estado de entrada lo controla el padre (page.tsx), que lo comparte con
 // el gear de config. `onReveal` lo dispara la carga del robot 3D.
