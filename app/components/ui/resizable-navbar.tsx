@@ -94,7 +94,7 @@ export function NavbarLogo() {
       } transition-[width,height,border-radius,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
     >
       <Image
-        src="/noatechsolutions-logo-full.svg"
+        src="/noatechsolutions-logo-full.webp"
         alt="Logotipo principal de NoaTechSolutions"
         width={360}
         height={142}
