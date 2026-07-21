@@ -5,8 +5,8 @@
 // Scene de Spline SELF-HOSTED en /public/spline/robot.splinecode.
 // Reutiliza el frame premium liquid-glass (.hero-exp3d-*) como marco.
 // La interactividad la maneja el propio scene de Spline (no scroll-tilt).
-// Para volver a la mascota Noa: en header-section.tsx importar de nuevo
-// ./hero-experiment-3d y usar <HeroExperiment3D />.
+// (La variante previa `hero-experiment-3d.tsx` con la mascota Noa se eliminó
+// por código muerto; recuperarla del historial de git si hiciera falta.)
 // ─────────────────────────────────────────────────────────────
 
 import { useEffect, useState } from "react";

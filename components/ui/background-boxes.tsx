@@ -1,7 +1,18 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+
+// PERF (TBT): esta grilla monta 50x30 = 1500 celdas. Antes cada fila y cada
+// celda era un `motion.div` solo para un `whileHover` que cambiaba
+// backgroundColor con `transition: { duration: 0 }` — es decir, NI SIQUIERA
+// animaba: era un `:hover` de CSS pagando el costo de 1550 componentes de
+// Motion (suscripciones, hooks y listeners por celda). Ahora son divs planos y
+// el hover es CSS puro. Fidelidad visual 1:1:
+//   • entrada al hover instantánea  → `hover:duration-0`
+//   • salida del hover con fade 2s  → `transition-colors duration-[2000ms]`
+//     (equivalente al `animate={{ transition: { duration: 2 } }}` anterior)
+//   • color aleatorio POR CELDA, fijado en render igual que antes, pasado como
+//     custom property `--hover-color` y leído por `hover:bg-[color:var(...)]`.
 
 export const BoxesCore = ({
   className,
@@ -72,26 +83,22 @@ export const BoxesCore = ({
       {...rest}
     >
       {rows.map((_, i) => (
-        <motion.div
+        <div
           key={`row` + i}
           className="w-8 h-8 border-l border-[rgba(255,255,255,0.06)] relative"
         >
           {cols.map((_, j) => (
-            <motion.div
+            <div
               ref={(el) => {
                 if (el) {
                   cellRefs.current.set(`${i}-${j}`, el as HTMLElement);
                 }
               }}
-              whileHover={{
-                backgroundColor: getRandomColor(),
-                transition: { duration: 0 },
-              }}
-              animate={{
-                transition: { duration: 2 },
-              }}
               key={`col` + j}
-              className="w-8 h-8 border-r border-t border-[rgba(255,255,255,0.06)] relative bg-[rgba(255,255,255,0.02)]"
+              style={
+                { "--hover-color": getRandomColor() } as React.CSSProperties
+              }
+              className="w-8 h-8 border-r border-t border-[rgba(255,255,255,0.06)] relative bg-[rgba(255,255,255,0.02)] transition-colors duration-2000 hover:duration-0 hover:bg-(--hover-color)"
             >
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
@@ -109,9 +116,9 @@ export const BoxesCore = ({
                   />
                 </svg>
               ) : null}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       ))}
     </div>
   );
