@@ -37,8 +37,29 @@ export function HeaderSection({
   useEffect(() => {
     // Viewport resuelto post-mount: matchMedia no existe en SSR y el gate del
     // robot 3D depende del ancho real del cliente (intencional, sin mismatch).
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMountRobot(window.matchMedia("(min-width: 768px)").matches);
+    if (!window.matchMedia("(min-width: 768px)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMountRobot(false);
+      return;
+    }
+    // Desktop: DIFERIMOS el montaje del robot (1.3MB de Spline + runtime WebGL)
+    // hasta que el navegador esté idle, para no competir con la carga inicial ni
+    // el LCP/TBET. El robot conserva su fade de entrada; aparece cuando carga.
+    const win = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number;
+    let timeoutId: number;
+    if (win.requestIdleCallback) {
+      idleId = win.requestIdleCallback(() => setMountRobot(true), { timeout: 3000 });
+    } else {
+      timeoutId = window.setTimeout(() => setMountRobot(true), 1500);
+    }
+    return () => {
+      if (win.cancelIdleCallback && idleId) win.cancelIdleCallback(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   // En mobile no hay robot que dispare onReveal → revelamos el hero al instante.
@@ -77,7 +98,7 @@ export function HeaderSection({
         {mountRobot && (
           <div className="hero-art hero-art-right hero-art-asset" aria-hidden="true">
             <Image
-              src="/noatechsolutions-digital-orb-hero.svg"
+              src="/noatechsolutions-digital-orb-hero.webp"
               alt=""
               width={420}
               height={420}

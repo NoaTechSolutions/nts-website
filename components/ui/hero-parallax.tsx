@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import {
   motion,
   useScroll,
@@ -173,15 +174,14 @@ export const ProductCard = ({
     >
       <a
         href={product.link}
-        className="block h-full w-full group-hover/product:shadow-2xl"
+        className="relative block h-full w-full overflow-hidden group-hover/product:shadow-2xl"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={product.thumbnail}
-          height="600"
-          width="600"
-          className="absolute inset-0 h-full w-full object-cover object-left-top"
           alt={product.title}
+          fill
+          sizes="(min-width: 1024px) 480px, (min-width: 768px) 352px, (min-width: 640px) 288px, 256px"
+          className="object-cover object-left-top"
         />
       </a>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>

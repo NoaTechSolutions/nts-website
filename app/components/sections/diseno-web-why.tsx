@@ -110,7 +110,7 @@ function ScreenContent({ t }: { t: Copy }) {
 
         {/* Logo NTS original a color */}
         <motion.img
-          src="/noatechsolutions-logo-full.svg"
+          src="/noatechsolutions-logo-full.webp"
           alt="NoaTechSolutions"
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
