@@ -12,7 +12,11 @@ import { cn } from "@/lib/utils";
 //   • salida del hover con fade 2s  → `transition-colors duration-[2000ms]`
 //     (equivalente al `animate={{ transition: { duration: 2 } }}` anterior)
 //   • color aleatorio POR CELDA, fijado en render igual que antes, pasado como
-//     custom property `--hover-color` y leído por `hover:bg-[color:var(...)]`.
+//     custom property `--hover-color` y leído por la clase de hover de la celda.
+//     OJO: Tailwind v4 escanea comentarios como texto plano — cualquier texto
+//     con pinta de clase escrito acá se convierte en CSS generado, y si es una
+//     abreviación inválida ROMPE el parseo de globals.css en dev. Por eso este
+//     comentario NO cita la clase: verla en el className de la celda, abajo.
 
 export const BoxesCore = ({
   className,
