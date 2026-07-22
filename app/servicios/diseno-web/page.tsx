@@ -38,6 +38,15 @@ const jsonLd = {
 export default function DisenoWebPage() {
   return (
     <main className="page-shell dw-page">
+      {/* PERF (LCP mobile): el webm del HeroVideoWord es el elemento LCP y sin
+          esto su descarga arranca recién tras la hidratación (~LCP 4.9s).
+          React hoistea este <link> al <head> → descarga junto al documento. */}
+      <link
+        rel="preload"
+        as="video"
+        href="/diseno-web-hero-ocean-loop.webm"
+        type="video/webm"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
