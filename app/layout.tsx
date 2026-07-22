@@ -71,12 +71,13 @@ export const metadata: Metadata = {
       "Agencia digital con enfoque en diseño web, software a medida, SEO y marketing digital.",
     images: ["/og-image.png"],
   },
-  // Verificación de Google Search Console. Si la env var no está seteada, Next
-  // NO emite el <meta name="google-site-verification">. Alternativa válida:
-  // verificar por sitemap ya subido o por registro DNS (TXT) en el dominio.
-  // SETUP: NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<token de Search Console>
+  // Verificación de Google Search Console (propiedad URL-prefix). El token es
+  // PÚBLICO (se emite como <meta name="google-site-verification"> en el HTML),
+  // no un secreto → va directo. La env var lo puede overridear sin tocar código.
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+      "0DqPzNZm5rjBCFfZ5DCv5lM4rOJCDJZhXluZZVIzlpQ",
   },
   category: "marketing",
 };
