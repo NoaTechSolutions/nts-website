@@ -9,6 +9,7 @@ import { LanguageProvider } from "./components/language-provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { CrispChat } from "./components/crisp-chat";
 import { LenisProvider } from "./components/lenis-provider";
+import { GoogleAnalytics } from "./components/google-analytics";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -36,6 +37,13 @@ export const metadata: Metadata = {
     "e-commerce",
   ],
   alternates: {
+    // canonical absoluto vía metadataBase. El sitio es bilingüe (es/en) pero
+    // sirve AMBOS idiomas sobre la MISMA URL (locale resuelto server-side por
+    // cookie/Accept-Language en este layout). NO existen URLs separadas
+    // /es/ y /en/, así que NO se declara `languages` (hreflang): apuntar es y en
+    // a la misma URL sería hreflang inválido/inútil y podría confundir a Google.
+    // Si en el futuro se separan las URLs por idioma, acá va:
+    //   languages: { es: "...", en: "...", "x-default": "..." }
     canonical: "/",
   },
   openGraph: {
@@ -46,14 +54,68 @@ export const metadata: Metadata = {
     siteName: "NoaTechSolutions",
     locale: "es_MX",
     type: "website",
+    images: [
+      {
+        // Servida desde /public → resuelta absoluta con metadataBase.
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NoaTechSolutions — Diseño web y software a medida",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "NoaTechSolutions",
     description:
       "Agencia digital con enfoque en diseño web, software a medida, SEO y marketing digital.",
+    images: ["/og-image.png"],
+  },
+  // Verificación de Google Search Console (propiedad URL-prefix). El token es
+  // PÚBLICO (se emite como <meta name="google-site-verification"> en el HTML),
+  // no un secreto → va directo. La env var lo puede overridear sin tocar código.
+  verification: {
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+      "0DqPzNZm5rjBCFfZ5DCv5lM4rOJCDJZhXluZZVIzlpQ",
   },
   category: "marketing",
+};
+
+// JSON-LD Organization: datos estructurados globales del sitio. Datos
+// hardcodeados/estáticos → seguro para dangerouslySetInnerHTML (sin input de
+// usuario, sin riesgo XSS). Complementa el ProfessionalService de la home.
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "NoaTechSolutions",
+  url: "https://noatechsolutions.com",
+  logo: "https://noatechsolutions.com/og-image.png",
+  description:
+    "Agencia digital especializada en diseño web, software a medida, SEO y marketing digital.",
+  areaServed: ["California, United States", "Baja California, Mexico"],
+  knowsAbout: [
+    "Diseño web",
+    "Software a medida",
+    "SEO",
+    "Marketing digital",
+    "Branding",
+    "E-commerce",
+  ],
+  // Redes sociales: agregar las URLs reales cuando estén listas para reforzar
+  // la entidad ante Google (Knowledge Graph). Placeholders comentados:
+  // sameAs: [
+  //   "https://www.facebook.com/...",
+  //   "https://www.instagram.com/...",
+  //   "https://www.linkedin.com/company/...",
+  // ],
+  sameAs: [],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "contact@noatechsolutions.com",
+    contactType: "customer support",
+    availableLanguage: ["Spanish", "English"],
+  },
 };
 
 export default async function RootLayout({
@@ -100,12 +162,21 @@ export default async function RootLayout({
         suppressHydrationWarning
         className="min-h-full bg-[var(--bg-page)] text-[var(--color-navy)] antialiased"
       >
+        {/* Datos estructurados Organization (SEO / Knowledge Graph). Estático. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
         <ThemeProvider initialTheme={initialTheme}>
           <LanguageProvider initialLocale={initialLocale}>
             <LenisProvider>{children}</LenisProvider>
           </LanguageProvider>
         </ThemeProvider>
         <CrispChat />
+        {/* GA4: solo renderiza si NEXT_PUBLIC_GA_ID está seteada. */}
+        <GoogleAnalytics />
       </body>
     </html>
   );
