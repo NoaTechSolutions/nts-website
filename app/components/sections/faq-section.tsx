@@ -97,12 +97,98 @@ const FAQ_DISENO_WEB = {
   },
 } as const;
 
-export function FaqSection({ variant }: { variant?: "diseno-web" }) {
+// FAQ específica de /servicios/branding: objeciones reales del research
+// (proceso, propiedad, plazos, alcance) en lenguaje simple. Bilingüe co-locado.
+const FAQ_BRANDING = {
+  es: {
+    eyebrow: "Preguntas frecuentes",
+    title: "Lo Que Más Nos Preguntan",
+    copy: "Las dudas más comunes antes de crear o renovar una marca, explicadas en simple. Sin términos de diseñador: claro y al grano.",
+    highlights: ["Proceso transparente", "Todo es tuyo", "Plazos claros"],
+    items: [
+      {
+        question: "¿Qué recibo exactamente al final del proyecto?",
+        answer:
+          "Un sistema completo: tu logo en todas sus versiones, manual de marca, paleta de colores, tipografías, papelería y kit para redes. Y los archivos fuente editables — tu marca te pertenece al 100%.",
+      },
+      {
+        question: "¿Cuánto tarda crear una marca desde cero?",
+        answer:
+          "Un proyecto típico va de 2 a 4 semanas según el alcance. Antes de empezar te damos un calendario con cada etapa: qué recibes y cuándo. Sin zonas grises.",
+      },
+      {
+        question: "¿Y si no me gusta la primera propuesta?",
+        answer:
+          "Para eso existen las rondas de revisión incluidas en cada etapa. Además, como ves el proceso desde el boceto, las sorpresas desaparecen: la dirección se valida contigo desde el día uno.",
+      },
+      {
+        question: "Ya tengo un logo, ¿pueden mejorarlo sin empezar de cero?",
+        answer:
+          "Sí. Hacemos rediseños que conservan lo que tu público ya reconoce y corrigen lo que no funciona. Primero evaluamos tu marca actual y te decimos con honestidad qué conviene.",
+      },
+      {
+        question: "¿El branding incluye mi página web?",
+        answer:
+          "Son servicios distintos pero hermanos: la marca define cómo te ves y la web es donde más brilla. Si necesitas ambos, los integramos en un solo proyecto coherente — y tu web nace ya con tu identidad aplicada.",
+      },
+      {
+        question: "¿Cómo empezamos?",
+        answer:
+          "Con una llamada sin costo. Nos cuentas tu historia y tus metas, y te proponemos alcance, plazos y precio claros. Si te hace sentido, arrancamos con la etapa de estrategia.",
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Frequently asked questions",
+    title: "What People Ask Us Most",
+    copy: "The most common questions before creating or renewing a brand, explained simply. No designer jargon: clear and to the point.",
+    highlights: ["Transparent process", "Everything is yours", "Clear timelines"],
+    items: [
+      {
+        question: "What exactly do I receive at the end of the project?",
+        answer:
+          "A complete system: your logo in every version, brand guidelines, color palette, typography, stationery and a social media kit. Plus the editable source files — your brand belongs to you 100%.",
+      },
+      {
+        question: "How long does it take to create a brand from scratch?",
+        answer:
+          "A typical project runs 2 to 4 weeks depending on scope. Before starting, we give you a calendar with every stage: what you receive and when. No gray areas.",
+      },
+      {
+        question: "What if I don't like the first proposal?",
+        answer:
+          "That's what the revision rounds included at every stage are for. And since you see the process from the sketch, surprises disappear: direction is validated with you from day one.",
+      },
+      {
+        question: "I already have a logo — can you improve it without starting over?",
+        answer:
+          "Yes. We do redesigns that keep what your audience already recognizes and fix what doesn't work. First we evaluate your current brand and tell you honestly what's best.",
+      },
+      {
+        question: "Does branding include my website?",
+        answer:
+          "They're separate but sibling services: your brand defines how you look and your website is where it shines most. If you need both, we integrate them into one coherent project — and your site is born with your identity applied.",
+      },
+      {
+        question: "How do we start?",
+        answer:
+          "With a free call. You tell us your story and goals, and we propose clear scope, timeline and price. If it makes sense to you, we kick off with the strategy stage.",
+      },
+    ],
+  },
+} as const;
+
+export function FaqSection({ variant }: { variant?: "diseno-web" | "branding" }) {
   const { locale } = useLanguage();
   const t = translations[locale];
   const [activeFaqIndex, setActiveFaqIndex] = useState(0);
 
-  const content = variant === "diseno-web" ? FAQ_DISENO_WEB[locale] : t.faqSection;
+  const content =
+    variant === "diseno-web"
+      ? FAQ_DISENO_WEB[locale]
+      : variant === "branding"
+        ? FAQ_BRANDING[locale]
+        : t.faqSection;
   const faqItems = content.items;
   const faqHighlights = content.highlights.filter(Boolean);
 
