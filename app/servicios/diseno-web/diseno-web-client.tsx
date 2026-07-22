@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { LazyMount } from "@/app/components/lazy-mount";
 import { MobileSpeedDial } from "@/app/components/mobile-speed-dial";
 import { NavSettingsGear } from "@/app/components/ui/resizable-navbar";
 import { ResizableNavbarDemo } from "@/app/components/resizable-navbar-demo";
@@ -8,10 +9,16 @@ import { ResizableNavbarDemo } from "@/app/components/resizable-navbar-demo";
 import { DisenoWebHero } from "@/app/components/sections/diseno-web-hero";
 import { DisenoWebTrust } from "@/app/components/sections/diseno-web-trust";
 
-// Below-the-fold → code-split (patrón de app/page.tsx). Chunks aparte que no
-// bloquean la hidratación del hero. Saca del bundle inicial a los pesados:
+// Below-the-fold → code-split (patrón de app/page.tsx) + gating por viewport
+// (LazyMount): el chunk de cada sección no se descarga ni ejecuta hasta que el
+// usuario se acerca scrolleando. Saca de la carga inicial a los pesados:
 // GSAP+Flip+ScrollTrigger (gallery) y MacbookScroll (why). Placeholder con
 // min-height para acotar el CLS. #99
+//
+// EXCEPCIÓN — ContactSection y FooterSection van SIN LazyMount (solo dynamic):
+// el hero y el navbar linkean a `#contacto-form` (vive dentro de la sección de
+// contacto) y el target del anchor tiene que existir SIEMPRE en el DOM. Su JS
+// es liviano; el tradeoff es correcto.
 const holder = (h: string) => {
   const Holder = () => <div aria-hidden style={{ minHeight: h }} />;
   Holder.displayName = "SectionPlaceholder";
@@ -50,40 +57,58 @@ export function DisenoWebClient() {
       <DisenoWebTrust />
 
       {/* ── 3. PROBLEMA ── */}
-      <DisenoWebProblem />
+      <LazyMount minHeight="80vh">
+        <DisenoWebProblem />
+      </LazyMount>
 
       {/* ── 4. QUÉ INCLUYE (bento) ── */}
-      <DisenoWebIncludes />
+      <LazyMount minHeight="80vh">
+        <DisenoWebIncludes />
+      </LazyMount>
 
       {/* ── 5. PROCESO ── */}
-      <div className="grid-shell">
-        <ProcessSection />
-      </div>
+      <LazyMount minHeight="80vh">
+        <div className="grid-shell">
+          <ProcessSection />
+        </div>
+      </LazyMount>
 
       {/* ── 6a. ANTES / DESPUÉS ── */}
-      <DisenoWebShowcase />
+      <LazyMount minHeight="80vh">
+        <DisenoWebShowcase />
+      </LazyMount>
 
       {/* ── 6b. PORTFOLIO WEB · galería bento → fullscreen (GSAP Flip) ── */}
-      <DisenoWebGallery />
+      <LazyMount minHeight="100vh">
+        <DisenoWebGallery />
+      </LazyMount>
 
       {/* ── 7. POR QUÉ NOATECH ── */}
-      <DisenoWebWhy />
+      <LazyMount minHeight="100vh">
+        <DisenoWebWhy />
+      </LazyMount>
 
       {/* ── 8. TESTIMONIOS ── */}
-      <div className="grid-shell">
-        <TestimonialsSection />
-      </div>
+      <LazyMount minHeight="70vh">
+        <div className="grid-shell">
+          <TestimonialsSection />
+        </div>
+      </LazyMount>
 
       {/* ── 9. CTA FINAL · SVG mask effect (dolor → solución) ── */}
-      <DisenoWebCta />
+      <LazyMount minHeight="60vh">
+        <DisenoWebCta />
+      </LazyMount>
 
       {/* ── 10. FAQ ── */}
-      <FaqSection variant="diseno-web" />
+      <LazyMount minHeight="70vh">
+        <FaqSection variant="diseno-web" />
+      </LazyMount>
 
-      {/* ── 11. CONTACTO ── */}
+      {/* ── 11. CONTACTO · sin LazyMount: target del anchor #contacto-form ── */}
       <ContactSection />
 
-      {/* ── 12. FOOTER ── */}
+      {/* ── 12. FOOTER · sin LazyMount: liviano, acompaña a contacto ── */}
       <FooterSection />
     </>
   );
