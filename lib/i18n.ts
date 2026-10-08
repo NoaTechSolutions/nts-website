@@ -385,9 +385,9 @@ export const translations = {
             { label: "Iniciar proyecto", href: "#contacto-form" },
             { label: "Asesoria inicial gratis", href: "#contacto-form" },
             {
-              label: "contact@noatechsolutions.com",
+              label: "info@noatechsolutions.com",
               href:
-                "mailto:contact@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
+                "mailto:info@noatechsolutions.com?subject=Quiero%20iniciar%20mi%20proyecto%20web",
               external: true,
             },
             { label: "Baja California + California" },
@@ -752,9 +752,9 @@ export const translations = {
             { label: "Start your project", href: "#contacto-form" },
             { label: "Free strategy call", href: "#contacto-form" },
             {
-              label: "contact@noatechsolutions.com",
+              label: "info@noatechsolutions.com",
               href:
-                "mailto:contact@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
+                "mailto:info@noatechsolutions.com?subject=I%20want%20to%20start%20my%20web%20project",
               external: true,
             },
             { label: "Baja California + California" },
