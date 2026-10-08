@@ -51,13 +51,13 @@ const footerColumns = [
 const contactInfo = [
   {
     icon: Mail,
-    text: "contact@noatechsolutions.com",
-    href: "mailto:contact@noatechsolutions.com",
+    text: "info@noatechsolutions.com",
+    href: "mailto:info@noatechsolutions.com",
   },
   {
     icon: Phone,
-    text: "+1 (510) 778-6601",
-    href: "tel:+15107786601",
+    text: "(510) 404-8201",
+    href: "tel:+15104048201",
   },
   {
     icon: MapPin,
