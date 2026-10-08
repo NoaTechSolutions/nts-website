@@ -112,7 +112,7 @@ const organizationJsonLd = {
   sameAs: [],
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@noatechsolutions.com",
+    email: "info@noatechsolutions.com",
     contactType: "customer support",
     availableLanguage: ["Spanish", "English"],
   },
